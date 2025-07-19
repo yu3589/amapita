@@ -97,5 +97,8 @@
 - PostgreSQL
 - Render
 
+## ER図
+[![Image from Gyazo](https://i.gyazo.com/065996c2709f4b04de1013f36b369ca5.png)](https://gyazo.com/065996c2709f4b04de1013f36b369ca5)
+
 ## 画面遷移図
 Figma : https://www.figma.com/design/uazJL21GsNpMCUUzhGqWgm/amapita?node-id=0-1&t=1M7LZzFet88AITvi-1
