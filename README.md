@@ -98,7 +98,7 @@
 - Render
 
 ## ER図
-[![Image from Gyazo](https://i.gyazo.com/630bb4a0c15f97b8ab62cc1495b44614.png)](https://gyazo.com/630bb4a0c15f97b8ab62cc1495b44614)
+[![Image from Gyazo](https://i.gyazo.com/f7e22f45dec81dbb9aa2803c7fa003aa.png)](https://gyazo.com/f7e22f45dec81dbb9aa2803c7fa003aa)
 
 ## 画面遷移図
 Figma : https://www.figma.com/design/uazJL21GsNpMCUUzhGqWgm/amapita?node-id=0-1&t=1M7LZzFet88AITvi-1
