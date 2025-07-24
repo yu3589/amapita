@@ -98,7 +98,158 @@
 - Render
 
 ## ER図
-[![Image from Gyazo](https://i.gyazo.com/6d5f565441dde4ce179444a182204e4a.png)](https://gyazo.com/6d5f565441dde4ce179444a182204e4a)
+```mermaid
+erDiagram
+    users {
+        bigint id PK "ID"
+        int sweetness_type_id "甘さタイプID"
+        string name "ユーザー名"
+        string email "メールアドレス"
+        text self_introduction "自己紹介文"
+        string encrypted_password "パスワード（暗号化）"
+        string reset_password_token "パスワードリセット用トークン"
+        datetime reset_password_sent_at "リセットメール送信日時"
+        datetime remember_created_at "自動ログイン設定日時"
+        string provider "外部ログインのサービス名（Google）"
+        string uid "外部サービス上のユーザーID" 
+        datetime created_at "作成日時"
+        datetime updated_at "更新日時"
+    }
+
+    posts {
+        bigint id PK "ID"
+        int user_id FK "ユーザーID"
+        string product_name "商品名"
+        string manufacture "メーカー名"
+        int sweetness_rating "あまピタ度"
+        text review "商品の感想"
+        datetime created_at "作成日時"
+        datetime updated_at "更新日時"
+    }
+
+    post_categories {
+        bigint id PK "ID"
+        int post_id FK "投稿ID"
+        int category_id FK "カテゴリーID"
+        datetime created_at "作成日時"
+        datetime updated_at "更新日時"
+    }
+
+    categories {
+        bigint id PK "ID"
+        string name "カテゴリー名"
+        datetime created_at "作成日時"
+        datetime updated_at "更新日時"
+    }
+
+    post_sweetness_scores {
+        bigint id PK "ID"
+        int post_id FK "対象の投稿ID"
+        int sweetness_strength "甘みの強さ"
+        int aftertaste_clarity "後味のキレ/スッキリ感"
+        int natural_sweetness "自然な甘さ"
+        int coolness "爽快感"
+        int richness "甘さの深み/コク"
+        datetime created_at "作成日時"
+        datetime updated_at "更新日時"
+    }
+
+    likes {
+        bigint id PK "ID"
+        int user_id FK "いいねをしたユーザーID"
+        int post_id FK "対象の投稿ID"
+        datetime created_at "作成日時"
+        datetime updated_at "更新日時"
+    }
+
+    comments {
+        bigint id PK "ID"
+        int user_id FK "コメントをしたユーザーID"
+        int post_id FK "対象の投稿ID"
+        text body "コメント本文"
+        datetime created_at "作成日時"
+        datetime updated_at "更新日時"
+    }
+
+    bookmarks {
+        bigint id PK "ID"
+        int user_id FK "ブックマークしたユーザーID"
+        int post_id FK "対象の投稿ID"
+        datetime created_at "作成日時"
+        datetime updated_at "更新日時"
+    }
+
+    sweetness_types {
+        bigint id PK "ID"
+        string name "甘さタイプ名"
+        datetime created_at "作成日時"
+        datetime updated_at "更新日時"
+    }
+
+    sweetness_profiles {
+        bigint id PK "ID"
+        int user_id FK "ユーザーID"
+        int sweetness_strength "甘みの強さ"
+        int aftertaste_clarity "後味のキレ/スッキリ感"
+        int natural_sweetness "自然な甘さ"
+        int coolness "爽快感"
+        int richness "甘さの深み/コク"
+        datetime created_at "作成日時"
+        datetime updated_at "更新日時"
+    }
+    user_badges {
+        bigint id PK "ID"
+        int user_id FK "ユーザーID"
+        int badge_id FK "バッジID"
+        datetime created_at "作成日時"
+        datetime updated_at "更新日時"
+    }
+
+    badges {
+        bigint id PK "ID"
+        string badge_name "バッジ名"
+        int badge_category "バッジの種類"
+        int threshold "条件値"
+        datetime created_at "作成日時"
+        datetime updated_at "更新日時"
+    }
+
+    notifications {
+        bigint id PK "ID"
+        int sender_id FK "アクションしたユーザー"
+        int recipient_id FK "通知を受け取るユーザー"
+        int notifiable_id "対象のいいね/コメントのID"
+        string notifiable_type "通知対象のモデル名（Like/Comment）"
+        string action "通知アクション（liked/commented）"
+        bool checked "既読の確認（default false）"
+        datetime created_at "作成日時" 
+        datetime updated_at "更新日時"
+    }
+
+    %% === ユーザー関連 ===
+    users }o--|| sweetness_types : "多:1"
+    users ||--|| sweetness_profiles : "1:1"
+    users ||--o{ posts : "1:多"
+    
+    %% === ユーザーの実績・評価関連 ===
+    users ||--o{ user_badges : "1:多"
+    badges ||--o{ user_badges : "1:多"
+    
+    %% === 投稿・評価・カテゴリ関連 ===
+    posts ||--|| post_sweetness_scores : "1:1"
+    posts ||--o{ post_categories : "1:多"
+    categories ||--o{ post_categories : "1:多"
+
+    %% === ユーザーのアクション（いいね・コメント・通知・ブックマーク） ===
+    users ||--o{ likes : "1:多"
+    users ||--o{ comments : "1:多"
+    users ||--o{ bookmarks : "1:多"
+    users ||--o{ notifications : "1:多"
+
+    posts ||--o{ likes : "1:多"
+    posts ||--o{ comments : "1:多"
+    posts ||--o{ bookmarks : "1:多"
+```
 
 ## 画面遷移図
 Figma : https://www.figma.com/design/uazJL21GsNpMCUUzhGqWgm/amapita?node-id=0-1&t=1M7LZzFet88AITvi-1
