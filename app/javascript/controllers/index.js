@@ -3,6 +3,8 @@
 // ./bin/rails generate stimulus controllerName
 
 import { application } from "./application"
+import FadeController from "./fade_controller"
 
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
+application.register("fade", FadeController)
