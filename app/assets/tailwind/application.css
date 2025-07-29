@@ -35,3 +35,11 @@
   --depth: 1;
   --noise: 1;
 }
+
+.header-button {
+  @apply p-2 md:p-3 text-base-100 rounded-xl transition duration-200 hover:brightness-96;
+}
+
+.button-primary {
+  @apply px-5 py-4 text-base-100 rounded-full transition duration-200 hover:brightness-96;
+}
