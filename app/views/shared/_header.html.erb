@@ -8,24 +8,17 @@
       <% end %>
     </div>
 
-    <!-- ハンバーガーメニュー -->
     <div class="navbar-end">
-      <div class="dropdown dropdown-end">
-        <div tabindex="0" role="button" class="p-2 rounded-full md:hover:bg-base-200">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 md:h-7 md:w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
+      <% if user_signed_in? %>
+        <div class="flex gap-3">
+          <%= button_to 'ログアウト', destroy_user_session_path, method: :delete, class: "bg-primary header-button" %>
         </div>
-        <ul
-          tabindex="0"
-          class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-          <li><%= link_to "甘さ感覚診断", "#" %></li>
-          <li><%= link_to "利用規約", "#" %></li>
-          <li><%= link_to "プライバシーポリシー", "#" %></li>
-          <li><%= link_to "お問い合わせ", "#" %></li>
-        </ul>
+        <% else %>
+          <div class="flex gap-2 md:gap-3">
+            <%= link_to "新規登録", new_user_registration_path, class: "bg-secondary header-button" %>
+            <%= link_to "ログイン", new_user_session_path, class: "bg-accent header-button" %>
+          </div>
+        <% end %>
       </div>
-    </div>
-
   </div>
 </header>
