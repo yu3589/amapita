@@ -1,13 +1,13 @@
 <%#- if controller_name != 'sessions' %>
-  <%#= link_to "Log in", new_session_path(resource_name) %><br />
+  <%#= link_to "Log in", new_session_path(resource_name) %>
 <%# end %>
 
 <%#- if devise_mapping.registerable? && controller_name != 'registrations' %>
-  <%#= link_to "Sign up", new_registration_path(resource_name) %><br />
+  <%#= link_to "Sign up", new_registration_path(resource_name) %>
 <%# end %>
 
 <%#- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
-  <%#= link_to "Forgot your password?", new_password_path(resource_name) %><br />
+  <%#= link_to "Forgot your password?", new_password_path(resource_name) %>
 <%# end %>
 
 <%- if devise_mapping.confirmable? && controller_name != 'confirmations' %>
@@ -20,6 +20,15 @@
 
 <%- if devise_mapping.omniauthable? %>
   <%- resource_class.omniauth_providers.each do |provider| %>
-    <%= button_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider), data: { turbo: false } %><br />
+    <%= button_to omniauth_authorize_path(resource_name, provider),
+        method: :post,
+        data: { turbo: false },
+        class: "inline-block" do %>
+      <div class="inline-flex items-center border border-base-300 bg-white text-bg-neutral rounded-full px-4 py-3 
+        md:transition duration-200 md:hover:brightness-96 w-auto">
+        <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google Logo" class="h-5 mr-2" />
+        <span>Continue with Google</span>
+      </div>
+    <% end %>
   <% end %>
 <% end %>

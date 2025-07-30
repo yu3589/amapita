@@ -3,23 +3,28 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   # You should configure your model like this:
   # devise :omniauthable, omniauth_providers: [:twitter]
+  skip_before_action :verify_authenticity_token, only: :google_oauth2
 
-  # You should also create an action method in this controller like this:
-  # def twitter
-  # end
+  def google_oauth2
+    callback_for(:google)
+  end
 
-  # More info at:
-  # https://github.com/heartcombo/devise#omniauth
+  def callback_for(provider)
+    @user = User.from_omniauth(request.env["omniauth.auth"])
 
-  # GET|POST /resource/auth/twitter
-  # def passthru
-  #   super
-  # end
+    if @user.persisted?
+      sign_in_and_redirect @user, event: :authentication
+      set_flash_message(:notice, :success, kind: provider.to_s.capitalize) if is_navigational_format?
+    else
+      session["devise.#{provider}_data"] = request.env["omniauth.auth"].except(:extra)
+      redirect_to new_user_registration_url, alert: @user.errors.full_messages.join("\n")
+    end
+  end
 
-  # GET|POST /users/auth/twitter/callback
-  # def failure
-  #   super
-  # end
+  def failure
+    set_flash_message(:alert, :failure, kind: "Google") if is_navigational_format?
+    redirect_to root_path
+  end
 
   # protected
 
