@@ -10,9 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_07_30_024305) do
+ActiveRecord::Schema[7.2].define(version: 2025_08_01_122015) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "sweetness_profiles", force: :cascade do |t|
+    t.bigint "user_id"
+    t.integer "sweetness_strength"
+    t.integer "aftertaste_clarity"
+    t.integer "natural_sweetness"
+    t.integer "coolness"
+    t.integer "richness"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "sweetness_type_id", null: false
+    t.index ["sweetness_type_id"], name: "index_sweetness_profiles_on_sweetness_type_id"
+    t.index ["user_id"], name: "index_sweetness_profiles_on_user_id"
+  end
+
+  create_table "sweetness_types", force: :cascade do |t|
+    t.integer "sweetness_kind"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -25,8 +45,14 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_30_024305) do
     t.datetime "updated_at", null: false
     t.string "provider"
     t.string "uid"
+    t.bigint "sweetness_type_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["sweetness_type_id"], name: "index_users_on_sweetness_type_id"
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
+
+  add_foreign_key "sweetness_profiles", "sweetness_types"
+  add_foreign_key "sweetness_profiles", "users"
+  add_foreign_key "users", "sweetness_types"
 end

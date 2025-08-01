@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  sweetness_type_id: 1
+  sweetness_strength: 1
+  aftertaste_clarity: 1
+  natural_sweetness: 1
+  coolness: 1
+  richness: 1
+
+two:
+  user: two
+  sweetness_type_id: 1
+  sweetness_strength: 1
+  aftertaste_clarity: 1
+  natural_sweetness: 1
+  coolness: 1
+  richness: 1

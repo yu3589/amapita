@@ -84,7 +84,7 @@
 erDiagram
     users {
         bigint id PK "ID"
-        int sweetness_type_id "甘さタイプID"
+        int sweetness_type_id FK "甘さタイプID"
         string name "ユーザー名"
         string email "メールアドレス"
         text self_introduction "自己紹介文"
@@ -163,7 +163,7 @@ erDiagram
 
     sweetness_types {
         bigint id PK "ID"
-        string name "甘さタイプ名"
+        int sweetness_kind "甘さタイプの種類"
         datetime created_at "作成日時"
         datetime updated_at "更新日時"
     }
@@ -171,6 +171,7 @@ erDiagram
     sweetness_profiles {
         bigint id PK "ID"
         int user_id FK "ユーザーID"
+        int sweetness_type_id FK "甘さタイプID"
         int sweetness_strength "甘みの強さ"
         int aftertaste_clarity "後味のキレ/スッキリ感"
         int natural_sweetness "自然な甘さ"
@@ -210,12 +211,13 @@ erDiagram
 
     %% === ユーザー関連 ===
     users }o--|| sweetness_types : "多:1"
-    users ||--|| sweetness_profiles : "1:1"
+    users ||--o{ sweetness_profiles : "1:多"
     users ||--o{ posts : "1:多"
     
     %% === ユーザーの実績・評価関連 ===
     users ||--o{ user_badges : "1:多"
     badges ||--o{ user_badges : "1:多"
+    sweetness_types ||--o{ sweetness_profiles : "1:多"
     
     %% === 投稿・評価・カテゴリ関連 ===
     posts ||--|| post_sweetness_scores : "1:1"
