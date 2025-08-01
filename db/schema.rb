@@ -10,9 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_07_31_120531) do
+ActiveRecord::Schema[7.2].define(version: 2025_08_01_001450) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "sweetness_profiles", force: :cascade do |t|
+    t.bigint "user_id"
+    t.integer "sweetness_strength"
+    t.integer "aftertaste_clarity"
+    t.integer "natural_sweetness"
+    t.integer "coolness"
+    t.integer "richness"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_sweetness_profiles_on_user_id"
+  end
 
   create_table "sweetness_types", force: :cascade do |t|
     t.integer "name"
@@ -38,5 +50,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_31_120531) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
+  add_foreign_key "sweetness_profiles", "users"
   add_foreign_key "users", "sweetness_types"
 end
