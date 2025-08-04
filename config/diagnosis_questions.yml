@@ -1,0 +1,71 @@
+questions:
+  - category: "sweetness_strength"
+    question: "このパンケーキ、シロップをどうかける？"
+    options:
+      - text: "かけない"
+        score: 1
+      - text: "軽くひとまわし"
+        score: 2
+      - text: "しっかり2周"
+        score: 3
+      - text: "たっぷり4周"
+        score: 4
+      - text: "湖のようにしたい！"
+        score: 5
+
+  - category: "aftertaste_clarity"
+    question: "スイーツを食べ終えた後の感じ、どれが好き？"
+    options:
+      - text: "後味スッキリ"
+        score: 1
+      - text: "ちょっとだけ残るのが好き"
+        score: 2
+      - text: "ほんのり続くのが好き"
+        score: 3
+      - text: "しっかり甘さを感じていたい"
+        score: 4
+      - text: "甘さの余韻を長く楽しみたい"
+        score: 5
+
+  - category: "natural_sweetness"
+    question: "フルーツだけの甘さ、どう感じる？"
+    options:
+      - text: "物足りない…"
+        score: 1
+      - text: "やや足りない"
+        score: 2
+      - text: "普通かな"
+        score: 3
+      - text: "ちょうどいい甘さ！"
+        score: 4
+      - text: "大満足！"
+        score: 5
+
+  - category: "coolness"
+    question: "スースー系のお菓子、あなたは？"
+    options:
+      - text: "あまり得意じゃない"
+        score: 1
+      - text: "少し苦手かも"
+        score: 2
+      - text: "たまに食べたくなる"
+        score: 3
+      - text: "けっこう好き！"
+        score: 4
+      - text: "大好き！"
+        score: 5
+
+  - category: "richness"
+    question: "プリンのカラメル、どれが好み？"
+    options:
+      - text: "カラメルなしで素材を味わいたい"
+        score: 1
+      - text: "ほんのり甘いカラメル"
+        score: 2
+      - text: "とろ〜り濃厚で甘めなカラメル"
+        score: 3
+      - text: "甘さ控えめでビターなカラメル"
+        score: 4
+      - text: "しっかり苦めでビターなカラメル"
+        score: 5
+   
