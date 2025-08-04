@@ -1,0 +1,10 @@
+<h1>診断結果</h1>
+<p>あなたのタイプは：<%= t("enums.sweetness_type.sweetness_kind.#{@profile.sweetness_type_name}") %></p>
+
+<ul>
+  <li>甘さの強さ：<%= @profile.sweetness_strength %></li>
+  <li>後味のキレ：<%= @profile.aftertaste_clarity %></li>
+  <li>自然な甘さ：<%= @profile.natural_sweetness %></li>
+  <li>爽快感：<%= @profile.coolness %></li>
+  <li>甘さの深み：<%= @profile.richness %></li>
+</ul>

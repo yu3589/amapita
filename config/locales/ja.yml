@@ -22,3 +22,15 @@ ja:
       taken: はすでに存在します
       too_short: "は%{count}文字以上で入力してください"
       confirmation: を入力してください
+  diagnoses:
+    new:
+      title: 甘さ感覚診断
+      descriptions: 
+        - あなたの好みの甘さ感覚を診断します。
+        - ※ 全部で5問あります
+      example:  例 ) ミントチョコ、清涼系ガム
+  enums:
+    sweetness_type:
+      sweetness_kind:
+        natural_taster: "さっぱり自然派"
+        richness_roman: "濃厚ロマン派"
