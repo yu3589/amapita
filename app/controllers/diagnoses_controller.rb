@@ -7,9 +7,11 @@ class DiagnosesController < ApplicationController
 
   def create
     if unanswered_questions?
-      flash.now[:alert] = "未回答の設問があります。"
       @questions = DIAGNOSIS_QUESTIONS
-      render :new, status: :unprocessable_entity and return
+      @selected_answers = diagnosis_params.to_h
+      flash.now[:modal_alert] = "未回答の設問があります。"
+      render :new, status: :unprocessable_entity
+      return
     end
 
     diagnoser = Diagnosis::SweetnessDiagnoser.new(diagnosis_params)
@@ -31,12 +33,14 @@ class DiagnosesController < ApplicationController
   private
 
   def unanswered_questions?
+    return true if params[:diagnosis].blank?
+
     required_keys = DIAGNOSIS_QUESTIONS.map { |q| q["category"] }
     required_keys.any? { |key| diagnosis_params[key].blank? }
   end
 
   def diagnosis_params
-    params.require(:diagnosis).permit(
+    params.fetch(:diagnosis, {}).permit(
       :sweetness_strength,
       :aftertaste_clarity,
       :natural_sweetness,
