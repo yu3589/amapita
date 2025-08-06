@@ -7,8 +7,8 @@ Rails.application.routes.draw do
 
   root "static_pages#top"
 
-  resources :diagnoses, only: [:new, :create]
-  get 'diagnoses/result/:token', to: 'diagnoses#show', as: :diagnosis_result
+  resources :diagnoses, only: [ :new, :create ]
+  get "diagnoses/result/:token", to: "diagnoses#show", as: :diagnosis_result
 
   get "up" => "rails/health#show", as: :rails_health_check
 
