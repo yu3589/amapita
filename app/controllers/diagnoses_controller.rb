@@ -17,17 +17,25 @@ class DiagnosesController < ApplicationController
     diagnoser = Diagnosis::SweetnessDiagnoser.new(diagnosis_params)
     result = diagnoser.call
 
+    sweetness_type = SweetnessType.find_by(sweetness_kind: SweetnessType.sweetness_kinds[result[:sweetness_kind].to_s])
     profile = SweetnessProfile.create!(
-      user_id: current_user.id,
-      sweetness_type_id: 1, # 一旦固定
+      user_id: current_user&.id,
+      sweetness_type_id: sweetness_type&.id,
       sweetness_strength: result[:scores][:sweetness_strength],
       aftertaste_clarity: result[:scores][:aftertaste_clarity],
       natural_sweetness: result[:scores][:natural_sweetness],
       coolness: result[:scores][:coolness],
       richness: result[:scores][:richness],
     )
+    if current_user
+      current_user.update(sweetness_type_id: profile.sweetness_type_id)
+    end
+    redirect_to diagnosis_result_path(profile.token)
+  end
 
-    redirect_to diagnosis_path(profile.id) # tokenを使わないならid
+  def show
+    @profile = SweetnessProfile.find_by!(token: params[:token])
+    @sweetness_kind = @profile.sweetness_kind
   end
 
   private

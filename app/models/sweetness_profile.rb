@@ -10,4 +10,17 @@ class SweetnessProfile < ApplicationRecord
       break unless SweetnessProfile.exists?(token: token)
     end
   end
+
+  def sweetness_kind
+    diagnoser = Diagnosis::SweetnessDiagnoser.new(
+      {
+        "sweetness_strength" => sweetness_strength,
+        "aftertaste_clarity" => aftertaste_clarity,
+        "natural_sweetness" => natural_sweetness,
+        "coolness" => coolness,
+        "richness" => richness
+      }
+    )
+    diagnoser.send(:diagnose_kind, diagnoser.call[:scores])
+  end
 end
