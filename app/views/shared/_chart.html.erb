@@ -1,0 +1,40 @@
+<canvas id="radarChart" width="400" height="400"></canvas>
+
+<script>
+  document.addEventListener("turbo:load", function () {
+    const ctx = document.getElementById("radarChart");
+    if (!ctx) return;
+
+    if (Chart.getChart(ctx)) {
+      Chart.getChart(ctx).destroy();
+    }
+      // 画面幅でborderWidthを切り替え
+    const borderWidth = window.innerWidth < 768 ? 2 : 4;
+    new Chart(ctx, {
+      type: 'radar',
+      data: {
+        labels: ["甘みの強さ", ["後味のキレ/","スッキリ感"], "自然な甘さ", "爽快感", "甘さの深み/コク"],
+        datasets: [{
+          label: "好みの甘さ感覚",
+          data: [<%= data.map(&:to_i).join(", ") %>],
+          backgroundColor: 'rgba(245, 182, 199, 0.4)',
+          borderColor: 'rgba(245, 182, 199, 0.6)',
+          borderWidth: borderWidth,
+          pointBackgroundColor: 'rgba(245, 182, 199, 0.6)'
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          r: {
+            min: 0,
+            max: 5,
+            ticks: {
+              stepSize: 1
+            }
+          }
+        }
+      }
+    });
+  });
+</script>
