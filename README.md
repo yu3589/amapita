@@ -172,6 +172,7 @@ erDiagram
         bigint id PK "ID"
         int user_id FK "ユーザーID"
         int sweetness_type_id FK "甘さタイプID"
+        string token "診断結果表示用トークン"
         int sweetness_strength "甘みの強さ"
         int aftertaste_clarity "後味のキレ/スッキリ感"
         int natural_sweetness "自然な甘さ"

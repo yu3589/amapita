@@ -10,8 +10,8 @@
   default: false;
   prefersdark: false;
   color-scheme: "dark";
-  --color-base-100: #F7F5F2;
-  --color-base-200: #EFEAE5;
+  --color-base-100: #FFFFFF;
+  --color-base-200: #F9F9F9;
   --color-base-300: #C9C5C1;
   --color-base-content: oklch(44% 0.011 73.639);
   --color-primary: #F5B6C7;
@@ -45,5 +45,13 @@
 }
 
 .button-primary {
-  @apply px-5 py-4 text-base-100 rounded-full transition duration-200 hover:brightness-96;
+  @apply px-5 py-4 md:px-6 text-base-100 rounded-full transition duration-200 hover:brightness-96;
+}
+
+.button-secondary {
+  @apply px-5 py-4 md:px-6 md:py-5 text-neutral rounded-full transition duration-200 hover:brightness-96;
+}
+
+.button-close {
+  @apply px-5 py-3 md:px-6 text-neutral ring-4 rounded-full transition duration-200 bg-base-100 hover:brightness-96;
 }
