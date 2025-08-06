@@ -2,6 +2,7 @@
 
 one:
   user: one
+  token: "1a2b3c4d-5e6f-7g8h-9i0j-k1l2m3n4o5p6"
   sweetness_type_id: 1
   sweetness_strength: 1
   aftertaste_clarity: 1
@@ -11,6 +12,7 @@ one:
 
 two:
   user: two
+  token: "7h8i9j0k-1l2m-3n4o-5p6q-7r8s9t0u1v2w"
   sweetness_type_id: 1
   sweetness_strength: 1
   aftertaste_clarity: 1

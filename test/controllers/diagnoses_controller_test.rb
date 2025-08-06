@@ -2,7 +2,7 @@ require "test_helper"
 
 class DiagnosesControllerTest < ActionDispatch::IntegrationTest
   test "should get new" do
-    get diagnoses_new_url
+    get new_diagnosis_path
     assert_response :success
   end
 end
