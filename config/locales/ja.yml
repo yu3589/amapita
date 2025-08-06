@@ -15,7 +15,7 @@ ja:
               too_short: "は%{count}文字以上で入力してください"
               password_confirmation: "パスワードが間違っています"
   errors:
-    format: "%{attribute} %{message}"
+    format: "・%{attribute} %{message}"
     messages:
       blank: を入力してください
       too_long: は%{count}文字以内で入力してください
@@ -29,8 +29,12 @@ ja:
         - あなたの好みの甘さ感覚を診断します。
         - ※ 全部で5問あります
       example:  例 ) ミントチョコ、清涼系ガム
+    show:
+      title: 診断結果
   enums:
     sweetness_type:
       sweetness_kind:
-        natural_taster: "さっぱり自然派"
-        richness_roman: "濃厚ロマン派"
+        fresh_natural: "さっぱり自然派"
+        rich_romantic: "濃厚ロマン派"
+        sweet_dreamer: "甘党ドリーマー"
+        balance_seeker: "バランス探求派"
