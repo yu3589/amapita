@@ -101,18 +101,11 @@ erDiagram
     posts {
         bigint id PK "ID"
         int user_id FK "ユーザーID"
+        int category_id FK "カテゴリID"
         string product_name "商品名"
-        string manufacture "メーカー名"
+        string manufacturer "メーカー名"
         int sweetness_rating "あまピタ度"
         text review "商品の感想"
-        datetime created_at "作成日時"
-        datetime updated_at "更新日時"
-    }
-
-    post_categories {
-        bigint id PK "ID"
-        int post_id FK "投稿ID"
-        int category_id FK "カテゴリーID"
         datetime created_at "作成日時"
         datetime updated_at "更新日時"
     }
@@ -222,8 +215,7 @@ erDiagram
     
     %% === 投稿・評価・カテゴリ関連 ===
     posts ||--|| post_sweetness_scores : "1:1"
-    posts ||--o{ post_categories : "1:多"
-    categories ||--o{ post_categories : "1:多"
+    posts }o--|| categories : "多対1"
 
     %% === ユーザーのアクション（いいね・コメント・通知・ブックマーク） ===
     users ||--o{ likes : "1:多"

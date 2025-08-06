@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  category: one
+  product_name: MyString
+  manufacturer: MyString
+  sweetness_rating: 1
+  review: MyText
+
+two:
+  user: two
+  category: two
+  product_name: MyString
+  manufacturer: MyString
+  sweetness_rating: 1
+  review: MyText
