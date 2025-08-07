@@ -31,6 +31,9 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 
+# Amazon S3
+gem "aws-sdk-s3"
+
 # Active Storage
 gem "image_processing", "~> 1.2"
 
