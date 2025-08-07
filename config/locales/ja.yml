@@ -15,7 +15,7 @@ ja:
               too_short: "は%{count}文字以上で入力してください"
               password_confirmation: "パスワードが間違っています"
   errors:
-    format: "・%{attribute} %{message}"
+    format: "%{attribute} %{message}"
     messages:
       blank: を入力してください
       too_long: は%{count}文字以内で入力してください
