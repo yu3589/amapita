@@ -31,10 +31,27 @@ ja:
       example:  例 ) ミントチョコ、清涼系ガム
     show:
       title: 診断結果
-  enums:
-    sweetness_type:
-      sweetness_kind:
-        fresh_natural: "さっぱり自然派"
-        rich_romantic: "濃厚ロマン派"
-        sweet_dreamer: "甘党ドリーマー"
-        balance_seeker: "バランス探求派"
+  posts:
+    new:
+      title: あまピタ評価の登録
+      product_name: 商品名
+      manufacturer: メーカー
+      category: カテゴリ
+      sweetness_rating: あまピタ度
+      post_sweetness_score: あまさ評価
+      review: レビュー
+    manufacturers:
+      list:
+        - 明治
+        - ロッテ
+        - 不二家
+        - グリコ
+        - 森永製菓
+        - ヤマザキビスケット
+        - ブルボン
+        - UHA味覚糖
+        - ミスタードーナツ
+        - サーティワンアイスクリーム
+        - スターバックスコーヒー
+        - ゴンチャ
+        - その他

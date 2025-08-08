@@ -1,0 +1,16 @@
+ja:
+  activerecord:
+      enums:
+        sweetness_type:
+          sweetness_kind:
+            fresh_natural: "さっぱり自然派"
+            rich_romantic: "濃厚ロマン派"
+            sweet_dreamer: "甘党ドリーマー"
+            balance_seeker: "バランス探求派" 
+        post:
+          sweetness_rating: 
+            lack_of_sweetness: "あまさが\n足りない"
+            could_be_sweeter: "もう少し\n甘さがほしい"
+            perfect_sweetness: "あまピタ！"
+            slightly_too_sweet: "少し\nあますぎ"
+            too_sweet: "あますぎ"
