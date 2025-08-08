@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_08_06_132550) do
+ActiveRecord::Schema[7.2].define(version: 2025_08_08_102629) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -46,6 +46,18 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_06_132550) do
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "post_sweetness_scores", force: :cascade do |t|
+    t.bigint "post_id", null: false
+    t.integer "sweetness_strength", null: false
+    t.integer "aftertaste_clarity", null: false
+    t.integer "natural_sweetness", null: false
+    t.integer "coolness", null: false
+    t.integer "richness", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["post_id"], name: "index_post_sweetness_scores_on_post_id"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -103,6 +115,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_06_132550) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "post_sweetness_scores", "posts"
   add_foreign_key "posts", "categories"
   add_foreign_key "posts", "users"
   add_foreign_key "sweetness_profiles", "sweetness_types"
