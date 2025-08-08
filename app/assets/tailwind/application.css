@@ -13,6 +13,7 @@
   --color-base-100: #FFFFFF;
   --color-base-200: #F9F9F9;
   --color-base-300: #C9C5C1;
+  --color-base-400: #DDDCDB;
   --color-base-content: oklch(44% 0.011 73.639);
   --color-primary: #F5B6C7;
   --color-primary-content: oklch(100% 0 0);
@@ -38,6 +39,10 @@
   --border: 2px;
   --depth: 1;
   --noise: 1;
+}
+
+.icon-size {
+  @apply h-10 w-10 md:h-12 md:w-12;
 }
 
 .header-button {
