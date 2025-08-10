@@ -1,27 +1,4 @@
 ja:
-  activerecord:
-    attributes:
-      user:
-        current_password: "現在のパスワード"
-        email: "メールアドレス"
-        password: "パスワード"
-        password_confirmation: "確認用パスワード"
-        remember_me: "ログイン情報を記憶する"
-    errors:
-      models:
-        user:
-          attributes:
-            password:
-              too_short: "は%{count}文字以上で入力してください"
-              password_confirmation: "パスワードが間違っています"
-  errors:
-    format: "%{attribute} %{message}"
-    messages:
-      blank: を入力してください
-      too_long: は%{count}文字以内で入力してください
-      taken: はすでに存在します
-      too_short: "は%{count}文字以上で入力してください"
-      confirmation: を入力してください
   diagnoses:
     new:
       title: 甘さ感覚診断
@@ -36,10 +13,11 @@ ja:
       title: あまピタ評価の登録
       product_name: 商品名
       manufacturer: メーカー
-      category: カテゴリ
+      category_id: カテゴリ
       sweetness_rating: あまピタ度
       post_sweetness_score: あまさ評価
       review: レビュー
+      product_image: 商品の画像
     manufacturers:
       list:
         - 明治
@@ -50,6 +28,7 @@ ja:
         - ヤマザキビスケット
         - ブルボン
         - UHA味覚糖
+        - 東ハト
         - ミスタードーナツ
         - サーティワンアイスクリーム
         - スターバックスコーヒー
