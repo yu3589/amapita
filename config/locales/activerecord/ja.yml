@@ -1,16 +1,69 @@
 ja:
   activerecord:
-      enums:
-        sweetness_type:
-          sweetness_kind:
-            fresh_natural: "さっぱり自然派"
-            rich_romantic: "濃厚ロマン派"
-            sweet_dreamer: "甘党ドリーマー"
-            balance_seeker: "バランス探求派" 
+    models:
+      user: ユーザー
+      post: 投稿
+      category: カテゴリ
+      sweetness_type: 甘さタイプ
+    attributes:
+      user:
+        current_password: "現在のパスワード"
+        email: "メールアドレス"
+        password: "パスワード"
+        password_confirmation: "確認用パスワード"
+        remember_me: "ログイン情報を記憶する"
+      post:
+        product_name: 商品名
+        manufacturer: メーカー
+        sweetness_rating: あまピタ度
+        category: カテゴリ
+        image: 画像
+      category:
+        name: "カテゴリ名"
+    errors:
+      models:
         post:
-          sweetness_rating: 
-            lack_of_sweetness: "あまさが\n足りない"
-            could_be_sweeter: "もう少し\n甘さがほしい"
-            perfect_sweetness: "あまピタ！"
-            slightly_too_sweet: "少し\nあますぎ"
-            too_sweet: "あますぎ"
+          attributes:
+            category_id:
+              blank: "を入力してください"
+              required: "を入力してください"
+            product_name:
+              blank: "を入力してください"
+            manufacturer:
+              blank: "を入力してください"
+            sweetness_rating:
+              blank: "を入力してください"
+      messages:
+        blank: "を入力してください"
+        required: "を入力してください"
+        too_long: "は%{count}文字以内で入力してください"
+        taken: "はすでに存在します"
+        too_short: "は%{count}文字以上で入力してください"
+        confirmation: "と一致しません"
+  attributes:
+    id: ID
+    created_at: 作成日時
+    updated_at: 更新日時
+  errors:
+    format: "%{attribute}%{message}"
+    messages:
+      blank: "を入力してください"
+      required: "を入力してください"
+      too_long: "は%{count}文字以内で入力してください"
+      taken: "はすでに存在します"
+      too_short: "は%{count}文字以上で入力してください"
+      confirmation: "と一致しません"
+  enums:
+    sweetness_type:
+      sweetness_kind:
+        fresh_natural: "さっぱり自然派"
+        rich_romantic: "濃厚ロマン派"
+        sweet_dreamer: "甘党ドリーマー"
+        balance_seeker: "バランス探求派"
+    post:
+      sweetness_rating:
+        lack_of_sweetness: "あまさが\n足りない"
+        could_be_sweeter: "もう少し\n甘さがほしい"
+        perfect_sweetness: "あまピタ！"
+        slightly_too_sweet: "少し\nあますぎ"
+        too_sweet: "あますぎ"

@@ -1,6 +1,4 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!, except: [ :new, :create ]
-
   def new
     @post = Post.new
     @post.build_post_sweetness_score
@@ -12,7 +10,7 @@ class PostsController < ApplicationController
       flash[:notice] = "投稿しました！"
       redirect_to root_path
     else
-      flash.now[:modal_alert] = "未回答の項目があります。"
+      flash.now[:alert] = "投稿を作成できませんでした"
       render :new, status: :unprocessable_entity
     end
   end
@@ -20,7 +18,7 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:product_name, :manufacturer, :category_id, :sweetness_rating, :review,
+    params.require(:post).permit(:product_name, :manufacturer, :category_id, :sweetness_rating, :review, :image,
     post_sweetness_score_attributes: [
       :sweetness_strength, :aftertaste_clarity, :natural_sweetness, :coolness, :richness
     ]

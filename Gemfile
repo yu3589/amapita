@@ -37,6 +37,9 @@ gem "aws-sdk-s3"
 # Active Storage
 gem "image_processing", "~> 1.2"
 
+# Validation
+gem "active_storage_validations"
+
 # tailwindcss
 gem "tailwindcss-rails"
 

@@ -1,8 +1,8 @@
-<% if flash[:modal_alert] %>
+<% if flash[:alert] %>
   <input type="checkbox" id="flash-modal" class="modal-toggle" checked />
   <div class="modal">
     <div class="modal-box">
-      <p class="py-4 text-neutral text-center"><%= flash[:modal_alert] %></p>
+      <p class="py-4 text-neutral text-center"><%= flash[:alert] %></p>
       <div class="modal-action justify-center">
         <label for="flash-modal" class="btn">閉じる</label>
       </div>

@@ -2,12 +2,12 @@
   <p>全体に公開する</p>
     <div class="flex space-x-4 p-4 gap-5 md:gap-20">
 
-    <label class="label cursor-pointer flex items-center space-x-2 py-1 md:hover:bg-neutral-content rounded">
+    <label class="label cursor-pointer flex items-center space-x-2 py-1 rounded">
       <input type="radio" name="visibility" value="public" class="radio radio-secondary" checked />
         <span>公開</span>
     </label>
 
-    <label class="label cursor-pointer flex items-center space-x-2 py-1 md:hover:bg-neutral-content rounded">
+    <label class="label cursor-pointer flex items-center space-x-2 py-1 rounded">
       <input type="radio" name="visibility" value="private" class="radio radio-secondary" />
         <span>非公開</span>
     </label>
@@ -15,8 +15,33 @@
       <p class="text-error text-sm">※ 準備中</p>
   </div>
 
-  <div class="justify-center text-center">
-    <%= form_with model: @post, local: true, class: "p-4 md:p-2 space-y-6" do |f| %>
+    <div class="justify-center text-center"> 
+      <%= form_with model: @post, local: true, class: "p-4 md:p-2 space-y-6" do |f| %>
+
+        <% if @post.errors.any? %>
+          <div class="error-messages text-error bg-base-100 p-2 md:p-4 rounded-4xl ring-2 ring-error">
+            <ul>
+              <% @post.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <div class="form-control">
+          <%= f.label :product_image, t("posts.new.product_image"), class: "label md:p-2 text-neutral" %>
+          <%= f.file_field :image,
+              class: "block w-76 mx-auto text-sm text-base-300
+                      file:mr-4 file:py-2 file:px-4 bg-base-100 rounded-xl 
+                      ring-2 ring-[var(--color-base-400)]
+                      file:rounded-l-lg 
+                      file:text-sm
+                      file:bg-accent file:transition file:duration-200 file:hover:brightness-96
+                      file:text-neutral
+                      cursor-pointer" %>
+        </div>
+
+
       <div class="form-control">
         <%= f.label :product_name, t("posts.new.product_name"), class: "label md:p-2 text-neutral" %>
         <%= f.text_field :product_name, class: "input input-bordered w-full" %>
@@ -31,7 +56,7 @@
       </div>
 
       <div class="form-control">
-        <%= f.label :category_id, t('posts.new.category'), class: "label p-1 md:p-2 text-neutral" %>
+        <%= f.label :category_id, t('posts.new.category_id'), class: "label p-1 md:p-2 text-neutral" %>
         <%= f.select :category_id,
                 options_from_collection_for_select(Category.all, :id, :name),
                 { prompt: "カテゴリを選択" },
@@ -43,7 +68,9 @@
 
       <div class="flex flex-wrap justify-center gap-4 bg-base-100 p-2 md:p-4 rounded-4xl ring-2 ring-[var(--color-base-400)]">
         <% ratings = Post.sweetness_ratings.keys.map.with_index do |key, idx| 
-            { value: key, label: t("activerecord.enums.post.sweetness_rating.#{key}"), 
+            {
+            value: key, 
+            label: t("enums.post.sweetness_rating.#{key}"),
             img: [
                 "smiley-meh.svg",
                 "smiley-blank.svg",
@@ -56,13 +83,13 @@
         %>
 
         <% ratings.each do |r| %>
-        <label class="flex flex-col items-center space-y-1 basis-1/3 sm:basis-auto cursor-pointer">
+          <label class="flex flex-col items-center space-y-1 basis-1/3 sm:basis-auto cursor-pointer">
             <%= f.radio_button :sweetness_rating, r[:value], class: "hidden peer" %>
             <span class="p-2 rounded-full transition-colors md:hover:bg-primary peer-checked:bg-primary">
               <%= image_tag r[:img], class: "icon-size" %>
             </span>
             <div class="text-sm text-center whitespace-pre-line"><%= r[:label] %></div>
-        </label>
+          </label>
         <% end %>
       </div>
     </div>
@@ -87,10 +114,11 @@
             </div>
             <div class="sm:table-cell text-center">
               <div class="rating rating-lg flex justify-center space-x-2 gap-2">
+                <%= s.hidden_field field, value: 1 %>
                 <% (1..5).each do |i| %>
                 <%= s.radio_button field, i, 
                     class: "mask mask-star-2 bg-secondary md:hover:bg-secondary p-4",
-                    checked: (i == 1 && s.object.send(field).blank?) %>
+                    checked: (s.object.send(field).presence || 1) == i %>
                 <% end %>
               </div>
             </div>
@@ -109,3 +137,4 @@
     <%= f.submit "投稿する", class: "bg-primary button-primary" %>
   </div>
 <% end %>
+</div>
