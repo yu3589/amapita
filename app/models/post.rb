@@ -11,7 +11,7 @@ class Post < ApplicationRecord
   has_one :post_sweetness_score, dependent: :destroy
   accepts_nested_attributes_for :post_sweetness_score
 
-  enum sweetness_rating: {
+  enum :sweetness_rating, {
     lack_of_sweetness: 0,
     could_be_sweeter: 1,
     perfect_sweetness: 2,
