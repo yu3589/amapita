@@ -1,86 +1,84 @@
 <div class="bg-base-100 justify-center text-center rounded-4xl m-4">
   <p>全体に公開する</p>
-    <div class="flex space-x-4 p-4 gap-5 md:gap-20">
+  <div class="flex space-x-4 p-4 gap-5 md:gap-20">
 
     <label class="label cursor-pointer flex items-center space-x-2 py-1 rounded">
       <input type="radio" name="visibility" value="public" class="radio radio-secondary" checked />
-        <span>公開</span>
+      <span>公開</span>
     </label>
 
     <label class="label cursor-pointer flex items-center space-x-2 py-1 rounded">
       <input type="radio" name="visibility" value="private" class="radio radio-secondary" />
-        <span>非公開</span>
+      <span>非公開</span>
     </label>
-    </div>
-      <p class="text-error text-sm">※ 準備中</p>
+
   </div>
+  <p class="text-error text-sm">※ 準備中</p>
+</div>
 
-    <div class="justify-center text-center"> 
-      <%= form_with model: @post, local: true, class: "p-4 md:p-2 space-y-6" do |f| %>
-
-        <% if @post.errors.any? %>
-          <div class="error-messages text-error bg-base-100 p-2 md:p-4 rounded-4xl ring-2 ring-error">
-            <ul>
-              <% @post.errors.full_messages.each do |message| %>
-                <li><%= message %></li>
-              <% end %>
-            </ul>
-          </div>
-        <% end %>
-
-        <div class="form-control">
-          <%= f.label :product_image, t("posts.new.product_image"), class: "label md:p-2 text-neutral" %>
-          <%= f.file_field :image,
-              class: "block w-76 mx-auto text-sm text-base-300
-                      file:mr-4 file:py-2 file:px-4 bg-base-100 rounded-xl 
-                      ring-2 ring-[var(--color-base-400)]
-                      file:rounded-l-lg 
-                      file:text-sm
-                      file:bg-accent file:transition file:duration-200 file:hover:brightness-96
-                      file:text-neutral
-                      cursor-pointer" %>
-        </div>
-
-
-      <div class="form-control">
-        <%= f.label :product_name, t("posts.new.product_name"), class: "label md:p-2 text-neutral" %>
-        <%= f.text_field :product_name, class: "input input-bordered w-full" %>
+<div class="justify-center text-center"> 
+  <%= form_with model: @post, local: true, class: "p-4 md:p-2 space-y-6" do |f| %>
+    <% if @post.errors.any? %>
+      <div class="error-messages text-error bg-base-100 p-2 md:p-4 rounded-4xl ring-2 ring-error">
+        <ul>
+          <% @post.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
       </div>
+    <% end %>
 
-      <div class="form-control">
-        <%= f.label :manufacturer, t("posts.new.manufacturer"), class: "label p-1 md:p-2 text-neutral" %>
-        <%= f.select :manufacturer,
-                options_for_select(I18n.t("posts.manufacturers.list")),
-                { prompt: "メーカーを選択" },
-                class: "select select-bordered w-full" %>
-      </div>
+    <div class="form-control">
+      <%= f.label :product_image, t("posts.new.product_image"), class: "label md:p-2 text-neutral" %>
+      <%= f.file_field :image,
+          class: "block w-76 mx-auto text-sm text-base-300
+                  file:mr-4 file:py-2 file:px-4 bg-base-100 rounded-xl 
+                  ring-2 ring-[var(--color-base-400)]
+                  file:rounded-l-lg 
+                  file:text-sm
+                  file:bg-accent file:transition file:duration-200 file:hover:brightness-96
+                  file:text-neutral
+                  cursor-pointer" %>
+    </div>
 
-      <div class="form-control">
-        <%= f.label :category_id, t('posts.new.category_id'), class: "label p-1 md:p-2 text-neutral" %>
-        <%= f.select :category_id,
-                options_from_collection_for_select(Category.all, :id, :name),
-                { prompt: "カテゴリを選択" },
-                class: "select select-bordered w-full" %>
-      </div>
+    <div class="form-control">
+      <%= f.label :product_name, t("posts.new.product_name"), class: "label md:p-2 text-neutral" %>
+      <%= f.text_field :product_name, class: "input input-bordered w-full" %>
+    </div>
 
-      <div class="form-control">
+    <div class="form-control">
+      <%= f.label :manufacturer, t("posts.new.manufacturer"), class: "label p-1 md:p-2 text-neutral" %>
+      <%= f.select :manufacturer,
+              options_for_select(I18n.t("posts.manufacturers.list")),
+              { prompt: "メーカーを選択" },
+              class: "select select-bordered w-full" %>
+    </div>
+
+    <div class="form-control">
+      <%= f.label :category_id, t('posts.new.category_id'), class: "label p-1 md:p-2 text-neutral" %>
+      <%= f.select :category_id,
+              options_from_collection_for_select(Category.all, :id, :name),
+              { prompt: "カテゴリを選択" },
+              class: "select select-bordered w-full" %>
+    </div>
+
+    <div class="form-control">
       <%= f.label :sweetness_rating, t('posts.new.sweetness_rating'), class: "label p-2 md:p-4 text-neutral" %>
 
       <div class="flex flex-wrap justify-center gap-4 bg-base-100 p-2 md:p-4 rounded-4xl ring-2 ring-[var(--color-base-400)]">
         <% ratings = Post.sweetness_ratings.keys.map.with_index do |key, idx| 
             {
-            value: key, 
-            label: t("enums.post.sweetness_rating.#{key}"),
-            img: [
+              value: key, 
+              label: t("enums.post.sweetness_rating.#{key}"),
+              img: [
                 "smiley-meh.svg",
                 "smiley-blank.svg",
                 "smiley-wink.svg",
                 "smiley-nervous.svg",
                 "smiley-x-eyes.svg"
-            ][idx]
+              ][idx]
             }
-        end
-        %>
+          end %>
 
         <% ratings.each do |r| %>
           <label class="flex flex-col items-center space-y-1 basis-1/3 sm:basis-auto cursor-pointer">
@@ -96,45 +94,44 @@
 
     <%= f.fields_for :post_sweetness_score do |s| %>
       <div class="p-1">
-      <%= t("posts.new.post_sweetness_score") %>
+        <%= t("posts.new.post_sweetness_score") %>
       </div>
       <div class="flex flex-wrap justify-center gap-4 bg-base-100 p-1 md:p-4 rounded-4xl ring-2 ring-[var(--color-base-400)]">
-          <div class="mx-auto space-y-6 sm:space-y-0 sm:table w-full">
-    
+        <div class="mx-auto space-y-6 sm:space-y-0 sm:table w-full">
           <% {
-          sweetness_strength: "甘みの強さ :",
-          aftertaste_clarity: "後味のキレ/スッキリ感 :",
-          natural_sweetness: "自然な甘さ :",
-          coolness: "爽快感 :",
-          richness: "甘さの深み/コク :"
-            }.each do |field, label| %>
-          <div class="sm:table-row">
-            <div class="mb-2 sm:mb-0 sm:table-cell sm:pr-4 sm:text-right">
-            <%= label %>
-            </div>
-            <div class="sm:table-cell text-center">
-              <div class="rating rating-lg flex justify-center space-x-2 gap-2">
-                <%= s.hidden_field field, value: 1 %>
-                <% (1..5).each do |i| %>
-                <%= s.radio_button field, i, 
-                    class: "mask mask-star-2 bg-secondary md:hover:bg-secondary p-4",
-                    checked: (s.object.send(field).presence || 1) == i %>
-                <% end %>
+            sweetness_strength: "甘みの強さ :",
+            aftertaste_clarity: "後味のキレ/スッキリ感 :",
+            natural_sweetness: "自然な甘さ :",
+            coolness: "爽快感 :",
+            richness: "甘さの深み/コク :"
+          }.each do |field, label| %>
+            <div class="sm:table-row">
+              <div class="mb-2 sm:mb-0 sm:table-cell sm:pr-4 sm:text-right">
+                <%= label %>
+              </div>
+              <div class="sm:table-cell text-center">
+                <div class="rating rating-lg flex justify-center space-x-2 gap-2">
+                  <%= s.hidden_field field, value: 1 %>
+                  <% (1..5).each do |i| %>
+                    <%= s.radio_button field, i, 
+                        class: "mask mask-star-2 bg-secondary md:hover:bg-secondary p-4",
+                        checked: (s.object.send(field).presence || 1) == i %>
+                  <% end %>
+                </div>
               </div>
             </div>
-          </div>
-        <% end %>
-      <% end %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+
+    <div class="form-control">
+      <%= f.label :review, t('posts.new.review'), class: "label p-2 text-neutral" %>
+      <%= f.text_area :review, rows: 4, class: "textarea textarea-bordered w-full", placeholder: "この商品をどう思いますか？(任意)" %>     
     </div>
-  </div>
 
-  <div class="form-control">
-    <%= f.label :review, t('posts.new.review'), class: "label p-2 text-neutral" %>
-    <%= f.text_area :review, rows: 4, class: "textarea textarea-bordered w-full", placeholder: "この商品をどう思いますか？(任意)" %>     
-  </div>
-
-  <div class="form-control p-6">
-    <%= f.submit "投稿する", class: "bg-primary button-primary" %>
-  </div>
-<% end %>
+    <div class="form-control p-6">
+      <%= f.submit "投稿する", class: "bg-primary button-primary" %>
+    </div>
+  <% end %>
 </div>
