@@ -30,11 +30,11 @@ class Post < ApplicationRecord
     }
 
   def post_image
-    return "default_image.png" if !image.attached? || !image.blob.persisted?
+    return nil unless image.attached?
     image.variant(
-      resize_to_fit: [ 300, 250 ],
+      resize_to_fit: [ 400, 400 ],
       format: :webp,
-      saver: { quality: 85 }
+      saver: { quality: 90 }
     )
   end
 end
