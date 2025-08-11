@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   resources :diagnoses, only: [ :new, :create ]
   get "diagnoses/result/:token", to: "diagnoses#show", as: :diagnosis_result
 
-  resources :posts, only: [ :new, :create ]
+  resources :posts, only: [ :index, :new, :create ]
 
   get "up" => "rails/health#show", as: :rails_health_check
 
