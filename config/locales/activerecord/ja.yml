@@ -67,3 +67,23 @@ ja:
         perfect_sweetness: "あまピタ！"
         slightly_too_sweet: "少し\nあますぎ"
         too_sweet: "あますぎ"
+  datetime:
+    distance_in_words:
+      less_than_x_seconds:
+        one:   1秒
+        other: "%{count}秒"
+      x_seconds:
+        one:   1秒
+        other: "%{count}秒"
+      less_than_x_minutes:
+        one:   1分
+        other: "%{count}分"
+      x_minutes:
+        one:   1分
+        other: "%{count}分"
+      about_x_hours:
+        one:   1時間
+        other: "%{count}時間"
+      x_days:
+        one:   1日
+        other: "%{count}日"
