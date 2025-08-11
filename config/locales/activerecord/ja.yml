@@ -87,3 +87,15 @@ ja:
       x_days:
         one:   1日
         other: "%{count}日"
+      about_x_months:
+        one:   1ヶ月
+        other: 約%{count}ヶ月
+      x_months:
+        one:   1ヶ月
+        other: "%{count}ヶ月"
+      about_x_years:
+        one:   1年
+        other: 約%{count}年
+      over_x_years:
+        one:   1年以上
+        other: "%{count}年以上"
