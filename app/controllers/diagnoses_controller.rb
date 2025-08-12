@@ -9,7 +9,7 @@ class DiagnosesController < ApplicationController
     if unanswered_questions?
       @questions = DIAGNOSIS_QUESTIONS
       @selected_answers = diagnosis_params.to_h
-      flash.now[:modal_alert] = "未回答の設問があります。"
+      flash.now[:alert] = "未回答の設問があります。"
       render :new, status: :unprocessable_entity
       return
     end
