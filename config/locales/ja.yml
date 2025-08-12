@@ -1,4 +1,12 @@
 ja:
+  defaults:
+    delete_confirm: "削除しますか？"
+    flash_message:
+      created: "%{item}を作成しました"
+      not_created: "%{item}を作成出来ませんでした"
+      updated: "%{item}を更新しました"
+      not_updated: "%{item}を更新出来ませんでした"
+      deleted: "%{item}を削除しました"
   diagnoses:
     new:
       title: 甘さ感覚診断
@@ -18,6 +26,8 @@ ja:
       post_sweetness_score: あまさ評価
       review: レビュー
       product_image: 商品の画像
+    edit:
+      title: あまピタ評価の編集
     manufacturers:
       list:
         - 明治
