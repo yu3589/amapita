@@ -3,7 +3,7 @@
   <div class="card card-side bg-base-200 p-4 shadow-sm h-48 min-h-48 rounded-xl">
     <figure class="flex-shrink-0">
       <!-- 画像 -->
-      <div class="w-40 h-40 flex-shrink-0 overflow-hidden rounded-lg">
+      <div class="w-40 h-40 flex-shrink-0 overflow-hidden rounded-2xl">
         <% if post.image.attached? %>
           <%= image_tag post.post_image, class: "w-full h-full object-cover" %>
         <% else %>
@@ -20,19 +20,20 @@
           ｜
           <%= time_ago_in_words(post.created_at) %>前
         </p>
-        <div class="flex items-center justify-between mb-3">
-          <h2 class="card-title text-lg line-clamp-2">
-            <%= post.product_name %>
-          </h2>
-          <span class="p-2 rounded-full md:hover:bg-base-300">
-          <%= image_tag "caret-right-bold.svg", class: "h-7 w-7 flex-shrink-0" %>
-          </span>
-
-       </div>
+        <%= link_to post_path(post) do %>
+          <div class="flex items-center justify-between mb-3">
+            <h2 class="card-title text-lg line-clamp-2">
+              <%= post.product_name %>
+            </h2>
+            <span class="p-2 rounded-full md:hover:bg-[var(--color-base-400)]">
+            <%= image_tag "caret-right-bold.svg", class: "h-7 w-7 flex-shrink-0" %>
+            </span>
+          </div>
+        <% end %>
           <p class="text-sm">
             <%= truncate(post.review, length: 25, omission: '...') %>
           </p>
-    </div>
+      </div>
       
       <!-- 評価部分 -->
       <div class="flex-shrink-0">
@@ -44,7 +45,7 @@
           "too_sweet" => "smiley-x-eyes.svg"
         } %>
 
-        <% ring_colors = {
+        <% bg_colors = {
           "lack_of_sweetness" => "bg-accent",
           "could_be_sweeter" => "bg-accent",
           "perfect_sweetness" => "bg-primary",
@@ -52,7 +53,7 @@
           "too_sweet" => "bg-secondary"
         } %>
 
-        <div class="inline-flex items-center rounded-2xl p-2 gap-2 py-2 px-4 text-neutral text-sm <%= ring_colors[post.sweetness_rating] %>">
+        <div class="inline-flex items-center rounded-2xl p-2 gap-2 py-2 px-4 text-neutral text-sm <%= bg_colors[post.sweetness_rating] %>">
           <%= image_tag rating_images[post.sweetness_rating], class: "h-8 w-8" %>
           <p><%= I18n.t("enums.post.sweetness_rating.#{post.sweetness_rating}") %></p>
         </div>
