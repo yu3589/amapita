@@ -34,3 +34,6 @@ ja:
         - スターバックスコーヒー
         - ゴンチャ
         - その他
+  time:
+    formats:
+      default: "%Y年%m月%d日"
