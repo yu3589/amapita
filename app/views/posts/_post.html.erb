@@ -1,6 +1,6 @@
 <div class="w-full p-3">
   <!-- カードの高さ指定 -->
-  <div class="card card-side bg-base-200 p-4 shadow-sm h-48 min-h-48 rounded-xl">
+  <div class="card card-side bg-base-200 p-4 shadow-sm h-52 min-h-52 rounded-xl">
     <figure class="flex-shrink-0">
       <!-- 画像 -->
       <div class="w-40 h-40 flex-shrink-0 overflow-hidden rounded-2xl">
@@ -53,11 +53,23 @@
           "too_sweet" => "bg-secondary"
         } %>
 
-        <div class="inline-flex items-center rounded-2xl p-2 gap-2 py-2 px-4 text-neutral text-sm <%= bg_colors[post.sweetness_rating] %>">
+        <div class="inline-flex items-center rounded-2xl p-2 gap-2 py-3 px-4 text-neutral text-base <%= bg_colors[post.sweetness_rating] %>">
           <%= image_tag rating_images[post.sweetness_rating], class: "h-8 w-8" %>
           <p><%= I18n.t("enums.post.sweetness_rating.#{post.sweetness_rating}") %></p>
         </div>
       </div>
     </div>
+
+    <!-- 編集・削除ボタン -->
+    <% if user_signed_in? && current_user.own?(post) %>
+      <div class="absolute bottom-4 right-4 px-2 flex space-x-2 gap-2">
+        <%= link_to edit_post_path(post), class: "ring-accent action-button", data: { turbo: false } do %>
+          編集
+        <% end %>
+        <%= link_to post_path(post), class: "ring-secondary action-button", data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>
+          削除
+        <% end %>
+      </div>
+    <% end %>
   </div>
 </div>
