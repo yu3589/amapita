@@ -1,0 +1,105 @@
+<div class="p-2 md:p-4">
+  <div class="p-2 md:p-6 w-full max-w-3xl mx-auto bg-base-200 rounded-4xl">
+    <h1 class="text-center text-xl md:text-2xl p-4 border-b border-gray-300 w-full">
+      レビュー詳細
+    </h1>
+
+    <div class="flex flex-col justify-center items-center sm:flex-row sm:items-start sm:gap-6">
+      <!-- 商品画像 -->
+      <div class="p-4">
+        <% if @post.image.attached? %>
+          <%= image_tag @post.post_image, class: "w-50 h-50 rounded-2xl" %>
+        <% else %>
+          <%= image_tag "default_image.png", class: "w-50 h-50 rounded-2xl" %>
+        <% end %>
+      </div>
+
+      <div class="flex flex-col justify-start items-start gap-2 md:gap-5 text-neutral px-10 md:px-0 py-6">
+        <div class="text-xl">
+          <%= @post.product_name %>
+        </div>
+        
+        <div class="flex flex-col text-base">
+          <div class="flex items-center gap-2">
+            <%= image_tag "footer/user_circle.svg", class: "h-10 w-10" %>
+            <span class="font-medium"><%= @post.user.name %></span>
+          </div>
+        </div>
+
+        <!-- 評価部分 -->
+        <div class="flex-shrink-0">
+          <% rating_images = {
+              "lack_of_sweetness" => "smiley-meh.svg",
+              "could_be_sweeter" => "smiley-blank.svg",
+              "perfect_sweetness" => "smiley-wink.svg",
+              "slightly_too_sweet" => "smiley-nervous.svg",
+              "too_sweet" => "smiley-x-eyes.svg"
+          } %>
+
+          <% bg_colors = {
+              "lack_of_sweetness" => "bg-accent",
+              "could_be_sweeter" => "bg-accent",
+              "perfect_sweetness" => "bg-primary",
+              "slightly_too_sweet" => "bg-secondary",
+              "too_sweet" => "bg-secondary"
+          } %>
+
+          <div class="inline-flex items-center rounded-2xl gap-2 py-2 md:py-3 px-4 text-neutral text-base <%= bg_colors[@post.sweetness_rating] %>">
+            <%= image_tag rating_images[@post.sweetness_rating], class: "h-8 w-8" %>
+            <p><%= I18n.t("enums.post.sweetness_rating.#{@post.sweetness_rating}") %></p>
+          </div>
+        </div>
+      </div>
+    </div>
+     
+    <!-- チャート -->
+    <div class="flex justify-center p-2">
+      <div class="w-full max-w-lg sm:max-w-xl lg:max-w-xl p-2 border-secondary rounded-3xl bg-base-100">
+        <div class="mx-auto w-full max-w-md">
+          <%= render "shared/chart",
+              chart_id: "radarChart",
+              data: [
+                  @post.post_sweetness_score.sweetness_strength,
+                  @post.post_sweetness_score.aftertaste_clarity,
+                  @post.post_sweetness_score.natural_sweetness,
+                  @post.post_sweetness_score.coolness,
+                  @post.post_sweetness_score.richness,
+              ] %>
+        </div>
+      </div>
+    </div>
+
+    <!-- レビューセクション -->
+    <div class="p-2 md:p-4">
+      <div class="p-2 w-full max-w-xl mx-auto bg-base-100 rounded-4xl">
+        <div class="text-center text-xl p-2 text-neutral">
+          レビュー
+        </div>
+        <div class="flex flex-col justify-center items-center">
+          <div class="w-full p-6 border-b border-gray-300 text-neutral">
+            <% if @post.review.present? %>
+              <%= @post.review %>
+            <% else %>
+              <div class="mb-3 text-base-300">レビューがありません</div>
+            <% end %>
+          </div>
+          <div class="flex flex-row p-2 text-sm gap-6 md:gap-30 text-base-300">
+            <span class="flex items-center gap-1">
+              <%= image_tag "chat.svg", class: "h-6 w-6" %>
+              コメントする
+            </span>
+            <span class="flex items-center gap-1">
+              <div class="rating gap-1">
+                <input type="radio" name="rating-3" class="mask mask-heart bg-primary" aria-label="2 star">
+              </div>
+              いいね！
+            </span>
+          </div>
+          <div class="text-sm text-center text-error">
+            ※ 準備中
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
