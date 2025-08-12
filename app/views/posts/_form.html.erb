@@ -30,6 +30,16 @@
 
     <div class="form-control">
       <%= f.label :product_image, t("posts.new.product_image"), class: "label md:p-2 text-neutral" %>
+
+      <% if @post.image.attached? %>
+        <div class="flex justify-center">
+          <%= image_tag @post.post_image, class: "w-50 h-50 object-cover rounded-xl" %>
+        </div>
+        <p class="text-sm text-neutral mb-2 text-center leading-relaxed">
+          投稿されている画像は上記です。<br>（変更する場合は下から選択してください）
+        </p>
+      <% end %>
+
       <%= f.file_field :image,
           class: "block w-76 mx-auto text-sm text-base-300
                   file:mr-4 file:py-2 file:px-4 bg-base-100 rounded-xl 
