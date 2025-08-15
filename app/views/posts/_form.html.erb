@@ -105,10 +105,9 @@
         <% Post.sweetness_ratings.keys.each do |rating_key| %>
           <label class="flex flex-col items-center space-y-1 basis-1/3 sm:basis-auto cursor-pointer sweetness-rating-option" 
                 data-value="<%= rating_key %>">
-            <%= f.radio_button :sweetness_rating, rating_key, 
-                class: "hidden peer sweetness-radio", 
-                data: { turbo_permanent: true },
-                checked: (f.object.sweetness_rating == rating_key) %>
+           <%= f.radio_button :sweetness_rating, rating_key,
+            class: "hidden peer sweetness-radio",
+            checked: (f.object.sweetness_rating.to_s == rating_key) %>
             <span class="rating-indicator p-2 rounded-full transition-all duration-200 <%= hover_colors[rating_key] %> ">
               <%= image_tag rating_images[rating_key], class: "icon-size pointer-events-none" %>
             </span>
