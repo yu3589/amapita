@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html data-theme="amapita">
   <head>
-    <title><%= content_for(:title) || "Myapp" %></title>
+    <title>あまピタッ！</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
@@ -23,6 +23,8 @@
     <!-- swiper -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <!-- meta_tags -->
+    <%= display_meta_tags(default_meta_tags) %>
 
     <style>
       body {
