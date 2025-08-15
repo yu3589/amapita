@@ -51,6 +51,8 @@ gem "devise-i18n"
 gem "omniauth-google-oauth2"
 gem "omniauth-rails_csrf_protection"
 
+gem "meta-tags"
+
 gem "swimming_fish", "~> 0.2.2"
 
 group :development, :test do
