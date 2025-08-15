@@ -10,3 +10,43 @@
     </div>
   </div>
 </div>
+
+<div class="pt-6 md:p-6">
+<!-- Slider main container -->
+  <div class="swiper">
+    <!-- Additional required wrapper -->
+    <div class="swiper-wrapper">
+      <!-- Slides -->
+      <div class="swiper-slide bg-base-200 rounded-4xl"><%= render "top_overview" %></div>
+      <div class="swiper-slide bg-base-200 rounded-4xl"><%= render "top_amapita_explanation" %></div>
+      <div class="swiper-slide bg-base-200 rounded-4xl"><%= render "top_diagnosis_guide" %></div>
+    </div>
+    <!--  navigation buttons -->
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+  </div>
+
+  <script>
+  document.addEventListener("turbo:load", () => {
+    initSwiper();
+  });
+  function initSwiper() {
+    const swiper = new Swiper(".swiper", {
+      // Optional parameters
+      direction: "horizontal",
+      loop: false,
+      speed: 600,
+      spaceBetween: 20,
+
+      // pagination: {
+      //   el: ".swiper-pagination",
+      // },
+
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+    });
+  }
+  </script>
+</div>
