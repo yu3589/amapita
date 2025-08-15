@@ -59,17 +59,17 @@
     <div class="form-control">
       <%= f.label :manufacturer, t("posts.new.manufacturer"), class: "label p-1 md:p-2 text-neutral" %>
       <%= f.select :manufacturer,
-              options_for_select(I18n.t("posts.manufacturers.list")),
-              { prompt: "メーカーを選択" },
-              class: "select select-bordered w-full" %>
+            options_for_select(I18n.t("posts.manufacturers.list"), @post.manufacturer),
+            { prompt: "メーカーを選択" },
+            class: "select select-bordered w-full" %>
     </div>
 
     <div class="form-control">
       <%= f.label :category_id, t('posts.new.category_id'), class: "label p-1 md:p-2 text-neutral" %>
       <%= f.select :category_id,
-              options_from_collection_for_select(Category.all, :id, :name),
-              { prompt: "カテゴリを選択" },
-              class: "select select-bordered w-full" %>
+            options_from_collection_for_select(Category.all, :id, :name, @post.category_id),
+            { prompt: "カテゴリを選択" },
+            class: "select select-bordered w-full" %>
     </div>
 
     <div class="form-control">
