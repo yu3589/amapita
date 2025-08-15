@@ -107,9 +107,9 @@
                 data-value="<%= rating_key %>">
             <%= f.radio_button :sweetness_rating, rating_key, 
                 class: "hidden peer sweetness-radio", 
-                data: { turbo_permanent: true } %>
-            <span class="rating-indicator p-2 rounded-full transition-all duration-200 peer-checked:scale-110
-                        <%= hover_colors[rating_key] %> <%= selected_colors[rating_key] %>">
+                data: { turbo_permanent: true },
+                checked: (f.object.sweetness_rating == rating_key) %>
+            <span class="rating-indicator p-2 rounded-full transition-all duration-200 <%= hover_colors[rating_key] %> ">
               <%= image_tag rating_images[rating_key], class: "icon-size pointer-events-none" %>
             </span>
             <div class="text-sm text-center whitespace-pre-line pointer-events-none">
