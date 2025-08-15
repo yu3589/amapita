@@ -141,7 +141,8 @@
     </div>
 
     <div class="form-control p-6">
-      <%= f.submit "投稿する", class: "bg-primary button-primary" %>
+      <%= f.submit f.object.new_record? ? "投稿する" : "更新する",
+            class: "bg-primary button-primary" %>
     </div>
   <% end %>
 </div>
