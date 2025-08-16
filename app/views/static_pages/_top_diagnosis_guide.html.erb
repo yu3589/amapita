@@ -14,7 +14,7 @@
     <% if user_signed_in? %>
       <%= link_to "診断してみる！", new_diagnosis_path %>
     <% else %>
-      <%= link_to "登録して診断する！", new_user_registration_path %>
+      <%= link_to "登録して診断する！", new_user_registration_path(from_landing: 1) %>
     <% end %>
     </div>
 
