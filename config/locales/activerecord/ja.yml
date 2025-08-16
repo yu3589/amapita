@@ -18,6 +18,7 @@ ja:
         sweetness_rating: あまピタ度
         category: カテゴリ
         image: 画像
+        review: レビュー
       category:
         name: "カテゴリ名"
     errors:

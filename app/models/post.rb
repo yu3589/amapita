@@ -4,6 +4,7 @@ class Post < ApplicationRecord
   validates :sweetness_rating, presence: true
   validates :post_sweetness_score, presence: true
   validate :image_type_and_size
+  validates :review, length: { maximum: 300 }
 
   belongs_to :user
   belongs_to :category
