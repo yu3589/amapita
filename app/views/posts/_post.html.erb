@@ -3,9 +3,9 @@
   <div class="card card-side bg-base-200 p-4 shadow-sm h-52 min-h-52 rounded-xl">
     <figure class="flex-shrink-0">
       <!-- 画像 -->
-      <div class="w-40 h-40 flex-shrink-0 overflow-hidden rounded-2xl">
+      <div class="aspect-square overflow-hidden pt-4 rounded-none">
         <% if post.image.attached? %>
-          <%= image_tag post.post_image, class: "w-full h-full object-cover" %>
+          <%= image_tag post.image.variant(resize_to_fill: [400, 400], format: :webp, saver: { quality: 85 }), class: "w-full h-full object-cover" %>
         <% else %>
           <%= image_tag "default_image.png", class: "w-full h-full object-cover" %>
         <% end %>

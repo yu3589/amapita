@@ -31,9 +31,11 @@
     <div class="form-control">
       <%= f.label :product_image, t("posts.new.product_image"), class: "label md:p-2 text-neutral" %>
 
-      <% if @post.image.attached? %>
+      <% if @post.image.attached? &&
+      @post.image.attachment.blob.present? &&
+      @post.image.attachment.blob.persisted? %>
         <div class="flex justify-center">
-          <%= image_tag @post.post_image, class: "w-50 h-50 object-cover rounded-xl" %>
+          <%= image_tag @post.image.variant(resize_to_fill: [400, 400], format: :webp, saver: { quality: 85 }), class: "w-50 h-50 object-cover" %>
         </div>
         <p class="text-sm text-neutral mb-2 text-center leading-relaxed">
           投稿されている画像は上記です。<br>（変更する場合は下から選択してください）
