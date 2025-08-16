@@ -38,6 +38,12 @@
         <%= f.submit "ログイン", class: "bg-accent button-primary" %>
       </div>
     <% end %>
+    <div class="flex justify-center p-4 text-neutral">
+      ユーザー登録の方は
+      <%= link_to new_user_registration_path, class: "underline-offset-4 hover:underline transition-all" do %>
+      こちら
+    <% end %>
+    </div>
   </div>
 </main>
 

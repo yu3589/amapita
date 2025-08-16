@@ -15,10 +15,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
     resource.update_without_password(params.except("current_password"))
   end
 
-  # GET /resource/sign_up
-  # def new
-  #   super
-  # end
+  def new
+    session[:from_landing] = true if params[:from_landing].present?
+    super
+  end
 
   # POST /resource
   # def create
@@ -60,7 +60,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def after_sign_up_path_for(resource)
-    root_path
+    if session[:from_landing]
+      session.delete(:from_landing)
+      new_diagnosis_path
+    else
+      root_path
+    end
   end
 
   def after_inactive_sign_up_path_for(resource)
