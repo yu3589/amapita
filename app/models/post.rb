@@ -3,6 +3,7 @@ class Post < ApplicationRecord
   validates :manufacturer, presence: true
   validates :sweetness_rating, presence: true
   validates :post_sweetness_score, presence: true
+  validate :image_type_and_size
 
   belongs_to :user
   belongs_to :category
@@ -19,22 +20,17 @@ class Post < ApplicationRecord
     too_sweet: 4
   }
 
-  validates :image,
-    content_type: {
-      in: %w[image/jpeg image/png],
-      message: "はJPEG・PNG形式のファイルのみ対応しています"
-    },
-    size: {
-      less_than: 5.megabytes,
-      message: "は5MB以下にしてください"
-    }
+  private
 
-  def post_image
-    return nil unless image.attached?
-    image.variant(
-      resize_to_fit: [ 400, 400 ],
-      format: :webp,
-      saver: { quality: 90 }
-    )
+  def image_type_and_size
+    return unless image.attached?
+
+    unless image.content_type.in?[%w[image/png image/jpg image/jpeg]]
+      errors.add(:image, "はJPG・JPEG・PNG形式のファイルのみ対応しています")
+    end
+
+    if image.blob.byte_size > 5.megabytes
+      errors.add(:image, "は5MB以下にしてください")
+    end
   end
 end
