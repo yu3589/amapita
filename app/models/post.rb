@@ -25,7 +25,7 @@ class Post < ApplicationRecord
   def image_type_and_size
     return unless image.attached?
 
-    unless image.content_type.in?[%w[image/png image/jpg image/jpeg]]
+    unless image.content_type.in?(%w[image/png image/jpg image/jpeg])
       errors.add(:image, "はJPG・JPEG・PNG形式のファイルのみ対応しています")
     end
 
