@@ -1,14 +1,16 @@
-<div class="p-2 md:p-4">
+<div class="p-2 md:p-4 opacity-60 ">
   <div class="flex flex-col p-6 items-center justify-center w-full max-w-xl mx-auto bg-base-200 rounded-2xl">
     <div class="w-full max-w-lg">
       <!-- 検索フォーム -->
       <div class="flex justify-center items-center gap-4 mb-3 w-full">
         <input 
           type="search" 
-          class="flex-1 min-w-0 bg-base-100 p-2 rounded-full ring-2 ring-[var(--color-base-400)]" 
+          class="flex-1 min-w-0 bg-base-100 p-2 rounded-full ring-2 ring-[var(--color-base-400)] pointer-events-none"
           placeholder="キーワードを入力"
-        >
-        <button class="flex-shrink-0 rounded-full ring-secondary px-4 py-2 text-neutral ring-4 transition duration-200 bg-base-100 hover:brightness-96">
+          disabled >
+        <button
+          class="flex-shrink-0 rounded-full ring-secondary px-4 py-2 text-neutral ring-4 transition duration-200 bg-base-100 hover:brightness-96 opacity-60 pointer-events-none"
+          disabled >
           検索
         </button>
       </div>
@@ -29,20 +31,21 @@
   ] %>
 
   <% options.each_with_index do |opt, idx| %>
-    <label class="cursor-pointer">
-        <%= tag.input type: "radio",
+    <label class="cursor-pointer <%= 'opacity-60 pointer-events-none' if opt[:value] == 'recommend' %>">
+      <%= tag.input type: "radio",
                     name: "tab",
                     value: opt[:value],
                     class: "hidden peer",
-                    checked: idx.zero? %>
-        <div class="rounded-2xl px-5 py-3 md:px-8 text-neutral ring-4 transition duration-200 hover:brightness-96
-                    peer-checked:ring-accent peer-checked:bg-base-100
-                    ring-base-300 bg-[var(--color-base-400)]">
+                    checked: idx.zero?,
+                    disabled: (opt[:value] == 'recommend') %>
+      <div class="rounded-2xl px-5 py-3 md:px-8 text-neutral ring-4 transition duration-200
+                  peer-checked:ring-accent peer-checked:bg-base-100
+                  ring-base-300 bg-[var(--color-base-400)]">
         <% if opt[:img] %>
-            <%= image_tag opt[:img], class: "h-8 w-8 inline-block mr-2" %>
+          <%= image_tag opt[:img], class: "h-8 w-8 inline-block mr-2" %>
         <% end %>
         <%= opt[:label] %>
-        </div>
+      </div>
     </label>
   <% end %>
 </div>
