@@ -33,7 +33,10 @@
     </div>
 
     <div class="flex flex-col items-center gap-6 p-8">
-      <%= link_to "X で結果をシェアする", "#", class: "bg-accent button-secondary" %>
+      <%= link_to "#", class: "bg-accent button-secondary opacity-60 pointer-events-none flex flex-col items-center" do %>
+        X でシェアする
+        <span class="text-sm text-center text-error">※ 準備中</span>
+      <% end %>
       <%= link_to "閉じる", posts_path, data: { turbo: false }, class: "bg-accent ring-accent button-close" %>
     </div>
   </div>
