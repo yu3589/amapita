@@ -1,44 +1,56 @@
 <div class="p-2 md:p-4">
   <div class="flex flex-col p-2 md:p-6 items-center justify-center w-full max-w-3xl mx-auto bg-base-200 rounded-4xl">
     <h1 class="text-center text-xl md:text-2xl p-4 border-b border-gray-300 w-full">
-      <%= t('.title') %></h1>
+      <%= t('.title') %>
+    </h1>
 
     <%= form_with url: diagnoses_path, method: :post, local: true, scope: :diagnosis do |f| %>
-
-      <div class="py-4 px-2 md:px-8 md:py-6 max-w-3xl mx-auto">
+      <div class="py-4 px-2 md:px-8 md:py-6 w-full">
         <div class="mb-4 text-center">
           <% t("diagnoses.new.descriptions").each do |desc| %>
             <p class="mb-1 text-sm md:text-lg"><%= desc %></p>
           <% end %>
         </div>
 
-        <div class="form-control text-left text-neutral p-1 md:p-2 md:px-30 md:py-6 w-full max-w-3xl mx-auto md:whitespace-nowrap">
+        <div class="form-control text-left text-neutral p-1 md:p-2 md:py-6 w-full">
           <% @questions.each_with_index do |q, index| %>
-            <div class="w-full max-w-md mx-auto px-2 py-4 md:p-4 md:max-w-none md:mx-0">
+            <div class="w-full max-w-md mx-auto px-2 py-4 md:p-6">
               
-              <div class="label-text mb-2 md:mb-6 pt-2 md:text-xl">
-                <span class="mr-3">Q<%= index + 1 %>.</span><%= q["question"] %>
+              <div class="label-text mb-2 md:mb-6 pt-2 md:text-xl break-words">
+                <span class="mr-2">Q<%= index + 1 %>.</span><%= q["question"] %>
               </div>
               
               <% if index == 0 %>
                 <div class="w-full flex justify-center my-3">
-                  <%= image_tag "pancake.webp", class: "max-w-[200px] md:max-w-[350px]" %>
+                  <%= image_tag "diagnosis/pancake.webp", class: "max-w-[200px] md:max-w-[400px] rounded-4xl" %>
+                </div>
+              <% end %>
+
+              <% if index == 2 %>
+                <div class="w-full flex justify-center my-3">
+                  <%= image_tag "diagnosis/assorted_fruits.webp", class: "max-w-[200px] md:max-w-[400px] rounded-4xl" %>
                 </div>
               <% end %>
 
               <% if index == 3 %>
-                <div class="pb-2 text-center text-sm text-gray-400">
+                <div class="pb-2 text-center text-sm text-base-300">
                   <%= t('.example') %>
                 </div>
               <% end %>
 
-              <div class="pt-1">
+              <% if index == 4 %>
+                <div class="w-full flex justify-center my-3">
+                  <%= image_tag "diagnosis/chocolate.webp", class: "max-w-[200px] md:max-w-[400px] rounded-4xl" %>
+                </div>
+              <% end %>
+
+              <div class="pt-1 space-y-1">
                 <% q["options"].each do |opt| %>
-                  <label class="label cursor-pointer flex items-center space-x-3 text-neutral py-1 md:hover:bg-neutral-content ">
+                  <label class="label cursor-pointer flex items-start gap-2 text-neutral py-1 rounded-md md:hover:bg-stone-200 break-words">
                     <%= f.radio_button q["category"], opt["score"],
                         checked: (@selected_answers && @selected_answers[q["category"]] == opt["score"].to_s),
-                        class: "radio radio-accent radio-sm mt-1 ml-4" %>
-                    <span><%= opt["text"] %></span>
+                        class: "radio radio-accent radio-sm mt-1" %>
+                    <span class="whitespace-normal break-words"><%= opt["text"] %></span>
                   </label>
                 <% end %>
               </div>

@@ -1,5 +1,5 @@
 <main class="container flex-1 pt-4 pb-14 md:pb-20 px-4 mx-auto flex items-center justify-center">
-  <div class="w-full max-w-md bg-base-100 rounded-3xl ring-1 ring-base-300 px-4 md:px-10 md:py-6">
+  <div class="w-full max-w-lg bg-base-200 rounded-3xl px-4 md:px-16 md:py-6">
     <div class="mb-6 text-center">
       <h2 class="text-2xl text-neutral font-bold pt-6">新規登録</h2>
     </div>
@@ -9,9 +9,9 @@
     </div>
 
     <div class="flex items-center my-6">
-      <div class="flex-grow border-t border-gray-300"></div>
-      <span class="mx-4 text-gray-400 text-sm">または</span>
-      <div class="flex-grow border-t border-gray-300"></div>
+      <div class="flex-grow border-t border-base-300"></div>
+      <span class="mx-4 text-base-300 text-sm">または</span>
+      <div class="flex-grow border-t border-base-300"></div>
     </div>
 
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
@@ -20,22 +20,22 @@
       <div class="text-neutral">
         <div class="form-control mb-4 p-2">
           <%= f.text_field :name, placeholder: "名前", 
-          class: "input input-bordered w-full h-10 rounded-full px-4 py-2 focus:outline-none" %>
+          class: "input input-bordered w-full h-10 md:h-12 rounded-full px-4 py-2 focus:outline-none" %>
         </div>
 
         <div class="form-control mb-4 p-2">
           <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "メールアドレス", 
-          class: "input input-bordered w-full h-10 rounded-full px-4 py-2 focus:outline-none" %>
+          class: "input input-bordered w-full h-10 md:h-12 rounded-full px-4 py-2 focus:outline-none" %>
         </div>
 
         <div class="form-control mb-4 p-2">
           <%= f.password_field :password, autocomplete: "new-password", placeholder: "パスワード(6文字以上)", 
-          class: "input input-bordered w-full h-10 rounded-full px-4 py-2 focus:outline-none" %>
+          class: "input input-bordered w-full h-10 md:h-12 rounded-full px-4 py-2 focus:outline-none" %>
         </div>
 
         <div class="form-control mb-6 p-2">
           <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "パスワード確認", 
-          class: "input input-bordered w-full h-10 rounded-full px-4 py-2 focus:outline-none" %>
+          class: "input input-bordered w-full h-10 md:h-12 rounded-full px-4 py-2 focus:outline-none" %>
         </div>
 
         <div class="form-control flex justify-center pb-4">
@@ -44,10 +44,14 @@
       </div>
     <% end %>
     <div class="flex justify-center p-4 text-neutral">
-      すでにアカウントをお持ちの方は
-      <%= link_to new_user_session_path, class: "underline-offset-4 hover:underline transition-all" do %>
-        こちら
-      <% end %>
+    <div class="flex justify-center p-4 text-neutral text-center">
+      <div>
+        <span class="sm:inline hidden">すでにアカウントをお持ちの方は</span>
+        <span class="sm:hidden">すでにアカウントを<br>お持ちの方は</span>
+        <%= link_to new_user_session_path, class: "underline-offset-4 hover:underline transition-all ml-1" do %>
+          こちら
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
