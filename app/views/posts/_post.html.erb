@@ -1,13 +1,14 @@
 <div class="w-full p-3">
-  <!-- カードの高さ指定 -->
-  <div class="card card-side bg-base-200 p-4 shadow-sm h-52 min-h-52 rounded-xl">
-    <figure class="flex-shrink-0">
-      <!-- 画像 -->
-      <div class="aspect-square overflow-hidden pt-4 rounded-none">
+  <!-- カード -->
+  <div class="card bg-base-200 p-4 md:px-4 md:py-5 shadow-sm min-h-52 rounded-4xl flex flex-col md:flex-row relative">
+    
+    <!-- 画像 -->
+    <figure class="flex-shrink-0 w-full md:w-52">
+      <div class="aspect-square overflow-hidden rounded-none">
         <% if post.image.attached? %>
-          <%= image_tag post.image.variant(resize_to_fill: [400, 400], format: :webp, saver: { quality: 85 }), class: "w-full h-full object-cover" %>
+          <%= image_tag post.image.variant(resize_to_fill: [400, 400], format: :webp, saver: { quality: 85 }), class: "w-45 h-45 object-cover" %>
         <% else %>
-          <%= image_tag "default_image.png", class: "w-full h-full object-cover" %>
+          <%= image_tag "default_image.png", class: "w-45 h-45 object-cover" %>
         <% end %>
       </div>
     </figure>
@@ -16,27 +17,19 @@
     <div class="card-body flex-1 min-w-0 flex py-2 flex-col text-neutral justify-between">
       <div class="flex-1">
         <p class="text-sm mb-2">
-          <%= post.user.name %>
-          ｜
-          <%= time_ago_in_words(post.created_at) %>前
+          <%= post.user.name %> ｜ <%= time_ago_in_words(post.created_at) %>前
         </p>
         <%= link_to post_path(post) do %>
+        <div class="flex items-center justify-between mb-3 text-base-300"><%= post.manufacturer %></div>
           <div class="flex items-center justify-between mb-3">
-            <h2 class="card-title text-lg line-clamp-2">
-              <%= post.product_name %>
-            </h2>
-            <span class="p-2 rounded-full md:hover:bg-[var(--color-base-400)]">
-            <%= image_tag "caret-right-bold.svg", class: "h-7 w-7 flex-shrink-0" %>
-            </span>
+            <div class="card-title text-md md:text-lg line-clamp-2"><%= post.product_name %></div>
           </div>
         <% end %>
-          <p class="text-sm">
-            <%= truncate(post.review, length: 25, omission: '...') %>
-          </p>
+        <p class="text-sm"><%= truncate(post.review, length: 25, omission: '...') %></p>
       </div>
-      
+
       <!-- 評価部分 -->
-      <div class="flex-shrink-0">
+      <div class="flex-shrink-0 mt-3">
         <% rating_images = {
           "lack_of_sweetness" => "smiley-meh.svg",
           "could_be_sweeter" => "smiley-blank.svg",
@@ -58,18 +51,18 @@
           <p><%= I18n.t("enums.post.sweetness_rating.#{post.sweetness_rating}") %></p>
         </div>
       </div>
-    </div>
 
-    <!-- 編集・削除ボタン -->
-    <% if user_signed_in? && current_user.own?(post) %>
-      <div class="absolute bottom-4 right-4 px-2 flex space-x-2 gap-2">
-        <%= link_to edit_post_path(post), class: "text-sm ring-accent action-button", data: { turbo: false } do %>
-          編集
-        <% end %>
-        <%= link_to post_path(post), class: "text-sm ring-secondary action-button", data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>
-          削除
-        <% end %>
-      </div>
-    <% end %>
+      <!-- 編集・削除ボタン -->
+      <% if user_signed_in? && current_user.own?(post) %>
+        <div class="flex justify-end gap-4 mt-4 md:mt-0">
+          <%= link_to edit_post_path(post), class: "text-sm ring-accent action-button", data: { turbo: false } do %>
+            編集
+          <% end %>
+          <%= link_to post_path(post), class: "text-sm ring-secondary action-button", data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>
+            削除
+          <% end %>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>
