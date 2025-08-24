@@ -3,6 +3,7 @@
 
 @theme {
   --font-kiwi: "Kiwi Maru", serif;
+  --font-roboto: "Roboto", sans-serif;
 }
 
 @plugin "daisyui/theme" {
