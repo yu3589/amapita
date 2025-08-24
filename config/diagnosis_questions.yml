@@ -2,11 +2,11 @@ questions:
   - category: "sweetness_strength"
     question: "このパンケーキ、シロップをどうかける？"
     options:
-      - text: "かけない"
+      - text: "ひとまわし"
         score: 1
-      - text: "軽くひとまわし"
+      - text: "軽く2周"
         score: 2
-      - text: "しっかり2周"
+      - text: "しっかり3周"
         score: 3
       - text: "たっぷり4周"
         score: 4
@@ -30,7 +30,7 @@ questions:
   - category: "natural_sweetness"
     question: "フルーツだけの甘さ、どう感じる？"
     options:
-      - text: "物足りない…"
+      - text: "物足りない"
         score: 1
       - text: "やや足りない"
         score: 2
