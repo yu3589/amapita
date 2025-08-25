@@ -50,7 +50,7 @@
 
   <% if Rails.env.production? %>
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WK4D3KRCVZ"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=<%= ENV["GA_TRACKING_ID"] %>"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
