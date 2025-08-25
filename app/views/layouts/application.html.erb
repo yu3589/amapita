@@ -48,15 +48,17 @@
     </style>
   </head>
 
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WK4D3KRCVZ"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
+  <% if Rails.env.production? %>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WK4D3KRCVZ"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
 
-    gtag('config', 'G-WK4D3KRCVZ');
-  </script>
+      gtag('config', '<%= ENV['GA_TRACKING_ID'] %>');
+    </script>
+  <% end %>
 
   <body class="min-h-screen flex flex-col bg-center bg-no-repeat bg-fixed bg-cover font-kiwi">
     <%= render 'shared/header' %>
