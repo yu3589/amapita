@@ -215,7 +215,8 @@ erDiagram
     
     %% === 投稿・評価・カテゴリ関連 ===
     posts ||--|| post_sweetness_scores : "1:1"
-    posts }o--|| categories : "多対1"
+    products ||--o{ posts : "1対多"
+    products }o--|| categories : "多対1"
 
     %% === ユーザーのアクション（いいね・コメント・通知・ブックマーク） ===
     users ||--o{ likes : "1:多"
