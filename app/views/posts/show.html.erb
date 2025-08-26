@@ -7,8 +7,8 @@
     <div class="flex flex-col justify-center items-center sm:flex-row sm:items-start sm:gap-6">
       <!-- 商品画像 -->
       <div class="aspect-square overflow-hidden p-4">
-        <% if @post.image.attached? %>
-          <%= image_tag @post.image.variant(resize_to_fill: [400, 400], format: :webp, saver: { quality: 85 }), class: "w-50 h-50 object-cover" %>
+        <% if @post.product.image.attached? %>
+          <%= image_tag @post.product.image.variant(resize_to_fill: [400, 400], format: :webp, saver: { quality: 85 }), class: "w-50 h-50 object-cover" %>
         <% else %>
           <%= image_tag "default_image.png", class: "w-50 h-50 object-cover" %>
         <% end %>
@@ -16,7 +16,7 @@
 
       <div class="flex flex-col justify-start items-start gap-2 md:gap-5 text-neutral px-10 md:px-0 py-6">
         <div class="text-xl">
-          <%= @post.product_name %>
+          <%= @post.product.name %>
         </div>
         
         <div class="flex flex-col text-base">

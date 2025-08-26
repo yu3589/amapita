@@ -1,61 +1,70 @@
 <div class="justify-center text-center rounded-4xl m-4">
 
-    <%= form_with model: @post, local: true, class: "p-4 md:p-2 space-y-6" do |f| %>
-      <% if @post.errors.any? %>
-        <div class="error-messages text-error bg-base-100 p-2 md:p-4 rounded-4xl ring-2 ring-error">
-          <ul>
-            <% @post.errors.full_messages.each do |message| %>
-              <li><%= message %></li>
-            <% end %>
-          </ul>
+  <%= form_with model: @post, local: true, class: "p-4 md:p-2 space-y-6" do |f| %>
+    <% if @post.errors.any? %>
+      <div class="error-messages text-error bg-base-100 p-2 md:p-4 rounded-4xl ring-2 ring-error">
+        <ul>
+          <% @post.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <%# --- 商品情報 --- %>
+    <%= f.fields_for :product do |p| %>
+      <div class="form-control">
+        <% if f.object.new_record? %>
+          <%= p.label :image, t("products.image"), class: "label p-2 text-neutral" %>
+          <%= p.file_field :image,
+              class: "block w-full max-w-xs mx-auto text-sm text-base-300
+                      file:mr-4 file:py-2 file:px-2 bg-base-100 rounded-xl 
+                      ring-2 ring-[var(--color-base-400)]
+                      file:rounded-l-lg
+                      file:text-sm
+                      file:bg-accent file:transition file:duration-200 file:hover:brightness-96
+                      file:text-neutral
+                      cursor-pointer" %>
+        <% else %>
+          <% if @post.product.image.attached? &&
+                @post.product.image.blob.present? &&
+                @post.product.image.blob.persisted? &&
+                @post.product.image.filename.to_s != "default.png" %>
+            <%= p.label :image, t("products.image"), class: "label p-2 text-neutral" %>
+            <div class="flex justify-center">
+              <%= image_tag @post.product.image.variant(resize_to_fill: [400, 400], format: :webp, saver: { quality: 85 }),
+                            class: "w-50 h-50 object-cover" %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
+
+    <%= f.fields_for :product do |p| %>
+      <% if f.object.new_record? %>
+        <div class="form-control">
+          <%= p.label :name, t("products.name"), class: "label p-2 text-neutral" %>
+          <%= p.text_field :name, class: "input input-bordered w-full" %>
+        </div>
+
+        <div class="form-control">
+          <%= p.label :manufacturer, t("products.manufacturer"), class: "label p-1 md:p-2 text-neutral" %>
+          <%= p.select :manufacturer,
+                options_for_select(I18n.t("products.manufacturers.list"), @post.product.manufacturer),
+                { prompt: "メーカーを選択" },
+                class: "select select-bordered w-full" %>
+        </div>
+
+        <div class="form-control">
+          <%= p.label :category_id, t("products.category"), class: "label p-2 text-neutral" %>
+          <%= p.select :category_id,
+                options_from_collection_for_select(Category.all, :id, :name, @post.product.category_id),
+                { prompt: "カテゴリを選択" },
+                class: "select select-bordered w-full" %>
         </div>
       <% end %>
+    <% end %>
 
-    <div class="form-control">
-      <%= f.label :product_image, t("posts.new.product_image"), class: "label p-2 text-neutral" %>
-
-      <% if @post.image.attached? &&
-      @post.image.attachment.blob.present? &&
-      @post.image.attachment.blob.persisted? %>
-        <div class="flex justify-center">
-          <%= image_tag @post.image.variant(resize_to_fill: [400, 400], format: :webp, saver: { quality: 85 }), class: "w-50 h-50 object-cover" %>
-        </div>
-        <p class="text-sm text-neutral mb-2 text-center leading-relaxed">
-          投稿されている画像は上記です。<br>（変更する場合は下から選択してください）
-        </p>
-      <% end %>
-
-      <%= f.file_field :image,
-          class: "block w-full max-w-xs mx-auto text-sm text-base-300
-                  file:mr-4 file:py-2 file:px-2 bg-base-100 rounded-xl 
-                  ring-2 ring-[var(--color-base-400)]
-                  file:rounded-l-lg
-                  file:text-sm
-                  file:bg-accent file:transition file:duration-200 file:hover:brightness-96
-                  file:text-neutral
-                  cursor-pointer" %>
-    </div>
-
-    <div class="form-control">
-      <%= f.label :product_name, t("posts.new.product_name"), class: "label p-2 text-neutral" %>
-      <%= f.text_field :product_name, class: "input input-bordered w-full" %>
-    </div>
-
-    <div class="form-control">
-      <%= f.label :manufacturer, t("posts.new.manufacturer"), class: "label p-1 md:p-2 text-neutral" %>
-      <%= f.select :manufacturer,
-            options_for_select(I18n.t("posts.manufacturers.list"), @post.manufacturer),
-            { prompt: "メーカーを選択" },
-            class: "select select-bordered w-full" %>
-    </div>
-
-    <div class="form-control">
-      <%= f.label :category_id, t('posts.new.category_id'), class: "label p-2 text-neutral" %>
-      <%= f.select :category_id,
-            options_from_collection_for_select(Category.all, :id, :name, @post.category_id),
-            { prompt: "カテゴリを選択" },
-            class: "select select-bordered w-full" %>
-    </div>
 
     <div class="form-control">
       <%= f.label :sweetness_rating, t('posts.new.sweetness_rating'), class: "label p-2 md:p-4 text-neutral" %>
