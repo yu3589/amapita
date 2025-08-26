@@ -5,6 +5,7 @@ ja:
       post: 投稿
       category: カテゴリ
       sweetness_type: 甘さタイプ
+      product: 商品
     attributes:
       user:
         current_password: "現在のパスワード"
@@ -13,14 +14,16 @@ ja:
         password_confirmation: "確認用パスワード"
         remember_me: "ログイン情報を記憶する"
       post:
-        product_name: 商品名
-        manufacturer: メーカー
         sweetness_rating: あまピタ度
-        category: カテゴリ
         image: 画像
         review: レビュー
       category:
         name: "カテゴリ名"
+      product:
+        name: 商品名
+        manufacturer: メーカー
+        category: カテゴリ
+        image: 画像
     errors:
       models:
         post:

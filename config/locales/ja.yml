@@ -19,15 +19,22 @@ ja:
   posts:
     new:
       title: あまピタ評価の登録
-      product_name: 商品名
-      manufacturer: メーカー
-      category_id: カテゴリ
       sweetness_rating: あまピタ度
       post_sweetness_score: あまさ評価
       review: レビュー
-      product_image: 商品の画像
+      image: 商品画像
+      product: 商品
+      product_image: 商品画像
     edit:
       title: あまピタ評価の編集
+  products:
+    title: 商品の登録
+    image: 商品の画像
+    name: 商品名
+    manufacturer: メーカー
+    category: カテゴリ
+    index:
+      title: あまピタ評価する商品を検索
     manufacturers:
       list:
         - 明治
