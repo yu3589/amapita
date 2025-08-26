@@ -1,13 +1,12 @@
 class Post < ApplicationRecord
-  validates :product_name, presence: true, length: { maximum: 25 }
-  validates :manufacturer, presence: true
   validates :sweetness_rating, presence: true
   validates :post_sweetness_score, presence: true
   validate :image_type_and_size
-  validates :review, length: { maximum: 300 }
+  validates :review, length: { maximum: 500 }
 
   belongs_to :user
-  belongs_to :category
+  belongs_to :product
+  accepts_nested_attributes_for :product, update_only: true
 
   has_one_attached :image
   has_one :post_sweetness_score, dependent: :destroy
