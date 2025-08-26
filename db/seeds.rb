@@ -20,3 +20,20 @@ categories = [
 categories.each do |cat|
   Category.find_or_create_by!(name: cat[:name])
 end
+
+products = [
+  {
+    category_name: "チョコレート",
+    name: "ポッキー",
+    manufacturer: "グリコ"
+  }
+]
+
+products.each do |p|
+  category = Category.find_by!(name: p[:category_name])
+  Product.find_or_create_by!(
+    name: p[:name],
+    manufacturer: p[:manufacturer],
+    category_id: category.id
+  )
+end
