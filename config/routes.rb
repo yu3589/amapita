@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   get "diagnoses/result/:token", to: "diagnoses#show", as: :diagnosis_result
 
   resources :posts, only: [ :index, :new, :create, :edit, :show, :update, :destroy ]
-
+  resources :products, only: [ :index ]
   get "up" => "rails/health#show", as: :rails_health_check
 
   get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
