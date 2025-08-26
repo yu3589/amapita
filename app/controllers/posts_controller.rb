@@ -7,11 +7,13 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
+    @post.build_product
     @post.build_post_sweetness_score
   end
 
   def create
     @post = current_user.posts.build(post_params)
+    @post.build_product if @post.product.nil?
     if @post.save
       redirect_to posts_path, notice: t("defaults.flash_message.created", item: Post.model_name.human)
     else
@@ -48,7 +50,8 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:product_name, :manufacturer, :category_id, :sweetness_rating, :review, :image,
+    params.require(:post).permit(:sweetness_rating, :review,
+    product_attributes: [ :name, :manufacturer, :category_id, :image ],
     post_sweetness_score_attributes: [
       :sweetness_strength, :aftertaste_clarity, :natural_sweetness, :coolness, :richness
     ]

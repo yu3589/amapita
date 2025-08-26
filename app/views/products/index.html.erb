@@ -1,0 +1,18 @@
+<div class="p-1 md:p-4">
+  <div class="flex flex-col p-2 md:p-6 items-center justify-center w-full max-w-3xl mx-auto bg-base-200 rounded-4xl">
+    <h1 class="text-center text-xl md:text-2xl p-4 border-b border-gray-300 w-full">
+      <%= t('.title') %></h1>
+
+      <%= render 'shared/search' %>
+
+      <div class="p-4">
+        <%= link_to new_post_path, class: "bg-primary rounded-full p-2 md:p-4 inline-flex items-center gap-2 hover:bg-primary/90 transition-colors duration-200 no-underline" do %>
+        <%= image_tag "smiley-wink.svg", class: "h-9 w-9 md:h-10 md:w-10 flex-shrink-0" %>
+        <span class="text-sm justify-center text-center md:text-base">
+            商品が見つからない場合、<br>
+            君のあまピタ評価をみんなに知らせよう！
+        </span>
+        <% end %>
+    </div>
+  </div>
+</div>

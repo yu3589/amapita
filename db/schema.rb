@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_08_08_102629) do
+ActiveRecord::Schema[7.2].define(version: 2025_08_26_103617) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -62,15 +62,23 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_08_102629) do
 
   create_table "posts", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.bigint "category_id", null: false
-    t.string "product_name", null: false
-    t.string "manufacturer", null: false
     t.integer "sweetness_rating", null: false
     t.text "review"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["category_id"], name: "index_posts_on_category_id"
+    t.bigint "product_id", null: false
+    t.index ["product_id"], name: "index_posts_on_product_id"
     t.index ["user_id"], name: "index_posts_on_user_id"
+  end
+
+  create_table "products", force: :cascade do |t|
+    t.bigint "category_id", null: false
+    t.string "name", null: false
+    t.string "manufacturer", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_products_on_category_id"
+    t.index ["name", "manufacturer"], name: "index_products_on_name_and_manufacturer", unique: true
   end
 
   create_table "sweetness_profiles", force: :cascade do |t|
@@ -116,8 +124,9 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_08_102629) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "post_sweetness_scores", "posts"
-  add_foreign_key "posts", "categories"
+  add_foreign_key "posts", "products"
   add_foreign_key "posts", "users"
+  add_foreign_key "products", "categories"
   add_foreign_key "sweetness_profiles", "sweetness_types"
   add_foreign_key "sweetness_profiles", "users"
   add_foreign_key "users", "sweetness_types"

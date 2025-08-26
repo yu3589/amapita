@@ -2,16 +2,12 @@
 
 one:
   user: one
-  category: one
-  product_name: MyString
-  manufacturer: MyString
+  product: one_product
   sweetness_rating: 1
   review: MyText
 
 two:
   user: two
-  category: two
-  product_name: MyString
-  manufacturer: MyString
+  product: two_product
   sweetness_rating: 1
   review: MyText

@@ -1,0 +1,12 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one_product:
+  category: one
+  name: "MyString"
+  manufacturer: "MyString"
+
+two_product:
+  category: two
+  name: "MyString1"
+  manufacturer: "MyString"
+
