@@ -78,3 +78,23 @@
   font-size: 1.5rem;
   color: #56524C;
 }
+
+.hover-animation {
+@apply transition-transform duration-300 md:hover:-translate-y-1 md:hover:shadow-md;
+}
+
+.category-hover-animation {
+@apply transition-transform duration-400 md:hover:-translate-y-1;
+}
+
+.category-image {
+@apply w-full h-full object-cover rounded-3xl opacity-50 ring-4 md:ring-8 ring-base-300;
+}
+
+.category-label {
+@apply absolute inset-0 flex items-center justify-center text-white md:text-2xl font-bold;
+}
+
+.category-label-multi {
+@apply absolute inset-0 flex flex-col items-center justify-center text-white text-base md:text-2xl font-bold;
+}
