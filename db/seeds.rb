@@ -26,6 +26,46 @@ products = [
     category_name: "チョコレート",
     name: "ポッキー",
     manufacturer: "グリコ"
+  },
+    {
+    category_name: "グミ・ゼリー",
+    name: "果汁グミ ぶどう",
+    manufacturer: "明治"
+  },
+    {
+    category_name: "クッキー・ビスケット",
+    name: "オレオ",
+    manufacturer: "ナビスコ"
+  },
+  {
+    category_name: "ケーキ・洋菓子",
+    name: "プレミアムロールケーキ",
+    manufacturer: "ローソン"
+  },
+  {
+    category_name: "アイス・冷菓",
+    name: "雪見だいふく",
+    manufacturer: "ロッテ"
+  },
+  {
+    category_name: "飲み物",
+    name: "午後の紅茶 ミルクティー",
+    manufacturer: "キリン"
+  },
+  {
+    category_name: "ドーナツ",
+    name: "ポン・デ・リング",
+    manufacturer: "ミスタードーナツ"
+  },
+  {
+    category_name: "スナック菓子",
+    name: "キャラメルコーン",
+    manufacturer: "東ハト"
+  },
+  {
+    category_name: "その他",
+    name: "なめらかプリン",
+    manufacturer: "パステル"
   }
 ]
 
