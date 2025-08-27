@@ -101,11 +101,18 @@ erDiagram
     posts {
         bigint id PK "ID"
         int user_id FK "ユーザーID"
-        int category_id FK "カテゴリID"
-        string product_name "商品名"
-        string manufacturer "メーカー名"
+        int product_id FK "商品ID"
         int sweetness_rating "あまピタ度"
         text review "商品の感想"
+        datetime created_at "作成日時"
+        datetime updated_at "更新日時"
+    }
+
+    products {
+        bigint id PK "ID"
+        int category_id FK "カテゴリID"
+        string name "商品名"
+        string manufacturer "メーカー名"
         datetime created_at "作成日時"
         datetime updated_at "更新日時"
     }
