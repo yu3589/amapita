@@ -33,8 +33,6 @@ ja:
     name: 商品名
     manufacturer: メーカー
     category: カテゴリ
-    index:
-      title: あまピタ評価する商品を検索
     manufacturers:
       list:
         - 明治
@@ -51,6 +49,23 @@ ja:
         - スターバックスコーヒー
         - ゴンチャ
         - その他
+  categories:
+    gummy: "グミ"
+    jelly: "ゼリー"
+    cookie: "クッキー"
+    biscuit: "ビスケット"
+    chocolate: "チョコレート菓子"
+    ice_cream: "アイス"
+    cake: "ケーキ"
+    doughnut: "ドーナツ"
+    bread: "パン"
+    drink: "ドリンク"
+    snack: "スナック菓子"
+    others: "その他"
+    index:
+      title: あまピタ評価する商品を検索
+    show:
+      title: あまピタ評価する商品を選択
   time:
     formats:
       default: "%Y年%m月%d日"
