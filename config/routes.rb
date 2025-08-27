@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get "categories/index"
+  get "categories/show"
   devise_for :users, controllers: {
     registrations: "users/registrations",
     sessions: "users/sessions",
@@ -11,7 +13,11 @@ Rails.application.routes.draw do
   get "diagnoses/result/:token", to: "diagnoses#show", as: :diagnosis_result
 
   resources :posts, only: [ :index, :new, :create, :edit, :show, :update, :destroy ]
-  resources :products, only: [ :index ]
+  resources :products, only: [ :index, :show ]
+
+  resources :categories, only: [ :index, :show ] do
+    resources :products, only: [ :show ]
+  end
   get "up" => "rails/health#show", as: :rails_health_check
 
   get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker

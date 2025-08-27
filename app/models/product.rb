@@ -7,4 +7,12 @@ class Product < ApplicationRecord
   belongs_to :category
   has_many :posts, dependent: :destroy
   has_one_attached :image
+
+  def total_posts
+    posts.size
+  end
+
+  def perfect_sweetness_count
+    posts.where(sweetness_rating: Post.sweetness_ratings[:perfect_sweetness]).size
+  end
 end

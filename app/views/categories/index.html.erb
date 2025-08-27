@@ -1,0 +1,108 @@
+<div class="p-2 md:p-4">
+  <div class="flex flex-col p-2 md:p-6 items-center justify-center w-full max-w-3xl mx-auto bg-base-200 rounded-4xl">
+    <h1 class="text-center text-md md:text-2xl p-4 border-b border-gray-300 w-full">
+      <%= t('.title') %></h1>
+
+      <%= render 'shared/search' %>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-10 items-center justify-center">
+        <%= link_to category_path(2), class: "flex flex-col items-center justify-center leading-none" do %>
+          <div class="aspect-square w-30 md:w-50 relative category-hover-animation">
+            <%= image_tag "category/gummy.webp", class: "category-image" %>
+            <div class="absolute inset-0 bg-black/30 rounded-3xl"></div>
+            <span class="category-label-multi">
+              <%= t('categories.gummy') %>
+              <span class="text-xl md:text-2xl">・</span>
+              <%= t('categories.jelly') %>
+            </span>
+          </div>
+        <% end %>
+        <%= link_to category_path(3), class: "flex flex-col items-center justify-center leading-none" do %>
+          <div class="aspect-square w-30 md:w-50 relative category-hover-animation">
+            <%= image_tag "category/cookie.webp", class: "category-image" %>
+            <div class="absolute inset-0 bg-black/30 rounded-3xl"></div>
+            <span class="category-label-multi">
+              <%= t('categories.cookie') %>
+              <span class="text-xl md:text-2xl">・</span>
+              <%= t('categories.biscuit') %>
+            </span>
+          </div>
+        <% end %>
+        <%= link_to category_path(1), class: "flex flex-col items-center justify-center leading-none" do %>
+          <div class="aspect-square w-30 md:w-50 relative category-hover-animation">
+            <%= image_tag "category/chocolate_for_category.webp", class: "category-image" %>
+            <div class="absolute inset-0 bg-black/30 rounded-3xl"></div>
+            <span class="category-label text-sm">
+              <%= t('categories.chocolate') %>
+            </span>
+          </div>
+        <% end %>
+        <%= link_to category_path(6), class: "flex flex-col items-center justify-center leading-none" do %>
+          <div class="aspect-square w-30 md:w-50 relative category-hover-animation">
+            <%= image_tag "category/ice_cream.webp", class: "category-image" %>
+            <div class="absolute inset-0 bg-black/30 rounded-3xl"></div>
+            <span class="category-label">
+              <%= t('categories.ice_cream') %>
+            </span>
+          </div>
+        <% end %>
+        <%= link_to category_path(4), class: "flex flex-col items-center justify-center leading-none" do %>
+          <div class="aspect-square w-30 md:w-50 relative category-hover-animation">
+            <%= image_tag "category/sample_cake.webp", class: "category-image" %>
+            <div class="absolute inset-0 bg-black/30 rounded-3xl"></div>
+            <span class="category-label">
+              <%= t('categories.cake') %>
+            </span>
+          </div>
+        <% end %>
+        <%= link_to category_path(9), class: "flex flex-col items-center justify-center leading-none" do %>
+          <div class="aspect-square w-30 md:w-50 relative category-hover-animation">
+            <%= image_tag "category/doughnut.webp", class: "category-image" %>
+            <div class="absolute inset-0 bg-black/30 rounded-3xl"></div>
+            <span class="category-label-multi">
+              <%= t('categories.doughnut') %>
+              <span class="text-xl md:text-2xl">・</span>
+              <%= t('categories.bread') %>
+            </span>
+          </div>
+        <% end %>
+        <%= link_to category_path(7), class: "flex flex-col items-center justify-center leading-none" do %>
+          <div class="aspect-square w-30 md:w-50 relative category-hover-animation">
+            <%= image_tag "category/sweet_drink.webp", class: "category-image" %>
+            <div class="absolute inset-0 bg-black/30 rounded-3xl"></div>
+            <span class="category-label">
+              <%= t('categories.drink') %>
+            </span>
+          </div>
+        <% end %>
+        <%= link_to category_path(11), class: "flex flex-col items-center justify-center leading-none" do %>
+          <div class="aspect-square w-30 md:w-50 relative category-hover-animation">
+            <%= image_tag "category/sample_snack.webp", class: "category-image" %>
+            <div class="absolute inset-0 bg-black/30 rounded-3xl"></div>
+            <span class="category-label">
+              <%= t('categories.snack') %>
+            </span>
+          </div>
+        <% end %>
+        <%= link_to category_path(12), class: "flex flex-col items-center justify-center col-span-2 md:col-span-1 leading-none" do %>
+          <div class="aspect-square w-30 md:w-50 relative category-hover-animation">
+            <%= image_tag "category/others.webp", class: "category-image" %>
+            <div class="absolute inset-0 bg-black/30 rounded-3xl"></div>
+            <span class="category-label">
+              <%= t('categories.others') %>
+            </span>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="p-4 md:pt-12">
+        <%= link_to new_post_path, class: "bg-primary rounded-full p-2 md:p-5 inline-flex shadow-sm items-center gap-2 hover-animation" do %>
+        <%= image_tag "smiley-wink.svg", class: "h-9 w-9 md:h-12 md:w-12 flex-shrink-0" %>
+        <span class="text-sm justify-center text-center md:text-base">
+            商品が見つからない場合、<br>
+            君のあまピタ評価をみんなに知らせよう！
+        </span>
+        <% end %>
+    </div>
+  </div>
+</div>
