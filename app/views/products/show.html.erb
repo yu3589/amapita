@@ -1,0 +1,170 @@
+<div class="p-2 md:p-4">
+  <div class="p-2 md:p-6 w-full max-w-3xl mx-auto bg-base-200 rounded-4xl">
+    <h1 class="text-center text-xl md:text-2xl p-4 border-b border-gray-300 w-full">
+      <%= @product.name %>
+    </h1>
+
+    <div class="flex flex-col justify-center items-center sm:flex-row sm:items-start sm:gap-6">
+      <!-- 商品画像 -->
+      <div class="aspect-square overflow-hidden p-4">
+        <% if @product.image.attached? %>
+          <%= image_tag @product.image.variant(resize_to_fill: [400, 400],
+            format: :webp, saver: { quality: 85 }), class: "w-30 md:w-50 h-30 md:h-50 object-cover" %>
+        <% else %>
+          <%= image_tag "default_image.png", class: "w-30 md:w-50 h-30 md:h-50 object-cover" %>
+        <% end %>
+      </div>
+
+      <div class="flex flex-col justify-start items-start gap-2 md:gap-5 text-neutral py-4 md:px-0 md:py-6">
+        <div class="text-sm md:text-base text-base-300">
+          <%= t('.manufacturer') %>：<%= @product.manufacturer %>
+        </div>
+        <div class="text-sm md:text-base text-base-300">
+          <%= t('.category') %>：<%= @product.category.name %>
+        </div>
+
+        <!-- あまピタ人数のカウント -->
+        <div class="w-full md:w-auto justify-center md:block py-4">
+          <% if @product.total_posts.zero? %>
+            <div class="ring-base-300 title-ring">
+              <%= image_tag "smiley-blank.svg", class: "h-8 w-8 md:h-10 md:w-10" %>
+              あまピタ評価はまだありません
+            </div>
+            <div class="mt-8 md:mt-12 text-center">
+                <%= link_to new_post_path(product_id: @product.id), class: "bg-primary rounded-full px-4 py-3 inline-flex items-center gap-3 shadow-sm hover-animation" do %>
+                <%= image_tag "smiley-wink.svg", class: "h-9 w-9 md:h-10 md:w-10 flex-shrink-0" %>
+                <span class="text-sm md:text-base">
+                    この商品のあまピタ評価をする
+                </span>
+            <% end %>
+          </div>
+          <% else %>
+            <div class="ring-primary title-ring">
+              <%= image_tag "smiley-wink.svg", class: "h-8 w-8 md:h-9 md:w-9" %>
+              <p><%= @product.total_posts %>人中<%= @product.perfect_sweetness_count %>人があまピタッ！</p>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <% if @posts.present? %>
+      <!-- チャート -->
+    <div class="flex justify-center p-2 md:p-6">
+      <div class="w-full max-w-lg sm:max-w-xl lg:max-w-xl p-2 border-secondary rounded-3xl bg-base-100">
+        <div class="flex flex-col justify-center items-center p-2 md:p-4 text-base md:text-xl">
+        あまさ評価チャート
+        </div>
+        <div class="mx-auto w-full max-w-md">
+        <% if user_signed_in? && @user_post.present? %>
+            <%= render "shared/average_chart",
+            chart_id: "averageChart",
+            user_data: [
+                @user_post.post_sweetness_score.sweetness_strength,
+                @user_post.post_sweetness_score.aftertaste_clarity,
+                @user_post.post_sweetness_score.natural_sweetness,
+                @user_post.post_sweetness_score.coolness,
+                @user_post.post_sweetness_score.richness
+            ],
+            average_data: [
+                @average_scores[:sweetness_strength],
+                @average_scores[:aftertaste_clarity],
+                @average_scores[:natural_sweetness],
+                @average_scores[:coolness],
+                @average_scores[:richness]
+            ] %>
+        <% else %>
+            <%= render "shared/chart",
+            chart_id: "radarChart",
+            data: [
+                @average_scores[:sweetness_strength],
+                @average_scores[:aftertaste_clarity],
+                @average_scores[:natural_sweetness],
+                @average_scores[:coolness],
+                @average_scores[:richness]
+            ] %>
+        <% end %>
+        </div>
+      </div>
+    </div>
+
+      <!-- ユーザーレビュー -->
+      <div class="bg-white px-4 py-6 md:p-2 max-w-2xl mx-auto rounded-4xl flex flex-col items-center">
+        <div class="p-2 text-base md:text-xl">
+          ユーザーレビュー
+        </div>
+
+        <% @posts.each do |post| %>
+        
+          <div class="py-4 border-b border-base-300 last:border-b-0">
+            <%= link_to post_path(post) do %>
+              <div class="grid grid-cols-3 md:hover:opacity-70 items-center">
+                <!-- ユーザー情報 -->
+                <div class="col-span-1 flex flex-col items-center justify-center">
+                  <%= image_tag "footer/user_circle.svg", class: "h-12 w-12" %>
+                  <span class="mt-1 text-sm font-medium"><%= post.user.name %></span>
+                </div>
+
+                <!-- 甘さ評価 -->
+                <div class="col-span-2 flex flex-col gap-2 text-left">
+                  <% rating_images = {
+                    "lack_of_sweetness" => "smiley-meh.svg",
+                    "could_be_sweeter" => "smiley-blank.svg",
+                    "perfect_sweetness" => "smiley-wink.svg",
+                    "slightly_too_sweet" => "smiley-nervous.svg",
+                    "too_sweet" => "smiley-x-eyes.svg"
+                  } %>
+
+                  <% bg_colors = {
+                    "lack_of_sweetness" => "bg-accent",
+                    "could_be_sweeter" => "bg-accent",
+                    "perfect_sweetness" => "bg-primary",
+                    "slightly_too_sweet" => "bg-secondary",
+                    "too_sweet" => "bg-secondary"
+                  } %>
+                  
+                  <div class="inline-flex items-center rounded-2xl gap-2 px-3 md:px-5 py-2 md:py-4
+                              text-neutral text-sm md:text-base w-fit <%= bg_colors[post.sweetness_rating] %>">
+                    <%= image_tag rating_images[post.sweetness_rating], class: "h-6 w-6" %>
+                    <p><%= I18n.t("enums.post.sweetness_rating.#{post.sweetness_rating}") %></p>
+                  </div>
+
+                  <!-- レビュー -->
+                  <div class="p-2">
+                    <p class="text-sm text-neutral"><%= truncate(post.review, length: 30, omission: '...') %></p>
+                  </div>
+                  <div class="p-2 text-sm text-base-300 text-right">
+                    <%= l post.created_at %>
+                  </div>
+                </div>
+              </div>
+
+              <% if user_signed_in? && current_user.own?(post) %>
+                <div class="flex justify-end gap-4 mt-2">
+                  <%= link_to edit_post_path(post), class: "text-sm ring-accent action-button", data: { turbo: false } do %>
+                    編集
+                  <% end %>
+                  <%= link_to post_path(post), class: "text-sm ring-secondary action-button", data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>
+                    削除
+                  <% end %>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+        <% end %>
+
+        <% user_reviewed = user_signed_in? && @posts.any? { |post| post.user_id == current_user.id } %>
+        <% unless user_reviewed %>
+          <div class="mt-8 md:mt-12 text-center">
+            <%= link_to new_post_path(product_id: @product.id), class: "bg-primary rounded-full px-4 py-3 inline-flex items-center gap-3 shadow-sm hover-animation" do %>
+              <%= image_tag "smiley-wink.svg", class: "h-9 w-9 md:h-10 md:w-10 flex-shrink-0" %>
+              <span class="text-sm md:text-base">
+                この商品のあまピタ評価をする
+              </span>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

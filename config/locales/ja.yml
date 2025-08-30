@@ -25,6 +25,8 @@ ja:
       image: 商品画像
       product: 商品
       product_image: 商品画像
+      manufacturer: メーカー
+      category: カテゴリ
     edit:
       title: あまピタ評価の編集
   products:
@@ -33,6 +35,9 @@ ja:
     name: 商品名
     manufacturer: メーカー
     category: カテゴリ
+    show:
+      manufacturer: メーカー
+      category: カテゴリ
     manufacturers:
       list:
         - 明治

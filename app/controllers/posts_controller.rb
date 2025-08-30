@@ -7,15 +7,21 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
-    @post.build_product
-    @post.build_post_sweetness_score
+    if params[:product_id].present?
+      # 既存商品へのレビュー
+      @post.product = Product.find(params[:product_id])
+      @post.build_post_sweetness_score
+    else
+      # 新規商品登録と同時レビュー
+      @post.build_product
+      @post.build_post_sweetness_score
+    end
   end
 
   def create
     @post = current_user.posts.build(post_params)
-    @post.build_product if @post.product.nil?
     if @post.save
-      redirect_to posts_path, notice: t("defaults.flash_message.created", item: Post.model_name.human)
+      redirect_to post_path(@post), notice: t("defaults.flash_message.created", item: Post.model_name.human)
     else
       flash.now[:alert] = t("defaults.flash_message.not_created", item: Post.model_name.human)
       render :new, status: :unprocessable_entity
@@ -50,8 +56,9 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:sweetness_rating, :review,
-    product_attributes: [ :name, :manufacturer, :category_id, :image ],
+    params.require(:post).permit(
+    :sweetness_rating, :review, :product_id,
+    product_attributes: [ :id, :name, :manufacturer, :category_id, :image ],
     post_sweetness_score_attributes: [
       :sweetness_strength, :aftertaste_clarity, :natural_sweetness, :coolness, :richness
     ]

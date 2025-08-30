@@ -14,7 +14,7 @@
     <%# --- 商品情報 --- %>
     <%= f.fields_for :product do |p| %>
       <div class="form-control">
-        <% if f.object.new_record? %>
+        <% if f.object.new_record? && @post.product.new_record? %>
           <%= p.label :image, t("products.image"), class: "label p-2 text-neutral" %>
           <%= p.file_field :image,
               class: "block w-full max-w-xs mx-auto text-sm text-base-300
@@ -30,7 +30,6 @@
                 @post.product.image.blob.present? &&
                 @post.product.image.blob.persisted? &&
                 @post.product.image.filename.to_s != "default.png" %>
-            <%= p.label :image, t("products.image"), class: "label p-2 text-neutral" %>
             <div class="flex justify-center">
               <%= image_tag @post.product.image.variant(resize_to_fill: [400, 400], format: :webp, saver: { quality: 85 }),
                             class: "w-50 h-50 object-cover" %>
@@ -40,15 +39,26 @@
       </div>
     <% end %>
 
+    <!-- 既存商品の場合 -->
+    <% if @post.product.persisted? %>
+      <%= f.hidden_field :product_id, value: @post.product.id %>
+      <div class="bg-base-100 p-4 rounded-xl text-sm text-neutral">
+        <p>商品名：<%= @post.product.name %></p>
+        <p>メーカー：<%= @post.product.manufacturer %></p>
+        <p>カテゴリ：<%= @post.product.category.name %></p>
+      </div>
+
+    <% else %>
+
+    <!-- 新規商品の場合 -->
     <%= f.fields_for :product do |p| %>
-      <% if f.object.new_record? %>
         <div class="form-control">
           <%= p.label :name, t("products.name"), class: "label p-2 text-neutral" %>
           <%= p.text_field :name, class: "input input-bordered w-full" %>
         </div>
 
         <div class="form-control">
-          <%= p.label :manufacturer, t("products.manufacturer"), class: "label p-1 md:p-2 text-neutral" %>
+          <%= p.label :manufacturer, t("products.manufacturer"), class: "label p-2 text-neutral" %>
           <%= p.select :manufacturer,
                 options_for_select(I18n.t("products.manufacturers.list"), @post.product.manufacturer),
                 { prompt: "メーカーを選択" },
@@ -64,7 +74,6 @@
         </div>
       <% end %>
     <% end %>
-
 
     <div class="form-control">
       <%= f.label :sweetness_rating, t('posts.new.sweetness_rating'), class: "label p-2 md:p-4 text-neutral" %>

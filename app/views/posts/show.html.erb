@@ -116,5 +116,14 @@
         </div>
       </div>
     </div>
+
+    <div class="p-2 flex flex-col md:flex-row justify-center items-center text-center">
+      <%= link_to product_path(@post.product) do %>
+        <div class="text-base rounded-2xl px-5 py-3 md:px-8 text-neutral ring-4 transition duration-200
+              ring-accent w-fit bg-white hover-animation">
+          みんなのあまピタ評価はこちら
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>
