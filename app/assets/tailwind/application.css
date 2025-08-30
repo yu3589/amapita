@@ -98,3 +98,7 @@
 .category-label-multi {
 @apply absolute inset-0 flex flex-col items-center justify-center text-white text-base md:text-2xl font-bold;
 }
+
+.title-ring {
+@apply px-4 py-2 md:px-5 md:py-2 text-neutral ring-4 rounded-xl bg-base-100 flex flex-row items-center gap-2;
+}
