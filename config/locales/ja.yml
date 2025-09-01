@@ -1,6 +1,9 @@
 ja:
   defaults:
+    search: 検索
+    clear: クリア
     delete_confirm: "削除しますか？"
+    search_word: キーワードを入力
     flash_message:
       created: "%{item}を作成しました"
       not_created: "%{item}を作成出来ませんでした"

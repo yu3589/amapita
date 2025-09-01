@@ -1,0 +1,110 @@
+<%= search_form_for q, url: posts_path, method: :get,
+    class: 'p-2 md:p-4 flex justify-center',
+    data: { search_clear_target: "form" } do |f| %>
+
+  <div class="bg-base-200 rounded-4xl p-4 md:p-6 max-w-md md:max-w-4xl mx-auto flex flex-col items-center gap-4">
+
+    <!-- キーワード -->
+    <div class="flex flex-row items-center gap-3 px-1">
+      <%= f.search_field :review_or_product_name_or_user_name_or_category_name_or_product_manufacturer_cont, 
+        class: "flex-1 bg-white p-2 rounded-4xl ring-2 w-40 md:w-100 ring-[var(--color-base-400)] text-sm px-4",
+        placeholder: t('defaults.search_word'),
+        data: { search_clear_target: "input" } %>
+
+        <%= f.submit t('defaults.search'),
+          class: "ring-secondary search-form-button text-base" %>
+
+        <button type="button" onclick="location.href='<%= url_for(only_path: true) %>'"
+          class="ring-[var(--color-base-400)] search-form-button text-base whitespace-nowrap">
+          <%= t('defaults.clear') %>
+        </button>
+    </div>
+
+    <!-- 詳細検索 -->
+    <div class="w-full">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 px-8 md:px-6">
+
+          <!-- カテゴリ -->
+          <div class="col-span-1">
+            <%= f.select :category_name_eq,
+                  Category.all.pluck(:name, :name),
+                  { include_blank: t('activerecord.models.category') },
+                  class: "select w-full text-sm bg-white py-2",
+                  data: { search_clear_target: "select" } %>
+          </div>
+
+          <!-- メーカー -->
+          <div class="col-span-1">
+            <%= f.select :product_manufacturer_eq,
+                  I18n.t('products.manufacturers.list'),
+                  { include_blank: t('activerecord.attributes.product.manufacturer') },
+                  class: "select w-full text-sm bg-white",
+                  data: { search_clear_target: "select" } %>
+          </div>
+
+        </div>
+
+        <!-- あまピタ度 -->
+        <div class="mt-6">
+          <div class="form-control">
+            <div class="bg-base-100 p-1 md:p-4 rounded-4xl ring-[var(--color-base-400)] ring-2 w-fit mx-auto">
+              <div class="flex justify-center mb-2">
+                <%= f.label :sweetness_rating_eq, t('activerecord.attributes.post.sweetness_rating'),
+                  class: "label text-neutral text-base text-center" %>
+              </div>
+              <div class="flex flex-wrap justify-center gap-2 md:gap-6 p-1 rounded-4xl text-sm">
+                <% 
+                  rating_images = {
+                    "lack_of_sweetness" => "smiley-meh.svg",
+                    "could_be_sweeter" => "smiley-blank.svg",
+                    "perfect_sweetness" => "smiley-wink.svg",
+                    "slightly_too_sweet" => "smiley-nervous.svg",
+                    "too_sweet" => "smiley-x-eyes.svg"
+                  }
+
+                  hover_colors = {
+                    "lack_of_sweetness" => "hover:bg-accent",
+                    "could_be_sweeter" => "hover:bg-accent", 
+                    "perfect_sweetness" => "hover:bg-primary",
+                    "slightly_too_sweet" => "hover:bg-secondary",
+                    "too_sweet" => "hover:bg-secondary"
+                  }
+
+                  selected_colors = {
+                    "lack_of_sweetness" => "peer-checked:bg-accent",
+                    "could_be_sweeter" => "peer-checked:bg-accent",
+                    "perfect_sweetness" => "peer-checked:bg-primary", 
+                    "slightly_too_sweet" => "peer-checked:bg-secondary",
+                    "too_sweet" => "peer-checked:bg-secondary"
+                  }
+
+                  tooltips = {
+                    "lack_of_sweetness" => "あまさが足りない",
+                    "could_be_sweeter" => "もう少し甘さがほしい",
+                    "perfect_sweetness" => "あまピタ！",
+                    "slightly_too_sweet" => "少しあますぎ",
+                    "too_sweet" => "あますぎ"
+                  }
+                %>
+
+                <% Post.sweetness_ratings.keys.each do |rating_key| %>
+                  <% checked = params.dig(:q, :sweetness_rating_eq).to_s == Post.sweetness_ratings[rating_key].to_s %>
+                  <label class="flex flex-col items-center cursor-pointer tooltip tooltip-bottom" 
+                        data-tip="<%= tooltips[rating_key] %>">
+                    <%= f.radio_button :sweetness_rating_eq, Post.sweetness_ratings[rating_key],
+                        class: "hidden peer sweetness-radio",
+                        checked: checked %>
+
+                    <span class="rating-indicator p-2 rounded-4xl transition-all duration-200 <%= hover_colors[rating_key] %> <%= selected_colors[rating_key] %>">
+                      <%= image_tag rating_images[rating_key], class: "w-9 h-9 pointer-events-none" %>
+                    </span>
+                  </label>
+                <% end %>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+<% end %>

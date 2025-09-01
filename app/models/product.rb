@@ -25,4 +25,12 @@ class Product < ApplicationRecord
       richness: scores.average(:richness)
     }
   end
+
+  def self.ransackable_attributes(auth_object = nil)
+    [ "name", "manufacturer" ]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    [ "category", "posts" ]
+  end
 end
