@@ -6,6 +6,7 @@ class Post < ApplicationRecord
 
   belongs_to :user
   belongs_to :product
+  has_one :category, through: :product
   accepts_nested_attributes_for :product, update_only: true
 
   has_one_attached :image
@@ -19,6 +20,14 @@ class Post < ApplicationRecord
     slightly_too_sweet: 3,
     too_sweet: 4
   }
+
+  def self.ransackable_attributes(auth_object = nil)
+    ["review", "created_at", "sweetness_rating"]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    [ "product", "user", "category" ]
+  end
 
   private
 
