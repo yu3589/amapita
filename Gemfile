@@ -53,6 +53,9 @@ gem "omniauth-rails_csrf_protection"
 
 gem "meta-tags"
 
+# ransack
+gem "ransack"
+
 gem "swimming_fish", "~> 0.2.2"
 
 group :development, :test do
