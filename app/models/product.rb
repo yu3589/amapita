@@ -31,6 +31,6 @@ class Product < ApplicationRecord
   end
 
   def self.ransackable_associations(auth_object = nil)
-    ["category", "posts"]
+    [ "category", "posts" ]
   end
 end
