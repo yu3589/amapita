@@ -7,99 +7,72 @@ ja:
       sweetness_type: 甘さタイプ
       product: 商品
     attributes:
+      sweetness_strength: 甘みの強さ
+      aftertaste_clarity: 後味のキレ/スッキリ感
+      natural_sweetness: 自然な甘さ
+      coolness: 爽快感
+      richness: 甘さの深み/コク
+      created_at: 作成日時
+      updated_at: 更新日時
       user:
-        current_password: "現在のパスワード"
-        email: "メールアドレス"
-        password: "パスワード"
-        password_confirmation: "確認用パスワード"
-        remember_me: "ログイン情報を記憶する"
+        current_password: 現在のパスワード
+        email: メールアドレス
+        password: パスワード
+        password_confirmation: 確認用パスワード
+        remember_me: ログイン情報を記憶する
       post:
         sweetness_rating: あまピタ度
-        image: 画像
         review: レビュー
-      category:
-        name: "カテゴリ名"
+        post_sweetness_score: あまさ評価
+        image: 商品の画像
       product:
         name: 商品名
+        image: 商品の画像
+        category_id: カテゴリ
         manufacturer: メーカー
-        category: カテゴリ
-        image: 画像
-    errors:
-      models:
-        post:
-          attributes:
-            category_id:
-              blank: "を入力してください"
-              required: "を入力してください"
-            product_name:
-              blank: "を入力してください"
-            manufacturer:
-              blank: "を入力してください"
-            sweetness_rating:
-              blank: "を入力してください"
-      messages:
-        blank: "を入力してください"
-        required: "を入力してください"
-        too_long: "は%{count}文字以内で入力してください"
-        taken: "が登録できませんでした。入力内容をご確認ください"
-        too_short: "は%{count}文字以上で入力してください"
-        confirmation: "と一致しません"
-  attributes:
-    id: ID
-    created_at: 作成日時
-    updated_at: 更新日時
-  errors:
-    format: "%{attribute}%{message}"
-    messages:
-      blank: "を入力してください"
-      required: "を入力してください"
-      too_long: "は%{count}文字以内で入力してください"
-      taken: "が登録できませんでした。入力内容をご確認ください"
-      too_short: "は%{count}文字以上で入力してください"
-      confirmation: "と一致しません"
   enums:
     sweetness_type:
       sweetness_kind:
-        fresh_natural: "さっぱり自然派"
-        rich_romantic: "濃厚ロマン派"
-        sweet_dreamer: "甘党ドリーマー"
-        balance_seeker: "バランス探求派"
+        fresh_natural: さっぱり自然派
+        rich_romantic: 濃厚ロマン派
+        sweet_dreamer: 甘党ドリーマー
+        balance_seeker: バランス探求派
     post:
       sweetness_rating:
         lack_of_sweetness: "あまさが\n足りない"
         could_be_sweeter: "もう少し\n甘さがほしい"
-        perfect_sweetness: "あまピタ！"
+        perfect_sweetness: あまピタ！
         slightly_too_sweet: "少し\nあますぎ"
-        too_sweet: "あますぎ"
+        too_sweet: あますぎ
   datetime:
     distance_in_words:
       less_than_x_seconds:
-        one:   1秒
+        one: 1秒
         other: "%{count}秒"
       x_seconds:
-        one:   1秒
+        one: 1秒
         other: "%{count}秒"
       less_than_x_minutes:
-        one:   1分
+        one: 1分
         other: "%{count}分"
       x_minutes:
-        one:   1分
+        one: 1分
         other: "%{count}分"
       about_x_hours:
-        one:   1時間
+        one: 1時間
         other: "%{count}時間"
       x_days:
-        one:   1日
+        one: 1日
         other: "%{count}日"
       about_x_months:
-        one:   1ヶ月
-        other: 約%{count}ヶ月
+        one: 1ヶ月
+        other: "%{count}ヶ月"
       x_months:
-        one:   1ヶ月
+        one: 1ヶ月
         other: "%{count}ヶ月"
       about_x_years:
-        one:   1年
-        other: 約%{count}年
+        one: 1年
+        other: "%{count}年"
       over_x_years:
-        one:   1年以上
+        one: 1年以上
         other: "%{count}年以上"

@@ -1,8 +1,6 @@
 ja:
   defaults:
-    search: 検索
-    clear: クリア
-    delete_confirm: "削除しますか？"
+    delete_confirm: 削除しますか？
     search_word: キーワードを入力
     flash_message:
       created: "%{item}を作成しました"
@@ -10,6 +8,26 @@ ja:
       updated: "%{item}を更新しました"
       not_updated: "%{item}を更新出来ませんでした"
       deleted: "%{item}を削除しました"
+  errors:
+    format: "%{attribute}%{message}"
+    messages:
+      blank: "を入力してください"
+      required: "を入力してください"
+      select: "を選んでください"
+      too_long: "は%{count}文字以内で入力してください"
+      taken: が登録できませんでした。入力内容をご確認ください
+      too_short: "は%{count}文字以上で入力してください"
+      confirmation: と一致しません
+  helpers:
+    submit:
+      create: 登録
+      submit: 保存
+      update: 更新する
+      edit: 編集
+      delete: 削除
+      search: 検索
+      clear: クリア
+      post: 投稿する
   diagnoses:
     new:
       title: 甘さ感覚診断
@@ -22,25 +40,15 @@ ja:
   posts:
     new:
       title: あまピタ評価の登録
-      sweetness_rating: あまピタ度
-      post_sweetness_score: あまさ評価
-      review: レビュー
-      image: 商品画像
-      product: 商品
-      product_image: 商品画像
-      manufacturer: メーカー
-      category: カテゴリ
     edit:
       title: あまピタ評価の編集
+    form:
+      post_placeholders: "この商品をどう思いますか？(任意)"
+    select:
+      manufacturer: メーカーを選択
+      category: カテゴリを選択
   products:
     title: 商品の登録
-    image: 商品の画像
-    name: 商品名
-    manufacturer: メーカー
-    category: カテゴリ
-    show:
-      manufacturer: メーカー
-      category: カテゴリ
     manufacturers:
       list:
         - 明治
@@ -58,18 +66,18 @@ ja:
         - ゴンチャ
         - その他
   categories:
-    gummy: "グミ"
-    jelly: "ゼリー"
-    cookie: "クッキー"
-    biscuit: "ビスケット"
-    chocolate: "チョコレート菓子"
-    ice_cream: "アイス"
-    cake: "ケーキ"
-    doughnut: "ドーナツ"
-    bread: "パン"
-    drink: "ドリンク"
-    snack: "スナック菓子"
-    others: "その他"
+    gummy: グミ
+    jelly: ゼリー
+    cookie: クッキー
+    biscuit: ビスケット
+    chocolate: チョコレート菓子
+    ice_cream: アイス
+    cake: ケーキ
+    doughnut: ドーナツ
+    bread: パン
+    drink: ドリンク
+    snack: スナック菓子
+    others: その他
     index:
       title: あまピタ評価する商品を検索
     show:

@@ -1,9 +1,10 @@
 class Product < ApplicationRecord
   validates :name, presence: true, length: { maximum: 40 }
-  validates :manufacturer, presence: true
+  validates :manufacturer, presence: { message: :select }
   validates :name, uniqueness: { scope: :manufacturer, message: "とメーカーの組み合わせは既に存在します" }
+  validates :category_id, presence: { message: :select }
 
-  belongs_to :category
+  belongs_to :category, optional: true
   has_many :posts, dependent: :destroy
   has_one_attached :image
 

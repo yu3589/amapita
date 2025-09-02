@@ -15,7 +15,7 @@
     <%= f.fields_for :product do |p| %>
       <div class="form-control">
         <% if f.object.new_record? && @post.product.new_record? %>
-          <%= p.label :image, t("products.image"), class: "label p-2 text-neutral" %>
+          <%= p.label :image, t('activerecord.attributes.product.image'), class: "label p-2 text-neutral" %>
           <%= p.file_field :image,
               class: "block w-full max-w-xs mx-auto text-sm text-base-300
                       file:mr-4 file:py-2 file:px-2 bg-base-100 rounded-xl 
@@ -42,44 +42,56 @@
     <!-- 既存商品の場合 -->
     <% if @post.product.persisted? %>
       <%= f.hidden_field :product_id, value: @post.product.id %>
-      <div class="bg-base-100 p-4 rounded-xl text-sm text-neutral">
-        <p>商品名：<%= @post.product.name %></p>
-        <p>メーカー：<%= @post.product.manufacturer %></p>
-        <p>カテゴリ：<%= @post.product.category.name %></p>
+      <div class="bg-base-100 p-4 rounded-4xl text-sm text-neutral">
+      <span class="text-left inline-block leading-loose">
+        <p><%=t('activerecord.attributes.product.name') %>：<%= @post.product.name %></p>
+        <p><%=t('activerecord.attributes.product.manufacturer') %>：<%= @post.product.manufacturer %></p>
+        <p><%=t('activerecord.attributes.product.category_id') %>：<%= @post.product.category.name %></p>
+      </span>
       </div>
-
     <% else %>
 
     <!-- 新規商品の場合 -->
     <%= f.fields_for :product do |p| %>
-        <div class="form-control">
-          <%= p.label :name, t("products.name"), class: "label p-2 text-neutral" %>
-          <%= p.text_field :name, class: "input input-bordered w-full" %>
+      <div class="form-control">
+        <div class="label p-2 text-neutral flex justify-center items-center space-x-1">
+          <%= p.label :name %>
+          <span class="text-error">*</span>
         </div>
+        <%= p.text_field :name, class: "input input-bordered" %>
+      </div>
 
-        <div class="form-control">
-          <%= p.label :manufacturer, t("products.manufacturer"), class: "label p-2 text-neutral" %>
-          <%= p.select :manufacturer,
-                options_for_select(I18n.t("products.manufacturers.list"), @post.product.manufacturer),
-                { prompt: "メーカーを選択" },
-                class: "select select-bordered w-full" %>
+      <div class="form-control">
+        <div class="label p-2 text-neutral flex justify-center items-center space-x-1">
+          <%= p.label :manufacturer %>
+          <span class="text-error">*</span>
         </div>
+        <%= p.select :manufacturer,
+              options_for_select(I18n.t("products.manufacturers.list"), @post.product.manufacturer),
+              { prompt: t("posts.select.manufacturer") },
+              class: "select select-bordered" %>
+      </div>
 
-        <div class="form-control">
-          <%= p.label :category_id, t("products.category"), class: "label p-2 text-neutral" %>
-          <%= p.select :category_id,
-                options_from_collection_for_select(Category.all, :id, :name, @post.product.category_id),
-                { prompt: "カテゴリを選択" },
-                class: "select select-bordered w-full" %>
+      <div class="form-control">
+        <div class="label p-2 text-neutral flex justify-center items-center space-x-1">
+          <%= p.label :category_id %>
+          <span class="text-error">*</span>
         </div>
-      <% end %>
+        <%= p.select :category_id,
+              options_from_collection_for_select(Category.all, :id, :name, @post.product.category_id),
+              { prompt: t("posts.select.category") },
+              class: "select select-bordered" %>
+      </div>
     <% end %>
+  <% end %>
 
     <div class="form-control">
-      <%= f.label :sweetness_rating, t('posts.new.sweetness_rating'), class: "label p-2 md:p-4 text-neutral" %>
-
-      <div class="flex flex-wrap justify-center gap-4 bg-base-100 p-2 md:p-6 rounded-4xl ring-2 ring-[var(--color-base-400)]">
-        <% 
+      <div class= "label p-2 text-neutral flex justify-center items-center space-x-1" >
+        <%= f.label :sweetness_rating %>
+        <span class="text-error">*</span>
+      </div>
+      <div class="flex flex-wrap justify-center gap-4 bg-base-100 p-2 md:p-5 rounded-4xl ring-2 ring-[var(--color-base-400)]">
+        <%
           rating_images = {
             "lack_of_sweetness" => "smiley-meh.svg",
             "could_be_sweeter" => "smiley-blank.svg",
@@ -123,17 +135,17 @@
     </div>
 
     <%= f.fields_for :post_sweetness_score do |s| %>
-      <div class="p-1">
-        <%= t("posts.new.post_sweetness_score") %>
+      <div class="pb-1">
+        <%= t("activerecord.attributes.post.post_sweetness_score") %>
       </div>
       <div class="flex flex-wrap justify-center gap-4 bg-base-100 p-2 rounded-4xl ring-2 ring-[var(--color-base-400)]">
         <div class="mx-auto space-y-6 p-4 sm:space-y-0 sm:table w-full">
           <% {
-            sweetness_strength: "甘みの強さ :",
-            aftertaste_clarity: "後味のキレ/スッキリ感 :",
-            natural_sweetness: "自然な甘さ :",
-            coolness: "爽快感 :",
-            richness: "甘さの深み/コク :"
+            sweetness_strength: "#{t('activerecord.attributes.sweetness_strength')} :",
+            aftertaste_clarity: "#{t('activerecord.attributes.aftertaste_clarity')} :",
+            natural_sweetness: "#{t('activerecord.attributes.natural_sweetness')} :",
+            coolness: "#{t('activerecord.attributes.coolness')} :",
+            richness: "#{t('activerecord.attributes.richness')} :",
           }.each do |field, label| %>
             <div class="sm:table-row">
               <div class="sm:mb-0 sm:table-cell p-1 sm:pr-4 sm:text-right">
@@ -156,12 +168,12 @@
     <% end %>
 
     <div class="form-control">
-      <%= f.label :review, t('posts.new.review'), class: "label p-2 text-neutral" %>
-      <%= f.text_area :review, rows: 4, class: "textarea textarea-bordered w-full", placeholder: "この商品をどう思いますか？(任意)" %>     
+      <%= f.label :review, t('activerecord.attributes.post.review'), class: "label p-2 text-neutral" %>
+      <%= f.text_area :review, rows: 4, class: "textarea textarea-bordered w-full", placeholder: t('posts.form.post_placeholders') %>     
     </div>
 
     <div class="form-control p-6">
-      <%= f.submit f.object.new_record? ? "投稿する" : "更新する",
+      <%= f.submit f.object.new_record? ? t('helpers.submit.post') : t('helpers.submit.update'),
             class: "bg-primary button-primary" %>
     </div>
   <% end %>

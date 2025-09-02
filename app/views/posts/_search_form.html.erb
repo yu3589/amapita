@@ -11,12 +11,11 @@
         placeholder: t('defaults.search_word'),
         data: { search_clear_target: "input" } %>
 
-        <%= f.submit t('defaults.search'),
-          class: "ring-secondary search-form-button text-base" %>
+        <%= f.submit t('helpers.submit.search'), class: "ring-secondary search-form-button text-base" %>
 
         <button type="button" onclick="location.href='<%= url_for(only_path: true) %>'"
           class="ring-[var(--color-base-400)] search-form-button text-base whitespace-nowrap">
-          <%= t('defaults.clear') %>
+          <%= t('helpers.submit.clear') %>
         </button>
     </div>
 
@@ -41,7 +40,6 @@
                   class: "select w-full text-sm bg-white",
                   data: { search_clear_target: "select" } %>
           </div>
-
         </div>
 
         <!-- あまピタ度 -->
