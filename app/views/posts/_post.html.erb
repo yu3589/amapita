@@ -56,10 +56,10 @@
       <% if user_signed_in? && current_user.own?(post) %>
         <div class="flex justify-end gap-4 mt-4 md:mt-0">
           <%= link_to edit_post_path(post), class: "text-sm ring-accent action-button", data: { turbo: false } do %>
-            編集
+            <%= t('helpers.submit.edit') %>
           <% end %>
           <%= link_to post_path(post), class: "text-sm ring-secondary action-button", data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>
-            削除
+            <%= t('helpers.submit.delete') %>
           <% end %>
         </div>
       <% end %>
