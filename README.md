@@ -120,6 +120,7 @@ erDiagram
     categories {
         bigint id PK "ID"
         string name "カテゴリー名"
+        string slug "カテゴリー名（URL用）"
         datetime created_at "作成日時"
         datetime updated_at "更新日時"
     }

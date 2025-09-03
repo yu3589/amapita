@@ -2,23 +2,30 @@
 # development, test). The code here should be idempotent so that it can be executed at any point in every environment.
 # The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
 
+Category.find_by(name: "ケーキ・洋菓子")&.update!(name: "ケーキ")
+Category.find_by(name: "アイス・冷菓")&.update!(name: "アイス")
+Category.find_by(name: "ドーナツ")&.update!(name: "パン・ドーナツ")
+
+Category.find_by(name: "和菓子")&.destroy!
+Category.find_by(name: "パン")&.destroy!
+Category.find_by(name: "キャンディ・あめ")&.destroy!
+
 categories = [
-  { name: "チョコレート" },
-  { name: "グミ・ゼリー" },
-  { name: "クッキー・ビスケット" },
-  { name: "ケーキ・洋菓子" },
-  { name: "和菓子" },
-  { name: "アイス・冷菓" },
-  { name: "飲み物" },
-  { name: "キャンディ・あめ" },
-  { name: "ドーナツ" },
-  { name: "パン" },
-  { name: "スナック菓子" },
-  { name: "その他" }
+  { name: "チョコレート", slug: "chocolate" },
+  { name: "グミ・ゼリー", slug: "gummy-jelly" },
+  { name: "クッキー・ビスケット", slug: "cookie-biscuit" },
+  { name: "ケーキ", slug: "cake" },
+  { name: "アイス", slug: "ice-cream" },
+  { name: "飲み物", slug: "drink" },
+  { name: "パン・ドーナツ", slug: "bread-doughnut" },
+  { name: "スナック菓子", slug: "snack" },
+  { name: "その他", slug: "other" }
 ]
 
 categories.each do |cat|
-  Category.find_or_create_by!(name: cat[:name])
+  category = Category.find_or_initialize_by(name: cat[:name])
+  category.slug = cat[:slug]
+  category.save!
 end
 
 products = [
@@ -38,12 +45,12 @@ products = [
     manufacturer: "ナビスコ"
   },
   {
-    category_name: "ケーキ・洋菓子",
+    category_name: "ケーキ",
     name: "プレミアムロールケーキ",
     manufacturer: "ローソン"
   },
   {
-    category_name: "アイス・冷菓",
+    category_name: "アイス",
     name: "雪見だいふく",
     manufacturer: "ロッテ"
   },
@@ -53,7 +60,7 @@ products = [
     manufacturer: "キリン"
   },
   {
-    category_name: "ドーナツ",
+    category_name: "パン・ドーナツ",
     name: "ポン・デ・リング",
     manufacturer: "ミスタードーナツ"
   },

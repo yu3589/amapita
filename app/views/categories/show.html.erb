@@ -1,67 +1,92 @@
-<div class="p-2 md:p-4">
+<div class="p-1 md:p-4">
   <div class="flex flex-col p-2 md:p-6 items-center justify-center max-w-3xl mx-auto bg-base-200 rounded-4xl">
     <h1 class="text-center text-md md:text-2xl p-4 border-b border-base-300 w-full">
-      <%= t('.title') %></h1>
+      <%= t('.title') %>
+    </h1>
 
-      <%= render 'shared/search' %>
+    <%= render 'shared/search_form', q: @q %>
 
-      <% if @products.present? %>
-          <% @products.each do |product| %>
-            <div class="py-4 border-b border-base-300 last:border-b-0 max-w-3xl">
-              <%= link_to product_path(product) do %>
-                <div class="flex flex-col md:flex-row items-center md:items-start pt-4">
-                  <!-- 画像 -->
-                  <figure class="flex-shrink-0 w-40 md:w-50">
-                    <div class="aspect-square overflow-hidden">
-                      <% if product.image.attached? %>
-                        <%= image_tag product.image.variant(resize_to_fill: [400, 400], format: :webp, saver: { quality: 85 }), class: "w-40 h-40 object-cover" %>
-                      <% else %>
-                        <%= image_tag "default_image.png", class: "w-40 h-40 object-cover" %>
+    <% if @products.present? %>
+      <% @products.each do |product| %>
+        <div class="py-1 border-b border-base-300 last:border-b-0 max-w-3xl">
+          <%= link_to category_product_path(@category, product) do %>
+            <div class="flex flex-row items-center md:items-start pt-4">
+              <!-- 画像 -->
+              <figure class="flex-shrink-0 w-30 md:w-50">
+                <div class="aspect-square overflow-hidden">
+                  <% if product.image.attached? %>
+                    <%= image_tag product.image.variant(resize_to_fill: [400, 400], format: :webp, saver: { quality: 85 }), 
+                                  class: "w-30 h-30 md:w-40 md:h-40 object-cover" %>
+                  <% else %>
+                    <%= image_tag "default_image.png", class: "w-30 h-30 md:w-40 md:h-40 object-cover" %>
+                  <% end %>
+                </div>
+              </figure>
+
+              <!-- 商品情報 -->
+              <div class="flex-1 w-full flex flex-col items-center md:items-start gap-2 md:gap-4 p-2">
+                <p class="text-xs md:text-base text-base-300 text-center md:text-left">
+                  <%= product.manufacturer %>
+                </p>
+                <p class="text-sm md:text-xl font-semibold text-center md:text-left">
+                  <%= product.name %>
+                </p>
+
+                <% if product.total_posts.zero? %>
+                  <div class="p-1">
+                    <div class="ring-base-300 px-5 py-1 md:px-5 md:py-2 text-neutral ring-3 md:ring-4 rounded-xl bg-base-100 
+                                flex flex-col md:flex-row items-center gap-2 w-full justify-center md:justify-start">
+                      <%= image_tag "smiley-blank.svg", class: "h-8 w-8 md:h-10 md:w-10" %>
+                      <p class="text-xs md:text-base">
+                        <%= raw t('defaults.label.no_rating') %>
+                      </p>
+                    </div>
+                    <!-- 投稿画面へ遷移 -->
+                    <div class="mt-4 md:mt-6 text-center">
+                      <%= link_to new_post_path(product_id: product.id), 
+                                  class: "bg-accent rounded-full px-3 py-1 md:px-4 py-3
+                                          inline-flex items-center shadow-sm transition hover-animation" do %>
+                        <span class="text-xs md:text-sm">
+                          <%= t('defaults.buttons.new_post') %>
+                        </span>
                       <% end %>
                     </div>
-                  </figure>
-
-                  <!-- 商品情報 -->
-                  <div class="flex-1 w-full flex flex-col items-center md:items-start gap-2">
-                    <p class="text-sm text-base-300 text-center md:text-left"><%= product.manufacturer %></p>
-                    <p class="text-lg font-semibold text-center md:text-left"><%= product.name %></p>
-
-                    <% if product.total_posts.zero? %>
-                      <div class="py-3">
-                        <div class="ring-base-300 px-4 py-2 md:px-5 md:py-2 text-neutral ring-4 rounded-xl bg-base-100 
-                                    flex flex-col md:flex-row items-center gap-2 w-full justify-center md:justify-start">
-                          <%= image_tag "smiley-blank.svg", class: "h-8 w-8 md:h-10 md:w-10" %>
-                          あまピタ評価はまだありません
-                        </div>
-                      </div>
-                    <% else %>
-                      <div class="pt-3">
-                        <div class="ring-primary px-4 py-2 md:px-5 md:py-2 text-neutral ring-4 rounded-xl bg-base-100 
-                                    flex flex-col md:flex-row items-center gap-2 w-full justify-center md:justify-start">
-                          <%= image_tag "smiley-wink.svg", class: "h-8 w-8 md:h-10 md:w-10" %>
-                          <p><%= product.total_posts %>人中<%= product.perfect_sweetness_count %>人があまピタッ！</p>
-                        </div>
-                      </div>
-                    <% end %>
-
-
                   </div>
-                </div>
-              <% end %>
+                <% else %>
+                  <!-- あまピタカウント -->
+                  <div class="px-1 py-2">
+                    <div class="ring-primary px-1 py-1 md:px-5 md:py-2 text-neutral ring-3 md:ring-4 rounded-xl bg-base-100 
+                                flex flex-col md:flex-row items-center gap-1 md:gap-2 w-full justify-center md:justify-start">
+                      <%= image_tag "smiley-wink.svg", class: "h-8 w-8 md:h-10 md:w-10" %>
+                      <p class="text-xs md:text-base pb-1">
+                        <%= t("defaults.label.stats", count: product.total_posts, 
+                        perfect: product.perfect_sweetness_count) %>
+                      </p>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
             </div>
           <% end %>
-      <% else %>
-        <div class="text-center py-6 text-gray-500">商品がありません</div>
+        </div>
       <% end %>
-
-      <div class="mt-8 md:mt-12 text-center">
-        <%= link_to new_post_path, class: "bg-primary rounded-full px-4 py-3 md:px-6 md:py-4 inline-flex items-center gap-3 shadow-sm hover:opacity-90 transition" do %>
-          <%= image_tag "smiley-wink.svg", class: "h-9 w-9 md:h-12 md:w-12 flex-shrink-0" %>
-          <span class="text-sm md:text-base">
-            商品が見つからない場合、<br>
-            君のあまピタ評価をみんなに知らせよう！
-          </span>
-        <% end %>
+    <% else %>
+      <div class="flex flex-raw text-center items-center justify-center text-neutral gap-1">
+        <%= t('.product_not_found') %>
+        <%= image_tag "smiley-x-eyes.svg", class: "h-8 w-8" %>
       </div>
+    <% end %>
+
+    <!-- 商品登録&投稿画面へ遷移 -->
+    <div class="mt-8 md:mt-12 text-center">
+      <%= link_to new_post_path, 
+                  class: "bg-primary rounded-full px-4 py-3 md:px-6 md:py-4 
+                          inline-flex items-center gap-3 shadow-sm transition hover-animation" do %>
+        <%= image_tag "smiley-wink.svg", class: "h-9 w-9 md:h-12 md:w-12" %>
+        <span class="text-sm md:text-base">
+          <%= raw t('.product_register_suggestion') %>
+        </span>
+      <% end %>
+    </div>
   </div>
 </div>

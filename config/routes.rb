@@ -13,9 +13,12 @@ Rails.application.routes.draw do
   resources :posts, only: [ :index, :new, :create, :edit, :show, :update, :destroy ]
   resources :products, only: [ :index, :show ]
 
-  resources :categories, only: [ :index, :show ] do
+  resources :categories, only: [ :index, :show ], param: :slug do
     resources :products, only: [ :show ]
   end
+
+  resources :products, only: [ :show ]
+
   get "up" => "rails/health#show", as: :rails_health_check
 
   get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker

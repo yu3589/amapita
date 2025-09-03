@@ -23,25 +23,24 @@
           <%= t('activerecord.attributes.product.category_id') %>：<%= @product.category.name %>
         </div>
 
-        <!-- あまピタ人数のカウント -->
+        <!-- あまピタカウント -->
         <div class="w-full md:w-auto justify-center md:block py-4">
           <% if @product.total_posts.zero? %>
             <div class="ring-base-300 title-ring">
               <%= image_tag "smiley-blank.svg", class: "h-8 w-8 md:h-10 md:w-10" %>
-              あまピタ評価はまだありません
+              <%= t('defaults.label.no_rating') %>
             </div>
             <div class="mt-8 md:mt-12 text-center">
-                <%= link_to new_post_path(product_id: @product.id), class: "bg-primary rounded-full px-4 py-3 inline-flex items-center gap-3 shadow-sm hover-animation" do %>
-                <%= image_tag "smiley-wink.svg", class: "h-9 w-9 md:h-10 md:w-10 flex-shrink-0" %>
+                <%= link_to new_post_path(product_id: @product.id), class: "bg-accent rounded-full p-4 inline-flex items-center gap-3 shadow-sm hover-animation" do %>
                 <span class="text-sm md:text-base">
-                    この商品のあまピタ評価をする
+                  <%= t('defaults.buttons.new_post') %>
                 </span>
             <% end %>
           </div>
           <% else %>
             <div class="ring-primary title-ring">
               <%= image_tag "smiley-wink.svg", class: "h-8 w-8 md:h-9 md:w-9" %>
-              <p><%= @product.total_posts %>人中<%= @product.perfect_sweetness_count %>人があまピタッ！</p>
+              <p><%= t("defaults.label.stats", count: @product.total_posts, perfect:@product.perfect_sweetness_count) %></p>
             </div>
           <% end %>
         </div>
@@ -52,10 +51,7 @@
       <!-- チャート -->
     <div class="flex justify-center p-2 md:p-6">
       <div class="w-full max-w-lg sm:max-w-xl lg:max-w-xl p-2 border-secondary rounded-3xl bg-base-100">
-        <div class="flex flex-col justify-center items-center p-2 md:p-4 text-base md:text-xl">
-        あまさ評価チャート
-        </div>
-        <div class="mx-auto w-full max-w-md">
+        <div class="mx-auto w-full max-w-md p-2">
         <% if user_signed_in? && @user_post.present? %>
             <%= render "shared/average_chart",
             chart_id: "averageChart",
@@ -91,7 +87,7 @@
       <!-- ユーザーレビュー -->
       <div class="bg-white px-4 py-6 md:p-2 max-w-2xl mx-auto rounded-4xl flex flex-col items-center">
         <div class="p-2 text-base md:text-xl">
-          ユーザーレビュー
+          <%= t('.review') %>
         </div>
 
         <% @posts.each do |post| %>
@@ -142,10 +138,10 @@
               <% if user_signed_in? && current_user.own?(post) %>
                 <div class="flex justify-end gap-4 mt-2">
                   <%= link_to edit_post_path(post), class: "text-sm ring-accent action-button", data: { turbo: false } do %>
-                    編集
+                    <%= t('helpers.submit.edit') %>
                   <% end %>
                   <%= link_to post_path(post), class: "text-sm ring-secondary action-button", data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>
-                    削除
+                    <%= t('helpers.submit.delete') %>
                   <% end %>
                 </div>
               <% end %>
@@ -159,7 +155,7 @@
             <%= link_to new_post_path(product_id: @product.id), class: "bg-primary rounded-full px-4 py-3 inline-flex items-center gap-3 shadow-sm hover-animation" do %>
               <%= image_tag "smiley-wink.svg", class: "h-9 w-9 md:h-10 md:w-10 flex-shrink-0" %>
               <span class="text-sm md:text-base">
-                この商品のあまピタ評価をする
+                <%= t('defaults.new_post') %>
               </span>
             <% end %>
           </div>
