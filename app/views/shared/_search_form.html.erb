@@ -1,0 +1,30 @@
+<%= search_form_for q, url: category_path(@category), method: :get,
+    class: 'py-2 px-1 flex justify-center w-full',
+    data: { search_clear_target: "form" } do |f| %>
+
+  <div class="bg-base-200 rounded-4xl py-2 px-1 md:p-6 max-w-md md:max-w-4xl mx-auto flex flex-col items-center gap-4">
+
+    <!-- 商品名検索 -->
+    <div class="flex flex-row items-stretch md:items-center gap-3 w-full">
+      <!-- カテゴリ情報を保持 -->
+      <%= f.hidden_field :category_slug, value: params.dig(:q, :category_slug) || @category&.slug %>
+
+      <!-- 検索入力 -->
+      <%= f.search_field :name_cont, 
+        class: "flex-1 bg-white rounded-4xl ring-2 w-full md:w-100 ring-[var(--color-base-400)] text-sm md:text-base md:py-2 px-4",
+        placeholder: t('defaults.placeholders.search_products'),
+        data: { search_clear_target: "input" } %>
+
+      <!-- 検索ボタン -->
+      <%= f.submit t('helpers.submit.search'), 
+          class: "ring-secondary search-form-button text-base md:w-auto" %>
+
+      <!-- クリアボタン -->
+      <button type="button"
+              onclick="location.href='<%= category_path(@category.slug) if @category %>'"
+              class="ring-[var(--color-base-400)] search-form-button text-base whitespace-nowrap md:w-auto">
+        <%= t('helpers.submit.clear') %>
+      </button>
+    </div>
+  </div>
+<% end %>
