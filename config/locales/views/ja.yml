@@ -1,13 +1,23 @@
 ja:
   defaults:
     delete_confirm: 削除しますか？
-    search_word: キーワードを入力
+    placeholders:
+      search_word: キーワードを入力
+      search_products: 商品名を入力
     flash_message:
       created: "%{item}を作成しました"
       not_created: "%{item}を作成出来ませんでした"
       updated: "%{item}を更新しました"
       not_updated: "%{item}を更新出来ませんでした"
       deleted: "%{item}を削除しました"
+    messages:
+      
+      
+    label:
+      stats: "%{count}人中%{perfect}人があまピタッ！"
+      no_rating: あまピタ評価はまだありません
+    buttons:
+      new_post: あまピタ評価をする
   errors:
     format: "%{attribute}%{message}"
     messages:
@@ -49,6 +59,10 @@ ja:
       category: カテゴリを選択
   products:
     title: 商品の登録
+    search:
+      title: 商品名から探す
+    show:
+      review: ユーザーレビュー
     manufacturers:
       list:
         - 明治
@@ -70,18 +84,20 @@ ja:
     jelly: ゼリー
     cookie: クッキー
     biscuit: ビスケット
-    chocolate: チョコレート菓子
+    chocolate: チョコレート
     ice_cream: アイス
     cake: ケーキ
     doughnut: ドーナツ
     bread: パン
-    drink: ドリンク
+    drink: 飲み物
     snack: スナック菓子
-    others: その他
+    other: その他
     index:
-      title: あまピタ評価する商品を検索
+      title: あまピタ評価するカテゴリを選択
     show:
       title: あまピタ評価する商品を選択
+      product_not_found: 商品が見つかりませんでした
+      product_register_suggestion: 商品が見つからない場合、<br>君のあまピタ評価を登録してみよう！
   time:
     formats:
       default: "%Y年%m月%d日"
