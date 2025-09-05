@@ -17,12 +17,17 @@
     <div class="card-body flex-1 min-w-0 flex py-2 flex-col text-neutral justify-between">
       <div class="flex-1">
         <p class="text-sm mb-2">
-          <%= post.user.name %> ｜ <%= time_ago_in_words(post.created_at) %>前
+          <%= link_to user_path(post.user), class: "flex items-center gap-1 hover:opacity-70" do %>
+            <span><%= post.user.name %></span>
+            <span>｜</span>
+            <span><%= time_ago_in_words(post.created_at) %>前</span>
+          <% end %>
         </p>
+
         <%= link_to post_path(post) do %>
         <div class="flex items-center justify-between py-1 text-base-300"><%= post.product.manufacturer %></div>
           <div class="flex items-center justify-between mb-3">
-            <div class="card-title text-md md:text-lg line-clamp-2"><%= post.product.name %></div>
+            <div class="card-title text-md md:text-lg line-clamp-2 hover:opacity-70"><%= post.product.name %></div>
           </div>
         <% end %>
         <p class="text-sm"><%= truncate(post.review, length: 25, omission: '...') %></p>

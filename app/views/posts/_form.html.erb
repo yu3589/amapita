@@ -42,12 +42,14 @@
     <!-- 既存商品の場合 -->
     <% if @post.product.persisted? %>
       <%= f.hidden_field :product_id, value: @post.product.id %>
-      <div class="bg-base-100 p-4 rounded-4xl text-sm text-neutral">
-      <span class="text-left inline-block leading-loose">
-        <p><%=t('activerecord.attributes.product.name') %>：<%= @post.product.name %></p>
-        <p><%=t('activerecord.attributes.product.manufacturer') %>：<%= @post.product.manufacturer %></p>
-        <p><%=t('activerecord.attributes.product.category_id') %>：<%= @post.product.category.name %></p>
-      </span>
+      <div class="flex justify-center w-full">
+        <div class="bg-base-100 p-4 rounded-4xl text-sm text-neutral w-fit ring-primary ring-2">
+        <span class="text-left inline-block leading-loose">
+          <p><%=t('activerecord.attributes.product.name') %>：<%= @post.product.name %></p>
+          <p><%=t('activerecord.attributes.product.manufacturer') %>：<%= @post.product.manufacturer %></p>
+          <p><%=t('activerecord.attributes.product.category_id') %>：<%= @post.product.category.name %></p>
+        </span>
+        </div>
       </div>
     <% else %>
 
