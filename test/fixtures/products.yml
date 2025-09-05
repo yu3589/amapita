@@ -1,12 +1,14 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one_product:
-  category: one
+  id: 1
+  category_id: 1
   name: "MyString"
   manufacturer: "MyString"
 
 two_product:
-  category: two
+  id: 2
+  category_id: 2
   name: "MyString1"
   manufacturer: "MyString"
 

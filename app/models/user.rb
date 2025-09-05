@@ -1,10 +1,11 @@
 class User < ApplicationRecord
-  belongs_to :current_sweetness_type, class_name: "SweetnessType", foreign_key: "sweetness_type_id", optional: true
+  belongs_to :sweetness_type, optional: true
   has_many :sweetness_profiles, dependent: :destroy
   has_many :posts
 
   validates :name, presence: true, length: { maximum: 10 }, uniqueness: true
   validates :uid, presence: true, uniqueness: { scope: :provider }
+  validates :self_introduction, length: { maximum: 100 }
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,

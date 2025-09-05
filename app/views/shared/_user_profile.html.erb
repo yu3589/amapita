@@ -1,0 +1,114 @@
+<div class="p-1 md:p-4">
+  <div class="flex flex-col p-2 md:p-6 items-center justify-center w-full max-w-3xl mx-auto bg-base-200 rounded-4xl">
+    <h1 class="text-center text-xl md:text-2xl p-4 border-b border-gray-300 w-full">
+      <% if user == current_user %>
+        <%= t('profiles.show.title') %>
+      <% else %>
+        <%= t('profiles.info') %>
+      <% end %>
+    </h1>
+
+    <!-- ユーザー情報 -->
+    <div class="flex flex-col justify-center items-center sm:items-start gap-4">
+      <div class="flex flex-row gap-2 md:gap-6 pt-6">
+        <div class="text-base md:text-xl">
+          <%= user.name %>
+        </div>
+      </div>
+
+      <% if user.self_introduction.present? %>
+        <div class="flex flex-col rounded-xl py-2 md:py-3 text-sm">
+          <span><%= user.self_introduction %></span>
+        </div>
+      <% end %>
+
+      <!-- 編集 -->
+      <% if user == current_user %>
+        <div class="flex flex-col gap-4 p-1 md:p-2 w-full">
+          <div class="flex justify-end w-full">
+            <%= link_to edit_profile_path, class: "text-sm ring-accent action-button", data: { turbo: false } do %>
+              <%= t('helpers.submit.edit') %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <!-- チャート -->
+    <% if sweetness_profiles.present? %>
+      <div class="flex justify-center p-2 w-full">
+        <div class="w-full max-w-lg md:max-w-xl p-2 rounded-3xl bg-base-100">
+
+          <div class="flex justify-end text-sm md:text-base font-bold mb-2">
+            <span class="rounded-full bg-secondary text-white px-3 py-2 text-sm md:text-base">
+              <%= I18n.t("enums.sweetness_type.sweetness_kind.#{sweetness_type.sweetness_kind}") %>
+            </span>
+          </div>
+
+          <div class="mx-auto w-full max-w-md">
+            <%= render "shared/chart/sweetness_profile_chart",
+                chart_id: chart_id,
+                data: [
+                  sweetness_profiles.sweetness_strength,
+                  sweetness_profiles.aftertaste_clarity,
+                  sweetness_profiles.natural_sweetness,
+                  sweetness_profiles.coolness,
+                  sweetness_profiles.richness,
+                ] %>
+          </div>
+
+          <div class="flex justify-end text-xs md:text-sm pb-4 text-gray-300">
+            <%= t('profiles.diagnosis.latest_date') %>：
+            <%= l sweetness_profiles.created_at %>
+          </div>
+
+          <% if user == current_user %>
+            <div class="flex justify-end">
+              <%= link_to new_diagnosis_path, class: "text-sm bg-primary action-button-primary hover-animation", data: { turbo: false } do %>
+                <%= t('defaults.buttons.retake_diagnosis') %>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% else %>
+      <% if user == current_user %>
+        <div class="text-center py-6 text-sm md:text-base text-[var(--color-base-400)]">
+          <%= raw t('profiles.diagnosis.no_data') %>
+        </div>
+        <div class="flex justify-end">
+          <%= link_to new_diagnosis_path, class: "text-sm bg-primary action-button-primary hover-animation", data: { turbo: false } do %>
+            <%= t('defaults.buttons.take_diagnosis') %>
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
+
+    <!-- タブ -->
+    <div class="tabs tabs-border py-2 md:py-6 justify-center w-full">
+      <!-- 投稿 -->
+      <input type="radio" name="my_tabs_4" role="tab"
+        class="tab text-xs md:text-base text-primary hover:text-primary"
+        aria-label="<%= t('profiles.tabs.posts') %>" checked />
+      <div role="tabpanel" class="tab-content bg-base-100 md:p-6 border-primary rounded-4xl w-full">
+        <div class="flex flex-col mx-auto items-center justify-center text-xs md:text-sm w-full">
+          <% if @posts.present? %>
+            <%= render @posts %>
+          <% else %>
+            <p class="p-4"><%= t('profiles.empty_states.no_posts') %></p>
+          <% end %>
+        </div>
+      </div>
+
+      <!-- ブックマーク -->
+      <input type="radio" name="my_tabs_4" role="tab"
+        class="tab text-xs md:text-base text-accent hover:text-accent"
+        aria-label="<%= t('profiles.tabs.bookmarks') %>" />
+      <div role="tabpanel" class="tab-content bg-base-100 md:p-6 border-accent rounded-4xl w-full">
+        <div class="flex flex-col mx-auto items-center justify-center text-xs md:text-sm w-full">
+          <p class="p-4"><%= t('profiles.empty_states.no_bookmarks') %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

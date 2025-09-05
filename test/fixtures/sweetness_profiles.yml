@@ -1,9 +1,10 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  user: one
-  token: "1a2b3c4d-5e6f-7g8h-9i0j-k1l2m3n4o5p6"
+  id: 1
+  user_id: 1
   sweetness_type_id: 1
+  token: "1a2b3c4d-5e6f-7g8h-9i0j-k1l2m3n4o5p6"
   sweetness_strength: 1
   aftertaste_clarity: 1
   natural_sweetness: 1
@@ -11,9 +12,10 @@ one:
   richness: 1
 
 two:
-  user: two
+  id: 2
+  user_id: 2
+  sweetness_type_id: 2
   token: "7h8i9j0k-1l2m-3n4o-5p6q-7r8s9t0u1v2w"
-  sweetness_type_id: 1
   sweetness_strength: 1
   aftertaste_clarity: 1
   natural_sweetness: 1

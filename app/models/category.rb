@@ -1,4 +1,6 @@
 class Category < ApplicationRecord
+  validates :slug, presence: true, uniqueness: true
+
   has_many :posts, through: :products
   has_many :products
 

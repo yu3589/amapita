@@ -1,7 +1,8 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  post: one
+  id: 1
+  post_id: 1
   sweetness_strength: 1
   aftertaste_clarity: 1
   natural_sweetness: 1
@@ -9,7 +10,8 @@ one:
   richness: 1
 
 two:
-  post: two
+  id: 2
+  post_id: 2
   sweetness_strength: 1
   aftertaste_clarity: 1
   natural_sweetness: 1

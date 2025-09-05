@@ -2,8 +2,8 @@
 
 one:
   id: 1
-  sweetness_kind: 1
+  sweetness_kind: "さっぱり自然派"
 
 two:
   id: 2
-  sweetness_kind: 1
+  sweetness_kind: "バランス探求派"

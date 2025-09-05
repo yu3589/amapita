@@ -1,7 +1,11 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: String
+  id: 1
+  name: Cake
+  slug: "cake"
 
 two:
-  name: MyString
+  id: 2
+  name: Bread
+  slug: "bread"

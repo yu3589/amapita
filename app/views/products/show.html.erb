@@ -53,7 +53,7 @@
       <div class="w-full max-w-lg sm:max-w-xl lg:max-w-xl p-2 border-secondary rounded-3xl bg-base-100">
         <div class="mx-auto w-full max-w-md p-2">
         <% if user_signed_in? && @user_post.present? %>
-            <%= render "shared/average_chart",
+            <%= render "shared/chart/sweetness_average",
             chart_id: "averageChart",
             user_data: [
                 @user_post.post_sweetness_score.sweetness_strength,
@@ -70,7 +70,7 @@
                 @average_scores[:richness]
             ] %>
         <% else %>
-            <%= render "shared/chart",
+            <%= render "shared/chart/sweetness_posts",
             chart_id: "radarChart",
             data: [
                 @average_scores[:sweetness_strength],
@@ -155,7 +155,7 @@
             <%= link_to new_post_path(product_id: @product.id), class: "bg-primary rounded-full px-4 py-3 inline-flex items-center gap-3 shadow-sm hover-animation" do %>
               <%= image_tag "smiley-wink.svg", class: "h-9 w-9 md:h-10 md:w-10 flex-shrink-0" %>
               <span class="text-sm md:text-base">
-                <%= t('defaults.new_post') %>
+                <%= t('defaults.buttons.new_post') %>
               </span>
             <% end %>
           </div>
