@@ -1,0 +1,67 @@
+<div class="p-1 md:p-4">
+  <div class="flex flex-col p-2 md:p-6 items-center justify-center w-full max-w-3xl mx-auto bg-base-200 rounded-4xl">
+    <h1 class="text-center text-xl md:text-2xl p-4 border-b border-gray-300 w-full">
+      <%= t('.title') %>
+    </h1>
+  
+    <%= form_with model: @user, url: profile_path, method: :put do |f| %>
+      <% if @user.errors.any? %>
+        <div class="error-messages text-error bg-base-100 p-2 md:p-4 rounded-4xl ring-2 ring-error">
+          <ul>
+            <% @user.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <!-- ユーザー情報 -->
+      <div class="p-6">
+        <div class="mb-3 md:mb-6 w-full">
+          <%= f.label :name, class: "form-label" %>
+          <%= f.text_field :name, class: "input input-bordered w-full" %>
+        </div>
+
+        <% if @google_user %>
+          <div class="mb-3 md:mb-6 w-full">
+            <%= t('activerecord.attributes.user.email') %>
+            <div class="border-2 border-[var(--color-base-400)] rounded-2xl w-full bg-base-200 py-2 px-3 text-sm">
+              <%= @user.email %>
+            </div>
+            <div class="mt-4">
+              <label class="form-label"><%=t('.authentication') %></label>
+            </div>
+            <div class="inline-flex items-center border-2 border-[var(--color-base-400)]
+                        bg-white text-bg-neutral rounded-2xl p-3 w-auto">
+              <img src="https://developers.google.com/identity/images/g-logo.png"
+                  alt="Google Logo" class="h-5 mr-2" />
+              <span class="font-roboto text-sm"><%= t('.google') %></span>
+              <span class="px-2 text-xs">
+                <span class="font-roboto bg-accent px-3 py-1 rounded-xl">
+                  <%= t('.google_user') %>
+                </span>
+              </span>
+            </div>
+          </div>
+        <% else %>
+          <div class="mb-3 md:mb-6 w-full">
+            <%= f.label :email, class: "form-label" %>
+            <%= f.email_field :email, class: "input input-bordered w-full" %>
+          </div>
+        <% end %>
+
+        <div class="mb-3 md:mb-6 w-full">
+          <%= f.label :self_introduction, class: "form-label" %>
+          <%= f.text_area :self_introduction, class: "textarea textarea-bordered w-full", rows: 5 %>
+        </div>
+
+        <!-- 更新 -->
+        <div class="flex flex-col gap-4 p-4 md:p-6 w-full">
+          <div class="flex justify-center w-full">
+            <%= f.submit t('helpers.submit.update'), class: "text-sm md:text-base ring-secondary action-button" %>
+          </div>
+        </div>
+      </div> 
+    <% end %>
+  </div>
+</div>
