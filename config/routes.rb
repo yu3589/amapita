@@ -7,20 +7,21 @@ Rails.application.routes.draw do
 
   root "static_pages#top"
 
-  resources :diagnoses, only: [ :new, :create ]
+  resource :profile, only: %i[edit show update]
+
+  resources :users, only: %i[show]
+
+  resources :diagnoses, only: %i[new create]
   get "diagnoses/result/:token", to: "diagnoses#show", as: :diagnosis_result
 
-  resources :posts, only: [ :index, :new, :create, :edit, :show, :update, :destroy ]
-  resources :products, only: [ :index, :show ]
+  resources :posts, only: %i[index show new create edit update destroy]
 
-  resources :categories, only: [ :index, :show ], param: :slug do
-    resources :products, only: [ :show ]
+  resources :products, only: %i[index show]
+  resources :categories, only: %i[index show], param: :slug do
+    resources :products, only: %i[show]
   end
 
-  resources :products, only: [ :show ]
-
   get "up" => "rails/health#show", as: :rails_health_check
-
   get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
 end
