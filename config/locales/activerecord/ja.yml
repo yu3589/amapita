@@ -15,11 +15,13 @@ ja:
       created_at: 作成日時
       updated_at: 更新日時
       user:
+        self_introduction: ひとこと
         current_password: 現在のパスワード
         email: メールアドレス
         password: パスワード
         password_confirmation: 確認用パスワード
         remember_me: ログイン情報を記憶する
+      profile: ユーザー情報
       post:
         sweetness_rating: あまピタ度
         review: レビュー

@@ -10,14 +10,17 @@ ja:
       updated: "%{item}を更新しました"
       not_updated: "%{item}を更新出来ませんでした"
       deleted: "%{item}を削除しました"
-    messages:
-      
-      
     label:
       stats: "%{count}人中%{perfect}人があまピタッ！"
       no_rating: あまピタ評価はまだありません
     buttons:
       new_post: あまピタ評価をする
+      retake_diagnosis: もう一度診断する
+      take_diagnosis: 甘さ感覚診断をする
+    chart:
+      sweetness_profile: 好みの甘さ感覚
+      sweetness_user: あなたの評価
+      sweetness_average: みんなの評価
   errors:
     format: "%{attribute}%{message}"
     messages:
@@ -38,6 +41,24 @@ ja:
       search: 検索
       clear: クリア
       post: 投稿する
+  profiles:
+    info: ユーザー情報
+    tabs:
+      posts: 投稿した甘さ評価
+      bookmarks: 保存した商品
+    empty_states:
+      no_posts: 投稿した甘さ評価はありません
+      no_bookmarks: 保存した商品はありません
+    show:
+      title: マイページ
+    diagnosis:
+      latest_date: 最終診断日
+      no_data: 甘さ感覚診断を行うと、<br>好みの甘さ感覚チャートが表示されます。
+    edit:
+      title: プロフィール編集
+      authentication: 外部アカウント連携
+      google: Googleアカウント
+      google_user: 連携済
   diagnoses:
     new:
       title: 甘さ感覚診断
