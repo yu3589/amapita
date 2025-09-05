@@ -2,7 +2,7 @@ require "test_helper"
 
 class CategoriesControllerTest < ActionDispatch::IntegrationTest
   def setup
-    @category = Category.create!(name: "Cake", slug: "cake")
+    @category = Category.create!(name: "Cookie", slug: "cookie")
   end
 
   test "should get index" do
@@ -11,7 +11,7 @@ class CategoriesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get show" do
-    get category_path(@category)
+    get category_path(@category.slug)
     assert_response :success
   end
 end
