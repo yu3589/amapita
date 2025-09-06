@@ -8,7 +8,7 @@
         <% if post.product.image.attached? %>
           <%= image_tag post.product.image.variant(resize_to_fill: [400, 400], format: :webp, saver: { quality: 85 }), class: "w-45 h-45 object-cover" %>
         <% else %>
-          <%= image_tag "default_image.png", class: "w-45 h-45 object-cover" %>
+          <%= image_tag "default_image.png", class: "w-30 h-30 md:w-45 md:h-45 object-cover" %>
         <% end %>
       </div>
     </figure>
@@ -17,7 +17,8 @@
     <div class="card-body flex-1 min-w-0 flex py-2 flex-col text-neutral justify-between">
       <div class="flex-1">
         <p class="text-sm mb-2">
-          <%= link_to user_path(post.user), class: "flex items-center gap-1 hover:opacity-70" do %>
+          <%= link_to user_path(post.user), class: "flex items-center gap-2 hover:opacity-70" do %>
+            <span><%= post.user.decorate.avatar_image(class: "w-8 h-8") %></span>
             <span><%= post.user.name %></span>
             <span>｜</span>
             <span><%= time_ago_in_words(post.created_at) %>前</span>

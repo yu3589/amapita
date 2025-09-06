@@ -1,4 +1,7 @@
 class Product < ApplicationRecord
+  include ImageValidatable
+  has_one_attached :image
+
   validates :name, presence: true, length: { maximum: 40 }
   validates :manufacturer, presence: { message: :select }
   validates :name, uniqueness: { scope: :manufacturer, message: "とメーカーの組み合わせは既に存在します" }
@@ -6,7 +9,6 @@ class Product < ApplicationRecord
 
   belongs_to :category, optional: true
   has_many :posts, dependent: :destroy
-  has_one_attached :image
 
   def total_posts
     posts.size
