@@ -31,31 +31,26 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 
-# Amazon S3
-gem "aws-sdk-s3"
-
-# Active Storage
-gem "image_processing", "~> 1.2"
-
-# Validation
-gem "active_storage_validations"
-
-# tailwindcss
-gem "tailwindcss-rails"
-
-# devise
+# Authentication & Authorization
 gem "devise"
 gem "devise-i18n"
-
-# omniauth
 gem "omniauth-google-oauth2"
 gem "omniauth-rails_csrf_protection"
 
+# File Upload & Storage
+gem "aws-sdk-s3"
+gem "image_processing", "~> 1.2"
+gem "active_storage_validations"
+
+# Presentation Layer
+gem "draper"
+
+# UI & Frontend
+gem "tailwindcss-rails"
+gem "ransack"
 gem "meta-tags"
 
-# ransack
-gem "ransack"
-
+# Debug & Development Tools
 gem "swimming_fish", "~> 0.2.2"
 
 group :development, :test do
