@@ -3,7 +3,7 @@ class PostsController < ApplicationController
 
   def index
     @q = Post.ransack(params[:q])
-    @posts = @q.result(distinct: true).includes(:user).all.order(created_at: :desc)
+    @posts = @q.result(distinct: true).includes(:user).all.order(created_at: :desc).decorate
   end
 
   def new
@@ -44,7 +44,7 @@ class PostsController < ApplicationController
   end
 
   def show
-    @post = Post.find(params[:id])
+    @post = Post.find(params[:id]).decorate
   end
 
   def destroy

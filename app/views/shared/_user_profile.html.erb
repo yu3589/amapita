@@ -1,43 +1,39 @@
 <div class="p-1 md:p-4">
-  <div class="flex flex-col p-2 md:p-6 items-center justify-center w-full max-w-3xl mx-auto bg-base-200 rounded-4xl">
+  <div class="flex flex-col p-2 md:p-6 w-full max-w-3xl mx-auto bg-base-200 rounded-4xl">
     <h1 class="text-center text-xl md:text-2xl p-4 border-b border-gray-300 w-full">
-      <% if user == current_user %>
-        <%= t('profiles.show.title') %>
-      <% else %>
-        <%= t('profiles.info') %>
-      <% end %>
+      <%= user == current_user ? t('profiles.show.title') : t('profiles.info') %>
     </h1>
 
     <!-- ユーザー情報 -->
-    <div class="flex flex-col justify-center items-center sm:items-start gap-4">
-      <div class="flex flex-row gap-2 md:gap-6 pt-6">
-        <div class="text-base md:text-xl">
-          <%= user.name %>
-        </div>
+    <div class="flex flex-col justify-center items-center sm:flex-row sm:items-start sm:gap-6 w-full py-4">
+      <div class="aspect-square overflow-hidden md:p-4">
+        <%= user.decorate.avatar_image(class: "w-15 h-15 md:w-25 md:h-25 rounded-full object-cover") %>
       </div>
 
-      <% if user.self_introduction.present? %>
-        <div class="flex flex-col rounded-xl py-2 md:py-3 text-sm">
-          <span><%= user.self_introduction %></span>
+      <div class="flex flex-col justify-center items-center gap-2 md:gap-4 text-neutral py-4 px-2">
+        <div class="text-lg md:text-xl font-semibold break-words">
+          <%= user.name %>
         </div>
-      <% end %>
 
-      <!-- 編集 -->
-      <% if user == current_user %>
-        <div class="flex flex-col gap-4 p-1 md:p-2 w-full">
-          <div class="flex justify-end w-full">
+        <div class="text-sm md:text-base break-words max-w-[20ch] md:min-h-[1.5rem]">
+          <%= user.self_introduction.presence || "" %>
+        </div>
+
+        <!-- 編集 -->
+        <% if user == current_user %>
+          <div class="flex w-full mt-2 justify-center sm:justify-end">
             <%= link_to edit_profile_path, class: "text-sm ring-accent action-button", data: { turbo: false } do %>
               <%= t('helpers.submit.edit') %>
             <% end %>
           </div>
-        </div>
-      <% end %>
+        <% end %>
+      </div>
     </div>
 
     <!-- チャート -->
     <% if sweetness_profiles.present? %>
-      <div class="flex justify-center p-2 w-full">
-        <div class="w-full max-w-lg md:max-w-xl p-2 rounded-3xl bg-base-100">
+      <div class="flex justify-center md:p-2 w-full">
+        <div class="w-full max-w-md md:max-w-lg p-2 rounded-3xl bg-base-100">
 
           <div class="flex justify-end text-sm md:text-base font-bold mb-2">
             <span class="rounded-full bg-secondary text-white px-3 py-2 text-sm md:text-base">
@@ -76,7 +72,7 @@
         <div class="text-center py-6 text-sm md:text-base text-[var(--color-base-400)]">
           <%= raw t('profiles.diagnosis.no_data') %>
         </div>
-        <div class="flex justify-end">
+        <div class="flex justify-center">
           <%= link_to new_diagnosis_path, class: "text-sm bg-primary action-button-primary hover-animation", data: { turbo: false } do %>
             <%= t('defaults.buttons.take_diagnosis') %>
           <% end %>
@@ -90,7 +86,7 @@
       <input type="radio" name="my_tabs_4" role="tab"
         class="tab text-xs md:text-base text-primary hover:text-primary"
         aria-label="<%= t('profiles.tabs.posts') %>" checked />
-      <div role="tabpanel" class="tab-content bg-base-100 md:p-6 border-primary rounded-4xl w-full">
+      <div role="tabpanel" class="tab-content md:p-6 border-primary rounded-4xl w-full">
         <div class="flex flex-col mx-auto items-center justify-center text-xs md:text-sm w-full">
           <% if @posts.present? %>
             <%= render @posts %>
@@ -104,7 +100,7 @@
       <input type="radio" name="my_tabs_4" role="tab"
         class="tab text-xs md:text-base text-accent hover:text-accent"
         aria-label="<%= t('profiles.tabs.bookmarks') %>" />
-      <div role="tabpanel" class="tab-content bg-base-100 md:p-6 border-accent rounded-4xl w-full">
+      <div role="tabpanel" class="tab-content md:p-6 border-accent rounded-4xl w-full">
         <div class="flex flex-col mx-auto items-center justify-center text-xs md:text-sm w-full">
           <p class="p-4"><%= t('profiles.empty_states.no_bookmarks') %></p>
         </div>

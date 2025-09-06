@@ -25,16 +25,6 @@
                       file:bg-accent file:transition file:duration-200 file:hover:brightness-96
                       file:text-neutral
                       cursor-pointer" %>
-        <% else %>
-          <% if @post.product.image.attached? &&
-                @post.product.image.blob.present? &&
-                @post.product.image.blob.persisted? &&
-                @post.product.image.filename.to_s != "default.png" %>
-            <div class="flex justify-center">
-              <%= image_tag @post.product.image.variant(resize_to_fill: [400, 400], format: :webp, saver: { quality: 85 }),
-                            class: "w-50 h-50 object-cover" %>
-            </div>
-          <% end %>
         <% end %>
       </div>
     <% end %>
