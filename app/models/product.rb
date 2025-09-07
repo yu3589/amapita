@@ -9,6 +9,7 @@ class Product < ApplicationRecord
 
   belongs_to :category, optional: true
   has_many :posts, dependent: :destroy
+  has_many :bookmarks, dependent: :destroy
 
   def total_posts
     posts.size

@@ -19,6 +19,8 @@ class ProfilesController < ApplicationController
     @sweetness_type =  @user.sweetness_type
     @sweetness_profiles = @user.sweetness_profiles.last
     @posts = @user.posts.all.order(created_at: :desc).decorate
+    @bookmarks = @user.bookmark_products
+    @products = @user.bookmark_products.decorate
   end
 
   private

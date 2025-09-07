@@ -15,7 +15,9 @@ class User < ApplicationRecord
 
   belongs_to :sweetness_type, optional: true
   has_many :sweetness_profiles, dependent: :destroy
-  has_many :posts
+  has_many :posts, dependent: :destroy
+  has_many :bookmarks, dependent: :destroy
+  has_many :bookmark_products, through: :bookmarks, source: :product
 
   # providerとuidを使ってユーザーを検索、存在しなければ新規作成
   def self.from_omniauth(auth)
@@ -43,23 +45,23 @@ class User < ApplicationRecord
     [ "name" ]
   end
 
-    def google_avatar_url
-      # OAuth情報があればURLを返す
-      @google_avatar_url ||= begin
-      omniauth_data = self[:omniauth_data] # セッション等に保存しておく場合
-      omniauth_data[:info][:image] if omniauth_data
-    end
-  end
-
   def profile_image_url
     if avatar.attached?
-      # Active Storageの画像を優先
       Rails.application.routes.url_helpers.url_for(avatar)
-    elsif google_avatar_url.present?
-      # Google認証で取得した画像URL
-      google_avatar_url
     else
       nil # デフォルト画像はDecoratorで処理
     end
+  end
+
+  def bookmark(product)
+    bookmark_products << product
+  end
+
+  def unbookmark(product)
+    bookmark_products.destroy(product)
+  end
+
+  def bookmark?(product)
+    bookmark_products.include?(product)
   end
 end
