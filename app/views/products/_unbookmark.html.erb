@@ -1,0 +1,6 @@
+<%= link_to bookmark_path(current_user.bookmarks.find_by(product_id: product.id)),
+            id: "unbookmark-button-for-product-#{product.id}",
+            data: { turbo_method: :delete },
+            class: "text-accent hover:text-hover" do %>
+  <%= image_tag "bookmark-fill.svg", class: "h-8 w-8 md:h-9 md:w-9 ml-1" %>
+<% end %>

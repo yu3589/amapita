@@ -1,0 +1,6 @@
+<%= link_to bookmarks_path(product_id: product.id), 
+            id: "bookmark-button-for-product-#{product.id}",
+            data: { turbo_method: :post },
+            class: "text-accent hover:text-hover" do %>
+  <%= image_tag "bookmark.svg", class: "h-8 w-8 md:h-9 md:w-9 ml-1" %>
+<% end %>
