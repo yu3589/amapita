@@ -58,10 +58,17 @@
           <%= p.label :manufacturer %>
           <span class="text-error">*</span>
         </div>
-        <%= p.select :manufacturer,
-              options_for_select(I18n.t("products.manufacturers.list"), @post.product.manufacturer),
-              { prompt: t("posts.select.manufacturer") },
-              class: "select select-bordered" %>
+
+        <%= p.text_field :manufacturer, 
+              list: "manufacturer_list",
+              placeholder: t("posts.select.manufacturer"),
+              class: "input input-bordered" %>
+
+        <datalist id="manufacturer_list">
+          <% I18n.t("products.manufacturers.list").each do |manufacturer| %>
+            <option value="<%= manufacturer %>"><%= manufacturer %></option>
+          <% end %>
+        </datalist>
       </div>
 
       <div class="form-control">

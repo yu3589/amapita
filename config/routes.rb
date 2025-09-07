@@ -17,6 +17,9 @@ Rails.application.routes.draw do
   resources :posts, only: %i[index show new create edit update destroy]
 
   resources :products, only: %i[index show]
+
+  resources :bookmarks, only: %i[create destroy]
+
   resources :categories, only: %i[index show], param: :slug do
     resources :products, only: %i[show]
   end

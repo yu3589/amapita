@@ -102,7 +102,11 @@
         aria-label="<%= t('profiles.tabs.bookmarks') %>" />
       <div role="tabpanel" class="tab-content md:p-6 border-accent rounded-4xl w-full">
         <div class="flex flex-col mx-auto items-center justify-center text-xs md:text-sm w-full">
-          <p class="p-4"><%= t('profiles.empty_states.no_bookmarks') %></p>
+          <% if @bookmarks.present? %>
+            <%= render "products/user_bookmarks", products: @products %>
+          <% else %>
+            <p class="p-4"><%= t('profiles.empty_states.no_bookmarks') %></p>
+          <% end %>
         </div>
       </div>
     </div>

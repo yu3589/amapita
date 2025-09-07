@@ -157,7 +157,7 @@ erDiagram
     bookmarks {
         bigint id PK "ID"
         int user_id FK "ブックマークしたユーザーID"
-        int post_id FK "対象の投稿ID"
+        int product_id FK "対象の商品ID"
         datetime created_at "作成日時"
         datetime updated_at "更新日時"
     }
@@ -234,7 +234,8 @@ erDiagram
 
     posts ||--o{ likes : "1:多"
     posts ||--o{ comments : "1:多"
-    posts ||--o{ bookmarks : "1:多"
+
+    products ||--o{ bookmarks : "1:多"
 ```
 
 ## 画面遷移図

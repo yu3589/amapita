@@ -1,0 +1,7 @@
+<div class='mx-auto'>
+  <% if current_user.bookmark?(product) %>
+    <%= render 'products/unbookmark', { product: product } %>
+  <% else %>
+    <%= render 'products/bookmark', { product: product } %>
+  <% end %>
+</div>
