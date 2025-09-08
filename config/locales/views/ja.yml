@@ -10,6 +10,8 @@ ja:
       updated: "%{item}を更新しました"
       not_updated: "%{item}を更新出来ませんでした"
       deleted: "%{item}を削除しました"
+      require_login: ログインしてください
+      not_authorized: 権限がありません
     label:
       stats: "%{count}人中%{perfect}人があまピタッ！"
       no_rating: あまピタ評価はまだありません
@@ -41,6 +43,22 @@ ja:
       search: 検索
       clear: クリア
       post: 投稿する
+  admin:
+    user_sessions:
+      new:
+        title: ログイン
+        login: ログイン
+      create:
+        success: ログインしました
+        failure: ログインに失敗しました
+      destroy:
+        success: ログアウトしました
+    dashboards:
+      index:
+        title: ダッシュボード
+    shared:
+      header:
+        logout: ログアウト
   profiles:
     info: ユーザー情報
     tabs:
