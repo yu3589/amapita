@@ -1,4 +1,5 @@
 class DiagnosesController < ApplicationController
+  skip_before_action :authenticate_user!
   DIAGNOSIS_QUESTIONS = YAML.load_file(Rails.root.join("config/diagnosis_questions.yml"))["questions"]
 
   def new
