@@ -1,0 +1,56 @@
+<div class="flex flex-col p-2 items-center justify-center w-full max-w-xl sm:max-w-3xl md:max-w-6xl mx-auto bg-base-200 rounded-4xl">
+  <h1 class="text-center text-xl md:text-2xl p-4 border-b border-gray-300 w-full">
+    <%= t('.title') %>
+  </h1>
+
+  <%= render 'search_form', q: @q, url: admin_products_path %>
+
+  <% if @products.present? %>
+    <div class="w-full p-3">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+        <% @products.each do |product| %>
+        <!-- カード -->
+        <div class="card bg-base-200 p-2 md:p-4 ring-2 ring-[var(--color-base-400)] min-h-52 rounded-4xl flex flex-col relative">
+          <!-- 画像 -->
+          <figure class="flex-shrink-0 w-full">
+            <div class="aspect-square overflow-hidden rounded-none">
+              <%= product.decorate.product_image(class: "w-30 h-30 md:w-40 md:h-40") %>
+            </div>
+          </figure>
+                
+          <!-- 投稿情報 -->
+          <div class="card-body flex-1 min-w-0 flex py-2 flex-col text-neutral justify-between">
+            <div class="flex-1">
+              <div class="flex items-center justify-between py-1 text-base-300">
+                <%= product.category.name %>
+              </div>
+              <div class="flex items-center justify-between py-1 text-base-300">
+                <%= product.manufacturer %>
+              </div>
+              <div class="card-title text-md md:text-lg line-clamp-3">
+                <%= product.name %>
+              </div>
+            </div>
+          </div>
+
+              <!-- 編集・削除ボタン -->
+              <div class="flex justify-end gap-4 mt-4">
+                <%= link_to edit_admin_product_path(product),
+                    class: "text-sm ring-accent action-button", data: { turbo: false } do %>
+                    <%= t('helpers.submit.edit') %>
+                <% end %>
+                <%= link_to admin_product_path(product),
+                    class: "text-sm ring-secondary action-button",
+                    data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>
+                    <%= t('helpers.submit.delete') %>
+                <% end %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% else %>
+      <div class="mb-3">商品がありません</div>
+    <% end %>
+  </div>
+</div>

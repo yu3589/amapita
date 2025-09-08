@@ -61,7 +61,7 @@
 
         <%= p.text_field :manufacturer, 
               list: "manufacturer_list",
-              placeholder: t("posts.select.manufacturer"),
+              placeholder: t("defaults.select.manufacturer"),
               class: "input input-bordered" %>
 
         <datalist id="manufacturer_list">
@@ -78,7 +78,7 @@
         </div>
         <%= p.select :category_id,
               options_from_collection_for_select(Category.all, :id, :name, @post.product.category_id),
-              { prompt: t("posts.select.category") },
+              { prompt: t("defaults.select.category") },
               class: "select select-bordered" %>
       </div>
     <% end %>
