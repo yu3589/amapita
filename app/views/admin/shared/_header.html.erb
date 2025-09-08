@@ -10,13 +10,21 @@
       <ul class="menu menu-horizontal px-8">
         <li>
           <details>
-            <summary>Menu</summary>
+              <summary>Menu</summary>
             <ul class="menu menu-sm dropdown-content bg-base-100 rounded-t-none p-2">
+              <li>
+                <%= link_to t('admin.products.index.title'), admin_products_path, 
+                    class: 'whitespace-nowrap text-base' %>
+              </li>
+              <li>
+                <%= link_to t('admin.products.new.title'), new_admin_product_path, 
+                    class: 'whitespace-nowrap text-base' %>
+              </li>
               <li>
                 <%= link_to t('admin.shared.header.logout'), admin_logout_path, 
                     data: { turbo_method: :delete }, 
                     local: true,
-                    class: 'whitespace-nowrap' %>
+                    class: 'whitespace-nowrap text-base' %>
               </li>
             </ul>
           </details>

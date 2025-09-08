@@ -1,0 +1,72 @@
+<div class="justify-center text-center rounded-4xl m-4">
+  <%= form_with(model: @product, 
+                url: @product.new_record? ? admin_products_path : admin_product_path(@product),
+                local: true, class: "p-4 md:p-2 space-y-6") do |f| %>
+
+    <% if @product.errors.any? %>
+      <div class="error-messages text-error bg-base-100 p-2 md:p-4 rounded-4xl ring-2 ring-error">
+        <ul>
+          <% @product.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="form-control">
+      <%= f.label :image, t('activerecord.attributes.product.image'), class: "label p-2 text-neutral" %>
+      <span class="text-error">*</span>
+      <%= f.file_field :image,
+            class: "block w-full max-w-xs mx-auto text-sm text-base-300
+                    file:mr-4 file:py-2 file:px-2 bg-base-100 rounded-xl 
+                    ring-2 ring-[var(--color-base-400)]
+                    file:rounded-l-lg
+                    file:text-sm
+                    file:bg-accent file:transition file:duration-200 file:hover:brightness-96
+                    file:text-neutral
+                    cursor-pointer" %>
+    </div>
+
+    <div class="form-control">
+      <div class="label p-2 text-neutral flex justify-center items-center space-x-1">
+        <%= f.label :name %>
+        <span class="text-error">*</span>
+      </div>
+      <%= f.text_field :name, class: "input input-bordered" %>
+    </div>
+
+    <div class="form-control">
+      <div class="label p-2 text-neutral flex justify-center items-center space-x-1">
+        <%= f.label :manufacturer %>
+        <span class="text-error">*</span>
+      </div>
+      <%= f.text_field :manufacturer, 
+            list: "manufacturer_list",
+            placeholder: t("defaults.select.manufacturer"),
+            class: "input input-bordered" %>
+
+      <datalist id="manufacturer_list">
+        <% I18n.t("products.manufacturers.list").each do |manufacturer| %>
+          <option value="<%= manufacturer %>"><%= manufacturer %></option>
+        <% end %>
+      </datalist>
+    </div>
+
+    <div class="form-control">
+      <div class="label p-2 text-neutral flex justify-center items-center space-x-1">
+        <%= f.label :category_id %>
+        <span class="text-error">*</span>
+      </div>
+      <%= f.select :category_id,
+            options_from_collection_for_select(Category.all, :id, :name, @product.category_id),
+            { prompt: t("defaults.select.category") },
+            class: "select select-bordered" %>
+    </div>
+
+    <div class="form-control p-6">
+      <%= f.submit f.object.new_record? ? t('helpers.submit.product') : t('helpers.submit.update'),
+            class: "bg-primary button-primary" %>
+    </div>
+
+  <% end %>
+</div>
