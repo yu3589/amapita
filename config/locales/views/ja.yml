@@ -4,9 +4,14 @@ ja:
     placeholders:
       search_word: キーワードを入力
       search_products: 商品名を入力
+    select:
+      manufacturer: メーカーを選択
+      category: カテゴリを選択
     flash_message:
       created: "%{item}を作成しました"
       not_created: "%{item}を作成出来ませんでした"
+      registered: "%{item}を登録しました"
+      not_registered: "%{item}を登録出来ませんでした"
       updated: "%{item}を更新しました"
       not_updated: "%{item}を更新出来ませんでした"
       deleted: "%{item}を削除しました"
@@ -57,6 +62,15 @@ ja:
     dashboards:
       index:
         title: ダッシュボード
+    products:
+      index:
+        title: 商品一覧
+      new:
+        title: 商品登録
+      edit:
+        title: 商品の編集
+      search_form:
+        total_count: "商品数：%{count} 件"
     shared:
       header:
         logout: ログアウト
@@ -94,9 +108,6 @@ ja:
       title: あまピタ評価の編集
     form:
       post_placeholders: "この商品をどう思いますか？(任意)"
-    select:
-      manufacturer: メーカーを選択
-      category: カテゴリを選択
   products:
     title: 商品の登録
     search:
