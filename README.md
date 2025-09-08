@@ -93,7 +93,8 @@ erDiagram
         datetime reset_password_sent_at "リセットメール送信日時"
         datetime remember_created_at "自動ログイン設定日時"
         string provider "外部ログインのサービス名（Google）"
-        string uid "外部サービス上のユーザーID" 
+        string uid "外部サービス上のユーザーID"
+        int role "ユーザー区分"
         datetime created_at "作成日時"
         datetime updated_at "更新日時"
     }

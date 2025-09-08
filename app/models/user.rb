@@ -19,6 +19,8 @@ class User < ApplicationRecord
   has_many :bookmarks, dependent: :destroy
   has_many :bookmark_products, through: :bookmarks, source: :product
 
+  enum :role, { general: 0, admin: 1 }
+
   # providerとuidを使ってユーザーを検索、存在しなければ新規作成
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
