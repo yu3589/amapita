@@ -18,7 +18,7 @@ class Admin::UserSessionsController < Admin::BaseController
 
   def destroy
     if current_user
-      sign_out(current_user) 
+      sign_out(current_user)
       redirect_to admin_login_path, notice: t(".success")
     else
       redirect_to admin_login_path, alert: t(".failure")
