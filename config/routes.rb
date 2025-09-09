@@ -33,6 +33,7 @@ Rails.application.routes.draw do
 
     resource :dashboard, only: %i[index]
     resources :products
+    resources :posts, only: %i[index destroy]
   end
 
   get "up" => "rails/health#show", as: :rails_health_check
