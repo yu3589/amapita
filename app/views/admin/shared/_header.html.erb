@@ -1,10 +1,8 @@
 <div class="navbar bg-base-200 shadow-sm px-4 md:px-6 relative">
-  <!-- 左端ロゴ -->
   <div class="flex-shrink-0">
     <%= image_tag "logo.webp", class: "h-12 md:h-14 w-auto" %>
   </div>
 
-  <!-- 右端メニュー -->
   <% if user_signed_in? && current_user.admin? %>
     <div class="ml-auto">
       <div class="drawer drawer-end">
@@ -21,6 +19,10 @@
             </li>
             <li>
               <%= link_to t('admin.products.new.title'), new_admin_product_path, 
+                  class: 'whitespace-nowrap text-base' %>
+            </li>
+            <li>
+              <%= link_to t('admin.posts.index.title'), admin_posts_path, 
                   class: 'whitespace-nowrap text-base' %>
             </li>
             <li>
