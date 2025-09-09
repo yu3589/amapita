@@ -1,35 +1,37 @@
-<div class="navbar bg-base-200 shadow-sm">
-  <div class="flex-1">
-    <%= link_to admin_root_path, class: "inline-block px-2" do %>
-      <%= image_tag "logo.webp", class: "h-12 md:h-14 w-auto" %>
-    <% end %>
+<div class="navbar bg-base-200 shadow-sm px-4 md:px-6 relative">
+  <!-- 左端ロゴ -->
+  <div class="flex-shrink-0">
+    <%= image_tag "logo.webp", class: "h-12 md:h-14 w-auto" %>
   </div>
 
-  <% if user_signed_in? %>
-    <div class="flex-none">
-      <ul class="menu menu-horizontal px-8">
-        <li>
-          <details>
-              <summary>Menu</summary>
-            <ul class="menu menu-sm dropdown-content bg-base-100 rounded-t-none p-2">
-              <li>
-                <%= link_to t('admin.products.index.title'), admin_products_path, 
-                    class: 'whitespace-nowrap text-base' %>
-              </li>
-              <li>
-                <%= link_to t('admin.products.new.title'), new_admin_product_path, 
-                    class: 'whitespace-nowrap text-base' %>
-              </li>
-              <li>
-                <%= link_to t('admin.shared.header.logout'), admin_logout_path, 
-                    data: { turbo_method: :delete }, 
-                    local: true,
-                    class: 'whitespace-nowrap text-base' %>
-              </li>
-            </ul>
-          </details>
-        </li>
-      </ul>
+  <!-- 右端メニュー -->
+  <% if user_signed_in? && current_user.admin? %>
+    <div class="ml-auto">
+      <div class="drawer drawer-end">
+        <input id="my-drawer-4" type="checkbox" class="drawer-toggle" />
+        <div class="drawer-content">
+          <label for="my-drawer-4" class="drawer-button header-button bg-accent">Menu</label>
+        </div>
+        <div class="drawer-side">
+          <label for="my-drawer-4" aria-label="close sidebar" class="drawer-overlay"></label>
+          <ul class="menu bg-base-200 text-base-content min-h-full w-80 p-4">
+            <li>
+              <%= link_to t('admin.products.index.title'), admin_products_path,
+                  class: 'whitespace-nowrap text-base' %>
+            </li>
+            <li>
+              <%= link_to t('admin.products.new.title'), new_admin_product_path, 
+                  class: 'whitespace-nowrap text-base' %>
+            </li>
+            <li>
+              <%= link_to t('admin.shared.header.logout'), admin_logout_path, 
+                  data: { turbo_method: :delete }, 
+                  local: true,
+                  class: 'whitespace-nowrap text-base' %>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
   <% end %>
 </div>
