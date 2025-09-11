@@ -11,15 +11,17 @@
     
     <!-- 投稿情報 -->
     <div class="card-body flex-1 min-w-0 flex py-2 flex-col text-neutral justify-between">
-      <div class="flex-1">
-        <p class="text-sm mb-2">
-          <%= link_to user_path(post.user), class: "flex items-center gap-2 hover:opacity-70" do %>
-            <span><%= post.user.decorate.avatar_image(class: "w-8 h-8") %></span>
-            <span><%= post.user.name %></span>
-            <span>｜</span>
-            <span><%= time_ago_in_words(post.created_at) %>前</span>
-          <% end %>
-        </p>
+      <div class="flex flex-col text-base">
+        <%= link_to user_path(post.user), class: "flex items-center gap-2 hover:opacity-70" do %>
+          <%= post.user.decorate.avatar_image(class: "w-10 h-10") %>
+          <div class="flex flex-col p-2 md:p-1 gap-2">
+            <span class="font-medium"><%= post.user.name %></span>
+            <span class="flex flex-row gap-1 text-xs rounded-full px-2 py-1 bg-success">
+              <%= image_tag "trophy.svg" %>
+              <%= display_post_badge(post.user) %>
+            </span>
+          </div>
+        <% end %>
 
         <%= link_to post_path(post) do %>
         <div class="flex items-center justify-between py-1 text-base-300"><%= post.product.manufacturer %></div>

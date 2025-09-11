@@ -5,10 +5,9 @@
       <% if user_signed_in? %>
         <%= render 'bookmark_buttons', { product: @product } %>
       <% else %>
-       <label class="flex flex-col items-center cursor-pointer tooltip tooltip-top" 
-              data-tip="ログインが必要です">
-        <%= image_tag "bookmark.svg", class: "h-9 w-9 ml-1" %>
-      </label>
+        <label class="flex flex-col items-center cursor-pointer tooltip tooltip-top" data-tip="ログインが必要です">
+          <%= image_tag "bookmark.svg", class: "h-9 w-9 ml-1" %>
+        </label>
       <% end %>
     </h1>
 
@@ -51,7 +50,19 @@
               <p><%= t("defaults.label.stats", count: @product.total_posts, perfect:@product.perfect_sweetness_count) %></p>
             </div>
           <% end %>
-        </div>
+        <!-- 新規投稿ボタン -->
+        <% user_reviewed = user_signed_in? && @posts.any? { |post| post.user_id == current_user.id } %>
+          <% unless user_reviewed %>
+            <div class="text-center pt-6">
+              <%= link_to new_post_path(product_id: @product.id),
+                  class: "bg-success rounded-full px-4 py-3 inline-flex items-center gap-3 shadow-sm hover-animation" do %>
+                <span class="text-sm md:text-sm">
+                  <%= t('defaults.buttons.new_post') %>
+                </span>
+              <% end %>
+            </div>
+          <% end %>
+        </div>   
       </div>
     </div>
 
@@ -102,12 +113,18 @@
         
           <div class="py-4 border-b border-base-300 last:border-b-0">
             <%= link_to post_path(post) do %>
-              <div class="grid grid-cols-3 md:hover:opacity-70 items-center">
-                <!-- ユーザー情報 -->
-                <div class="col-span-1 flex flex-col items-center justify-center">
-                  <%= image_tag "footer/user_circle.svg", class: "h-12 w-12" %>
-                  <span class="mt-1 text-sm font-medium"><%= post.user.name %></span>
+              <div class="flex gap-4 md:hover:opacity-70 items-start min-h-[120px]">
+              <!-- ユーザー情報 -->
+              <div class="flex-shrink-0 w-24 md:max-w-xl flex flex-col items-center justify-start">
+                <%= post.user.decorate.avatar_image(class: "w-10 h-10") %>
+                <span class="mt-1 text-sm font-medium text-center break-words"><%= post.user.name %></span>
+                <div class="p-2">
+                  <span class="flex flex-row gap-1 text-xs rounded-full px-2 py-1 bg-success whitespace-nowrap">
+                    <%= image_tag "trophy.svg" %>
+                    <%= display_post_badge(post.user) %>
+                  </span>
                 </div>
+              </div>
 
                 <!-- 甘さ評価 -->
                 <div class="col-span-2 flex flex-col gap-2 text-left">
