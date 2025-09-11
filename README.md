@@ -193,8 +193,8 @@ erDiagram
 
     badges {
         bigint id PK "ID"
-        string badge_name "バッジ名"
-        int badge_category "バッジの種類"
+        string name "バッジ名"
+        int badge_kind "バッジの種類"
         int threshold "条件値"
         datetime created_at "作成日時"
         datetime updated_at "更新日時"
