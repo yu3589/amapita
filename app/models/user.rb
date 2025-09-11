@@ -18,6 +18,8 @@ class User < ApplicationRecord
   has_many :posts, dependent: :destroy
   has_many :bookmarks, dependent: :destroy
   has_many :bookmark_products, through: :bookmarks, source: :product
+  has_many :user_badges, dependent: :destroy
+  has_many :badges, through: :user_badges
 
   enum :role, { general: 0, admin: 1 }
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_09_08_020836) do
+ActiveRecord::Schema[7.2].define(version: 2025_09_10_093304) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -40,6 +40,17 @@ ActiveRecord::Schema[7.2].define(version: 2025_09_08_020836) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "badges", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "badge_kind", null: false
+    t.integer "threshold"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["badge_kind", "threshold"], name: "index_badges_on_badge_kind_and_threshold"
+    t.index ["name"], name: "index_badges_on_name"
+    t.index ["threshold"], name: "index_badges_on_threshold"
   end
 
   create_table "bookmarks", force: :cascade do |t|
@@ -115,6 +126,16 @@ ActiveRecord::Schema[7.2].define(version: 2025_09_08_020836) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "user_badges", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "badge_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["badge_id"], name: "index_user_badges_on_badge_id"
+    t.index ["user_id", "badge_id"], name: "index_user_badges_on_user_id_and_badge_id", unique: true
+    t.index ["user_id"], name: "index_user_badges_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -146,5 +167,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_09_08_020836) do
   add_foreign_key "products", "categories"
   add_foreign_key "sweetness_profiles", "sweetness_types"
   add_foreign_key "sweetness_profiles", "users"
+  add_foreign_key "user_badges", "badges"
+  add_foreign_key "user_badges", "users"
   add_foreign_key "users", "sweetness_types"
 end

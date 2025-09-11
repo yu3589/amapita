@@ -22,6 +22,11 @@ class PostsController < ApplicationController
   def create
     @post = current_user.posts.build(post_params)
     if @post.save
+      # バッジの付与
+      new_badge = BadgeService.check_and_award_post_badges(current_user)
+      # 新しいバッジであればモーダル表示
+      flash[:badge_awarded] = new_badge.name if new_badge
+
       redirect_to post_path(@post), notice: t("defaults.flash_message.created", item: Post.model_name.human)
     else
       flash.now[:alert] = t("defaults.flash_message.not_created", item: Post.model_name.human)

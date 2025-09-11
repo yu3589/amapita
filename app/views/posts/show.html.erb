@@ -1,7 +1,13 @@
+<%= turbo_frame_tag "modal" do %>
+  <% if flash[:badge_awarded] %>
+    <%= render "badge_modal" %>
+  <% end %>
+<% end %>
+
 <div class="p-2 md:p-4">
   <div class="p-2 md:p-6 w-full max-w-3xl mx-auto bg-base-200 rounded-4xl">
     <h1 class="text-center text-xl md:text-2xl p-4 border-b border-gray-300 w-full">
-      レビュー詳細
+      <%= t('.title') %>
     </h1>
 
     <div class="flex flex-col justify-center items-center sm:flex-row sm:items-start sm:gap-6">
@@ -20,7 +26,13 @@
         <div class="flex flex-col text-base">
           <%= link_to user_path(@post.user), class: "flex items-center gap-2 hover:opacity-70" do %>
             <%= @post.user.decorate.avatar_image(class: "w-10 h-10") %>
-            <span class="font-medium"><%= @post.user.name %></span>
+            <div class="flex flex-col p-2 md:p-1 gap-2">
+              <span class="font-medium"><%= @post.user.name %></span>
+              <span class ="flex flex-row gap-1 text-xs rounded-full px-2 py-1 bg-success">
+                <%= image_tag "trophy.svg" %>
+                  <%= display_post_badge(@post.user) %>
+              </span>
+            </div>
           <% end %>
         </div>
 
