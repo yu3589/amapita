@@ -7,6 +7,7 @@ ja:
       sweetness_type: 甘さタイプ
       product: 商品
       bookmark: ブックマーク
+      badge: バッジ
     attributes:
       sweetness_strength: 甘みの強さ
       aftertaste_clarity: 後味のキレ/スッキリ感

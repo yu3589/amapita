@@ -84,3 +84,20 @@ products.each do |p|
     category_id: category.id
   )
 end
+
+badges = [
+  { name: "甘さツイン", badge_kind: 1, threshold: nil },
+  { name: "スイーツマスターLv.1", badge_kind: 0, threshold: 1 },
+  { name: "甘の冒険者", badge_kind: 0, threshold: 10 },
+  { name: "スイーツコンシェルジュ", badge_kind: 0, threshold: 20 },
+  { name: "甘の大天使", badge_kind: 0, threshold: 30 },
+  { name: "甘界の覇者", badge_kind: 0, threshold: 40 },
+  { name: "伝説のあまピタ民", badge_kind: 0, threshold: 50 }
+]
+
+badges.each do |b|
+  Badge.find_or_initialize_by(name: b[:name]).update!(
+    badge_kind: b[:badge_kind],
+    threshold: b[:threshold]
+  )
+end
