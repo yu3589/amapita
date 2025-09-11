@@ -14,13 +14,15 @@
         <div class="text-lg md:text-xl font-semibold break-words">
           <div class="flex flex-col items-start gap-2">
             <span><%= user.name %></span>
-            <span class="flex flex-row gap-1 text-xs rounded-full px-2 py-1 bg-success">
-              <%= image_tag "trophy.svg" %>
-              <%= display_post_badge(user) %>
-            </span>
-            <span class="text-sm">
-              <%= t('profiles.total_post', count: user.posts.count) %>
-            </span>
+            <% if display_post_badge(user).present? %>
+              <span class="flex flex-row gap-1 text-xs rounded-full px-2 py-1 bg-success">
+                <%= image_tag "trophy.svg" %>
+                <%= display_post_badge(user) %>
+              </span>
+              <span class="text-sm">
+                <%= t('profiles.total_post', count: user.posts.count) %>
+              </span>
+            <% end %>
           </div>
         </div>
 
