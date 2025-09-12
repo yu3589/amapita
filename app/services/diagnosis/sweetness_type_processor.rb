@@ -1,5 +1,5 @@
 module Diagnosis
-  class SweetnessDiagnoser
+  class SweetnessTypeProcessor
     def initialize(answers)
       @answers = answers
     end

@@ -15,7 +15,7 @@ class DiagnosesController < ApplicationController
       return
     end
 
-    diagnoser = Diagnosis::SweetnessDiagnoser.new(diagnosis_params)
+    diagnoser = Diagnosis::SweetnessTypeProcessor.new(diagnosis_params)
     result = diagnoser.call
 
     sweetness_type = SweetnessType.find_by(sweetness_kind: SweetnessType.sweetness_kinds[result[:sweetness_kind].to_s])

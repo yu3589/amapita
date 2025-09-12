@@ -23,7 +23,7 @@ class PostsController < ApplicationController
     @post = current_user.posts.build(post_params)
     if @post.save
       # バッジの付与
-      new_badge = BadgeService.check_and_award_post_badges(current_user)
+      new_badge = PostBadge.check_and_award_post_badges(current_user)
       # 新しいバッジであればモーダル表示
       flash[:badge_awarded] = new_badge.name if new_badge
 

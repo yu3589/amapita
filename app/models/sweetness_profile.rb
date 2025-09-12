@@ -12,7 +12,7 @@ class SweetnessProfile < ApplicationRecord
   end
 
   def sweetness_kind
-    diagnoser = Diagnosis::SweetnessDiagnoser.new(
+    diagnoser = Diagnosis::SweetnessTypeProcessor.new(
       {
         "sweetness_strength" => sweetness_strength,
         "aftertaste_clarity" => aftertaste_clarity,

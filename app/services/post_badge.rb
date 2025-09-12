@@ -1,4 +1,4 @@
-class BadgeService
+class PostBadge
   # 新しい投稿バッジを付与・DB更新
   def self.check_and_award_post_badges(user)
     post_count = user.posts.count
