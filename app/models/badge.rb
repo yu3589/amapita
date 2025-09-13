@@ -12,4 +12,6 @@ class Badge < ApplicationRecord
 
   scope :post_badges, -> { where(badge_kind: :post_count) }
   scope :available_for, ->(count) { post_badges.where("threshold <= ?", count).order(threshold: :desc) }
+
+  scope :sweetness_twin_badges, -> { where(badge_kind: :sweetness_twin) }
 end

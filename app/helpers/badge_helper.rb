@@ -1,6 +1,11 @@
 module BadgeHelper
   def display_post_badge(user)
     badge = PostBadge.current_post_badge(user)
-    badge&.name  # nil(投稿バッジがない)場合は何も返さない
+    badge&.name
+  end
+
+  def display_sweetness_twin_badge(user)
+    badge = SweetnessTwinBadge.current_twin_badge(user)
+    badge&.name
   end
 end
