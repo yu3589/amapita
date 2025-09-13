@@ -15,7 +15,7 @@ class DiagnosesController < ApplicationController
       return
     end
 
-    diagnoser = Diagnosis::SweetnessDiagnoser.new(diagnosis_params)
+    diagnoser = Diagnosis::SweetnessTypeProcessor.new(diagnosis_params)
     result = diagnoser.call
 
     sweetness_type = SweetnessType.find_by(sweetness_kind: SweetnessType.sweetness_kinds[result[:sweetness_kind].to_s])
@@ -30,6 +30,7 @@ class DiagnosesController < ApplicationController
     )
     if current_user
       current_user.update(sweetness_type_id: profile.sweetness_type_id)
+      SweetnessTwinBadge.refresh_for(current_user) if current_user
     end
     redirect_to diagnosis_result_path(profile.token)
   end
