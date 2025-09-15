@@ -1,0 +1,2 @@
+class SweetnessTwinsController < ApplicationController
+end
