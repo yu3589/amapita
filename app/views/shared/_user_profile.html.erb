@@ -14,13 +14,11 @@
         <div class="text-lg md:text-xl font-semibold break-words">
           <div class="flex flex-col items-start gap-2">
             <span><%= user.name %></span>
-            <% if user_signed_in? %>
-              <% if display_sweetness_twin_badge(user) %>
-                <span class="flex flex-row gap-1 text-xs rounded-full px-2 py-1 bg-primary w-fit">
-                  <%= image_tag "handshake.svg", class: "h-5 w-5" %>
-                  <%= display_sweetness_twin_badge(user) %>
-                </span>
-              <% end %>
+            <% if user_signed_in? && user != current_user && sweetness_twin?(user) %>
+              <span class="flex flex-row gap-1 text-xs rounded-full px-2 py-1 bg-primary w-fit">
+                <%= image_tag "handshake.svg", class: "h-4 w-4" %>
+                <%= display_sweetness_twin_badge(user) %>
+              </span>
             <% end %>
             <% if display_post_badge(user).present? %>
               <span class="flex flex-row gap-1 text-xs rounded-full px-2 py-1 bg-success">
