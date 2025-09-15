@@ -200,6 +200,14 @@ erDiagram
         datetime updated_at "更新日時"
     }
 
+    sweetness_twins {
+        bigint id PK "ID"
+        int user_id FK "ユーザーID"
+        int twin_user_id FK "甘さツインになった相手ユーザーのID"
+        datetime created_at "作成日時"
+        datetime updated_at "更新日時"
+    }
+
     notifications {
         bigint id PK "ID"
         int sender_id FK "アクションしたユーザー"
@@ -216,6 +224,8 @@ erDiagram
     users }o--|| sweetness_types : "多:1"
     users ||--o{ sweetness_profiles : "1:多"
     users ||--o{ posts : "1:多"
+    users ||--o{ sweetness_twins : "1:多"
+    %% twin_user_idもusersを参照（自己参照）
     
     %% === ユーザーの実績・評価関連 ===
     users ||--o{ user_badges : "1:多"
