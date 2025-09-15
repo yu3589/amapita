@@ -25,7 +25,8 @@ class Users::SessionsController < Devise::SessionsController
   end
 
   def after_sign_in_path_for(resource)
-    SweetnessTwinBadge.refresh_for(resource)
+    SweetnessTwins::Updater.new(resource).update_twins
+    SweetnessTwins::Badge.new(resource).refresh_twin_badges
     root_path
   end
 

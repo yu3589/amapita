@@ -13,7 +13,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     @user = User.from_omniauth(request.env["omniauth.auth"])
 
     if @user.persisted?
-      SweetnessTwinBadge.refresh_for(@user)
+      SweetnessTwins::Updater.new(@user).update_twins
+      SweetnessTwins::Badge.new(@user).refresh_twin_badges
       sign_in_and_redirect @user, event: :authentication
       set_flash_message(:notice, :success, kind: provider.to_s.capitalize) if is_navigational_format?
     else
