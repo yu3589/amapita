@@ -30,7 +30,8 @@ class DiagnosesController < ApplicationController
     )
     if current_user
       current_user.update(sweetness_type_id: profile.sweetness_type_id)
-      SweetnessTwinBadge.refresh_for(current_user) if current_user
+      SweetnessTwins::Updater.new(current_user).update_twins
+      SweetnessTwins::Badge.new(current_user).refresh_twin_badges
     end
     redirect_to diagnosis_result_path(profile.token)
   end
