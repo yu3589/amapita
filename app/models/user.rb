@@ -20,6 +20,8 @@ class User < ApplicationRecord
   has_many :bookmark_products, through: :bookmarks, source: :product
   has_many :user_badges, dependent: :destroy
   has_many :badges, through: :user_badges
+  has_many :sweetness_twins, dependent: :destroy
+  has_many :twin_users, through: :sweetness_twins, source: :twin_user
 
   enum :role, { general: 0, admin: 1 }
 
@@ -67,5 +69,13 @@ class User < ApplicationRecord
 
   def bookmark?(product)
     bookmark_products.include?(product)
+  end
+
+  def sweetness_twin_badges
+    badges.where(badge_kind: :sweetness_twin)
+  end
+
+  def post_badges
+    badges.where(badge_kind: :post_count)
   end
 end

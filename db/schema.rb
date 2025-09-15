@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_09_10_093304) do
+ActiveRecord::Schema[7.2].define(version: 2025_09_14_140316) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -120,6 +120,15 @@ ActiveRecord::Schema[7.2].define(version: 2025_09_10_093304) do
     t.index ["user_id"], name: "index_sweetness_profiles_on_user_id"
   end
 
+  create_table "sweetness_twins", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "twin_user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["twin_user_id"], name: "index_sweetness_twins_on_twin_user_id"
+    t.index ["user_id"], name: "index_sweetness_twins_on_user_id"
+  end
+
   create_table "sweetness_types", force: :cascade do |t|
     t.integer "sweetness_kind"
     t.datetime "created_at", null: false
@@ -167,6 +176,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_09_10_093304) do
   add_foreign_key "products", "categories"
   add_foreign_key "sweetness_profiles", "sweetness_types"
   add_foreign_key "sweetness_profiles", "users"
+  add_foreign_key "sweetness_twins", "users"
+  add_foreign_key "sweetness_twins", "users", column: "twin_user_id"
   add_foreign_key "user_badges", "badges"
   add_foreign_key "user_badges", "users"
   add_foreign_key "users", "sweetness_types"
