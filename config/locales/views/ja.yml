@@ -123,7 +123,10 @@ ja:
     index:
       new_post: 新着のあまピタ評価
       twins_recommendations: あなたにオススメ！
-      description: あまさツインの<br>「あまピタッ！」評価一覧です
+      description: 甘さツインの<br>「あまピタッ！」<br>評価一覧が見れます
+      search_title:
+        new_posts: 新着のあまピタ評価から検索
+        twin_recommendations: あなたにオススメ！から検索
     show:
       title: レビュー詳細
     form:

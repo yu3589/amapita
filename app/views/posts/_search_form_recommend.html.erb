@@ -1,0 +1,48 @@
+<%= search_form_for q_recommend, as: :q_recommend, url: posts_path, method: :get,
+    class: 'p-1 md:p-4 flex justify-center',
+    data: { search_clear_target: "form" } do |f| %>
+
+  <%= hidden_field_tag :active_tab, 'recommend' %>
+
+  <div class="bg-base-200 rounded-4xl p-4 md:p-6 max-w-md md:max-w-4xl mx-auto flex flex-col items-center gap-4">
+    <%= t('posts.index.search_title.twin_recommendations') %>
+    <!-- キーワード検索 -->
+    <div class="flex flex-row items-stretch md:items-center gap-3 w-full">
+      <%= f.search_field :review_or_product_name_or_user_name_or_category_name_or_product_manufacturer_cont, 
+        class: "flex-1 bg-white p-2 rounded-4xl ring-2 w-full md:w-100 ring-[var(--color-base-400)] text-sm px-4",
+        placeholder: t('defaults.placeholders.search_word'),
+        data: { search_clear_target: "input" } %>
+
+        <%= f.submit t('helpers.submit.search'), class: "ring-secondary search-form-button text-base" %>
+
+        <button type="button" onclick="location.href='<%= url_for(only_path: true) %>'"
+          class="ring-[var(--color-base-400)] search-form-button text-base whitespace-nowrap">
+          <%= t('helpers.submit.clear') %>
+        </button>
+    </div>
+
+    <!-- 詳細検索 -->
+    <div class="w-full">
+      <div class="grid grid-cols-2 gap-2 md:gap-4 px-1 md:px-6">
+
+        <!-- カテゴリ -->
+        <div class="col-span-1">
+          <%= f.select :category_name_eq,
+            Category.all.pluck(:name, :name),
+                { include_blank: t('activerecord.models.category') },
+                class: "select w-full text-sm bg-white py-2",
+                data: { search_clear_target: "select" } %>
+        </div>
+
+        <!-- メーカー -->
+        <div class="col-span-1">
+          <%= f.select :product_manufacturer_eq,
+                I18n.t('products.manufacturers.list'),
+                { include_blank: t('activerecord.attributes.product.manufacturer') },
+                class: "select w-full text-sm bg-white",
+                data: { search_clear_target: "select" } %>
+          </div>
+        </div>
+      </div>
+  </div>
+<% end %>
