@@ -1,9 +1,9 @@
-<%= search_form_for q, url: posts_path, method: :get,
+<%= search_form_for q_new, as: :q_new, url: posts_path, method: :get,
     class: 'p-1 md:p-4 flex justify-center',
     data: { search_clear_target: "form" } do |f| %>
 
-  <div class="bg-base-200 rounded-4xl p-4 md:p-6 max-w-md md:max-w-4xl mx-auto flex flex-col items-center gap-4">
-
+  <div class="bg-base-200 rounded-4xl p-4 max-w-md md:max-w-4xl mx-auto flex flex-col items-center gap-4">
+    <%= t('posts.index.search_title.new_posts') %>
     <!-- キーワード検索 -->
     <div class="flex flex-row items-stretch md:items-center gap-3 w-full">
       <%= f.search_field :review_or_product_name_or_user_name_or_category_name_or_product_manufacturer_cont, 
@@ -21,7 +21,7 @@
 
     <!-- 詳細検索 -->
     <div class="w-full">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 px-8 md:px-6">
+        <div class="grid grid-cols-2 gap-2 md:gap-4 px-1 md:px-6">
 
           <!-- カテゴリ -->
           <div class="col-span-1">
@@ -43,9 +43,9 @@
         </div>
 
         <!-- あまピタ度 -->
-        <div class="mt-6">
+        <div class="mt-4">
           <div class="form-control">
-            <div class="bg-base-100 p-1 md:p-2 rounded-4xl ring-[var(--color-base-400)] ring-2 w-fit mx-auto">
+            <div class="bg-base-100 p-1 rounded-4xl ring-[var(--color-base-400)] ring-2 w-fit mx-auto">
               <div class="flex justify-center mb-2">
                 <%= f.label :sweetness_rating_eq, t('activerecord.attributes.post.sweetness_rating'),
                   class: "label text-neutral text-base text-center" %>

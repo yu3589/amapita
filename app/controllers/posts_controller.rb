@@ -2,9 +2,9 @@ class PostsController < ApplicationController
   before_action :authenticate_user!, only: %i[new create]
 
   def index
-    @q = Post.ransack(params[:q])
-    @posts = @q.result(distinct: true).includes(:user).all.order(created_at: :desc).decorate
-    @recommended_posts = fetch_recommended_posts
+    @q_new = Post.ransack(params[:q_new])
+    @posts = @q_new.result(distinct: true).includes(:user, :category).order(created_at: :desc).decorate
+    @q_recommend, @recommended_posts = fetch_recommended_posts
   end
 
   def new
@@ -63,14 +63,17 @@ class PostsController < ApplicationController
   private
 
   def fetch_recommended_posts
-    return Post.none unless user_signed_in?
+    return [ nil, Post.none ] unless user_signed_in?
 
     twin_user_ids = SweetnessTwin.where(user_id: current_user.id).pluck(:twin_user_id)
-    Post.perfect_sweetness
-        .where(user_id: twin_user_ids)
-        .includes(:user)
-        .order(created_at: :desc)
-        .decorate
+    q_recommend = Post.perfect_sweetness.where(user_id: twin_user_ids).ransack(params[:q_recommend])
+    recommended_posts =  q_recommend.result(distinct: true)
+                                    .perfect_sweetness
+                                    .where(sweetness_rating: :perfect_sweetness)
+                                    .includes(:user, :category)
+                                    .order(created_at: :desc)
+                                    .decorate
+    [ q_recommend, recommended_posts ]
   end
 
   def post_params
