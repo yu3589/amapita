@@ -1,6 +1,7 @@
 ja:
   defaults:
     delete_confirm: 削除しますか？
+    require_login: ログインが必要です
     placeholders:
       search_word: キーワードを入力
       search_products: 商品名を入力
@@ -33,6 +34,8 @@ ja:
       title: あなたの称号が変わりました。
       message: "『%{badge_name}』"
       thanks_message: たくさんの甘さ評価ありがとうございます！
+    message:
+      no_post: 投稿がありません
   errors:
     format: "%{attribute}%{message}"
     messages:
@@ -117,6 +120,10 @@ ja:
       title: あまピタ評価の登録
     edit:
       title: あまピタ評価の編集
+    index:
+      new_post: 新着のあまピタ評価
+      twins_recommendations: あなたにオススメ！
+      description: あまさツインの<br>「あまピタッ！」評価一覧です
     show:
       title: レビュー詳細
     form:
