@@ -4,6 +4,7 @@ class PostsController < ApplicationController
   def index
     @q = Post.ransack(params[:q])
     @posts = @q.result(distinct: true).includes(:user).all.order(created_at: :desc).decorate
+    @recommended_posts = fetch_recommended_posts
   end
 
   def new
@@ -60,6 +61,17 @@ class PostsController < ApplicationController
   end
 
   private
+
+  def fetch_recommended_posts
+    return Post.none unless user_signed_in?
+
+    twin_user_ids = SweetnessTwin.where(user_id: current_user.id).pluck(:twin_user_id)
+    Post.perfect_sweetness
+        .where(user_id: twin_user_ids)
+        .includes(:user)
+        .order(created_at: :desc)
+        .decorate
+  end
 
   def post_params
     params.require(:post).permit(

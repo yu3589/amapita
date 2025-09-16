@@ -22,6 +22,8 @@ class Post < ApplicationRecord
     too_sweet: 4
   }
 
+  scope :perfect_sweetness, -> { where(sweetness_rating: :perfect_sweetness) }
+
   def self.ransackable_attributes(auth_object = nil)
     [ "review", "created_at", "sweetness_rating" ]
   end
