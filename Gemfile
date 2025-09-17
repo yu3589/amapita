@@ -49,6 +49,7 @@ gem "draper"
 gem "tailwindcss-rails"
 gem "ransack"
 gem "meta-tags"
+gem "pagy"
 
 # Debug & Development Tools
 gem "swimming_fish", "~> 0.2.2"

@@ -3,15 +3,21 @@ class PostsController < ApplicationController
 
   def index
     @q_new = Post.ransack(params[:q_new])
-    @posts = @q_new.result(distinct: true).includes(:user, :category).order(created_at: :desc).decorate
-    @q_recommend, @recommended_posts = fetch_recommended_posts
+    new_posts_scope = @q_new.result(distinct: true).includes(:user, :category).order(created_at: :desc)
+    @pagy_new, @new_posts = pagy(new_posts_scope)
+    @new_posts = @new_posts.decorate
+
+    @q_recommend, recommended_scope = fetch_recommended_posts
+    @pagy_recommend, @recommended_posts = pagy(recommended_scope)
+    @recommended_posts = @recommended_posts
   end
+
 
   def new
     @post = Post.new
     if params[:product_id].present?
       # 既存商品へのレビュー
-      @post.product = Product.find(params[:product_id])
+      @post.product = Product.find(params[:product_id], items: 10)
       @post.build_post_sweetness_score
     else
       # 新規商品登録と同時レビュー

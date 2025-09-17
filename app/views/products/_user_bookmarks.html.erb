@@ -1,12 +1,13 @@
 <div class="w-full p-3">
-  <% @products.each do |product| %>
+  <% @bookmarks.each do |bookmark| %>
     <!-- カード -->
     <div class="card bg-base-200 p-2 shadow-sm min-h-52 rounded-4xl flex flex-col md:flex-row relative mb-4">
       
       <!-- 画像 -->
       <figure class="flex-shrink-0 w-full md:w-52">
         <div class="aspect-square overflow-hidden rounded-none">
-          <%= product.decorate.product_image(class: "w-30 h-30 md:w-40 md:h-40") %>
+          <% product = bookmark.product.decorate %>
+          <%= product.product_image(class: "w-30 h-30 md:w-40 md:h-40") %>
         </div>
       </figure>
       
@@ -17,9 +18,11 @@
           <p class="text-xs md:text-base text-base-300 truncate flex-1">
             <%= product.manufacturer %>
           </p>
+          <% if user_signed_in? && current_user == @user %>
           <div class="ml-2 flex-shrink-0">
             <%= render 'products/bookmark_buttons', { product: product } %>
           </div>
+          <% end %>
         </div>
 
         <%= link_to product_path(product), class: "flex items-center gap-2 hover:opacity-70" do %>

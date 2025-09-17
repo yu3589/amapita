@@ -3,8 +3,10 @@ class Admin::PostsController < Admin::BaseController
 
   def index
     @q = Post.ransack(params[:q])
-    @posts = @q.result(distinct: true).all.order(created_at: :desc).decorate
-    @total_count = @posts.count
+    posts_scope = @q.result(distinct: true).includes(:user, :category).order(created_at: :desc)
+    @total_count = posts_scope.count
+    @pagy, @posts = pagy(posts_scope)
+    @posts = @posts.decorate
   end
 
   def destroy
