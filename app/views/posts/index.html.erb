@@ -3,63 +3,57 @@
   <%= render 'search_form_recommend', q_recommend: @q_recommend, url: posts_path %>
 <% end %>
 <div class="max-w-2xl mx-auto">
-
+  <!-- タブ -->
   <input type="radio" name="posts_tab" id="radio-new" class="hidden" checked>
   <input type="radio" name="posts_tab" id="radio-recommend" class="hidden">
 
   <div class="flex justify-center gap-5 md:gap-10 tabs-labels p-2 text-center">
     <label for="radio-new"
-          class="cursor-pointer rounded-2xl p-3 md:px-8 text-sm md:text-base text-neutral ring-4 ring-base-300 bg-[var(--color-base-400)] transition duration-200">
+           class="cursor-pointer rounded-2xl p-3 md:px-8 text-sm md:text-base text-neutral ring-4 ring-base-300 bg-[var(--color-base-400)] transition duration-200">
       <%= t('.new_post') %>
     </label>
 
-  <% if user_signed_in? %>
-<label for="radio-recommend"
-       class="relative cursor-pointer rounded-2xl p-3 md:px-8 text-sm md:text-base text-neutral ring-4 ring-base-300 bg-[var(--color-base-400)] transition duration-200">
-
-  <!-- メイン内容 -->
-  <div class="flex flex-row items-center gap-1">
-    <%= image_tag "handshake.svg", class: "h-5 w-5 md:h-6 md:w-6" %>
-    <%= t('.twins_recommendations') %>
-  </div>
-  <div class="dropdown dropdown-top absolute right-1 bottom-1">
-    <div tabindex="0" role="button" class="btn btn-xs btn-circle text-gray-400">?</div>
-    <ul tabindex="0" class="dropdown-content menu bg-base-200 rounded-box z-1 w-35 p-1 shadow-sm text-xs pointer-events-none">
-      <li><a><%= raw t('.description') %></a></li>
-    </ul>
-  </div>
-</label>
-
-  <% else %>
-    <div class="relative group">
-      <span class="rounded-2xl p-3 md:px-8 text-sm md:text-base text-neutral ring-4 ring-base-300 bg-[var(--color-base-400)] select-none block tooltip tooltip-top"
-            data-tip="<%= t('defaults.require_login') %>">
-        <div class="flex flex-row items-center gap-1 opacity-70">
+    <% if user_signed_in? %>
+      <label for="radio-recommend"
+             class="relative cursor-pointer rounded-2xl p-3 md:px-8 text-sm md:text-base text-neutral ring-4 ring-base-300 bg-[var(--color-base-400)] transition duration-200">
+        <div class="flex flex-row items-center gap-1">
           <%= image_tag "handshake.svg", class: "h-5 w-5 md:h-6 md:w-6" %>
           <%= t('.twins_recommendations') %>
         </div>
         <div class="dropdown dropdown-top absolute right-1 bottom-1">
-          <div tabindex="0" role="button" class="btn btn-xs btn-circle text-neutral">?</div>
+          <div tabindex="0" role="button" class="btn btn-xs btn-circle text-gray-400">?</div>
           <ul tabindex="0" class="dropdown-content menu bg-base-200 rounded-box z-1 w-35 p-1 shadow-sm text-xs pointer-events-none">
             <li><a><%= raw t('.description') %></a></li>
           </ul>
         </div>
-      </span>
-    </div>
-  <% end %>
+      </label>
+    <% else %>
+      <div class="relative group">
+        <span class="rounded-2xl p-3 md:px-8 text-sm md:text-base text-neutral ring-4 ring-base-300 bg-[var(--color-base-400)] select-none block tooltip tooltip-top"
+              data-tip="<%= t('defaults.require_login') %>">
+          <div class="flex flex-row items-center gap-1 opacity-70">
+            <%= image_tag "handshake.svg", class: "h-5 w-5 md:h-6 md:w-6" %>
+            <%= t('.twins_recommendations') %>
+          </div>
+        </span>
+      </div>
+    <% end %>
   </div>
 
   <!-- タブ -->
   <div class="tabs-content">
     <!-- 新着 -->
     <div id="tab-new-content" class="tab-panel w-full">
-      <% if @posts.present? %>
-        <%= render @posts %>
+      <% if @new_posts.present? %>
+        <%= render @new_posts %>
+        <div class="flex items-center justify-center p-4">
+          <%== pagy_nav(@pagy_new) %>
+        </div>
       <% else %>
-      <div class="flex flex-col justify-center gap-5 md:gap-5 p-6 items-center text-center">
-        <%= image_tag "smiley-x-eyes-fill.svg", class: "h-10 w-10 md:h-15 md:w-15" %>
-        <div class="mb-3"><%= t('defaults.message.no_post') %></div>
-      </div>
+        <div class="flex flex-col justify-center gap-5 md:gap-5 p-6 items-center text-center">
+          <%= image_tag "smiley-x-eyes-fill.svg", class: "h-10 w-10 md:h-15 md:w-15" %>
+          <div class="mb-3"><%= t('defaults.message.no_post') %></div>
+        </div>
       <% end %>
     </div>
 
@@ -67,11 +61,14 @@
     <div id="tab-recommend-content" class="tab-panel w-full">
       <% if user_signed_in? && @recommended_posts.present? %>
         <%= render @recommended_posts %>
+        <div class="flex items-center justify-center p-4">
+          <%== pagy_nav(@pagy_recommend) %>
+        </div>
       <% else %>
-      <div class="flex flex-col justify-center gap-5 md:gap-5 p-6 items-center text-center">
-        <%= image_tag "smiley-x-eyes-fill.svg", class: "h-10 w-10 md:h-15 md:w-15" %>
-        <div class="mb-3"><%= t('defaults.message.no_post') %></div>
-      </div>
+        <div class="flex flex-col justify-center gap-5 md:gap-5 p-6 items-center text-center">
+          <%= image_tag "smiley-x-eyes-fill.svg", class: "h-10 w-10 md:h-15 md:w-15" %>
+          <div class="mb-3"><%= t('defaults.message.no_post') %></div>
+        </div>
       <% end %>
     </div>
   </div>

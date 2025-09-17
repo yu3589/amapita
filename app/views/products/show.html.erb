@@ -4,10 +4,6 @@
       <span class="text-center flex-1"><%= @product.name %></span>
       <% if user_signed_in? %>
         <%= render 'bookmark_buttons', { product: @product } %>
-      <% else %>
-        <label class="flex flex-col items-center cursor-pointer tooltip tooltip-top" data-tip="ログインが必要です">
-          <%= image_tag "bookmark.svg", class: "h-9 w-9 ml-1" %>
-        </label>
       <% end %>
     </h1>
 
@@ -174,6 +170,9 @@
             </div>
           </div>
         <% end %>
+        <div class="flex items-center justify-center p-4">
+          <%== pagy_nav(@pagy_bookmarks) %>
+        </div>
       </div>
 
     <% end %>

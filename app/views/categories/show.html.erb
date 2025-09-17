@@ -27,36 +27,37 @@
                   <%= product.name %>
                 </p>
 
-                <% if product.total_posts.zero? %>
+                <% stats = @product_stats&.dig(product.id) || { total_posts: 0, perfect_sweetness_count: 0 } %>
+
+                <% if stats[:total_posts].positive? %>
+                  <!-- あまピタカウント -->
+                  <div class="px-1 py-2">
+                    <div class="ring-primary p-1 md:px-5 md:py-2 text-neutral ring-3 md:ring-4 rounded-xl bg-base-100 
+                        flex flex-col md:flex-row items-center gap-1 md:gap-2 w-full justify-center md:justify-start">
+                      <%= image_tag "smiley-wink.svg", class: "h-8 w-8 md:h-10 md:w-10" %>
+                      <p class="text-sm md:text-base pb-1">
+                        <%= t("defaults.label.stats", count: stats[:total_posts], perfect: stats[:perfect_sweetness_count]) %>
+                      </p>
+                    </div>
+                  </div>
+                <% else %>
                   <div class="p-1">
-                    <div class="ring-base-300 px-5 py-1 md:px-5 md:py-2 text-neutral ring-3 md:ring-4 rounded-xl bg-base-100 
-                                flex flex-col md:flex-row items-center gap-2 w-full justify-center md:justify-start">
+                    <div class="ring-base-300 p-1 md:px-5 md:py-2 text-neutral ring-3 md:ring-4 rounded-xl bg-base-100 
+                                flex flex-col md:flex-row items-center md:gap-2 w-full justify-center md:justify-start">
                       <%= image_tag "smiley-blank.svg", class: "h-8 w-8 md:h-10 md:w-10" %>
-                      <p class="text-xs md:text-base">
+                      <p class="text-sm md:text-base">
                         <%= raw t('defaults.label.no_rating') %>
                       </p>
                     </div>
                     <!-- 投稿画面へ遷移 -->
                     <div class="mt-4 md:mt-6 text-center">
                       <%= link_to new_post_path(product_id: product.id), 
-                                  class: "bg-accent rounded-full px-3 py-1 md:px-4 py-3
+                                  class: "bg-success rounded-full px-3 py-1 md:px-4 py-3
                                           inline-flex items-center shadow-sm transition hover-animation" do %>
                         <span class="text-xs md:text-sm">
                           <%= t('defaults.buttons.new_post') %>
                         </span>
                       <% end %>
-                    </div>
-                  </div>
-                <% else %>
-                  <!-- あまピタカウント -->
-                  <div class="px-1 py-2">
-                    <div class="ring-primary px-1 py-1 md:px-5 md:py-2 text-neutral ring-3 md:ring-4 rounded-xl bg-base-100 
-                                flex flex-col md:flex-row items-center gap-1 md:gap-2 w-full justify-center md:justify-start">
-                      <%= image_tag "smiley-wink.svg", class: "h-8 w-8 md:h-10 md:w-10" %>
-                      <p class="text-xs md:text-base pb-1">
-                        <%= t("defaults.label.stats", count: product.total_posts, 
-                        perfect: product.perfect_sweetness_count) %>
-                      </p>
                     </div>
                   </div>
                 <% end %>
@@ -65,8 +66,13 @@
           <% end %>
         </div>
       <% end %>
+
+      <div class="flex justify-center pt-6 md:pt-8">
+        <%== pagy_nav(@pagy) %>
+      </div>
+
     <% else %>
-      <div class="flex flex-raw text-center items-center justify-center text-neutral gap-1">
+      <div class="flex flex-row text-center items-center justify-center text-neutral gap-1">
         <%= t('.product_not_found') %>
         <%= image_tag "smiley-x-eyes.svg", class: "h-8 w-8" %>
       </div>

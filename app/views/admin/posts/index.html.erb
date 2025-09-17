@@ -9,53 +9,57 @@
     <div class="w-full p-3">
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
         <% @posts.each do |post| %>
-        <!-- カード -->
-        <div class="card bg-base-200 p-2 md:p-4 ring-1 ring-[var(--color-base-400)] min-h-52 rounded-4xl flex flex-col relative">
-          <!-- 画像 -->
-          <figure class="flex-shrink-0 w-full">
-            <div class="aspect-square overflow-hidden rounded-none">
-              <%= post.decorate.post_image(class: "w-20 h-20 md:w-30 md:h-30") %>
-            </div>
-          </figure>
-                
-          <!-- 投稿情報 -->
-          <div class="card-body flex-1 min-w-0 flex py-2 flex-col text-neutral justify-between">
-            <div class="flex-1">
-              <div class="flex items-center text-xs md:text-sm justify-between py-1 text-base-300">
-                <%= post.product.category.name %>
+          <!-- カード -->
+          <div class="card bg-base-200 p-2 md:p-4 ring-1 ring-[var(--color-base-400)] min-h-52 rounded-4xl flex flex-col relative">
+            <!-- 画像 -->
+            <figure class="flex-shrink-0 w-full">
+              <div class="aspect-square overflow-hidden rounded-none">
+                <%= post.post_image(class: "w-20 h-20 md:w-30 md:h-30") %>
               </div>
-              <div class="flex items-center text-xs md:text-sm justify-between py-1 text-base-300">
-                <%= post.product.manufacturer %>
-              </div>
-              <div class="card-title text-sm line-clamp-3">
-                <%= post.product.name %>
-              </div>
-              <div class="card-title text-xs md:text-sm p-2">
-                <%= post.user.decorate.avatar_image(class: "w-8 h-8") %>
-                <%= post.user.name %>
-              </div>
-              <% if post.review.present? %>
-                <div class="card-title text-xs md:text-sm line-clamp-6">
-                  <%= post.review %>
+            </figure>
+
+            <!-- 投稿情報 -->
+            <div class="card-body flex-1 min-w-0 flex py-2 flex-col text-neutral justify-between">
+              <div class="flex-1">
+                <div class="flex items-center text-xs md:text-sm justify-between py-1 text-base-300">
+                  <%= post.product.category.name %>
                 </div>
+                <div class="flex items-center text-xs md:text-sm justify-between py-1 text-base-300">
+                  <%= post.product.manufacturer %>
+                </div>
+                <div class="card-title text-sm line-clamp-3">
+                  <%= post.product.name %>
+                </div>
+                <div class="card-title text-xs md:text-sm p-2">
+                  <%= post.user.decorate.avatar_image(class: "w-8 h-8") %>
+                  <%= post.user.name %>
+                </div>
+                <% if post.review.present? %>
+                  <div class="card-title text-xs md:text-sm line-clamp-6">
+                    <%= post.review %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+
+            <!-- 削除ボタン -->
+            <div class="flex justify-end">
+              <%= link_to admin_post_path(post),
+                  class: "text-sm ring-secondary action-button",
+                  data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>
+                  <%= t('helpers.submit.delete') %>
               <% end %>
             </div>
           </div>
+        <% end %>
+      </div>
 
-              <!-- 削除ボタン -->
-              <div class="flex justify-end">
-                <%= link_to admin_post_path(post),
-                    class: "text-sm ring-secondary action-button",
-                    data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>
-                    <%= t('helpers.submit.delete') %>
-                <% end %>
-                </div>
-              </div>
-            <% end %>
-          </div>
-        </div>
-      <% else %>
-      <div class="mb-3">投稿がありません</div>
-    <% end %>
-  </div>
+      <!-- ページネーション -->
+      <div class="flex items-center justify-center p-4">
+        <%== pagy_nav(@pagy) %>
+      </div>
+    </div>
+  <% else %>
+    <div class="mb-3">投稿がありません</div>
+  <% end %>
 </div>
