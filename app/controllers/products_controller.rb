@@ -7,5 +7,7 @@ class ProductsController < ApplicationController
 
     @product_image_uploader = @product.posts.includes(:user).order(:created_at).first
     @product_image_uploader_id = @product_image_uploader&.user_id
+
+    @pagy_bookmarks, @products = pagy(Product.order(id: :desc))
   end
 end

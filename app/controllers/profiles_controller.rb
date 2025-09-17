@@ -21,6 +21,8 @@ class ProfilesController < ApplicationController
     @posts = @user.posts.all.order(created_at: :desc).decorate
     @bookmarks = @user.bookmark_products
     @products = @user.bookmark_products.decorate
+    @pagy_posts, @posts = pagy(@user.posts.order(id: :desc))
+    @pagy_bookmarks, @bookmarks = pagy(@user.bookmarks.order(id: :desc))
   end
 
   private

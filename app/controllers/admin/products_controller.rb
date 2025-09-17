@@ -3,8 +3,10 @@ class Admin::ProductsController < Admin::BaseController
 
   def index
     @q = Product.ransack(params[:q])
-    @products = @q.result(distinct: true).all.order(created_at: :desc).decorate
-    @total_count = @products.count
+    products_scope = @q.result(distinct: true).includes(:category).order(created_at: :desc)
+    @total_count = products_scope.count
+    @pagy, @products = pagy(products_scope)
+    @products = @products.decorate
   end
 
   def new
