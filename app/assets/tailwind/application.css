@@ -39,7 +39,7 @@
   --size-field: 0.25rem;
   --border: 2px;
   --depth: 1;
-  --noise: 1;
+  --noise: 0;
 }
 
 .icon-size {
@@ -55,7 +55,7 @@
 }
 
 .button-secondary {
-  @apply px-5 py-4 md:px-6 md:py-5 text-neutral rounded-full transition duration-200 hover:brightness-96;
+  @apply px-7 py-3 text-neutral rounded-full transition duration-200 hover:brightness-96;
 }
 
 .button-close {

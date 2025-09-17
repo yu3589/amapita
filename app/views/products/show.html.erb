@@ -14,15 +14,10 @@
     <div class="flex flex-col justify-center items-center sm:flex-row sm:items-start sm:gap-6">
       <!-- 商品画像 -->
       <div class="aspect-square overflow-hidden p-4">
-        <% if @product.image.attached? %>
-          <%= image_tag @product.image.variant(resize_to_fill: [400, 400],
-            format: :webp, saver: { quality: 85 }), class: "w-30 md:w-50 h-30 md:h-50 object-cover" %>
-        <% else %>
-          <%= image_tag "default_image.png", class: "w-30 md:w-50 h-30 md:h-50 object-cover" %>
-        <% end %>
+          <%= @product.decorate.product_image(class: "w-30 h-30 md:w-35 md:h-35") %>
       </div>
 
-      <div class="flex flex-col justify-start items-start gap-2 md:gap-5 text-neutral py-4 md:px-0 md:py-6">
+      <div class="flex flex-col md:justify-start justify-center items-center md:items-start gap-2 md:gap-5 text-neutral py-4 md:px-0 md:py-6">
         <div class="text-sm md:text-base text-base-300">
           <%= t('activerecord.attributes.product.manufacturer') %>：<%= @product.manufacturer %>
         </div>
@@ -31,7 +26,7 @@
         </div>
 
         <!-- あまピタカウント -->
-        <div class="w-full md:w-auto justify-center md:block py-4">
+        <div class="w-full md:w-auto justify-center md:block">
           <% if @product.total_posts.zero? %>
             <div class="ring-base-300 title-ring">
               <%= image_tag "smiley-blank.svg", class: "h-8 w-8 md:h-10 md:w-10" %>
@@ -68,7 +63,7 @@
 
     <% if @posts.present? %>
       <!-- チャート -->
-    <div class="flex justify-center p-2 md:p-6">
+    <div class="flex justify-center p-2 md:p-4">
       <div class="w-full max-w-lg sm:max-w-xl lg:max-w-xl p-2 border-secondary rounded-3xl bg-base-100">
         <div class="mx-auto w-full max-w-md p-2">
         <% if user_signed_in? && @user_post.present? %>
@@ -105,93 +100,82 @@
 
       <!-- ユーザーレビュー -->
       <div class="bg-white px-4 py-6 md:p-2 max-w-2xl mx-auto rounded-4xl flex flex-col items-center">
-        <div class="p-2 text-base md:text-xl">
-          <%= t('.review') %>
-        </div>
+        <div class="p-2 text-base md:text-xl"><%= t('.review') %></div>
 
         <% @posts.each do |post| %>
-        
           <div class="py-4 border-b border-base-300 last:border-b-0">
-            <%= link_to post_path(post) do %>
-              <div class="flex gap-4 md:hover:opacity-70 items-start min-h-[120px]">
-              <!-- ユーザー情報 -->
-              <div class="flex-shrink-0 w-24 md:max-w-xl flex flex-col items-center justify-start">
-                <%= post.user.decorate.avatar_image(class: "w-10 h-10") %>
-                <span class="mt-1 text-sm font-medium text-center break-words"><%= post.user.name %></span>
-                <div class="p-2">
-                  <span class="flex flex-row gap-1 text-xs rounded-full px-2 py-1 bg-success whitespace-nowrap">
-                    <%= image_tag "trophy.svg" %>
-                    <%= display_post_badge(post.user) %>
-                  </span>
-                  <% if user_signed_in? && post.user != current_user && sweetness_twin?(post.user) %>
-                    <span class="flex flex-row gap-1 text-xs rounded-full px-2 py-1 bg-primary w-fit">
-                      <%= image_tag "handshake.svg", class: "h-4 w-4" %>
-                      <%= display_sweetness_twin_badge(post.user) %>
-                    </span>
-                  <% end %>
+            <div class="flex flex-col md:flex-row gap-4 md:items-start">
+
+              <!-- 画像 -->
+              <% if post.image.attached? %>
+                <div class="flex-shrink-0 aspect-square">
+                  <%= post.decorate.post_image(class: "w-20 h-20 md:w-25 md:h-25") %>
                 </div>
-              </div>
+              <% elsif @product_image_uploader_id == post.user_id %>
+                <div class="flex-shrink-0 aspect-square">
+                  <%= @product.decorate.product_image(class: "w-25 h-25 md:w-25 md:h-25") %>
+                </div>
+              <% end %>
 
-                <!-- 甘さ評価 -->
-                <div class="col-span-2 flex flex-col gap-2 text-left">
-                  <% rating_images = {
-                    "lack_of_sweetness" => "smiley-meh.svg",
-                    "could_be_sweeter" => "smiley-blank.svg",
-                    "perfect_sweetness" => "smiley-wink.svg",
-                    "slightly_too_sweet" => "smiley-nervous.svg",
-                    "too_sweet" => "smiley-x-eyes.svg"
-                  } %>
+              <!-- 投稿情報 -->
+              <div class="flex-1 flex flex-col justify-between gap-2">
 
-                  <% bg_colors = {
-                    "lack_of_sweetness" => "bg-accent",
-                    "could_be_sweeter" => "bg-accent",
-                    "perfect_sweetness" => "bg-primary",
-                    "slightly_too_sweet" => "bg-secondary",
-                    "too_sweet" => "bg-secondary"
-                  } %>
-                  
+                <div class="flex flex-col sm:flex-row sm:items-center sm:gap-4">
+                  <!-- ユーザー情報 -->
+                  <div class="flex flex-col items-center sm:items-ce">
+                    <%= post.user.decorate.avatar_image(class: "w-10 h-10") %>
+                    <span class="mt-1 text-sm font-medium"><%= post.user.name %></span>
+                  </div>
+
+                  <% rating_images = { 
+                      "lack_of_sweetness" => "smiley-meh.svg",
+                      "could_be_sweeter" => "smiley-blank.svg",
+                      "perfect_sweetness" => "smiley-wink.svg",
+                      "slightly_too_sweet" => "smiley-nervous.svg",
+                      "too_sweet" => "smiley-x-eyes.svg" 
+                    } %> 
+                  <% bg_colors = { 
+                      "lack_of_sweetness" => "bg-accent",
+                      "could_be_sweeter" => "bg-accent",
+                      "perfect_sweetness" => "bg-primary",
+                      "slightly_too_sweet" => "bg-secondary",
+                      "too_sweet" => "bg-secondary" 
+                    } %>
+
+                  <!-- 甘さ評価 -->
                   <div class="inline-flex items-center rounded-2xl gap-2 px-3 md:px-5 py-2 md:py-4
                               text-neutral text-sm md:text-base w-fit <%= bg_colors[post.sweetness_rating] %>">
                     <%= image_tag rating_images[post.sweetness_rating], class: "h-6 w-6" %>
                     <p><%= I18n.t("enums.post.sweetness_rating.#{post.sweetness_rating}") %></p>
                   </div>
-
-                  <!-- レビュー -->
-                  <div class="p-2">
-                    <p class="text-sm text-neutral"><%= truncate(post.review, length: 30, omission: '...') %></p>
-                  </div>
-                  <div class="p-2 text-sm text-base-300 text-right">
-                    <%= l post.created_at %>
-                  </div>
                 </div>
+
+                <!-- レビュー本文 -->
+                <div class="p-2 text-sm text-neutral">
+                  <p><%= truncate(post.review, length: 25, omission: '...') %></p>
+                </div>
+
+                <!-- 日付 + 編集・削除ボタン -->
+                <div class="flex flex-col items-end gap-2 md:gap-4 px-3 text-sm text-base-300">
+                  <div><%= l post.created_at %></div>
+                  <% if user_signed_in? && current_user.own?(post) %>
+                    <div class="flex gap-4">
+                      <%= link_to edit_post_path(post), class: "text-sm ring-accent action-button", data: { turbo: false } do %>
+                        <%= t('helpers.submit.edit') %>
+                      <% end %>
+                      <%= link_to post_path(post), class: "text-sm ring-secondary action-button", data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>
+                        <%= t('helpers.submit.delete') %>
+                      <% end %>
+                    </div>
+                  <% end %>
+                </div>
+
               </div>
-
-              <% if user_signed_in? && current_user.own?(post) %>
-                <div class="flex justify-end gap-4 mt-2">
-                  <%= link_to edit_post_path(post), class: "text-sm ring-accent action-button", data: { turbo: false } do %>
-                    <%= t('helpers.submit.edit') %>
-                  <% end %>
-                  <%= link_to post_path(post), class: "text-sm ring-secondary action-button", data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>
-                    <%= t('helpers.submit.delete') %>
-                  <% end %>
-                </div>
-              <% end %>
-            <% end %>
-          </div>
-        <% end %>
-
-        <% user_reviewed = user_signed_in? && @posts.any? { |post| post.user_id == current_user.id } %>
-        <% unless user_reviewed %>
-          <div class="mt-8 md:mt-12 text-center">
-            <%= link_to new_post_path(product_id: @product.id), class: "bg-primary rounded-full px-4 py-3 inline-flex items-center gap-3 shadow-sm hover-animation" do %>
-              <%= image_tag "smiley-wink.svg", class: "h-9 w-9 md:h-10 md:w-10 flex-shrink-0" %>
-              <span class="text-sm md:text-base">
-                <%= t('defaults.buttons.new_post') %>
-              </span>
-            <% end %>
+            </div>
           </div>
         <% end %>
       </div>
+
     <% end %>
   </div>
 </div>

@@ -25,6 +25,7 @@ ja:
       new_post: あまピタ評価をする
       retake_diagnosis: もう一度診断する
       take_diagnosis: 甘さ感覚診断をする
+      return: 戻る
       close: 閉じる
     chart:
       sweetness_profile: 好みの甘さ感覚
@@ -120,6 +121,8 @@ ja:
       title: あまピタ評価の登録
     edit:
       title: あまピタ評価の編集
+      uploaded_image: 現在の投稿画像
+      replace_image: 新しい画像をアップロード
     index:
       new_post: 新着のあまピタ評価
       twins_recommendations: あなたにオススメ！
