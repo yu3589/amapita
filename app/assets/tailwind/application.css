@@ -6,14 +6,15 @@
   --font-roboto: "Roboto", sans-serif;
 }
 
+
 @plugin "daisyui/theme" {
   name: "amapita";
   default: false;
   prefersdark: false;
   color-scheme: "dark";
-  --color-base-100: #FFFFFF;
-  --color-base-200: #F9F9F9;
-  --color-base-300: #C9C5C1;
+  --color-base-100: #F9F9F9;
+  --color-base-200: #C9C5C1;
+  --color-base-300: #8c877e;
   --color-base-400: #DDDCDB;
   --color-base-content: oklch(44% 0.011 73.639);
   --color-primary: #F5B6C7;
@@ -32,18 +33,14 @@
   --color-warning-content: oklch(44% 0.011 73.639);
   --color-error: #E88562;
   --color-error-content: oklch(44% 0.011 73.639);
-  --radius-selector: 1rem;
+  --radius-selector: 2rem;
   --radius-field: 1rem;
-  --radius-box: 2rem;
-  --size-selector: 0.25rem;
+  --radius-box: 1rem;
+  --size-selector: 0.28125rem;
   --size-field: 0.25rem;
-  --border: 2px;
+  --border: 3px;
   --depth: 1;
   --noise: 0;
-}
-
-.icon-size {
-  @apply h-10 w-10 md:h-12 md:w-12;
 }
 
 .header-button {
@@ -55,23 +52,15 @@
 }
 
 .button-secondary {
-  @apply px-7 py-3 text-neutral rounded-full transition duration-200 hover:brightness-96;
+  @apply rounded-2xl p-3 md:px-8 text-sm md:text-base text-neutral ring-4 transition duration-200;
 }
 
-.button-close {
-  @apply px-5 py-3 md:px-6 text-neutral ring-4 rounded-full transition duration-200 bg-base-100 hover:brightness-96;
-}
-
-.action-button {
-@apply px-4 py-2 text-neutral ring-4 rounded-full transition duration-200 bg-base-100 hover:brightness-96;
-}
-
-.action-button-primary {
-@apply px-4 md:px-5 py-3 md:py-4 text-base-100 rounded-full transition duration-200;
+.amapita-count-ring {
+  @apply items-center gap-2 rounded-2xl p-1 md:px-6 md:py-2 text-base text-neutral ring-3 md:ring-4;
 }
 
 .sliders-title {
-@apply px-4 py-2 text-neutral ring-4 rounded-full transition duration-200 bg-base-100;
+@apply px-4 py-2 text-neutral ring-4 rounded-full bg-base-100;
 }
 
 .sliders-button {
@@ -84,15 +73,11 @@
 }
 
 .hover-animation {
-@apply transition-transform duration-300 md:hover:-translate-y-1 md:hover:shadow-md;
-}
-
-.category-hover-animation {
-@apply transition-transform duration-400 md:hover:-translate-y-1;
+@apply transition-transform duration-300 md:hover:-translate-y-1;
 }
 
 .category-image {
-@apply w-full h-full object-cover rounded-3xl opacity-50 ring-4 md:ring-8 ring-base-300;
+@apply w-full h-full object-cover rounded-3xl opacity-50 ring-4 md:ring-8 ring-base-200;
 }
 
 .category-label {
@@ -101,14 +86,6 @@
 
 .category-label-multi {
 @apply absolute inset-0 flex flex-col items-center justify-center text-white text-base md:text-2xl font-bold;
-}
-
-.title-ring {
-@apply px-4 py-2 md:px-5 md:py-2 text-neutral ring-4 rounded-xl bg-base-100 flex flex-row items-center gap-2;
-}
-
-.search-form-button {
-@apply rounded-full px-3 md:px-5 py-2 text-sm text-neutral ring-4 transition duration-200 bg-base-100 hover:brightness-96;  
 }
 
 .pagy {
