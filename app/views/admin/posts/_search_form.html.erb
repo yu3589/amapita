@@ -2,7 +2,7 @@
     class: 'p-1 md:p-4 flex justify-center',
     data: { search_clear_target: "form" } do |f| %>
 
-  <div class="bg-base-200 rounded-4xl p-4 md:p-6 max-w-md md:max-w-4xl mx-auto flex flex-col items-center gap-4">
+  <div class="bg-base-100 rounded-4xl p-4 max-w-md md:max-w-4xl mx-auto flex flex-col items-center gap-4">
 
     <!-- キーワード検索 -->
     <div class="flex flex-row items-stretch md:items-center gap-3 w-full">
@@ -11,10 +11,9 @@
         placeholder: t('defaults.placeholders.search_word'),
         data: { search_clear_target: "input" } %>
 
-      <%= f.submit t('helpers.submit.search'), class: "ring-secondary search-form-button text-base" %>
+      <%= f.submit t('helpers.submit.search'), class: "btn btn-secondary" %>
 
-      <button type="button" onclick="location.href='<%= url_for(only_path: true) %>'"
-              class="ring-[var(--color-base-400)] search-form-button text-base whitespace-nowrap">
+      <button type="button" onclick="location.href='<%= url_for(only_path: true) %>'"class="btn">
         <%= t('helpers.submit.clear') %>
       </button>
     </div>

@@ -1,6 +1,6 @@
-<div class="p-1 md:p-4">
-  <div class="flex flex-col p-2 md:p-6 w-full max-w-3xl mx-auto bg-base-200 rounded-4xl">
-    <h1 class="text-center text-xl md:text-2xl p-4 border-b border-gray-300 w-full">
+<div class="p-2 md:p-4">
+  <div class="flex flex-col p-2 w-full max-w-3xl mx-auto bg-base-100 rounded-4xl">
+    <h1 class="text-center text-xl md:text-2xl p-4 border-b border-base-200 w-full">
       <%= user == current_user ? t('profiles.show.title') : t('profiles.info') %>
     </h1>
 
@@ -39,7 +39,7 @@
         <!-- 編集 -->
         <% if user == current_user %>
           <div class="flex w-full mt-2 justify-center sm:justify-end">
-            <%= link_to edit_profile_path, class: "text-sm ring-accent action-button", data: { turbo: false } do %>
+            <%= link_to edit_profile_path, class: "text-sm btn btn-outline btn-accent", data: { turbo: false } do %>
               <%= t('helpers.submit.edit') %>
             <% end %>
           </div>
@@ -50,7 +50,7 @@
     <!-- チャート -->
     <% if sweetness_profiles.present? %>
       <div class="flex justify-center md:p-2 w-full">
-        <div class="w-full max-w-md md:max-w-lg p-2 rounded-3xl bg-base-100">
+        <div class="w-full max-w-md md:max-w-lg p-2 rounded-3xl bg-white">
 
           <div class="flex justify-end text-sm md:text-base font-bold mb-2">
             <span class="rounded-full bg-secondary text-white px-3 py-2 text-sm md:text-base">
@@ -77,7 +77,7 @@
 
           <% if user == current_user %>
             <div class="flex justify-end">
-              <%= link_to new_diagnosis_path, class: "text-sm bg-primary action-button-primary hover-animation", data: { turbo: false } do %>
+              <%= link_to new_diagnosis_path, class: "text-sm btn btn-md btn-dash btn-primary hover-animation", data: { turbo: false } do %>
                 <%= t('defaults.buttons.retake_diagnosis') %>
               <% end %>
             </div>
@@ -86,11 +86,11 @@
       </div>
     <% else %>
       <% if user == current_user %>
-        <div class="text-center py-6 text-sm md:text-base text-[var(--color-base-400)]">
+        <div class="text-center py-6 text-sm md:text-base text-base-200">
           <%= raw t('profiles.diagnosis.no_data') %>
         </div>
         <div class="flex justify-center">
-          <%= link_to new_diagnosis_path, class: "text-sm bg-primary action-button-primary hover-animation", data: { turbo: false } do %>
+          <%= link_to new_diagnosis_path, class: "text-sm btn btn-primary hover-animation", data: { turbo: false } do %>
             <%= t('defaults.buttons.take_diagnosis') %>
           <% end %>
         </div>
@@ -103,7 +103,7 @@
       <input type="radio" name="my_tabs_4" role="tab"
         class="tab text-xs md:text-base text-primary hover:text-primary"
         aria-label="<%= t('profiles.tabs.posts') %>" checked />
-      <div role="tabpanel" class="tab-content md:p-6 border-primary rounded-4xl w-full">
+      <div role="tabpanel" class="tab-content md:p-6 border-primary bg-white rounded-4xl w-full">
         <div class="flex flex-col mx-auto items-center justify-center text-xs md:text-sm w-full">
           <% if @posts.present? %>
             <%= render @posts %>
@@ -120,7 +120,7 @@
       <input type="radio" name="my_tabs_4" role="tab"
         class="tab text-xs md:text-base text-accent hover:text-accent"
         aria-label="<%= t('profiles.tabs.bookmarks') %>" />
-      <div role="tabpanel" class="tab-content md:p-6 border-accent rounded-4xl w-full">
+      <div role="tabpanel" class="tab-content md:p-6 border-accent bg-white rounded-4xl w-full">
         <div class="flex flex-col mx-auto items-center justify-center text-xs md:text-sm w-full">
           <% if @bookmarks.present? %>
             <%= render "products/user_bookmarks", products: @products %>

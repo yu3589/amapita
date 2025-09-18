@@ -5,8 +5,8 @@
 <% end %>
 
 <div class="p-2 md:p-4">
-  <div class="p-2 md:p-6 w-full max-w-3xl mx-auto bg-base-200 rounded-4xl">
-    <h1 class="text-center text-xl md:text-2xl p-4 border-b border-gray-300 w-full">
+  <div class="p-2 w-full max-w-3xl mx-auto bg-base-100 rounded-4xl">
+    <h1 class="text-center text-xl md:text-2xl p-4 border-b border-base-200 w-full">
       <%= t('.title') %>
     </h1>
 
@@ -88,7 +88,7 @@
   
     <!-- チャート -->
     <div class="flex justify-center p-2">
-      <div class="w-full max-w-lg sm:max-w-xl lg:max-w-xl p-2 border-secondary rounded-3xl bg-base-100">
+      <div class="w-full max-w-lg sm:max-w-xl lg:max-w-xl p-2 border-secondary rounded-3xl bg-white">
         <div class="mx-auto w-full max-w-md">
           <%= render "shared/chart/sweetness_posts",
               chart_id: "radarChart",
@@ -105,22 +105,22 @@
 
     <!-- レビューセクション -->
     <div class="p-2 md:p-4">
-      <div class="p-2 w-full max-w-xl mx-auto bg-base-100 rounded-4xl">
+      <div class="p-2 w-full max-w-xl mx-auto bg-white rounded-4xl">
         <div class="text-center text-xl p-2 text-neutral">
           レビュー
         </div>
         <div class="flex flex-col justify-center items-center">
-          <div class="w-full p-6 border-b border-gray-300 text-neutral">
+          <div class="w-full p-6 border-b border-base-200 text-neutral">
             <% if @post.review.present? %>
               <%= @post.review %>
-              <div class="pt-2 text-sm text-base-300 text-right">
+              <div class="pt-2 text-sm text-base-200 text-right">
                 <%= l @post.created_at %>
               </div>
             <% else %>
-              <div class="mb-3 text-base-300">レビューがありません</div>
+              <div class="mb-3 text-base-200">レビューがありません</div>
             <% end %>
           </div>
-          <div class="flex flex-row pt-2 text-sm gap-6 md:gap-30 text-base-300">
+          <div class="flex flex-row pt-2 text-sm gap-6 md:gap-30 text-base-200">
             <span class="flex items-center gap-1">
               <%= image_tag "chat.svg", class: "h-6 w-6" %>
               コメントする
@@ -141,8 +141,7 @@
 
     <div class="p-2 flex flex-col md:flex-row justify-center items-center text-center">
       <%= link_to product_path(@post.product) do %>
-        <div class="text-base rounded-2xl px-5 py-3 md:px-8 text-neutral ring-4 transition duration-200
-              ring-accent w-fit bg-white hover-animation">
+        <div class="button-primary bg-primary hover-animation">
           みんなのあまピタ評価はこちら
         </div>
       <% end %>

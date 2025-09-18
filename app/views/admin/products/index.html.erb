@@ -1,5 +1,5 @@
-<div class="flex flex-col p-2 items-center justify-center w-full max-w-xl sm:max-w-3xl md:max-w-6xl mx-auto bg-base-200 rounded-4xl">
-  <h1 class="text-center text-xl md:text-2xl p-4 border-b border-gray-300 w-full">
+<div class="flex flex-col items-center justify-center w-full max-w-xl sm:max-w-3xl md:max-w-6xl mx-auto bg-base-100 rounded-4xl">
+  <h1 class="text-center text-xl md:text-2xl p-2 border-b border-base-200 w-full">
     <%= t('.title') %>
   </h1>
 
@@ -10,7 +10,7 @@
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
         <% @products.each do |product| %>
           <!-- カード -->
-          <div class="card bg-base-200 p-2 md:p-4 ring-2 ring-[var(--color-base-400)] min-h-52 rounded-4xl flex flex-col relative">
+          <div class="card bg-base-100 p-2 md:p-4 ring-2 ring-[var(--color-base-400)] min-h-52 rounded-4xl flex flex-col relative">
             <!-- 画像 -->
             <figure class="flex-shrink-0 w-full">
               <div class="aspect-square overflow-hidden rounded-none">
@@ -36,11 +36,11 @@
             <!-- 編集・削除ボタン -->
             <div class="flex justify-end gap-4 mt-4">
               <%= link_to edit_admin_product_path(product),
-                  class: "text-sm ring-accent action-button", data: { turbo: false } do %>
+                  class: "text-sm btn btn-outline btn-accent", data: { turbo: false } do %>
                   <%= t('helpers.submit.edit') %>
               <% end %>
               <%= link_to admin_product_path(product),
-                  class: "text-sm ring-secondary action-button",
+                  class: "text-sm btn btn-outline btn-secondary",
                   data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>
                   <%= t('helpers.submit.delete') %>
               <% end %>

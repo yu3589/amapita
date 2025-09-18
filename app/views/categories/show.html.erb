@@ -1,6 +1,6 @@
 <div class="p-1 md:p-4">
-  <div class="flex flex-col p-2 md:p-6 items-center justify-center max-w-3xl mx-auto bg-base-200 rounded-4xl">
-    <h1 class="text-center text-md md:text-2xl p-4 border-b border-base-300 w-full">
+  <div class="flex flex-col p-2 items-center justify-center max-w-3xl mx-auto bg-base-100 rounded-4xl">
+    <h1 class="text-center text-md md:text-2xl p-4 border-b border-base-200 w-full">
       <%= t('.title') %>
     </h1>
 
@@ -8,7 +8,7 @@
 
     <% if @products.present? %>
       <% @products.each do |product| %>
-        <div class="py-1 border-b border-base-300 last:border-b-0 max-w-3xl">
+        <div class="py-1 border-b border-base-200 last:border-b-0 max-w-3xl">
           <%= link_to category_product_path(@category, product) do %>
             <div class="flex flex-row items-center md:items-start pt-4">
               <!-- 画像 -->
@@ -32,9 +32,9 @@
                 <% if stats[:total_posts].positive? %>
                   <!-- あまピタカウント -->
                   <div class="px-1 py-2">
-                    <div class="ring-primary p-1 md:px-5 md:py-2 text-neutral ring-3 md:ring-4 rounded-xl bg-base-100 
-                        flex flex-col md:flex-row items-center gap-1 md:gap-2 w-full justify-center md:justify-start">
-                      <%= image_tag "smiley-wink.svg", class: "h-8 w-8 md:h-10 md:w-10" %>
+                    <div class="flex flex-col md:flex-row items-center gap-1 w-fit justify-center 
+                                md:justify-start amapita-count-ring ring-primary">
+                      <%= image_tag "smiley-wink.svg", class: "h-8 w-8" %>
                       <p class="text-sm md:text-base pb-1">
                         <%= t("defaults.label.stats", count: stats[:total_posts], perfect: stats[:perfect_sweetness_count]) %>
                       </p>
@@ -42,9 +42,9 @@
                   </div>
                 <% else %>
                   <div class="p-1">
-                    <div class="ring-base-300 p-1 md:px-5 md:py-2 text-neutral ring-3 md:ring-4 rounded-xl bg-base-100 
-                                flex flex-col md:flex-row items-center md:gap-2 w-full justify-center md:justify-start">
-                      <%= image_tag "smiley-blank.svg", class: "h-8 w-8 md:h-10 md:w-10" %>
+                    <div class="flex flex-col md:flex-row items-center gap-1 w-fit justify-center 
+                                md:justify-start amapita-count-ring ring-base-200">
+                      <%= image_tag "smiley-blank.svg", class: "h-8 w-8" %>
                       <p class="text-sm md:text-base">
                         <%= raw t('defaults.label.no_rating') %>
                       </p>
