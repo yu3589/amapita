@@ -1,4 +1,4 @@
-<div class="navbar bg-base-200 shadow-sm px-4 md:px-6 relative">
+<div class="navbar bg-base-100 shadow-sm px-4 md:px-6 relative">
   <div class="flex-shrink-0">
     <%= image_tag "logo.webp", class: "h-12 md:h-14 w-auto" %>
   </div>
@@ -8,11 +8,11 @@
       <div class="drawer drawer-end">
         <input id="my-drawer-4" type="checkbox" class="drawer-toggle" />
         <div class="drawer-content">
-          <label for="my-drawer-4" class="drawer-button header-button bg-accent">Menu</label>
+          <label for="my-drawer-4" class="drawer-button btn btn-accent">Menu</label>
         </div>
         <div class="drawer-side">
           <label for="my-drawer-4" aria-label="close sidebar" class="drawer-overlay"></label>
-          <ul class="menu bg-base-200 text-base-content min-h-full w-80 p-4">
+          <ul class="menu bg-base-100 text-base-content min-h-full w-80 p-4">
             <li>
               <%= link_to t('admin.products.index.title'), admin_products_path,
                   class: 'whitespace-nowrap text-base' %>
