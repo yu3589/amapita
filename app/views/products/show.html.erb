@@ -1,7 +1,7 @@
 <div class="p-2 md:p-4">
-  <div class="p-2 md:p-6 w-full max-w-3xl mx-auto bg-base-200 rounded-4xl">
-    <h1 class="flex justify-between items-center text-xl md:text-2xl p-4 border-b border-gray-300 w-full">
-      <span class="text-center flex-1"><%= @product.name %></span>
+  <div class="p-2 w-full max-w-3xl mx-auto bg-base-100 rounded-4xl">
+    <h1 class="flex justify-between items-center text-xl md:text-2xl p-4 border-b border-base-200 w-full">
+      <span class="text-center flex-1"><%= t('.title') %></span>
       <% if user_signed_in? %>
         <%= render 'bookmark_buttons', { product: @product } %>
       <% end %>
@@ -24,8 +24,8 @@
         <!-- あまピタカウント -->
         <div class="w-full md:w-auto justify-center md:block">
           <% if @product.total_posts.zero? %>
-            <div class="ring-base-300 title-ring">
-              <%= image_tag "smiley-blank.svg", class: "h-8 w-8 md:h-10 md:w-10" %>
+            <div class="flex flex-row ring-base-200 amapita-count-ring">
+              <%= image_tag "smiley-blank.svg", class: "h-8 w-8" %>
               <%= t('defaults.label.no_rating') %>
             </div>
             <div class="mt-8 md:mt-12 text-center">
@@ -36,8 +36,8 @@
             <% end %>
           </div>
           <% else %>
-            <div class="ring-primary title-ring">
-              <%= image_tag "smiley-wink.svg", class: "h-8 w-8 md:h-9 md:w-9" %>
+            <div class="flex flex-row ring-primary amapita-count-ring">
+              <%= image_tag "smiley-wink.svg", class: "h-8 w-8" %>
               <p><%= t("defaults.label.stats", count: @product.total_posts, perfect:@product.perfect_sweetness_count) %></p>
             </div>
           <% end %>
@@ -60,7 +60,7 @@
     <% if @posts.present? %>
       <!-- チャート -->
     <div class="flex justify-center p-2 md:p-4">
-      <div class="w-full max-w-lg sm:max-w-xl lg:max-w-xl p-2 border-secondary rounded-3xl bg-base-100">
+      <div class="w-full max-w-lg sm:max-w-xl lg:max-w-xl p-2 border-secondary rounded-3xl bg-white">
         <div class="mx-auto w-full max-w-md p-2">
         <% if user_signed_in? && @user_post.present? %>
             <%= render "shared/chart/sweetness_average",
@@ -99,7 +99,7 @@
         <div class="p-2 text-base md:text-xl"><%= t('.review') %></div>
 
         <% @posts.each do |post| %>
-          <div class="py-4 border-b border-base-300 last:border-b-0">
+          <div class="py-4 border-b border-base-200 last:border-b-0">
             <div class="flex flex-col md:flex-row gap-4 md:items-start">
 
               <!-- 画像 -->
@@ -152,14 +152,14 @@
                 </div>
 
                 <!-- 日付 + 編集・削除ボタン -->
-                <div class="flex flex-col items-end gap-2 md:gap-4 px-3 text-sm text-base-300">
+                <div class="flex flex-col items-end gap-2 md:gap-4 px-3 text-sm text-base-200">
                   <div><%= l post.created_at %></div>
                   <% if user_signed_in? && current_user.own?(post) %>
-                    <div class="flex gap-4">
-                      <%= link_to edit_post_path(post), class: "text-sm ring-accent action-button", data: { turbo: false } do %>
+                    <div class="flex gap-2">
+                      <%= link_to edit_post_path(post), class: "text-sm btn btn-outline btn-accent", data: { turbo: false } do %>
                         <%= t('helpers.submit.edit') %>
                       <% end %>
-                      <%= link_to post_path(post), class: "text-sm ring-secondary action-button", data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>
+                      <%= link_to post_path(post), class: "text-sm btn btn-outline btn-secondary", data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>
                         <%= t('helpers.submit.delete') %>
                       <% end %>
                     </div>

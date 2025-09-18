@@ -1,9 +1,9 @@
 <div class="p-2 md:p-4"> 
-  <div class="p-2 rounded-3xl w-full max-w-3xl mx-auto bg-base-200">
+  <div class="p-2 rounded-3xl w-full max-w-3xl mx-auto bg-base-100">
     <div class="text-xl md:text-2xl text-neutral text-center p-4">
       <%= t('.title') %>
     </div>
-    <div class="text-base md:text-xl border-t border-base-300 leading-relaxed text-neutral text-center p-6">
+    <div class="text-base md:text-xl border-t border-base-200 leading-relaxed text-neutral text-center p-6">
       あなたの<span class="sm:hidden"><br></span>「好みの甘さ感覚チャート」が<br>出来上がりました！
     </div>
     <div class="px-10 py-4 md:py-6 text-neutral">
@@ -18,7 +18,7 @@
 
     <div class="flex justify-center p-4">
         <div class="w-full max-w-md">
-        <div class="p-4 border-secondary rounded-3xl bg-base-100">
+        <div class="p-4 border-secondary rounded-3xl bg-white">
             <%= render "shared/chart/sweetness_profile_chart",
             chart_id: "radarChart",
             data: [
@@ -33,11 +33,11 @@
     </div>
 
     <div class="flex flex-col items-center gap-6 p-8">
-      <%= link_to "#", class: "bg-accent button-secondary opacity-60 pointer-events-none flex flex-col items-center" do %>
+      <%= link_to "#", class: "flex flex-col items-center text-base btn btn-xl btn-accent opacity-60 pointer-events-none" do %>
         X でシェアする
         <span class="text-sm text-center text-error">※ 準備中</span>
       <% end %>
-      <%= link_to "閉じる", posts_path, data: { turbo: false }, class: "bg-accent ring-accent button-close" %>
+      <%= link_to "閉じる", posts_path, data: { turbo: false }, class: "text-base btn btn-lg" %>
     </div>
   </div>
 </div>

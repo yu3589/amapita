@@ -1,6 +1,6 @@
 <div class="p-2 md:p-4">
-  <div class="flex flex-col p-2 md:p-6 items-center justify-center w-full max-w-3xl mx-auto bg-base-200 rounded-4xl">
-    <h1 class="text-center text-xl md:text-2xl p-4 border-b border-gray-300 w-full">
+  <div class="flex flex-col p-2 items-center justify-center w-full max-w-3xl mx-auto bg-base-100 rounded-4xl">
+    <h1 class="text-center text-xl md:text-2xl p-4 border-b border-base-200 w-full">
       <%= t('.title') %>
     </h1>
 
@@ -33,7 +33,7 @@
               <% end %>
 
               <% if index == 3 %>
-                <div class="pb-2 text-center text-sm text-base-300">
+                <div class="pb-2 text-center text-sm text-base-200">
                   <%= t('.example') %>
                 </div>
               <% end %>
@@ -58,7 +58,7 @@
           <% end %>
 
           <div class="text-center mt-4 md:mt-8 pb-2 md:pb-0">
-            <%= f.submit "診断する", class: "bg-accent button-primary" %>
+            <%= f.submit "診断する", class: "text-base btn btn-xl btn-accent" %>
           </div>
         </div>
       </div>
