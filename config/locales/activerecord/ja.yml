@@ -47,7 +47,7 @@ ja:
       sweetness_rating:
         lack_of_sweetness: "あまさが\n足りない"
         could_be_sweeter: "もう少し\n甘さがほしい"
-        perfect_sweetness: あまピタ！
+        perfect_sweetness: あまピタッ！
         slightly_too_sweet: "少し\nあますぎ"
         too_sweet: あますぎ
   datetime:
