@@ -24,6 +24,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def failure
+    Rails.logger.error "Google authentication failed for user_id=#{current_user&.id}, reason=#{params[:message]}"
     set_flash_message(:alert, :failure, kind: "Google") if is_navigational_format?
     redirect_to root_path
   end

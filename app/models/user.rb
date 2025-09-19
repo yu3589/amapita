@@ -27,14 +27,38 @@ class User < ApplicationRecord
 
   # providerとuidを使ってユーザーを検索、存在しなければ新規作成
   def self.from_omniauth(auth)
+    # 既存のGoogleアカウントを探す
+    user = find_by(provider: auth.provider, uid: auth.uid)
+    return user if user
+
+    # 同じメールアドレスの既存ユーザーにGoogle認証を紐付ける
+    existing_user = find_by(email: auth.info.email)
+    if existing_user
+      begin
+        existing_user.update!(
+          provider: auth.provider,
+          uid: auth.uid,
+          name: existing_user.name.presence || auth.info.name.presence
+          )
+      rescue ActiveRecord::RecordInvalid => e
+        Rails.logger.error "OmniAuth update failed: #{e.record.errors.full_messages.join(', ')}"
+      end
+      return existing_user
+    end
+
+    # Googleユーザーを新規作成
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.name = auth.info.name
       user.email = auth.info.email
       user.password = Devise.friendly_token[0, 20]
 
       if auth.info.image.present?
-      downloaded_image = URI.open(auth.info.image)
-      user.avatar.attach(io: downloaded_image, filename: "#{user.name}_avatar.jpg")
+        begin
+          downloaded_image = URI.open(auth.info.image)
+          user.avatar.attach(io: downloaded_image, filename: "#{user.name}_avatar.jpg")
+        rescue => e
+          Rails.logger.warn "Avatar download failed: #{e.message}"
+        end
       end
     end
   end
