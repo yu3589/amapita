@@ -64,12 +64,7 @@
     <%= render 'shared/header' %>
     <main class="container flex-1 pt-20 pb-14 md:pb-20 px-4 mx-auto">
       <%= turbo_frame_tag "modal" %>
-      <% if notice.present? %>
-        <%= render 'shared/notice', notice: notice %>
-      <% end %>
-      <% if alert.present? %>
-        <%= render 'shared/alert', alert: alert %>
-      <% end %>
+      <%= render 'shared/flash_messages' %>
       <%= yield %>
     </main>
     <%= render 'shared/footer' %>
