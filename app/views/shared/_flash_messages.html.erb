@@ -1,0 +1,5 @@
+<% flash.each do |type, message| %>
+  <% if message.present? %>
+    <%= render "shared/#{type}", "#{type}": message %>
+  <% end %>
+<% end %>
