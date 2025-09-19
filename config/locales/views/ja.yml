@@ -57,11 +57,19 @@ ja:
       search: 検索
       clear: クリア
       post: 投稿する
+  shared:
+      header:
+        login: ログイン
+        logout: ログアウト
+        sign_up: 新規登録
+        about: アプリについて
+        mypage: マイページ
+        diagnosis: 甘さ感覚診断
+        posts: みんなの甘さ評価一覧
   admin:
     user_sessions:
       new:
         title: ログイン
-        login: ログイン
       create:
         success: ログインしました
         failure: ログインに失敗しました
