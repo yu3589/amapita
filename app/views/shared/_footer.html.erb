@@ -1,31 +1,31 @@
-<footer class="fixed bottom-0 w-full px-4 py-4 z-[9999]">
-  <div class="dock bg-base-100 dock-xs md:dock-lg border-t border-base-100">
-    <%= link_to posts_path, class: "flex flex-col items-center justify-center leading-none" do %>
-      <span class="p-2 rounded-full md:hover:bg-[var(--color-base-400)]">
-      <%= image_tag "footer/house.svg", class: "h-8 w-8" %>
+<footer class="fixed bottom-0 w-full px-4 py-4 z-[8888]">
+  <div class="dock bg-base-100 dock-sm md:dock-lg border-t border-[var(--color-base-400)]">
+    <%= link_to posts_path, class: "flex flex-col items-center justify-center leading-none md:hover:bg-[var(--color-base-400)]" do %>
+      <span class="p-2">
+      <%= image_tag "footer/house.svg", class: "h-7 w-7 md:h-8 md:w-8" %>
       </span>
     <% end %>
 
     <%= link_to "#", class: "flex flex-col items-center justify-center leading-none opacity-60" do %>
-      <span class="p-2 rounded-full">
-      <%= image_tag "footer/magnifying_glass.svg", class: "h-8 w-8" %>
+      <span class="p-2">
+      <%= image_tag "footer/magnifying_glass.svg", class: "h-7 w-7 md:h-8 md:w-8" %>
       </span>
     <% end %>
 
-    <%= link_to categories_path, class: "flex flex-col items-center" do %>
-      <span class="p-2 rounded-full md:hover:bg-[var(--color-base-400)]">
+    <%= link_to categories_path, class: "flex flex-col items-center md:hover:bg-[var(--color-base-400)]" do %>
+      <span class="p-2">
       <%= image_tag "footer/plus_circle.svg", class: "h-10 w-10 md:h-11 md:w-11" %>
       </span>
     <% end %>
 
    <%= link_to "#", class: "flex flex-col items-center justify-center leading-none opacity-60" do %>
-      <span class="p-2 rounded-full">
-      <%= image_tag "footer/bell.svg", class: "h-8 w-8" %>
+      <span class="p-2">
+      <%= image_tag "footer/bell.svg", class: "h-7 w-7 md:h-8 md:w-8" %>
       </span>
     <% end %>
 
-    <%= link_to profile_path, class: "flex flex-col items-center justify-center leading-none" do %>
-      <span class="p-2 rounded-full">
+    <%= link_to profile_path, class: "flex flex-col items-center justify-center leading-none md:hover:bg-[var(--color-base-400)]" do %>
+      <span class="p-2">
       <%= image_tag "footer/user_circle.svg", class: "h-8 w-8 md:h-9 md:w-9" %>
       </span>
     <% end %>
