@@ -12,10 +12,8 @@
           <%= link_to category_product_path(@category, product) do %>
             <div class="flex flex-row items-center md:items-start pt-4">
               <!-- 画像 -->
-              <figure class="flex-shrink-0 w-30 md:w-50">
-                <div class="aspect-square overflow-hidden">
-                  <%= product.decorate.product_image(class: "w-30 h-30 md:w-40 md:h-40") %>
-                </div>
+              <figure class="flex-shrink-0 p-1 md:p-4">
+                <%= product.decorate.product_image(class: "w-25 h-25 md:w-30 md:h-30") %>
               </figure>
 
               <!-- 商品情報 -->
