@@ -96,7 +96,7 @@
                                 <%= hover_colors[rating_key] %>
                                 peer-checked:bg-<%= selected_colors[rating_key].split('-').last %> 
                                 <%= 'bg-' + selected_colors[rating_key].split('-').last if checked %>">
-                      <%= image_tag rating_images[rating_key], class: "w-7 h-7 md:w-8 md:h-8 pointer-events-none" %>
+                      <%= image_tag rating_images[rating_key], class: "w-8 h-8 pointer-events-none" %>
                     </span>
                   </label>
                 <% end %>
