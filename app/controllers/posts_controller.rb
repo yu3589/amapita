@@ -17,7 +17,7 @@ class PostsController < ApplicationController
     @post = Post.new
     if params[:product_id].present?
       # 既存商品へのレビュー
-      @post.product = Product.find(params[:product_id], items: 10)
+      @post.product = Product.find(params[:product_id])
       @post.build_post_sweetness_score
     else
       # 新規商品登録と同時レビュー
