@@ -1,8 +1,8 @@
-<canvas id="radarChart" width="400" height="400"></canvas>
+<canvas id="averageChartOnly" width="400" height="400"></canvas>
 
 <script>
   document.addEventListener("turbo:load", function () {
-    const ctx = document.getElementById("radarChart");
+    const ctx = document.getElementById("averageChartOnly");
     if (!ctx) return;
 
     if (Chart.getChart(ctx)) {
@@ -11,20 +11,17 @@
 
     const borderWidth = window.innerWidth < 768 ? 2 : 4;
 
-    // ユーザーによってラベルを切り替え
-    const labelText = "<%= j sweetness_label(user_post: @user_post, post: @post) %>";
-
     new Chart(ctx, {
       type: 'radar',
       data: {
         labels: ["甘みの強さ", ["後味のキレ/","スッキリ感"], "自然な甘さ", "爽快感", "甘さの深み/コク"],
         datasets: [{
-          label: labelText,
+          label: ["<%= t('defaults.chart.sweetness_average') %>"],
           data: [<%= data.map(&:to_i).join(", ") %>],
-          backgroundColor: 'rgba(245, 182, 199, 0.4)',
-          borderColor: 'rgba(245, 182, 199, 0.6)',
+          backgroundColor: 'rgba(153, 215, 170, 0.4)',
+          borderColor: 'rgba(153, 215, 170, 0.6)',
           borderWidth: borderWidth,
-          pointBackgroundColor: 'rgba(245, 182, 199, 0.6)',
+          pointBackgroundColor: 'rgba(153, 215, 170, 0.6)',
           pointRadius: 3,
           pointHoverRadius: 3
         }]

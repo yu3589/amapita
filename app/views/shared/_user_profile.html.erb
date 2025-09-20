@@ -53,7 +53,7 @@
         <div class="w-full max-w-md md:max-w-lg p-2 rounded-3xl bg-white">
 
           <div class="flex justify-end text-sm md:text-base font-bold mb-2">
-            <span class="rounded-full bg-secondary text-white px-3 py-2 text-sm md:text-base">
+            <span class="rounded-xl bg-secondary text-white px-3 py-2 text-sm md:text-base">
               <%= I18n.t("enums.sweetness_type.sweetness_kind.#{sweetness_type.sweetness_kind}") %>
             </span>
           </div>
@@ -70,7 +70,7 @@
                 ] %>
           </div>
 
-          <div class="flex justify-end text-xs md:text-sm pb-4 text-gray-300">
+          <div class="flex justify-end text-xs md:text-sm pb-4 text-base-200">
             <%= t('profiles.diagnosis.latest_date') %>：
             <%= l sweetness_profiles.created_at %>
           </div>
