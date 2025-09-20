@@ -1,32 +1,50 @@
-<%= render 'search_form', q_new: @q_new, url: posts_path %>
-<% if @q_recommend %>
-  <%= render 'search_form_recommend', q_recommend: @q_recommend, url: posts_path %>
-<% end %>
-<div class="max-w-2xl mx-auto">
-  <!-- タブ -->
-  <input type="radio" name="posts_tab" id="radio-new" class="hidden" checked>
-  <input type="radio" name="posts_tab" id="radio-recommend" class="hidden">
+<div class="max-w-2xl md:max-w-7xl mx-auto">
+  <!-- タブ切替用ラジオ -->
+  <input type="radio" name="posts_tab" id="radio-new" class="hidden" <%= params[:tab] != 'recommend' ? 'checked' : '' %>>
+  <input type="radio" name="posts_tab" id="radio-recommend" class="hidden" <%= params[:tab] == 'recommend' ? 'checked' : '' %>>
 
+  <!-- 検索フォーム -->
+  <div class="w-full max-w-xl mx-auto py-3">
+    <div id="search-form-new" class="<%= params[:tab] == 'recommend' ? 'hidden' : '' %>">
+      <%= form_with url: posts_path, method: :get, local: true do |f| %>
+        <%= hidden_field_tag :tab, 'new' %>
+        <%= render 'search_form', f: f, q_new: @q_new %>
+      <% end %>
+    </div>
+
+    <div id="search-form-recommend" class="<%= params[:tab] == 'recommend' ? '' : 'hidden' %>">
+      <% if user_signed_in? %>
+        <%= form_with url: posts_path, method: :get, local: true do |f| %>
+          <%= hidden_field_tag :tab, 'recommend' %>
+          <%= render 'search_form_recommend', f: f, q_recommend: @q_recommend %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- タブ -->
   <div class="flex justify-center gap-5 md:gap-10 tabs-labels p-2 text-center">
-    <label for="radio-new"
-           class="cursor-pointer button-secondary ring-base-200 bg-[var(--color-base-400)]">
-      <%= t('.new_post') %>
-    </label>
+    <a href="<%= posts_path(tab: 'new') %>" 
+      class="cursor-pointer button-secondary 
+              <%= params[:tab] != 'recommend' ? 'bg-white ring-accent' : 'bg-[var(--color-base-400)] ring-base-200' %>">
+      <div class="flex flex-row items-center gap-1">
+        <%= image_tag "cookie.svg", class: "h-5 w-5 md:h-6 md:w-6" %>
+        <%= t('.new_post') %>
+      </div>
+    </a>
 
     <% if user_signed_in? %>
-      <label for="radio-recommend"
-             class="relative cursor-pointer button-secondary ring-base-200 bg-[var(--color-base-400)]">
+      <a href="<%= posts_path(tab: 'recommend') %>"
+        class="relative cursor-pointer button-secondary 
+                <%= params[:tab] == 'recommend' ? 'bg-white ring-primary' : 'bg-[var(--color-base-400)] ring-base-200' %>
+                tooltip tooltip-top"
+        data-tip="<%= t('.tooltips.twins_recommendations_user') %>">
         <div class="flex flex-row items-center gap-1">
           <%= image_tag "handshake.svg", class: "h-5 w-5 md:h-6 md:w-6" %>
           <%= t('.twins_recommendations') %>
         </div>
-        <div class="dropdown dropdown-top absolute right-1 bottom-1">
-          <div tabindex="0" role="button" class="btn bg-base-100 btn-xs btn-circle text-base-300">?</div>
-          <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-1 w-35 p-1 shadow-sm text-xs pointer-events-none">
-            <li><a><%= raw t('.description') %></a></li>
-          </ul>
-        </div>
-      </label>
+      </a>
+
     <% else %>
       <div class="relative group">
         <span class="button-secondary ring-base-200 bg-base-200 select-none block tooltip tooltip-top"
@@ -35,41 +53,54 @@
             <%= image_tag "handshake.svg", class: "h-5 w-5 md:h-6 md:w-6" %>
             <%= t('.twins_recommendations') %>
           </div>
+          <div class="dropdown dropdown-bottom dropdown-end absolute right-1 bottom-1">
+            <div tabindex="0" role="button" class="btn bg-base-100 btn-xs btn-circle text-base-300">?</div>
+              <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-1 w-35 p-1 shadow-sm text-xs pointer-events-none">
+                <li><a><%= raw t('.tooltips.twins_recommendations_guest') %></a></li>
+              </ul>
+            </div>
         </span>
       </div>
     <% end %>
   </div>
 
-  <!-- タブ -->
-  <div class="tabs-content">
-    <!-- 新着 -->
-    <div id="tab-new-content" class="tab-panel w-full">
-      <% if @new_posts.present? %>
+<!-- 投稿一覧 -->
+<div class="w-full max-w-7xl mx-auto tabs-content md:px-30">
+  <!-- 新着 -->
+  <div id="tab-new-content" class="tab-panel w-full <%= params[:tab] == 'recommend' ? 'hidden' : '' %>">
+    <% if @new_posts.present? %>
+      <div class="grid gap-y-4 md:grid-cols-2 md:gap-y-2 md:gap-x-1 justify-between">
         <%= render @new_posts %>
-        <div class="flex items-center justify-center p-4">
-          <%== pagy_nav(@pagy_new) %>
-        </div>
-      <% else %>
-        <div class="flex flex-col justify-center gap-5 md:gap-5 p-6 items-center text-center">
-          <%= image_tag "smiley-x-eyes-fill.svg", class: "h-10 w-10 md:h-15 md:w-15" %>
-          <div class="mb-3"><%= t('defaults.message.no_post') %></div>
-        </div>
-      <% end %>
-    </div>
+      </div>
 
-    <!-- おすすめ一覧 -->
-    <div id="tab-recommend-content" class="tab-panel w-full">
-      <% if user_signed_in? && @recommended_posts.present? %>
-        <%= render @recommended_posts %>
-        <div class="flex items-center justify-center p-4">
-          <%== pagy_nav(@pagy_recommend) %>
-        </div>
-      <% else %>
-        <div class="flex flex-col justify-center gap-5 md:gap-5 p-6 items-center text-center">
-          <%= image_tag "smiley-x-eyes-fill.svg", class: "h-10 w-10 md:h-15 md:w-15" %>
-          <div class="mb-3"><%= t('defaults.message.no_post') %></div>
-        </div>
-      <% end %>
-    </div>
+      <div class="flex items-center justify-center mt-4">
+        <%== pagy_nav(@pagy_new) %>
+      </div>
+    <% else %>
+      <div class="flex flex-col justify-center gap-5 md:gap-5 p-6 items-center text-center text-xs md:text-sm">
+        <%= image_tag "smiley-x-eyes-fill.svg", class: "h-15 w-15 md:h-20 md:w-20" %>
+        <div class="mb-3"><%= t('defaults.message.no_post') %></div>
+      </div>
+    <% end %>
   </div>
+
+  <!-- おすすめ一覧 -->
+  <div id="tab-recommend-content" class="tab-panel w-full <%= params[:tab] == 'recommend' ? '' : 'hidden' %>">
+    <% if user_signed_in? && @recommended_posts.present? %>
+      <div class="grid gap-y-4 md:grid-cols-2 md:gap-y-2 md:gap-x-1 justify-between">
+        <%= render @recommended_posts %>
+      </div>
+
+      <div class="flex items-center justify-center mt-4">
+        <%== pagy_nav(@pagy_recommend) %>
+      </div>
+    <% else %>
+      <div class="flex flex-col justify-center gap-5 md:gap-5 p-6 items-center text-center text-xs md:text-sm">
+        <%= image_tag "smiley-x-eyes-fill.svg", class: "h-15 w-15 md:h-20 md:w-20" %>
+        <div class="mb-3"><%= t('defaults.message.no_post') %></div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
 </div>
