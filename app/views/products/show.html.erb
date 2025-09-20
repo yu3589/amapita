@@ -97,8 +97,8 @@
 
             <% else %>
               <!-- ログインユーザーは未投稿で他ユーザーの投稿がある場合 -->
-              <%= render "shared/chart/sweetness_posts",
-                chart_id: "radarChart",
+              <%= render "shared/chart/sweetness_average_only",
+                chart_id: "averageChartOnly",
                 data: [
                   @average_scores[:sweetness_strength],
                   @average_scores[:aftertaste_clarity],
