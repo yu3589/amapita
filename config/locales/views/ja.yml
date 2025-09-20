@@ -132,11 +132,13 @@ ja:
       uploaded_image: 現在の投稿画像
       replace_image: 新しい画像をアップロード
     index:
-      new_post: 新着のあまピタ評価
+      new_post: みんなの甘さ評価
       twins_recommendations: あなたにオススメ！
-      description: 甘さツインの<br>「あまピタッ！」<br>評価一覧が見れます
+      tooltips:
+          twins_recommendations_guest: 甘さツインの<br>「あまピタッ！」<br>評価一覧が見れます
+          twins_recommendations_user: 甘さツインのあまピタ一覧
       search_title:
-        new_posts: 新着のあまピタ評価から検索
+        new_posts: みんなの甘さ評価から検索
         twin_recommendations: あなたにオススメ！から検索
     show:
       title: レビュー詳細
