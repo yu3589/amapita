@@ -31,6 +31,7 @@ ja:
       sweetness_profile: 好みの甘さ感覚
       sweetness_user: あなたの評価
       sweetness_average: みんなの評価
+      sweetness_other_user: ユーザーの評価
     badge_modal:
       title: あなたの称号が変わりました。
       message: "『%{badge_name}』"

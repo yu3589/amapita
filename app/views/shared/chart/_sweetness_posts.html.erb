@@ -10,17 +10,23 @@
     }
 
     const borderWidth = window.innerWidth < 768 ? 2 : 4;
+
+    // ユーザーによってラベルを切り替え
+    const labelText = "<%= current_user == @post&.user ? t('defaults.chart.sweetness_user') : t('defaults.chart.sweetness_other_user') %>";
+
     new Chart(ctx, {
       type: 'radar',
       data: {
         labels: ["甘みの強さ", ["後味のキレ/","スッキリ感"], "自然な甘さ", "爽快感", "甘さの深み/コク"],
         datasets: [{
-          label: ["<%= t('defaults.chart.sweetness_user') %>"],
+          label: labelText,
           data: [<%= data.map(&:to_i).join(", ") %>],
           backgroundColor: 'rgba(245, 182, 199, 0.4)',
           borderColor: 'rgba(245, 182, 199, 0.6)',
           borderWidth: borderWidth,
-          pointBackgroundColor: 'rgba(245, 182, 199, 0.6)'
+          pointBackgroundColor: 'rgba(245, 182, 199, 0.6)',
+          pointRadius: 4,
+          pointHoverRadius: 4
         }]
       },
       options: {

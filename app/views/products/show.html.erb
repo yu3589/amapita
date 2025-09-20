@@ -59,40 +59,58 @@
 
     <% if @posts.present? %>
       <!-- チャート -->
-    <div class="flex justify-center p-2 md:p-4">
-      <div class="w-full max-w-lg sm:max-w-xl lg:max-w-xl p-2 border-secondary rounded-3xl bg-white">
-        <div class="mx-auto w-full max-w-md p-2">
-        <% if user_signed_in? && @user_post.present? %>
-            <%= render "shared/chart/sweetness_average",
-            chart_id: "averageChart",
-            user_data: [
-                @user_post.post_sweetness_score.sweetness_strength,
-                @user_post.post_sweetness_score.aftertaste_clarity,
-                @user_post.post_sweetness_score.natural_sweetness,
-                @user_post.post_sweetness_score.coolness,
-                @user_post.post_sweetness_score.richness
-            ],
-            average_data: [
-                @average_scores[:sweetness_strength],
-                @average_scores[:aftertaste_clarity],
-                @average_scores[:natural_sweetness],
-                @average_scores[:coolness],
-                @average_scores[:richness]
-            ] %>
-        <% else %>
-            <%= render "shared/chart/sweetness_posts",
-            chart_id: "radarChart",
-            data: [
-                @average_scores[:sweetness_strength],
-                @average_scores[:aftertaste_clarity],
-                @average_scores[:natural_sweetness],
-                @average_scores[:coolness],
-                @average_scores[:richness]
-            ] %>
-        <% end %>
+      <div class="flex justify-center p-2 md:p-4">
+        <div class="w-full max-w-lg sm:max-w-xl p-2 border-secondary rounded-3xl bg-white">
+          <div class="mx-auto w-full max-w-md p-2">
+
+            <% if user_signed_in? && @user_post.present? %>
+              <% if @posts.any?(&:user) && @posts.any? { |p| p.user != current_user } %>
+                <!-- ログインユーザーと他ユーザーの投稿がある場合 -->
+                <%= render "shared/chart/sweetness_average",
+                  chart_id: "averageChart",
+                  user_data: [
+                    @user_post.post_sweetness_score.sweetness_strength,
+                    @user_post.post_sweetness_score.aftertaste_clarity,
+                    @user_post.post_sweetness_score.natural_sweetness,
+                    @user_post.post_sweetness_score.coolness,
+                    @user_post.post_sweetness_score.richness
+                  ],
+                  average_data: [
+                    @average_scores[:sweetness_strength],
+                    @average_scores[:aftertaste_clarity],
+                    @average_scores[:natural_sweetness],
+                    @average_scores[:coolness],
+                    @average_scores[:richness]
+                  ] %>
+              <% else %>   
+              <!-- ログインユーザーのみ投稿している場合 -->
+              <%= render "shared/chart/sweetness_posts",
+                chart_id: "radarChart",
+                data: [
+                  @user_post.post_sweetness_score.sweetness_strength,
+                  @user_post.post_sweetness_score.aftertaste_clarity,
+                  @user_post.post_sweetness_score.natural_sweetness,
+                  @user_post.post_sweetness_score.coolness,
+                  @user_post.post_sweetness_score.richness
+                ] %>
+              <% end %>
+
+            <% else %>
+              <!-- ログインユーザーは未投稿で他ユーザーの投稿がある場合 -->
+              <%= render "shared/chart/sweetness_posts",
+                chart_id: "radarChart",
+                data: [
+                  @average_scores[:sweetness_strength],
+                  @average_scores[:aftertaste_clarity],
+                  @average_scores[:natural_sweetness],
+                  @average_scores[:coolness],
+                  @average_scores[:richness]
+                ] %>
+            <% end %>
+
+          </div>
         </div>
       </div>
-    </div>
 
       <!-- ユーザーレビュー -->
       <div class="bg-white px-4 py-6 md:p-2 max-w-2xl mx-auto rounded-4xl flex flex-col items-center">
