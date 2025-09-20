@@ -22,7 +22,7 @@
             <% end %>
             <% if display_post_badge(user).present? %>
               <span class="flex flex-row gap-1 text-xs rounded-full px-2 py-1 bg-success">
-                <%= image_tag "trophy.svg" %>
+                <%= image_tag "badge.svg", class: "h-5 w-5" %>
                 <%= display_post_badge(user) %>
               </span>
               <span class="text-sm">

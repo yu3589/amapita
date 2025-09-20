@@ -35,7 +35,7 @@
             <div class="flex flex-col p-2 md:p-1 gap-2">
               <span class="font-medium"><%= @post.user.name %></span>
               <span class ="flex flex-row gap-1 text-xs rounded-full px-2 py-1 bg-success">
-                <%= image_tag "trophy.svg" %>
+                <%= image_tag "badge.svg", class: "h-5 w-5" %>
                   <%= display_post_badge(@post.user) %>
               </span>
               <% if user_signed_in? && @post.user != current_user && sweetness_twin?(@post.user) %>
