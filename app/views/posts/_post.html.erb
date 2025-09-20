@@ -4,7 +4,7 @@
     <!-- ユーザー情報 -->
     <div class="flex flex-col pl-2 md:pl-6 text-sm">
       <%= link_to user_path(post.user), class: "flex items-center md:gap-2 hover:opacity-70" do %>
-        <%= post.user.decorate.avatar_image(class: "w-8 h-8 md:w-10 md:h-10") %>
+        <%= post.user.decorate.avatar_image(class: "w-9 h-9 md:w-10 md:h-10") %>
 
         <div class="flex flex-col p-2 md:p-1 gap-1 md:gap-2">
           <%= post.user.name %>
@@ -33,12 +33,12 @@
       <!-- 画像 -->
       <figure class="flex-shrink-0">
         <% if post.image.attached? %>
-          <div class="aspect-square overflow-hidden p-2 md:p-3">
-            <%= post.decorate.post_image(class: "w-20 h-20 md:w-30 md:h-30") %>
+          <div class="p-2 md:p-3">
+            <%= post.decorate.post_image(class: "w-22 h-22 md:w-30 md:h-30") %>
           </div>
         <% else %>
-          <div class="aspect-square overflow-hidden p-2 md:p-3">
-            <%= post.product.decorate.product_image(class: "w-20 h-20 md:w-30 md:h-30") %>
+          <div class="p-2 md:p-3">
+            <%= post.product.decorate.product_image(class: "w-22 h-22 md:w-30 md:h-30") %>
           </div>
         <% end %>
       </figure>
