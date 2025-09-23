@@ -8,6 +8,7 @@ ja:
       product: 商品
       bookmark: ブックマーク
       badge: バッジ
+      like: いいね
     attributes:
       sweetness_strength: 甘みの強さ
       aftertaste_clarity: 後味のキレ/スッキリ感

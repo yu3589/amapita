@@ -16,6 +16,8 @@ class User < ApplicationRecord
   belongs_to :sweetness_type, optional: true
   has_many :sweetness_profiles, dependent: :destroy
   has_many :posts, dependent: :destroy
+  has_many :likes, dependent: :destroy
+  has_many :like_posts, through: :likes, source: :post
   has_many :bookmarks, dependent: :destroy
   has_many :bookmark_products, through: :bookmarks, source: :product
   has_many :user_badges, dependent: :destroy
@@ -101,5 +103,17 @@ class User < ApplicationRecord
 
   def post_badges
     badges.where(badge_kind: :post_count)
+  end
+
+  def like(post)
+    like_posts << post
+  end
+
+  def liked(post)
+    like_posts.destroy(post)
+  end
+
+  def like?(post)
+    like_posts.include?(post)
   end
 end

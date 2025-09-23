@@ -126,10 +126,14 @@
               コメントする
             </span>
             <span class="flex items-center gap-1">
-              <div class="rating gap-1">
-                <input type="radio" name="rating-3" class="mask mask-heart bg-primary pointer-events-none" aria-label="2 star">
-              </div>
-              いいね！
+            <% if user_signed_in? %>
+              <%= render 'like_buttons', { post: @post } %>
+            <% else %>
+              <label class="cursor-pointer tooltip tooltip-top" 
+                    data-tip="ログインが必要です">
+                <%= image_tag "heart.svg", class: "h-6 w-6 ml-1" %>
+              </label>
+            <% end %>
             </span>
           </div>
           <div class="text-sm text-center text-error">
