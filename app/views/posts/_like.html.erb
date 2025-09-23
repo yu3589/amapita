@@ -1,0 +1,6 @@
+<%= link_to likes_path(post_id: post.id), 
+            id: "like-button-for-post-#{post.id}",
+            data: { turbo_method: :post },
+            class: "flex flex-row gap-1 items-center text-base-200" do %>
+  <%= image_tag "heart.svg", class: "h-6 w-6 md:h-7 md:w-7 ml-1" %>
+<% end %>
