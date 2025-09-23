@@ -1,0 +1,6 @@
+<%= link_to like_path(current_user.likes.find_by(post_id: post.id)),
+            id: "liked-button-for-post-#{post.id}",
+            data: { turbo_method: :delete },
+            class: "flex flex-row gap-1 items-center text-base-300" do %>
+  <%= image_tag "heart-fill.svg", class: "h-6 w-6 md:h-7 md:w-7 ml-1" %>
+<% end %>

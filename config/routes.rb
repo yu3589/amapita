@@ -16,6 +16,8 @@ Rails.application.routes.draw do
 
   resources :posts
 
+  resources :likes, only: %i[create destroy]
+
   resources :products, only: %i[index show]
 
   resources :bookmarks, only: %i[create destroy]

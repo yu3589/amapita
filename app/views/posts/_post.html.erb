@@ -26,7 +26,18 @@
         </div>
       <% end %>
     </div>
-
+    <div class="absolute top-3 right-6">
+      <span class="flex items-center gap-1">
+      <% if user_signed_in? %>
+        <%= render 'posts/like_buttons', { post: post } %>
+      <% else %>
+        <label class="flex flex-row items-center gap-1 cursor-pointer tooltip tooltip-left sm:tooltip-bottom" 
+              data-tip="<%= t('defaults.require_login') %>">
+          <%= image_tag "heart.svg", class: "h-6 w-6 ml-1" %>
+        </label>
+      <% end %>
+      </span>
+    </div>
 
     <!-- 投稿情報 -->
     <div class="flex flex-row gap-2 items-start md:px-4 w-full">
@@ -91,7 +102,7 @@
 
     <!-- 編集・削除ボタン -->
     <% if user_signed_in? && current_user.own?(post) %>
-      <div class="dropdown dropdown-bottom dropdown-end absolute top-2 right-2 z-10">
+      <div class="dropdown dropdown-bottom dropdown-end absolute top-1 right-14 z-10">
         <div tabindex="0" role="button" class="btn btn-lg btn-square btn-ghost hover:bg-[var(--color-base-400)]">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                viewBox="0 0 24 24" class="inline-block h-7 w-7 text-base-300 stroke-current">
