@@ -1,0 +1,23 @@
+<%= turbo_frame_tag dom_id(comment) do %>
+  <div class="w-full border-b border-base-200 px-1 sm:px-4 py-3 text-neutral">
+    <div class="flex flex-row items-center justify-between mb-1">
+      <div class="flex items-center gap-2">
+        <%= comment.user.decorate.avatar_image(class: "w-9, h-9") %>
+        <span class="font-medium text-xs"><%= comment.user.name %></span>
+      </div>
+       <% if user_signed_in? && current_user == comment.user %>
+       <%= link_to t('helpers.submit.delete'),
+          comment_path(comment),
+          class: "btn btn-sm",
+          data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } %>
+      <% end %>
+    </div>
+
+    <div class="text-sm leading-relaxed">
+      <%= comment.body %>
+    </div>
+      <div class="flex justify-end text-sm mt-1">
+        <time class="text-xs text-base-300"><%= l comment.created_at %></time>
+      </div>
+  </div>
+<% end %>
