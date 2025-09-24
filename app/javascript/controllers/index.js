@@ -4,5 +4,7 @@
 
 import { application } from "./application"
 import FadeController from "./fade_controller"
+import ResetFormController from "./reset_form_controller"
 
 application.register("fade", FadeController)
+application.register("reset-form", ResetFormController)
