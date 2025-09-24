@@ -11,6 +11,7 @@ class Post < ApplicationRecord
   has_one :category, through: :product
   has_one :post_sweetness_score, dependent: :destroy
   has_many :likes, dependent: :destroy
+  has_many :comments, dependent: :destroy
 
   accepts_nested_attributes_for :product, update_only: true
   accepts_nested_attributes_for :post_sweetness_score

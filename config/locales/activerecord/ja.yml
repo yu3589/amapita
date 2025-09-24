@@ -9,6 +9,7 @@ ja:
       bookmark: ブックマーク
       badge: バッジ
       like: いいね
+      comment: コメント
     attributes:
       sweetness_strength: 甘みの強さ
       aftertaste_clarity: 後味のキレ/スッキリ感
@@ -37,6 +38,8 @@ ja:
         image: 商品の画像
         category_id: カテゴリ
         manufacturer: メーカー
+      comment:
+        body: コメント
   enums:
     sweetness_type:
       sweetness_kind:

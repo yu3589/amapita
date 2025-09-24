@@ -14,7 +14,9 @@ Rails.application.routes.draw do
   resources :diagnoses, only: %i[new create]
   get "diagnoses/result/:token", to: "diagnoses#show", as: :diagnosis_result
 
-  resources :posts
+  resources :posts do
+    resources :comments, only: %i[create destroy], shallow: true
+  end
 
   resources :likes, only: %i[create destroy]
 

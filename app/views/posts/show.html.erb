@@ -105,7 +105,7 @@
 
     <!-- レビューセクション -->
     <div class="p-2 md:p-4">
-      <div class="p-2 w-full max-w-xl mx-auto bg-white rounded-4xl">
+      <div class="p-2 w-full max-w-xl mx-auto bg-white rounded-4xl mb-6">
         <div class="text-center text-xl p-2 text-neutral">
           レビュー
         </div>
@@ -120,11 +120,8 @@
               <div class="mb-3 text-base-200">レビューがありません</div>
             <% end %>
           </div>
+          <!-- いいね -->
           <div class="flex flex-row pt-2 text-sm gap-6 md:gap-30 text-base-200">
-            <span class="flex items-center gap-1">
-              <%= image_tag "chat.svg", class: "h-6 w-6" %>
-              コメントする
-            </span>
             <span class="flex items-center gap-1">
             <% if user_signed_in? %>
               <%= render 'like_buttons', { post: @post } %>
@@ -136,9 +133,18 @@
             <% end %>
             </span>
           </div>
-          <div class="text-sm text-center text-error">
-            ※ 準備中
+        </div>
+      </div>
+      <div class="w-full max-w-xl mx-auto rounded-4xl p-3">
+        <% if user_signed_in? %>
+          <!-- コメントフォーム -->
+          <div id="new_comment">
+            <%= render "posts/comment_form", post: @post, comment: Comment.new %>
           </div>
+        <% end %>
+        <!-- コメント一覧 -->
+        <div id="comments" class="mt-4">
+          <%= render @comments %>
         </div>
       </div>
     </div>

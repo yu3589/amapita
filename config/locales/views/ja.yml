@@ -5,6 +5,7 @@ ja:
     placeholders:
       search_word: キーワードを入力
       search_products: 商品名を入力
+      new_comment: コメントを書く...
     select:
       manufacturer: メーカーを選択
       category: カテゴリを選択
@@ -58,6 +59,7 @@ ja:
       search: 検索
       clear: クリア
       post: 投稿する
+      send: 送信
   shared:
       header:
         login: ログイン
