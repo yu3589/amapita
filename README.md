@@ -214,7 +214,7 @@ erDiagram
         int recipient_id FK "通知を受け取るユーザー"
         int notifiable_id "対象のいいね/コメントのID"
         string notifiable_type "通知対象のモデル名（Like/Comment）"
-        string action "通知アクション（liked/commented）"
+        int action "通知アクション（liked/commented）"
         bool checked "既読の確認（default false）"
         datetime created_at "作成日時" 
         datetime updated_at "更新日時"

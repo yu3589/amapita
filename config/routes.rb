@@ -20,6 +20,12 @@ Rails.application.routes.draw do
 
   resources :likes, only: %i[create destroy]
 
+  resources :notifications, only: %i[index update] do
+    collection do
+      patch :mark_all_as_read
+    end
+  end
+
   resources :products, only: %i[index show]
 
   resources :bookmarks, only: %i[create destroy]

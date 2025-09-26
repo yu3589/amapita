@@ -59,6 +59,15 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id]).decorate
     @comment = Comment.new
     @comments = @post.comments.includes(:user).order(created_at: :desc)
+
+    # 通知画面から投稿詳細画面へ遷移した時に既読処理
+    if params[:notification_id].present?
+      notification = Notification.find(params[:notification_id])
+      if notification.recipient_id != current_user.id
+        redirect_to notifications_path, alert: "不正なアクセスです" and return
+      end
+      notification.update(checked: true)
+    end
   end
 
   def destroy
