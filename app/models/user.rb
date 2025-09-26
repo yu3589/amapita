@@ -26,6 +26,9 @@ class User < ApplicationRecord
   has_many :badges, through: :user_badges
   has_many :sweetness_twins, dependent: :destroy
   has_many :twin_users, through: :sweetness_twins, source: :twin_user
+  has_many :sent_notifications, class_name: "Notification", foreign_key: "sender_id", dependent: :destroy
+  has_many :received_notifications, class_name: "Notification", foreign_key: "recipient_id", dependent: :destroy
+  has_many :notifications, as: :notifiable, dependent: :destroy
 
   enum :role, { general: 0, admin: 1 }
 

@@ -10,6 +10,7 @@ ja:
       badge: バッジ
       like: いいね
       comment: コメント
+      notification: 通知
     attributes:
       sweetness_strength: 甘みの強さ
       aftertaste_clarity: 後味のキレ/スッキリ感

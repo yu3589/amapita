@@ -189,6 +189,11 @@ ja:
       title: あまピタ評価する商品を選択
       product_not_found: 商品が見つかりませんでした
       product_register_suggestion: 商品が見つからない場合、<br>君のあまピタ評価を登録してみよう！
+  notifications:
+    index:
+      title: 通知
+      no_notifications: 通知がありません
+      no_posts: 投稿は削除されています 
   time:
     formats:
       default: "%Y年%m月%d日"

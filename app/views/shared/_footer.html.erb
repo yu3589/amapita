@@ -18,9 +18,11 @@
       </span>
     <% end %>
 
-   <%= link_to "#", class: "flex flex-col items-center justify-center leading-none opacity-60" do %>
+    <%= link_to notifications_path,
+        class: "flex flex-col items-center justify-center leading-none md:hover:bg-[var(--color-base-400)] relative" do %>
       <span class="p-2">
-      <%= image_tag "footer/bell.svg", class: "h-7 w-7 md:h-8 md:w-8" %>
+        <%= render "shared/notification_badge" %>
+        <%= image_tag "footer/bell.svg", class: "h-7 w-7 md:h-8 md:w-8" %>
       </span>
     <% end %>
 
