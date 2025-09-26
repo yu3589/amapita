@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  id: 1
+  sender_id: 1
+  recipient_id: 1
+  notifiable_id: 1
+  notifiable_type: Comment
+  action: 0
+  checked: false
+
+two:
+  id: 2
+  sender_id: 2
+  recipient_id: 2
+  notifiable_id: 2
+  notifiable_type: Like
+  action: 1
+  checked: false

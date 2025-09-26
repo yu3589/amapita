@@ -1,0 +1,45 @@
+<%= turbo_frame_tag dom_id(notification) do %>
+  <div class="block w-full border-b border-base-200 px-1 sm:px-4 py-3 hover:bg-base-100">
+    <div class="flex flex-row items-start gap-2 mb-1">
+      <!-- アイコン -->
+      <div class="flex-shrink-0">
+        <%= link_to user_path(notification.sender, notification_id: notification.id),
+                    class: "hover:opacity-80", data: { turbo_frame: "_top" } do %>
+          <%= notification.sender.decorate.avatar_image(class: "w-8 h-8 md:w-9 md:h-9") %>
+        <% end %>
+      </div>
+
+      <!-- 通知文 -->
+      <div class="flex-1 text-xs md:text-sm md:mt-2 leading-relaxed <%= notification_text_class(notification) %>">
+        <span>
+          <%= link_to notification.sender.name,
+                      user_path(notification.sender, notification_id: notification.id),
+                      class: "hover:opacity-80", data: { turbo_frame: "_top" } %>
+        </span>
+        さんが
+        <% if notification.notifiable_type == "Like" && notification.notifiable&.post %>
+          あなたの投稿「
+          <%= link_to notification.notifiable.post.product.name,
+                      post_path(notification.notifiable.post, notification_id: notification.id),
+                      class: "underline hover:opacity-80", data: { turbo_frame: "_top" } %>
+          」にいいねしました。
+        <% elsif notification.notifiable_type == "Comment" && notification.notifiable&.post %>
+          あなたの投稿「
+          <%= link_to notification.notifiable.post.product.name,
+                      post_path(notification.notifiable.post, notification_id: notification.id),
+                      class: "underline hover:opacity-80", data: { turbo_frame: "_top" } %>
+          」にコメントしました。
+        <% else %>
+          <%= t('.no_posts') %>
+        <% end %>
+      </div>
+    </div>
+
+    <!-- 作成日時 -->
+    <div class="flex justify-end text-sm mt-1">
+      <time class="text-xs text-base-300">
+        <%= l notification.created_at, format: "%-m月%-d日 %H:%M" %>
+      </time>
+    </div>
+  </div>
+<% end %>

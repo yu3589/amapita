@@ -1,0 +1,5 @@
+<%= turbo_stream.replace "notification-badge" do %>
+  <%= render "shared/notification_badge" %>
+<% end %>
+
+<%= turbo_stream.prepend "notifications", partial: "notifications/notification", locals: { notification: @notification } %>
