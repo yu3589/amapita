@@ -60,13 +60,12 @@ class PostsController < ApplicationController
     @comment = Comment.new
     @comments = @post.comments.includes(:user).order(created_at: :desc)
 
-    # 通知画面から投稿詳細画面へ遷移した時に既読処理
+    # 他ユーザーが通知URLの直打ちで通知対象を閲覧できないように
     if params[:notification_id].present?
       notification = Notification.find(params[:notification_id])
       if notification.recipient_id != current_user.id
-        redirect_to notifications_path, alert: "不正なアクセスです" and return
+        redirect_to notifications_path, alert: "無効なURLです" and return
       end
-      notification.update(checked: true)
     end
   end
 

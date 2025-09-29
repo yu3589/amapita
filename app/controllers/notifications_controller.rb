@@ -9,29 +9,13 @@ class NotificationsController < ApplicationController
   end
 
   def update
-    notification = current_user.received_notifications.find(params[:id])
-    notification.update!(checked: true)
-
-    respond_to do |format|
-      format.turbo_stream
-      format.html do
-        # 通知の対象へリダイレクト
-        case notification.notifiable_type
-        when "Like", "Comment"
-          redirect_to post_path(notification.notifiable.post)
-        else
-          redirect_to notifications_path
-        end
-      end
-    end
+    @notification = current_user.received_notifications.find(params[:id])
+    @notification.update!(checked: true)
+    redirect_to post_path(@notification.notifiable.post)
   end
 
   def mark_all_as_read
-    current_user.received_notifications.unchecked.update_all(checked: true)
-    @notifications = current_user.received_notifications.order(created_at: :desc)
-    respond_to do |format|
-        format.turbo_stream
-        format.html { redirect_to notifications_path }
-    end
+    current_user.received_notifications.unchecked.update(checked: true)
+    redirect_to notifications_path
   end
 end
