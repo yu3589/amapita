@@ -1,5 +1,5 @@
 <%= link_to notification_path(notification),
-            data: { turbo_method: :patch },
+            data: { turbo_method: :patch, controller: "from-post" },
             class: "block w-full border-b border-base-200 px-1 sm:px-4 py-3 hover:opacity-80" do %>
   <div class="flex flex-row items-start gap-2 mb-1">
     <!-- アイコン -->

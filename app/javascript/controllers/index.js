@@ -5,6 +5,8 @@
 import { application } from "./application"
 import FadeController from "./fade_controller"
 import ResetFormController from "./reset_form_controller"
+import FromPostController from "./from_post_controller"
 
 application.register("fade", FadeController)
 application.register("reset-form", ResetFormController)
+application.register("from-post", FromPostController)
