@@ -4,9 +4,9 @@ module PostsHelper
 
     if user.sweetness_twins.present?
       return :twin_with_posts if recommended_posts.any?
-      return :twin_without_posts
+      :twin_without_posts
     else
-      return :no_twin
+      :no_twin
     end
   end
 end
