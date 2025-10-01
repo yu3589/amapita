@@ -137,12 +137,19 @@ ja:
     index:
       new_post: みんなの甘さ評価
       twins_recommendations: あなたにオススメ！
+      button:
+        take_diagnosis: 診断してみる！
       tooltips:
-          twins_recommendations_guest: 甘さツインの<br>「あまピタッ！」<br>評価一覧が見れます
+          twins_recommendations_guest: 甘さツインの<br>「あまピタッ！」<br>評価一覧が見られます✧*
           twins_recommendations_user: 甘さツインのあまピタ一覧
       search_title:
         new_posts: みんなの甘さ評価から検索
         twin_recommendations: あなたにオススメ！から検索
+      message:
+        no_diagnosis: 甘さ感覚診断を行うと、<br>甘さツインの「あまピタッ！」評価一覧が見られます✧*
+        general_notice: ※ 甘さツインがいない場合があります
+        twin_without_posts: 甘さツインのあまピタ評価はまだありません
+        no_twins: あなたの甘さツインはまだいないようです...。<br>新しい甘さとの出会いを楽しみにしていてください✧*
     show:
       title: レビュー詳細
     form:
