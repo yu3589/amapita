@@ -39,7 +39,7 @@
                   <%= display_post_badge(@post.user) %>
               </span>
               <% if user_signed_in? && @post.user != current_user && sweetness_twin?(@post.user) %>
-                <span class="flex flex-row gap-1 text-xs rounded-full px-2 py-1 bg-primary w-fit">
+                <span class="flex flex-row gap-1 text-xs rounded-full items-center px-2 py-1 bg-info w-fit">
                   <%= image_tag "handshake.svg", class: "h-5 w-5" %>
                   <%= display_sweetness_twin_badge(@post.user) %>
                 </span>
