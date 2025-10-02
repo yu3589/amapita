@@ -1,39 +1,75 @@
 <div class="flex flex-col flex-grow items-center text-center p-6 md:p-10">
   <div class="text-lg md:text-xl ring-primary sliders-title inline-flex items-center">
-    「あまピタ度」とは
+    「あまピタ度」とは？
   </div>
 
-  <div class="text-base md:text-md py-6 md:p-10 gap-2 leading-loose">
+  <div class="text-base md:text-md py-4 md:p-8 gap-2 leading-loose">
     商品のレビューをする際、<br>
     あなたの甘さ感覚に<span class="md:hidden"><br></span>
     「どれだけ”ピタッ”とハマったか」を<br>
     ５段階で評価します。
   </div>
 
-  <div class="flex items-center justify-center gap-2 md:gap-4 px-2 py-10 md:p-10">
-    <span class="p-1 md:p-2 rounded-full bg-accent">
-      <%= image_tag "smiley-meh.svg", class: "h-9 w-9 md:h-10 md:w-10" %>
-    </span>
-    <span class="p-1 md:p-2 rounded-full bg-accent">
-      <%= image_tag "smiley-blank.svg", class: "h-9 w-9 md:h-10 md:w-10" %>
-    </span>
-    <span class="relative p-1 md:p-3 rounded-full bg-primary">
-      <span class="absolute -top-7 px-10 left-1/2 -translate-x-1/2 text-sm md:text-base whitespace-nowrap">
-        ＼ あまピタッ！ ／
-      </span>
-      <%= image_tag "smiley-wink.svg", class: "h-11 w-11 md:h-13 md:w-13" %>
-    </span>
-    <span class="p-1 md:p-2 rounded-full bg-secondary">
-      <%= image_tag "smiley-nervous.svg", class: "h-9 w-9 md:h-10 md:w-10" %>
-    </span>
-    <span class="p-1 md:p-2 rounded-full bg-secondary">
-      <%= image_tag "smiley-x-eyes.svg", class: "h-9 w-9 md:h-10 md:w-10" %>
-    </span>
+  <div class="flex items-center justify-center gap-2 md:gap-5 px-2 py-10 md:pb-12">
+    <% smileys = [
+      {img: "smiley-meh.svg", color: "bg-accent", size: "h-8 w-8 md:h-9 md:w-9"},
+      {img: "smiley-blank.svg", color: "bg-accent", size: "h-8 w-8 md:h-9 md:w-9"},
+      {img: "smiley-wink.svg", color: "bg-primary", size: "h-11 w-11 md:h-12 md:w-12", highlight: true},
+      {img: "smiley-nervous.svg", color: "bg-secondary", size: "h-8 w-8 md:h-9 md:w-9"},
+      {img: "smiley-x-eyes.svg", color: "bg-secondary", size: "h-8 w-8 md:h-9 md:w-9"}
+    ] %>
+
+    <% smileys.each do |s| %>
+      <% if s[:highlight] %>
+        <span class="relative p-1 rounded-full <%= s[:color] %> gap-1">
+          <span class="absolute -top-7 px-10 left-1/2 -translate-x-1/2 text-sm whitespace-nowrap">
+            ＼ あまピタッ！ ／
+          </span>
+          <%= image_tag s[:img], class: s[:size] %>
+        </span>
+      <% else %>
+        <span class="p-1 rounded-full <%= s[:color] %>">
+          <%= image_tag s[:img], class: s[:size] %>
+        </span>
+      <% end %>
+    <% end %>
   </div>
 
-  <div class="text-base md:text-md md:p-6 leading-loose">
-    投稿一覧では、<span class="md:hidden"><br></span>
-    ユーザーの「あまピタ度」を<br>
-    見ることができます！<br>
+  <!-- 投稿バッジ -->
+  <div class="flex flex-row pb-4">
+    <div class="text-lg ring-secondary sliders-title inline-flex items-center gap-2">
+      <%= image_tag "badge.svg", class: "h-6 w-6" %>
+      投稿バッジとは？
+    </div>
+  </div>
+
+  <div class="text-base md:text-md md:p-4 leading-loose">
+    投稿を重ねるごとに、<span class="md:hidden"><br></span>新しい称号バッジが手に入ります！
+    <br>あなたの甘さの冒険の歩みが、<span class="md:hidden"><br></span>そのままバッジに✧*
+  </div>
+
+  <!-- バッジ一覧 -->
+  <div class="flex flex-col items-start py-4 md:p-4">
+    <% badges = [
+      {count: '1件以上', name: 'スイーツマスターLv.1'},
+      {count: '10件以上', name: '甘の冒険者'},
+      {count: '20件以上', name: '甘界の番長'}
+    ] %>
+
+    <% badges.each do |b| %>
+      <div class="flex items-center gap-2 p-1">
+        <span class="md:w-25 text-right">
+          <%= b[:count] %>：
+        </span>
+        <span class="flex items-center gap-1 text-xs md:text-sm rounded-full py-1 px-2 bg-success w-fit">
+          <%= image_tag "badge.svg", class: "h-4 w-4 md:h-5 md:w-5" %>
+          <%= b[:name] %>
+        </span>
+      </div>
+    <% end %>
+
+    <div class="text-sm py-4">
+      さらに投稿を重ねると、特別な称号が現れるかも…!?
+    </div>
   </div>
 </div>

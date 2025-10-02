@@ -1,42 +1,60 @@
-<div class="flex flex-col flex-grow items-center text-center p-6 md:p-10">
-  <div class="text-lg md:text-xl ring-primary sliders-title text-center">
-    「甘さ感覚診断」で <span class="block sm:inline">できること</span>
+<div class="flex flex-col flex-grow items-center text-center p-6 sm:p-10">
+  <div class="text-base sm:text-xl ring-primary sliders-title text-center">
+    「甘さ感覚診断」でできること
   </div>
 
-  <div class="text-base md:text-md py-6 md:p-10 gap-2 leading-loose">
+  <div class="text-base sm:text-md py-6 sm:p-8 gap-2 leading-loose">
     甘さ感覚診断では、<span class="inline"><br></span>
-    「好みの甘さ傾向タイプ」が<span class="md:hidden"><br></span>診断できます。<span class="inline"><br></span>
-    まずは、あなたの「好みの甘さ感覚」を<span class="md:hidden"><br></span>診断してみましょう！
+    あなたの好みの甘さ傾向タイプが<span class="sm:hidden"><br></span>わかります。
+    <span class="inline"><br></span>
+    まずは、あなたの「好みの甘さ感覚」を診断してみましょう！
+    <div class="text-xs p-2 leading-loose">
+    *✧ ログインして診断すると、<br>甘さツインが教えてくれる「あまピタッ！」商品に出会えるかも！✧*
+    </div>
   </div>
 
-  <div class="flex flex-col items-center pt-2 gap-6 md:gap-8">
-    <div class="bg-accent sliders-button">
+  <div class="pb-4 sm:pb-6 w-fit">
     <% if user_signed_in? %>
-      <%= link_to "診断してみる！", new_diagnosis_path %>
+      <%= link_to "診断してみる", new_diagnosis_path,
+          class: "bg-accent sliders-button hover-animation w-full text-center" %>
     <% else %>
-      <%= link_to "登録して診断する！", new_user_registration_path(from_landing: 1) %>
+      <%= link_to "登録して診断する", new_user_registration_path(from_landing: 1),
+          class: "bg-accent sliders-button hover-animation w-full text-center" %>
     <% end %>
-    </div>
+  </div>
 
-    <div class="bg-base-100 rounded-4xl p-6 md:py-6 leading-loose">
-      <div class="p-2 text-base md:text-xl">
+  <div class="flex flex-col items-center leading-loose">
+    <div class="bg-white rounded-4xl p-4 sm:py-4 sm:px-16 w-full max-w-4xl">
+      <div class="p-3 text-base">
         ユーザー登録をすると ...?<span class="inline"><br></span>
       </div>
-      あなたの「好みの甘さ感覚」が<span class="md:hidden"><br></span>近いユーザー
-      <div class="bg-info rounded-4xl p-2 inline-flex items-center gap-2 text-sm">
-        <%= image_tag "handshake.svg", class: "h-5 w-5" %>
-        甘さツイン
+      <div class="text-sm leading-loose">
+        好みの甘さ感覚が近いユーザー
+        <div class="bg-info rounded-4xl p-2 inline-flex items-center gap-2 text-sm">
+          <%= image_tag "handshake.svg", class: "h-5 w-5" %>
+          甘さツイン
+        </div>
+          の<span class="inline"><br></span>「あまピタッ！」評価一覧を<span class="sm:hidden"><br></span>
+          見ることができ、<span class="inline"><br></span>"ちょうど良い甘さ"の商品と<span class="sm:hidden"><br></span>
+          出会いやすくなります。
+        <div class="p-1">
+      </div> 
+        <span class="text-base-200 text-xs">※ 診断結果によっては、<span class="sm:hidden"><br></span>
+          甘さツインがいない場合があります。
+        </span>
       </div>
-      の<span class="inline"><br></span>あまピタ度が高い商品を<span class="md:hidden"><br></span>
-      見ることができ、<span class="inline"><br></span>"ちょうど良い甘さ"の商品と<span class="md:hidden"><br></span>出会いやすくなります。
     </div>
 
-    <% unless user_signed_in? %>
-      <%= link_to "登録せずに診断する！", new_diagnosis_path, class: "bg-secondary sliders-button" %>
-    <% end %>
+    <div class="p-4 sm:p-6 w-full text-base">
+      <% unless user_signed_in? %>
+        <%= link_to "登録せずに診断する", new_diagnosis_path,
+            class: "bg-secondary sliders-button hover-animation w-fit text-center" %>
+      <% end %>
+    </div>
 
-    <div class="bg-primary sliders-button">
-      <%= link_to raw("みんなのあまピタ評価を<span class='md:hidden'><br></span>見に行く！"), posts_path %>
+    <div class="w-fit text-sm sm:text-base">
+      <%= link_to raw("みんなの甘さ評価を<span class='sm:hidden'><br></span>見に行く"), posts_path,
+          class: "bg-primary sliders-button hover-animation w-fit text-center" %>
     </div>
   </div>
 </div>

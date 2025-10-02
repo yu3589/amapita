@@ -64,7 +64,7 @@
 }
 
 .sliders-button {
-@apply px-4 md:px-5 py-3 md:py-4 text-base-100 rounded-full transition duration-200 hover:brightness-96 inline-block;
+@apply px-4 md:px-5 py-3 text-base-100 rounded-full transition duration-200 hover:brightness-96 inline-block;
 }
 
 .swiper-button-next::after, .swiper-button-prev::after {
