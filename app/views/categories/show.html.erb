@@ -9,22 +9,26 @@
     <% if @products.present? %>
       <% @products.each do |product| %>
         <div class="py-1 border-b border-base-200 last:border-b-0 max-w-3xl">
-          <%= link_to category_product_path(@category, product) do %>
+          
             <div class="flex flex-row items-center md:items-start pt-4">
               <!-- 画像 -->
               <figure class="flex-shrink-0 p-1 md:p-4">
                 <%= product.decorate.product_image(class: "w-25 h-25 md:w-30 md:h-30") %>
               </figure>
-
               <!-- 商品情報 -->
-              <div class="flex-1 w-full flex flex-col items-center md:items-start gap-2 md:gap-4 p-2">
+              <%= product_link_or_tooltip(@category, product, class: "hover:opacity-70") do %>
+              <div class="relative flex-1 w-full flex flex-col items-center md:items-start gap-2 md:gap-4 p-2">
                 <p class="text-xs md:text-base text-base-300 text-center md:text-left">
                   <%= product.manufacturer %>
                 </p>
                 <p class="text-sm md:text-xl font-semibold text-center md:text-left">
                   <%= product.name %>
                 </p>
-
+                <div class="absolute top-8 sm:top-13 right-1">
+                  <span class="gap-1">
+                    <%= image_tag "arrow.svg", class: "h-6 w-6 ml-1" %>
+                  </span>
+                </div>
                 <% stats = @product_stats&.dig(product.id) || { total_posts: 0, perfect_sweetness_count: 0 } %>
 
                 <% if stats[:total_posts].positive? %>
@@ -49,12 +53,12 @@
                     </div>
                     <!-- 投稿画面へ遷移 -->
                     <div class="mt-4 md:mt-6 text-center">
-                      <%= link_to new_post_path(product_id: product.id), 
-                                  class: "bg-success rounded-full px-3 py-1 md:px-4 py-3
-                                          inline-flex items-center shadow-sm transition hover-animation" do %>
-                        <span class="text-xs md:text-sm">
-                          <%= t('defaults.buttons.new_post') %>
-                        </span>
+                      <%= new_post_link_or_tooltip(product,
+                          class: "bg-success rounded-full px-3 py-1 md:px-4 py-3
+                          inline-flex items-center shadow-sm transition hover-animation") do %>
+                          <span class="text-xs md:text-sm">
+                            <%= t('defaults.buttons.new_post') %>
+                          </span>
                       <% end %>
                     </div>
                   </div>
@@ -64,6 +68,7 @@
           <% end %>
         </div>
       <% end %>
+
 
       <div class="flex justify-center pt-6 md:pt-8">
         <%== pagy_nav(@pagy) %>
@@ -77,15 +82,15 @@
     <% end %>
 
     <!-- 商品登録&投稿画面へ遷移 -->
-    <div class="mt-8 md:mt-12 text-center">
-      <%= link_to new_post_path, 
-                  class: "bg-primary rounded-full px-4 py-3 md:px-6 md:py-4 
-                          inline-flex items-center gap-3 shadow-sm transition hover-animation" do %>
-        <%= image_tag "smiley-wink.svg", class: "h-9 w-9 md:h-12 md:w-12" %>
-        <span class="text-sm md:text-base">
-          <%= raw t('.product_register_suggestion') %>
-        </span>
-      <% end %>
+    <div class="m-6 sm:m-8 text-center">
+      <%= new_product_link_or_tooltip(class: "bg-success rounded-full px-4 py-3 sm:px-6 
+                          inline-flex items-center gap-3 shadow-sm transition hover-animation") do %>
+      <%= image_tag "smiley-wink.svg", class: "h-9 w-9" %>
+      <span class="text-xs md:text-sm">
+        <%= raw t('.product_register_suggestion') %>
+      </span>
+    <% end %>
+
     </div>
   </div>
 </div>

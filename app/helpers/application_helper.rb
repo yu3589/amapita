@@ -1,6 +1,17 @@
 module ApplicationHelper
   include Pagy::Frontend
 
+  def user_profile_link_or_tooltip(user, options = {}, &block)
+    if user_signed_in?
+      link_to user_path(user), options, &block
+    else
+      content_tag :div, options.merge(
+        class: "#{options[:class]} tooltip tooltip-top",
+        data: { tip: t("defaults.require_login_user_profile") }
+      ), &block
+    end
+  end
+
   def default_meta_tags
     {
       site: "あまピタッ！",

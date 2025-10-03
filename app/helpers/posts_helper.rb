@@ -10,4 +10,15 @@ module PostsHelper
       :no_twin
     end
   end
+
+  def product_detail_link_or_tooltip(product, options = {}, &block)
+    if user_signed_in?
+      link_to product_path(product), options, &block
+    else
+      content_tag :div, options.merge(
+        class: "#{options[:class]} tooltip tooltip-top",
+        data: { tip: t("defaults.require_login") }
+      ), &block
+    end
+  end
 end
