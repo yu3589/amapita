@@ -3,10 +3,9 @@
     <h1 class="text-center text-base md:text-xl p-4 border-b border-base-200 w-full">
       <%= t('.title') %></h1>
 
-    <% if user_signed_in? %>
-    <% else %>
+    <% unless user_signed_in? %>
       <div class="text-xs sm:text-sm text-stone-400 py-4">
-        <%= t('defaults.require_login_user_rating') %>
+        ※ <%= t('defaults.require_login_user_rating') %>
       </div>
     <% end %>
 
