@@ -2,6 +2,8 @@ ja:
   defaults:
     delete_confirm: 削除しますか？
     require_login: ログインが必要です
+    require_login_user_profile: ユーザー詳細を見るにはログインが必要です
+    require_login_user_rating: ※ あまピタ評価をするにはログインが必要です
     placeholders:
       search_word: キーワードを入力
       search_products: 商品名を入力

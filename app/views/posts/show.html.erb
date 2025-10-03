@@ -22,15 +22,14 @@
         </div>
       <% end %>
 
-      <%= link_to product_path(@post.product), class: "flex items-center gap-2 hover:opacity-70" do %>
-        <div class="flex flex-col justify-start items-start gap-2 md:gap-5 text-neutral px-10 md:px-0 py-6">
-          <div class="text-xl">
-            <%= @post.product.name %>
-          </div>
-      <% end %>
+      <div class="flex flex-col justify-start items-start gap-2 md:gap-5 text-neutral px-10 md:px-0 py-6">
+        <div class="text-xl">
+          <%= @post.product.name %>
+        </div>
         
         <div class="flex flex-col text-base">
-          <%= link_to user_path(@post.user), class: "flex items-center gap-2 hover:opacity-70" do %>
+          <%= user_profile_link_or_tooltip(@post.user,
+              class: "flex items-center md:gap-2 hover:opacity-70") do %>
             <%= @post.user.decorate.avatar_image(class: "w-10 h-10") %>
             <div class="flex flex-col p-2 md:p-1 gap-2">
               <span class="font-medium"><%= @post.user.name %></span>
@@ -127,7 +126,7 @@
               <%= render 'like_buttons', { post: @post } %>
             <% else %>
               <label class="cursor-pointer tooltip tooltip-top" 
-                    data-tip="ログインが必要です">
+                    data-tip="<%= t('defaults.require_login') %>">
                 <%= image_tag "heart.svg", class: "h-6 w-6 ml-1" %>
               </label>
             <% end %>
@@ -150,10 +149,9 @@
     </div>
 
     <div class="p-2 flex flex-col md:flex-row justify-center items-center text-center">
-      <%= link_to product_path(@post.product) do %>
-        <div class="button-primary bg-primary hover-animation">
+      <%= product_detail_link_or_tooltip(@post.product,
+          class: "button-primary bg-primary") do %>
           みんなのあまピタ評価はこちら
-        </div>
       <% end %>
     </div>
   </div>

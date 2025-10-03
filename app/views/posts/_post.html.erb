@@ -3,7 +3,8 @@
   <div class="card bg-base-100 p-2 shadow-sm min-h-52 rounded-4xl flex flex-col relative">
     <!-- ユーザー情報 -->
     <div class="flex flex-col pl-2 md:pl-6 text-sm">
-      <%= link_to user_path(post.user), class: "flex items-center md:gap-2 hover:opacity-70" do %>
+      <%= user_profile_link_or_tooltip(post.user,
+          class: "flex items-center md:gap-2 hover:opacity-70") do %>
         <%= post.user.decorate.avatar_image(class: "w-9 h-9 md:w-10 md:h-10") %>
 
         <div class="flex flex-col p-2 md:p-1 gap-1 md:gap-2">
@@ -94,6 +95,11 @@
          <div class="py-3 pr-8 text-xs md:text-sm truncate max-w-48 sm:max-w-xs
             <%= post.review.present? ? '' : 'md:h-10 invisible' %>">
             <%= post.review %>
+          </div>
+          <div class="absolute top-30 right-3">
+            <span class="flex flex-row items-center gap-1">
+              <%= image_tag "arrow.svg", class: "h-6 w-6 ml-1" %>
+            </span>
           </div>
         <% end %>
       </div>

@@ -1,4 +1,4 @@
-<footer class="fixed bottom-0 w-full px-4 py-4 z-[8888]">
+<div class="fixed bottom-0 w-full px-4 py-4 z-[8888]">
   <div class="dock bg-base-100 dock-sm md:dock-lg border-t border-[var(--color-base-400)]">
     <%= link_to posts_path, class: "flex flex-col items-center justify-center leading-none md:hover:bg-[var(--color-base-400)]" do %>
       <span class="p-2">
@@ -18,18 +18,40 @@
       </span>
     <% end %>
 
-    <%= link_to notifications_path,
-        class: "flex flex-col items-center justify-center leading-none md:hover:bg-[var(--color-base-400)] relative" do %>
-      <span class="p-2">
-        <%= render "shared/notification_badge" %>
-        <%= image_tag "footer/bell.svg", class: "h-7 w-7 md:h-8 md:w-8" %>
-      </span>
+    <% if user_signed_in? %>
+      <%= link_to notifications_path,
+          class: "flex flex-col items-center justify-center leading-none md:hover:bg-[var(--color-base-400)] relative" do %>
+        <span class="p-2">
+          <%= render "shared/notification_badge" %>
+          <%= image_tag "footer/bell.svg", class: "h-7 w-7 md:h-8 md:w-8" %>
+        </span>
+      <% end %>
+    <% else %>
+      <!-- 未ログイン -->
+      <div class="flex flex-col items-center justify-center leading-none tooltip tooltip-left sm:tooltip-top relative"
+            data-tip="<%= t('defaults.require_login') %>">
+        <span class="p-2">
+          <%= render "shared/notification_badge" %>
+          <%= image_tag "footer/bell.svg", class: "h-7 w-7 md:h-8 md:w-8" %>
+        </span>
+      </div>
     <% end %>
 
-    <%= link_to profile_path, class: "flex flex-col items-center justify-center leading-none md:hover:bg-[var(--color-base-400)]" do %>
-      <span class="p-2">
-      <%= image_tag "footer/user_circle.svg", class: "h-8 w-8 md:h-9 md:w-9" %>
-      </span>
+
+    <% if user_signed_in? %>
+      <%= link_to profile_path, class: "flex flex-col items-center justify-center leading-none md:hover:bg-[var(--color-base-400)]" do %>
+        <span class="p-2">
+        <%= image_tag "footer/user_circle.svg", class: "h-8 w-8 md:h-9 md:w-9" %>
+        </span>
+      <% end %>
+    <% else %>
+      <!-- 未ログイン -->
+      <div class="flex flex-col items-center justify-center leading-none tooltip tooltip-left sm:tooltip-top"
+                data-tip="<%= t('defaults.require_login') %>">
+        <span class="p-2">
+        <%= image_tag "footer/user_circle.svg", class: "h-8 w-8 md:h-9 md:w-9" %>
+        </span>
+      </div>
     <% end %>
   </div>
-</footer>
+</div>
