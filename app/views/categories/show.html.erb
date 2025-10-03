@@ -52,15 +52,17 @@
                       </p>
                     </div>
                     <!-- 投稿画面へ遷移 -->
+                   <% if user_signed_in? %>
                     <div class="mt-4 md:mt-6 text-center">
-                      <%= new_post_link_or_tooltip(product,
-                          class: "bg-success rounded-full px-3 py-1 md:px-4 py-3
-                          inline-flex items-center shadow-sm transition hover-animation") do %>
-                          <span class="text-xs md:text-sm">
-                            <%= t('defaults.buttons.new_post') %>
-                          </span>
+                      <%= link_to new_post_path(product_id: product.id),
+                                  class: "bg-success rounded-full px-3 py-1 md:px-4 py-3
+                                          inline-flex items-center shadow-sm transition hover-animation" do %>
+                        <span class="text-xs md:text-sm">
+                          <%= t('defaults.buttons.new_post') %>
+                        </span>
                       <% end %>
                     </div>
+                   <% end %>
                   </div>
                 <% end %>
               </div>

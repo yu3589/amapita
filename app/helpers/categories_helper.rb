@@ -10,17 +10,6 @@ module CategoriesHelper
     end
   end
 
-  def new_post_link_or_tooltip(product, options = {}, &block)
-    if user_signed_in?
-      link_to new_post_path(product_id: product.id), options, &block
-    else
-      content_tag :div, options.merge(
-        class: "#{options[:class]} tooltip tooltip-top",
-        data: { tip: t("defaults.require_login") }
-      ), &block
-    end
-  end
-
   def new_product_link_or_tooltip(options = {}, &block)
     if user_signed_in?
       link_to new_post_path, options, &block
