@@ -16,13 +16,19 @@ class ProfilesController < ApplicationController
 
   def show
     @user = @user.decorate
-    @sweetness_type =  @user.sweetness_type
     @sweetness_profiles = @user.sweetness_profiles.last
-    @posts = @user.posts.all.order(created_at: :desc).decorate
-    @bookmarks = @user.bookmark_products
-    @products = @user.bookmark_products.decorate
-    @pagy_posts, @posts = pagy(@user.posts.order(id: :desc))
-    @pagy_bookmarks, @bookmarks = pagy(@user.bookmarks.order(id: :desc))
+    @sweetness_type =  @user.sweetness_type
+
+    # デフォルトは投稿タブ
+    @active_tab = params[:tab].presence_in([ "posts", "bookmarks" ]) || "posts"
+    # 投稿
+    posts_query = @user.posts.order(id: :desc)
+    @pagy_posts, @posts = pagy(posts_query, limit: 10, page_param: :posts_page)
+    @posts = @posts&.decorate
+    # ブックマーク
+    bookmarks_query = @user.bookmark_products.order(id: :desc)
+    @pagy_bookmarks, @bookmarks = pagy(bookmarks_query, limit: 10, page_param: :bookmarks_page)
+    @bookmarks = @bookmarks&.decorate
   end
 
   private

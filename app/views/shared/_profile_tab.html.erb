@@ -1,0 +1,48 @@
+    <div class="p-6">
+      <div class="tabs tabs-border justify-center w-full">
+        <!-- 投稿 -->
+        <a href="<%= profile_path(tab: 'posts') %>" 
+            class="tab text-sm md:text-base text-secondary hover:text-secondary <%= 'tab-active' if active_tab == 'posts' %>">
+            <%= t('profiles.tabs.posts') %>
+        </a>
+
+        <!-- ブックマーク -->
+        <a href="<%= profile_path(tab: 'bookmarks') %>" 
+            class="tab text-sm md:text-base text-accent hover:text-accent <%= 'tab-active' if active_tab == 'bookmarks' %>">
+            <%= t('profiles.tabs.bookmarks') %>
+        </a>
+        </div>
+
+        <!-- タブコンテンツ -->
+        <div class="w-full">
+        <% if active_tab == 'posts' %>
+        <div class="border-3 border-secondary bg-white rounded-4xl w-full md:p-6">
+            <div class="flex flex-col mx-auto items-center justify-center text-sm text-base-300 sm:text-base w-full">
+                <% if posts.present? %>
+                <%= render posts %>
+                <div class="flex items-center justify-center p-4">
+                    <%== pagy_nav(pagy_posts, link_extra: 'data-turbo-action="replace"', params: { tab: 'posts' }) %>
+                </div>
+                <% else %>
+                <p class="p-4"><%= t('profiles.empty_states.no_posts') %></p>
+                <% end %>
+            </div>
+        </div>
+        <% elsif active_tab == 'bookmarks' %>
+        <div class="border-3 border-accent bg-white rounded-4xl w-full md:p-6">
+            <div class="flex flex-col mx-auto items-center justify-center text-sm text-base-300 sm:text-base w-full">
+                <% if bookmarks.present? %>
+                <%= render "products/user_bookmarks", products: bookmarks %>
+                <div class="flex items-center justify-center p-4">
+                    <%== pagy_nav(pagy_bookmarks, link_extra: 'data-turbo-action="replace"', params: { tab: 'bookmarks' }) %>
+                </div>
+                <% else %>
+                <p class="p-4"><%= t('profiles.empty_states.no_bookmarks') %></p>
+                <% end %>
+            </div>
+        </div>
+        <% end %>
+        </div>
+      </div>
+  </div>
+</div>

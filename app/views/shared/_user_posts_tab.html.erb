@@ -1,0 +1,19 @@
+    <div class="tabs tabs-border py-2 md:py-6 justify-center w-full">
+      <input type="radio" name="my_tabs_4" role="tab"
+        class="tab text-sm md:text-base text-secondary hover:text-secondary"
+        aria-label="<%= t('profiles.tabs.posts') %>" checked />
+        <div role="tabpanel" class="tab-content md:p-6 border-secondary bg-white rounded-4xl w-full">
+        <div class="flex flex-col mx-auto items-center justify-center text-xs md:text-sm w-full">
+            <% if @posts.present? %>
+            <%= render @posts %>
+                <div class="flex items-center justify-center p-4">
+                <%== pagy_nav(@pagy_posts) %>
+                </div>
+            <% else %>
+            <p class="p-4"><%= t('profiles.empty_states.no_posts') %></p>
+            <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
