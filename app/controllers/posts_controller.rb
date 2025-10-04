@@ -9,7 +9,7 @@ class PostsController < ApplicationController
 
     @q_recommend, recommended_scope = fetch_recommended_posts
     @pagy_recommend, @recommended_posts = pagy(recommended_scope)
-    @recommended_posts = @recommended_posts
+    @recommended_posts = @recommended_posts.decorate
   end
 
 
@@ -80,7 +80,6 @@ class PostsController < ApplicationController
                                     .where(sweetness_rating: :perfect_sweetness)
                                     .includes(:user, :category)
                                     .order(created_at: :desc)
-                                    .decorate
     [ q_recommend, recommended_posts ]
   end
 
