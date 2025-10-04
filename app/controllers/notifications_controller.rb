@@ -5,7 +5,7 @@ class NotificationsController < ApplicationController
     @notifications = current_user.received_notifications
                                  .includes(:sender, :notifiable)
                                  .order(created_at: :desc)
-    @pagy, @notifications = pagy(@notifications, limit: 15)
+    @pagy, @notifications = pagy(@notifications, limit: 12)
   end
 
   def update

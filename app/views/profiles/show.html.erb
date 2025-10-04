@@ -1,8 +1,13 @@
-<%= render "shared/user_profile",
+<%= render "shared/user_basic_info",
     user: @user,
     sweetness_type: @sweetness_type,
     sweetness_profiles: @sweetness_profiles,
-    posts: @posts,
-    bookmarks: @bookmarks,
     chart_id: "radarChart",
     show_edit_button: true %>
+
+<%= render "shared/profile_tab", 
+    posts: @posts, 
+    pagy_posts: @pagy_posts,
+    bookmarks: @bookmarks,
+    pagy_bookmarks: @pagy_bookmarks,
+    active_tab: @active_tab %>
