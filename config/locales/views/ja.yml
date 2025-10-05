@@ -36,9 +36,9 @@ ja:
       sweetness_average: みんなの評価
       sweetness_other_user: ユーザーの評価
     badge_modal:
-      title: あなたの称号が変わりました。
-      message: "『%{badge_name}』"
-      thanks_message: たくさんの甘さ評価ありがとうございます！
+      title: あなたの称号が変わりました ✧*
+      message: "%{badge_name}"
+      thanks_message: ✧* たくさんの甘さ評価ありがとうございます！✧*
     message:
       no_post: 投稿がありません
   errors:
