@@ -32,8 +32,7 @@ class PostsController < ApplicationController
       # バッジの付与
       new_badge = PostBadge.check_and_award_post_badges(current_user)
       # 新しいバッジであればモーダル表示
-      flash[:badge_awarded] = new_badge.name if new_badge
-
+      session[:badge_modal] = new_badge.name if new_badge&.name.present?
       redirect_to post_path(@post), notice: t("defaults.flash_message.created", item: Post.model_name.human)
     else
       flash.now[:alert] = t("defaults.flash_message.not_created", item: Post.model_name.human)
@@ -59,6 +58,11 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id]).decorate
     @comment = Comment.new
     @comments = @post.comments.includes(:user).order(created_at: :desc)
+
+    # モーダル表示用のフラグを保存してからsessionをクリア
+    @show_badge_modal = session[:badge_modal].present?
+    @badge_name = session[:badge_modal]
+    session.delete(:badge_modal)
   end
 
   def destroy

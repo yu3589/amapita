@@ -1,15 +1,16 @@
-<input type="checkbox" id="badge-modal" class="modal-toggle" checked>
-<div class="modal">
-  <div class="modal-box relative bg-success justify-center">
-    <p class="text-base mb-4 text-center">
+<input type="checkbox" id="badge-modal" class="modal-toggle" checked />
+<div class="modal" role="dialog">
+  <div class="modal-box bg-success">
+    <p class="text-sm sm:text-base mb-4 text-center">
       <%= t('defaults.badge_modal.title') %>
     </p>
-    <h3 class="text-center text-xl font-semibold mb-6">
-      <%= t('defaults.badge_modal.message', badge_name: flash[:badge_awarded]) %>
+    <h3 class="flex flex-row justify-center text-center text-lg sm:text-xl font-semibold mb-6 gap-1">
+      <%= image_tag "badge.svg", class: "h-7 w-7 sm:h-8 sm:w-8" %>
+      <%= t('defaults.badge_modal.message', badge_name: badge_name) %>
     </h3>
     <div class="flex flex-col justify-center items-center gap-2">
       <%= image_tag "smiley-wink.svg", class: "h-8 w-8" %>
-      <p class="text-xs md:text-sm mb-6 text-center">
+      <p class="text-sm mb-6 text-center">
         <%= t('defaults.badge_modal.thanks_message') %>
       </p>
     </div>
@@ -19,4 +20,5 @@
       </label>
     </div>
   </div>
+  <label class="modal-backdrop" for="badge-modal"></label>
 </div>
