@@ -42,6 +42,12 @@ gem "aws-sdk-s3"
 gem "image_processing", "~> 1.2"
 gem "active_storage_validations"
 
+# Background Job Processing
+gem "solid_queue"
+
+# API
+gem "rakuten_web_service"
+
 # Presentation Layer
 gem "draper"
 
