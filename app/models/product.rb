@@ -8,7 +8,7 @@ class Product < ApplicationRecord
   validates :manufacturer, presence: { message: :select }
   validates :name, uniqueness: { scope: :manufacturer, message: :name_manufacturer_taken }
   validates :category_id, presence: { message: :select }
-  validates :rakuten_url, format: { with: RAKUTEN_URL_PATTERN, allow_blank: true, message: :blank }
+  validates :product_url, format: { with: RAKUTEN_URL_PATTERN, allow_blank: true, message: :blank }
 
   belongs_to :category, optional: true
   has_many :posts, dependent: :destroy

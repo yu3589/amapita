@@ -12,8 +12,8 @@ class FetchRakutenProductJob < ApplicationJob
 
     if data
       product.update(
-        rakuten_url: data["url"],
-        rakuten_image_url: data["imageUrl"]
+        product_url: data["url"],
+        product_image_url: data["imageUrl"]
       )
       Rails.logger.info "Product ##{product_id}: Successfully fetched data"
     else

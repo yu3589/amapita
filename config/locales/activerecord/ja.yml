@@ -50,7 +50,7 @@ ja:
         image: 商品の画像
         category_id: カテゴリ
         manufacturer: メーカー
-        rakuten_url: 楽天市場の商品URL
+        product_url: 楽天市場の商品URL
       comment:
         body: コメント
   enums:

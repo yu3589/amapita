@@ -21,11 +21,11 @@
           </div>
         <% end %>
         <!-- 商品URL -->
-        <% if @post.product.rakuten_url.present? %>
+        <% if @post.product.product_url.present? %>
           <div class="flex flex-row underline gap-1">
             <%= image_tag "shopping-cart.svg", class: "h-6 w-6" %>
               <%= link_to t('defaults.link.product_url'),
-                  @post.product.rakuten_url,
+                  @post.product.product_url,
                   target: "_blank",
                   rel: "noopener",
                   class: "text-sm text-secondary" %>

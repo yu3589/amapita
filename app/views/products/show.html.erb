@@ -13,8 +13,8 @@
       <div class="p-4">
           <%= @product.decorate.product_image(class: "w-30 h-30 md:w-40 md:h-40") %>
       </div>
-      <% if @product.rakuten_url.present? %>
-        <%= link_to @product.rakuten_url,
+      <% if @product.product_url.present? %>
+        <%= link_to @product.product_url,
             target: "_blank",
             rel: "noopener",
             class: "inline-flex items-center gap-1 underline text-sm text-secondary hover:opacity-80" do %>
