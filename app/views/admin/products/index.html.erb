@@ -25,9 +25,22 @@
                 <div class="flex items-center justify-between py-1 text-base-300">
                   <%= product.manufacturer %>
                 </div>
-                <div class="card-title text-md md:text-lg line-clamp-3">
+                <div class="card-title text-base line-clamp-3">
                   <%= product.name %>
                 </div>
+                <!-- 商品URL -->
+                <% if product.rakuten_url.present? %>
+                <div class="pt-3">
+                  <div class="flex flex-row underline gap-1">
+                    <%= image_tag "shopping-cart.svg", class: "h-6 w-6" %>
+                      <%= link_to t('defaults.link.product_url'),
+                          product.rakuten_url,
+                          target: "_blank",
+                          rel: "noopener",
+                          class: "text-sm text-secondary" %>
+                  </div>
+                </div>
+                <% end %>
               </div>
             </div>
 

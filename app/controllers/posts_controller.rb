@@ -90,7 +90,8 @@ class PostsController < ApplicationController
   def post_params
     params.require(:post).permit(
     :sweetness_rating, :review, :product_id, :image,
-    product_attributes: [ :id, :name, :manufacturer, :category_id, :image ],
+    product_attributes: [
+      :id, :name, :manufacturer, :category_id, :image, :rakuten_url, :rakuten_image_url ],
     post_sweetness_score_attributes: [
       :sweetness_strength, :aftertaste_clarity, :natural_sweetness, :coolness, :richness
     ]

@@ -30,6 +30,8 @@ ja:
       take_diagnosis: 甘さ感覚診断をする
       return: 戻る
       close: 閉じる
+    link:
+      product_url: 商品を見る
     chart:
       sweetness_profile: 好みの甘さ感覚
       sweetness_user: あなたの評価
@@ -41,16 +43,6 @@ ja:
       thanks_message: ✧* たくさんの甘さ評価ありがとうございます！✧*
     message:
       no_post: 投稿がありません
-  errors:
-    format: "%{attribute}%{message}"
-    messages:
-      blank: "を入力してください"
-      required: "を入力してください"
-      select: "を選んでください"
-      too_long: "は%{count}文字以内で入力してください"
-      taken: が登録できませんでした。入力内容をご確認ください
-      too_short: "は%{count}文字以上で入力してください"
-      confirmation: と一致しません
   helpers:
     submit:
       create: 登録

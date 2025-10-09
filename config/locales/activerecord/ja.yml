@@ -1,4 +1,15 @@
 ja:
+  errors:
+    format: "%{attribute}%{message}"
+    messages:
+      blank: "を入力してください"
+      required: "を入力してください"
+      select: "を選んでください"
+      too_long: "は%{count}文字以内で入力してください"
+      taken: が登録できませんでした。入力内容をご確認ください
+      too_short: "は%{count}文字以上で入力してください"
+      name_manufacturer_taken: "とメーカーの組み合わせは既に存在します"
+      confirmation: と一致しません
   activerecord:
     models:
       user: ユーザー
@@ -39,6 +50,7 @@ ja:
         image: 商品の画像
         category_id: カテゴリ
         manufacturer: メーカー
+        rakuten_url: 楽天市場の商品URL
       comment:
         body: コメント
   enums:

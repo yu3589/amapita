@@ -11,19 +11,6 @@
       </div>
     <% end %>
 
-    <%# --- 商品情報 --- %>
-    <%= f.fields_for :product do |p| %>
-      <div class="form-control">
-        <% if f.object.new_record? && @post.product.new_record? %>
-          <div class="flex flex-col items-center">
-            <%= p.label :image, t('activerecord.attributes.product.image'), class: "label p-2 text-neutral" %>
-            <%= p.file_field :image,
-                class: "file-input file-input-accent file-input-md text-base-300" %>
-          </div>
-        <% end %>
-      </div>
-    <% end %>
-
     <!-- 既存商品の場合 -->
     <% if @post.product.persisted? %>
       <%= f.hidden_field :product_id, value: @post.product.id %>
@@ -72,6 +59,21 @@
           <span class="text-error">*</span>
         </div>
         <%= p.text_field :name, class: "input input-bordered" %>
+      </div>
+
+      <div class="form-control">
+        <div class="label p-2 text-neutral flex justify-center items-center space-x-1">
+          <%= p.label :rakuten_url %>
+        </div>
+          <%= p.text_field :rakuten_url, class: "input input-bordered" %>
+      </div>
+
+      <div class="form-control">
+        <div class="flex flex-col items-center">
+          <%= p.label :image, t('activerecord.attributes.product.image'), class: "label p-2 text-neutral" %>
+          <%= p.file_field :image,
+              class: "file-input file-input-accent file-input-md text-base-300" %>
+        </div>
       </div>
 
       <div class="form-control">

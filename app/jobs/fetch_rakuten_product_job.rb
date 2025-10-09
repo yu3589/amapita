@@ -11,7 +11,10 @@ class FetchRakutenProductJob < ApplicationJob
     data = service.search(product.name)
 
     if data
-      product.update(name: data["name"])
+      product.update(
+        rakuten_url: data["url"],
+        rakuten_image_url: data["imageUrl"]
+      )
       Rails.logger.info "Product ##{product_id}: Successfully fetched data"
     else
       Rails.logger.warn "Product ##{product_id}: No data found"
