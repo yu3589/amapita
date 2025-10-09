@@ -114,6 +114,8 @@ erDiagram
         int category_id FK "カテゴリID"
         string name "商品名"
         string manufacturer "メーカー名"
+        string rakuten_url "楽天商品URL"
+        string rakuten_image_url "楽天画像URL"
         datetime created_at "作成日時"
         datetime updated_at "更新日時"
     }
