@@ -12,9 +12,18 @@
           
             <div class="flex flex-row items-center md:items-start pt-4">
               <!-- 画像 -->
+              <% if product.decorate.product_image.present? %>
               <figure class="flex-shrink-0 p-1 md:p-4">
                 <%= product.decorate.product_image(class: "w-25 h-25 md:w-30 md:h-30") %>
               </figure>
+              <% else %>
+              <figure class="flex-shrink-0 p-1 md:p-4">
+                  <%= image_tag product.product_image_url,
+                    class: "product-image w-25 h-25",
+                    alt: @product&.name || "商品画像",
+                    onerror: "this.src='#{asset_path('default_image.png')}'" %>
+              </figure>
+              <% end %>
               <!-- 商品情報 -->
               <%= product_link_or_tooltip(@category, product, class: "hover:opacity-70") do %>
               <div class="relative flex-1 w-full flex flex-col items-center md:items-start gap-2 md:gap-4 p-2">

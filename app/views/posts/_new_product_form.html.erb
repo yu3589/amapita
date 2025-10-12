@@ -1,0 +1,107 @@
+<p class="text-sm text-stone-400">
+  <%= t('posts.new.product_register_description') %>
+</p>
+
+<div data-controller="rakuten-search">
+  <%= f.fields_for :product do |p| %>
+
+    <!-- 商品名 -->
+    <div class="space-y-2">
+      <div class="form-control items-center w-full max-w-xs mx-auto">
+        <div class="flex flex-row justify-center items-center gap-1">
+          <%= p.label :name, class: "label p-2 text-neutral" %>
+          <span class="text-error">*</span>
+          <div class="dropdown dropdown-top dropdown-hover pl-1">
+            <div tabindex="0" role="button" class="btn btn-xs btn-white btn-circle">?</div>
+            <ul tabindex="0" class="dropdown-content menu bg-base-100 text-base-300 rounded-box z-[1] w-40 p-1 shadow-sm text-xs">
+              <li><a><%= t('defaults.dropdown.post_search_description') %></a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="flex justify-center gap-1 w-full items-center">
+          <%= p.search_field :name,
+              class: "input input-bordered flex-1 bg-white",
+              placeholder: t("defaults.placeholders.require_word"),
+              data: { rakuten_search_target: "keyword" } %>
+          <button type="button" 
+                  class="btn btn-secondary text-xs"
+                  data-action="click->rakuten-search#search">
+            <%= raw t("defaults.buttons.search_rakuten") %> 
+          </button>
+        </div>
+      </div>
+
+      <div class="form-control hidden" data-rakuten-search-target="loading">
+        <div class="flex justify-center items-center gap-2 pt-4 text-secondary">
+          <span class="loading loading-spinner loading-md"></span>
+        </div>
+      </div>
+
+      <div class="form-control hidden pt-2 " data-rakuten-search-target="error">
+        <div class="text-sm text-error">
+          <span data-rakuten-search-target="errorMessage"></span>
+        </div>
+      </div>
+
+      <div data-rakuten-search-target="results" class="hidden mt-4"></div>
+
+      <%= p.hidden_field :product_url, data: { rakuten_search_target: "url" } %>
+      <%= p.hidden_field :product_image_url, data: { rakuten_search_target: "imageUrl" } %>
+    </div>
+
+    <!-- メーカー -->
+    <div class="form-control">
+      <div class="label p-2 text-neutral flex justify-center items-center space-x-1">
+        <%= p.label :manufacturer %>
+        <span class="text-error">*</span>
+      </div>
+
+      <%= p.text_field :manufacturer, 
+            list: "manufacturer_list",
+            placeholder: t("defaults.select.manufacturer"),
+            data: { rakuten_search_target: "manufacturer" },
+            class: "input input-bordered bg-white" %>
+      <%= tag.div id: "manufacturer-mapping", 
+            data: { mapping: I18n.t("products.manufacturers.mapping").to_json }, 
+            style: "display:none;" %>
+
+      <datalist id="manufacturer_list">
+        <% I18n.t("products.manufacturers.list").each do |manufacturer| %>
+          <option value="<%= manufacturer %>"><%= manufacturer %></option>
+        <% end %>
+      </datalist>
+    </div>
+
+    <!-- カテゴリ -->
+    <div class="form-control">
+      <div class="label p-2 text-neutral flex justify-center items-center space-x-1">
+        <%= p.label :category_id %>
+        <span class="text-error">*</span>
+      </div>
+      <%= p.select :category_id,
+            options_from_collection_for_select(Category.all, :id, :name, @post.product.category_id),
+            { prompt: t("defaults.select.category") },
+            class: "select select-bordered bg-white",
+            data: { rakuten_search_target: "categorySelect" } %>
+    </div>
+
+    <!-- 画像アップロード -->
+    <div class="form-control">
+      <div class="flex flex-row justify-center items-center gap-1">
+        <%= p.label :image, t('activerecord.attributes.product.image'), class: "label p-2 text-neutral" %>
+        <div class="dropdown dropdown-top dropdown-hover pl-1">
+          <div tabindex="0" role="button" class="btn btn-xs btn-white btn-circle">?</div>
+          <ul tabindex="0" class="dropdown-content menu bg-base-100 text-base-300 rounded-box z-[1] w-40 p-1 shadow-sm text-xs">
+            <li><a><%= t('defaults.dropdown.no_product_image') %></a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="flex flex-col items-center">
+        <%= p.file_field :image,
+            class: "file-input file-input-accent file-input-md text-base-300" %>
+      </div>
+    </div>
+
+  <% end %>
+</div>
