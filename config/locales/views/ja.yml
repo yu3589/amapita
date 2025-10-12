@@ -8,6 +8,7 @@ ja:
       search_word: キーワードを入力
       search_products: 商品名を入力
       new_comment: コメントを書く...
+      require_word: 2文字以上の商品名を入力
     select:
       manufacturer: メーカーを選択
       category: カテゴリを選択
@@ -28,8 +29,12 @@ ja:
       new_post: あまピタ評価をする
       retake_diagnosis: もう一度診断する
       take_diagnosis: 甘さ感覚診断をする
+      search_rakuten: 楽天で<br>検索
       return: 戻る
       close: 閉じる
+    dropdown:
+      post_search_description: 検索後、商品を選択すると商品情報が取得できます
+      no_product_image: 画像アップロードが無い場合、楽天画像又はデフォルト画像が選択されます
     link:
       product_url: 商品を見る
     chart:
@@ -124,6 +129,8 @@ ja:
   posts:
     new:
       title: あまピタ評価の登録
+      product_register_description: ※ 登録された商品情報は商品詳細画面へ表示されます
+      reputation_part: 評価部分
     edit:
       title: あまピタ評価の編集
       uploaded_image: 現在の投稿画像
@@ -160,7 +167,7 @@ ja:
         - 明治
         - ロッテ
         - 不二家
-        - グリコ
+        - 江崎グリコ
         - 森永製菓
         - ヤマザキビスケット
         - ブルボン
@@ -168,9 +175,51 @@ ja:
         - 東ハト
         - ミスタードーナツ
         - サーティワンアイスクリーム
+        - キリン
         - スターバックスコーヒー
-        - ゴンチャ
         - その他
+      mapping:
+        明治:
+          - "明治"
+          - "meiji"
+          - "Meiji"
+        ロッテ:
+          - "ロッテ"
+          - "LOTTE"
+        不二家:
+          - "不二家"
+          - "FUJIYA"
+        江崎グリコ:
+          - "江崎グリコ"
+          - "グリコ"
+          - "glico"
+          - "Glico"
+        森永製菓:
+          - "森永"
+          - "森永製菓"
+          - "Morinaga"
+        ヤマザキビスケット:
+          - "ヤマザキ"
+          - "ヤマザキビスケット"
+        ブルボン:
+          - "ブルボン"
+          - "BOURBON"
+        UHA味覚糖:
+          - "UHA"
+          - "味覚糖"
+        東ハト:
+          - "東ハト"
+          - "Tohato"
+        ミスタードーナツ:
+          - "ミスド"
+          - "ミスタードーナツ"
+        サーティワンアイスクリーム:
+          - "サーティワン"
+          - "31"
+        スターバックスコーヒー:
+          - "スタバ"
+          - "スターバックス"
+          - "Starbucks"
   categories:
     gummy: グミ
     jelly: ゼリー

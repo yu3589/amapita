@@ -48,9 +48,16 @@
           <div class="p-2 md:p-3">
             <%= post.decorate.post_image(class: "w-22 h-22 md:w-30 md:h-30") %>
           </div>
-        <% else %>
+          <% elsif post.product.decorate.product_image.present? %>
           <div class="p-2 md:p-3">
             <%= post.product.decorate.product_image(class: "w-22 h-22 md:w-30 md:h-30") %>
+          </div>
+        <% else %>
+          <div class="p-2 md:p-3">
+              <%= image_tag post.product.product_image_url,
+                class: "product-image w-22 h-22 md:w-30 md:h-30",
+                alt: post.product&.name || "商品画像",
+                onerror: "this.src='#{asset_path('default_image.png')}'" %>
           </div>
         <% end %>
       </figure>

@@ -1,0 +1,73 @@
+<div class="form-control">
+  <div class="label pb-2 text-neutral flex justify-center items-center space-x-1">
+    <%= f.label :sweetness_rating %>
+    <span class="text-error">*</span>
+  </div>
+
+  <div class="flex flex-wrap justify-center gap-4 bg-white p-2 md:p-5 rounded-4xl ring-2 ring-[var(--color-base-400)]">
+    <% rating_images = {
+        "lack_of_sweetness" => "smiley-meh.svg",
+        "could_be_sweeter" => "smiley-blank.svg",
+        "perfect_sweetness" => "smiley-wink.svg",
+        "slightly_too_sweet" => "smiley-nervous.svg",
+        "too_sweet" => "smiley-x-eyes.svg"
+      }
+      hover_colors = {
+        "lack_of_sweetness" => "hover:bg-accent",
+        "could_be_sweeter" => "hover:bg-accent", 
+        "perfect_sweetness" => "hover:bg-primary",
+        "slightly_too_sweet" => "hover:bg-secondary",
+        "too_sweet" => "hover:bg-secondary"
+      }
+    %>
+
+    <% Post.sweetness_ratings.keys.each do |rating_key| %>
+      <label class="flex flex-col items-center basis-1/3 sm:basis-auto cursor-pointer sweetness-rating-option" 
+             data-value="<%= rating_key %>">
+        <%= f.radio_button :sweetness_rating, rating_key,
+            class: "hidden peer sweetness-radio",
+            checked: (f.object.sweetness_rating.to_s == rating_key) %>
+        <span class="rating-indicator p-2 rounded-full transition-all duration-200 <%= hover_colors[rating_key] %>">
+          <%= image_tag rating_images[rating_key], class: "h-10 w-10 pointer-events-none" %>
+        </span>
+        <div class="text-sm sm:text-xs text-center whitespace-pre-line pointer-events-none">
+          <%= t("enums.post.sweetness_rating.#{rating_key}") %>
+        </div>
+      </label>
+    <% end %>
+  </div>
+</div>
+
+<%= f.fields_for :post_sweetness_score do |s| %>
+  <div class="mb-2">
+    <%= t("activerecord.attributes.post.post_sweetness_score") %>
+  </div>
+
+  <div class="flex flex-wrap justify-center gap-4 bg-white p-2 rounded-4xl ring-2 ring-[var(--color-base-400)]">
+    <div class="mx-auto space-y-6 p-4 sm:space-y-0 sm:table w-full">
+      <% {
+        sweetness_strength: "#{t('activerecord.attributes.sweetness_strength')} :",
+        aftertaste_clarity: "#{t('activerecord.attributes.aftertaste_clarity')} :",
+        natural_sweetness: "#{t('activerecord.attributes.natural_sweetness')} :",
+        coolness: "#{t('activerecord.attributes.coolness')} :",
+        richness: "#{t('activerecord.attributes.richness')} :",
+      }.each do |field, label| %>
+        <div class="sm:table-row">
+          <div class="sm:mb-0 sm:table-cell p-1 sm:pr-4 sm:text-right">
+            <%= label %>
+          </div>
+          <div class="sm:table-cell text-center">
+            <div class="rating rating-lg flex justify-center space-x-2 gap-2">
+              <%= s.hidden_field field, value: 1 %>
+              <% (1..5).each do |i| %>
+                <%= s.radio_button field, i, 
+                    class: "mask mask-star-2 bg-secondary md:hover:bg-secondary p-4",
+                    checked: (s.object.send(field).presence || 1) == i %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>

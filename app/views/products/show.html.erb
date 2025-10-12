@@ -10,9 +10,19 @@
     <div class="flex flex-col justify-center items-center sm:flex-row sm:items-start sm:gap-6">
       <div class="flex flex-col items-center p-4">
       <!-- 商品画像 -->
+      <% if @product.decorate.product_image.present? %>
       <div class="p-4">
-          <%= @product.decorate.product_image(class: "w-30 h-30 md:w-40 md:h-40") %>
+        <%= @product.decorate.product_image(class: "w-22 h-22 sm:w-35 sm:h-35") %>
       </div>
+      <% else %>
+      <div class="p-4">
+        <%= image_tag @product.product_image_url,
+          class: "product-image w-22 h-22 sm:w-35 sm:h-35",
+          alt: @product&.name || "商品画像",
+          onerror: "this.src='#{asset_path('default_image.png')}'" %>
+      </div>
+      <% end %>
+
       <% if @product.product_url.present? %>
         <%= link_to @product.product_url,
             target: "_blank",

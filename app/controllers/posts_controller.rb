@@ -12,7 +12,6 @@ class PostsController < ApplicationController
     @recommended_posts = @recommended_posts.decorate
   end
 
-
   def new
     @post = Post.new
     if params[:product_id].present?
@@ -70,6 +69,14 @@ class PostsController < ApplicationController
     @post.image.purge if @post.image.attached?
     @post.destroy!
     redirect_to posts_path, notice: t("defaults.flash_message.deleted", item: Post.model_name.human)
+  end
+
+  def search_products
+    keyword = params[:keyword]
+    service = RakutenApiService.new
+    @results = service.search(keyword)
+
+    render json: @results
   end
 
   private

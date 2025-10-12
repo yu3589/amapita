@@ -2,13 +2,10 @@ class Product < ApplicationRecord
   include ImageValidatable
   has_one_attached :image
 
-  RAKUTEN_URL_PATTERN = /\Ahttps:\/\/item\.rakuten\.co\.jp\/[\w\-\/]+\z/
-
   validates :name, presence: true, length: { maximum: 40 }
   validates :manufacturer, presence: { message: :select }
   validates :name, uniqueness: { scope: :manufacturer, message: :name_manufacturer_taken }
   validates :category_id, presence: { message: :select }
-  validates :product_url, format: { with: RAKUTEN_URL_PATTERN, allow_blank: true, message: :blank }
 
   belongs_to :category, optional: true
   has_many :posts, dependent: :destroy

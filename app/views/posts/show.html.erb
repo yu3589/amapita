@@ -13,13 +13,21 @@
         <!-- 商品画像 -->
         <% if @post.image.attached? %>
           <div class="p-4">
-            <%= @post.decorate.post_image(class: "w-30 h-30 md:w-40 md:h-40") %>
+            <%= @post.decorate.post_image(class: "w-22 h-22 md:w-35 md:h-35") %>
+          </div>
+          <% elsif @post.product.decorate.product_image.present? %>
+          <div class="p-4">
+            <%= @post.product.decorate.product_image(class: "w-22 h-22 md:w-35 md:h-35") %>
           </div>
         <% else %>
           <div class="p-4">
-            <%= @post.product.decorate.product_image(class: "w-30 h-30 md:w-40 md:h-40") %>
+              <%= image_tag @post.product.product_image_url,
+                class: "product-image w-22 h-22 md:w-35 md:h-35",
+                alt: @post.product&.name || "商品画像",
+                onerror: "this.src='#{asset_path('default_image.png')}'" %>
           </div>
         <% end %>
+
         <!-- 商品URL -->
         <% if @post.product.product_url.present? %>
           <div class="flex flex-row underline gap-1">
