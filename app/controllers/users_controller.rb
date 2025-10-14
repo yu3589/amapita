@@ -5,8 +5,8 @@ class UsersController < ApplicationController
     @sweetness_type = @user.sweetness_type
 
     # 投稿一覧
-    posts_query = @user.posts.order(id: :desc)
+    posts_query = @user.posts.publish.order(id: :desc)
     @pagy_posts, @posts = pagy(posts_query, limit: 10)
-    @posts = @posts&.decorate
+    @posts = @posts&.publish.decorate
   end
 end
