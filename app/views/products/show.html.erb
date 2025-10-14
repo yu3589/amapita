@@ -53,13 +53,6 @@
               <%= image_tag "smiley-blank.svg", class: "h-8 w-8" %>
               <%= t('defaults.label.no_rating') %>
             </div>
-            <div class="mt-8 md:mt-12 text-center">
-                <%= link_to new_post_path(product_id: @product.id), class: "bg-accent rounded-full p-4 inline-flex items-center gap-3 shadow-sm hover-animation" do %>
-                <span class="text-sm md:text-base">
-                  <%= t('defaults.buttons.new_post') %>
-                </span>
-            <% end %>
-          </div>
           <% else %>
             <div class="flex flex-row ring-primary amapita-count-ring">
               <%= image_tag "smiley-wink.svg", class: "h-8 w-8" %>
@@ -67,13 +60,24 @@
             </div>
           <% end %>
         <!-- 新規投稿ボタン -->
-        <% user_reviewed = user_signed_in? && @posts.any? { |post| post.user_id == current_user.id } %>
-          <% unless user_reviewed %>
+          <% if show_new_post_button?(@product) %>
             <div class="text-center pt-6">
               <%= link_to new_post_path(product_id: @product.id),
-                  class: "bg-success rounded-full px-4 py-3 inline-flex items-center gap-3 shadow-sm hover-animation" do %>
-                <span class="text-sm md:text-sm">
+                  class: "bg-success button-primary inline-flex shadow-sm hover-animation" do %>
+                <span class="text-sm">
                   <%= t('defaults.buttons.new_post') %>
+                </span>
+              <% end %>
+            </div>
+          <% end %>
+          <!-- 非公開投稿の場合 -->
+          <% if show_unpublish_post_link?(@user_unpublish_post) %>
+            <div class="text-center pt-4">
+              <%= link_to post_path(@user_unpublish_post),
+                  class: "bg-success button-primary text-neutral inline-flex gap-2" do %>
+                <%= image_tag "lock-key.svg", class: "h-5 w-5" %>
+                <span class="text-sm">
+                  <%= t('defaults.buttons.show_unpublished_post') %>
                 </span>
               <% end %>
             </div>

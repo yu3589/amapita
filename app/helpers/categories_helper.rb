@@ -20,4 +20,10 @@ module CategoriesHelper
       ), &block
     end
   end
+
+  def show_new_post_button?(product)
+    return false unless user_signed_in?
+
+    !product.posts.exists?(user_id: current_user.id)
+  end
 end
