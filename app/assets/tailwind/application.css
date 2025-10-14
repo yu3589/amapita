@@ -48,7 +48,7 @@
 }
 
 .button-primary {
-  @apply px-5 py-3 md:px-6 text-base-100 rounded-full transition duration-200 hover:brightness-96;
+  @apply px-5 py-3 md:px-6 rounded-full transition duration-200 hover:brightness-96;
 }
 
 .button-secondary {
