@@ -1,6 +1,6 @@
 <%= f.hidden_field :product_id, value: @post.product.id %>
 <div class="flex justify-center w-full">
-  <div class="p-3 rounded-4xl text-sm text-neutral w-fit ring-base-200 ring-2">
+  <div class="py-2 px-4 sm:py-3 sm:px-5 rounded-4xl text-sm text-neutral w-fit ring-base-200 ring-2">
     <span class="text-left inline-block leading-loose">
       <p><%= t('activerecord.attributes.product.name') %>：<%= @post.product.name %></p>
       <p><%= t('activerecord.attributes.product.manufacturer') %>：<%= @post.product.manufacturer %></p>
@@ -21,7 +21,7 @@
         <span class="label-text text-sm p-1"><%= t('posts.edit.replace_image') %></span>
       </label>
       <%= f.file_field :image,
-          class: "file-input file-input-accent file-input-md text-base-300" %>
+          class: "file-input file-input-accent file-input-sm sm:file-input-md text-base-300" %>
     </div>
   </div>
 <% else %>
@@ -29,7 +29,7 @@
     <div class="flex flex-col items-center">
       <%= f.label :image, t('activerecord.attributes.product.image'), class: "label p-2 text-neutral" %>
       <%= f.file_field :image,
-          class: "file-input file-input-accent file-input-md text-base-300" %>
+          class: "file-input file-input-accent file-input-sm sm:file-input-md text-base-300" %>
     </div>
   </div>
 <% end %>
