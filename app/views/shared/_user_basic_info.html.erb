@@ -21,13 +21,21 @@
               </span>
             <% end %>
             <% if display_post_badge(user).present? %>
-              <span class="flex flex-row gap-1 text-xs rounded-full px-2 py-1 bg-success">
+              <span class="flex flex-row gap-1 text-xs rounded-full px-2 py-1 bg-success items-center">
                 <%= image_tag "badge.svg", class: "h-5 w-5" %>
                 <%= display_post_badge(user) %>
               </span>
+              <% if user == current_user %>
               <span class="text-sm">
-                <%= t('profiles.total_post', count: user.posts.count) %>
+                <%= t('profiles.total_post', count: user.posts.publish.count) %>
+                  <div class="dropdown dropdown-down dropdown-hover pl-1">
+                    <div tabindex="0" role="button" class="btn btn-xs btn-white btn-circle">?</div>
+                      <ul tabindex="0" class="dropdown-content menu bg-base-100 text-base-300 rounded-box z-[1] w-30 p-1 shadow-sm text-xs">
+                        <li><a><%= t('defaults.dropdown.privacy_notice') %></a></li>
+                      </ul>
+                  </div>
               </span>
+              <% end %>
             <% end %>
           </div>
         </div>

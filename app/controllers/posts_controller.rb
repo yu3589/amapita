@@ -3,7 +3,7 @@ class PostsController < ApplicationController
 
   def index
     @q_new = Post.ransack(params[:q_new])
-    new_posts_scope = @q_new.result(distinct: true).includes(:user, :category).order(created_at: :desc)
+    new_posts_scope = @q_new.result(distinct: true).publish.includes(:user, :category).order(created_at: :desc)
     @pagy_new, @new_posts = pagy(new_posts_scope)
     @new_posts = @new_posts.decorate
 
@@ -32,7 +32,11 @@ class PostsController < ApplicationController
       new_badge = PostBadge.check_and_award_post_badges(current_user)
       # 新しいバッジであればモーダル表示
       session[:badge_modal] = new_badge.name if new_badge&.name.present?
-      redirect_to post_path(@post), notice: t("defaults.flash_message.created", item: Post.model_name.human)
+
+      message = @post.publish? ?
+      t("defaults.flash_message.created", item: Post.model_name.human) :
+      t("defaults.flash_message.created_as_unpublish", item: Post.model_name.human)
+      redirect_to post_path(@post), notice: message
     else
       flash.now[:alert] = t("defaults.flash_message.not_created", item: Post.model_name.human)
       render :new, status: :unprocessable_entity
@@ -46,6 +50,9 @@ class PostsController < ApplicationController
   def update
     @post = current_user.posts.find(params[:id])
     if @post.update(post_params)
+      # 非公開 -> 公開でバッジが新しく付与された際にモーダル表示
+      new_badge = PostBadge.check_and_award_post_badges(current_user)
+      session[:badge_modal] = new_badge.name if new_badge&.name.present?
       redirect_to post_path(@post), notice: t("defaults.flash_message.updated", item: Post.model_name.human)
     else
       flash.now[:alert] = t("defaults.flash_message.not_updated", item: Post.model_name.human)
@@ -55,6 +62,12 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id]).decorate
+
+    unless @post.publish? || current_user&.own?(@post)
+        redirect_to posts_path, alert: t("defaults.flash_message.not_authorized")
+      return
+    end
+
     @comment = Comment.new
     @comments = @post.comments.includes(:user).order(created_at: :desc)
 
@@ -87,6 +100,7 @@ class PostsController < ApplicationController
     twin_user_ids = SweetnessTwin.where(user_id: current_user.id).pluck(:twin_user_id)
     q_recommend = Post.perfect_sweetness.where(user_id: twin_user_ids).ransack(params[:q_recommend])
     recommended_posts =  q_recommend.result(distinct: true)
+                                    .publish
                                     .perfect_sweetness
                                     .where(sweetness_rating: :perfect_sweetness)
                                     .includes(:user, :category)
@@ -96,7 +110,7 @@ class PostsController < ApplicationController
 
   def post_params
     params.require(:post).permit(
-    :sweetness_rating, :review, :product_id, :image,
+    :sweetness_rating, :review, :product_id, :image, :status,
     product_attributes: [
       :id, :name, :manufacturer, :category_id, :image, :product_url, :product_image_url ],
     post_sweetness_score_attributes: [

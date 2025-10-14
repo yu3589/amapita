@@ -18,3 +18,19 @@
 }
 
 .tabs-labels label:hover { transform: translateY(-1px); }
+
+/* ラジオボタン） */
+.radio-text {
+  color: rgb(168 162 158);
+  transition: color 0.2s ease;
+}
+
+
+input[type="radio"]:checked + .radio-text {
+  color: rgb(85 81 77);
+}
+
+/* ラベル全体をクリック可能にする */
+label {
+  cursor: pointer;
+}
