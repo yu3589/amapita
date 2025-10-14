@@ -41,6 +41,8 @@ ja:
         remember_me: ログイン情報を記憶する
       profile: ユーザー情報
       post:
+        publish: 公開
+        unpublish: 非公開
         sweetness_rating: あまピタ度
         review: レビュー
         post_sweetness_score: あまさ評価

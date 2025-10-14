@@ -15,6 +15,7 @@ ja:
     flash_message:
       created: "%{item}を作成しました"
       not_created: "%{item}を作成出来ませんでした"
+      created_as_unpublish: "非公開で%{item}を作成しました"
       registered: "%{item}を登録しました"
       not_registered: "%{item}を登録出来ませんでした"
       updated: "%{item}を更新しました"
@@ -30,11 +31,14 @@ ja:
       retake_diagnosis: もう一度診断する
       take_diagnosis: 甘さ感覚診断をする
       search_rakuten: 楽天で<br>検索
+      show_unpublished_post: 自分の投稿詳細を見る
       return: 戻る
       close: 閉じる
     dropdown:
       post_search_description: 検索後、商品を選択すると商品情報が取得できます
       no_product_image: 画像アップロードが無い場合、楽天画像又はデフォルト画像が選択されます
+      visibility_notice: 非公開の場合、投稿数はカウントされません
+      privacy_notice: 他ユーザーには表示されません
     link:
       product_url: 商品を見る
     chart:
@@ -100,7 +104,7 @@ ja:
         logout: ログアウト
   profiles:
     info: ユーザー情報
-    total_post: "投稿した甘さ評価：%{count} 件"
+    total_post: "公開した甘さ評価：%{count} 件"
     tabs:
       posts: 投稿した甘さ評価
       bookmarks: 保存した商品
@@ -128,11 +132,13 @@ ja:
       title: 診断結果
   posts:
     new:
-      title: あまピタ評価の登録
+      title: 商品・あまピタ判定の登録
+      title_reputation_only: あまピタ判定の登録
       product_register_description: ※ 登録された商品情報は商品詳細画面へ表示されます
       reputation_part: 評価部分
+      visibility_setting: 全体に公開する
     edit:
-      title: あまピタ評価の編集
+      title: あまピタ判定の編集
       uploaded_image: 現在の投稿画像
       replace_image: 新しい画像をアップロード
     index:
