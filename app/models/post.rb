@@ -5,6 +5,7 @@ class Post < ApplicationRecord
   validates :sweetness_rating, presence: { message: :select }
   validates :post_sweetness_score, presence: true
   validates :review, length: { maximum: 500 }
+  validates :status, presence: true
 
   belongs_to :user
   belongs_to :product
@@ -24,7 +25,10 @@ class Post < ApplicationRecord
     too_sweet: 4
   }
 
+  enum status: { publish: 0, unpublish: 1 }
+
   scope :perfect_sweetness, -> { where(sweetness_rating: :perfect_sweetness) }
+  scope :publish, -> { where(status: :publish) }
 
   def self.ransackable_attributes(auth_object = nil)
     [ "review", "created_at", "sweetness_rating" ]

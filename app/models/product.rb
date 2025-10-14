@@ -12,11 +12,11 @@ class Product < ApplicationRecord
   has_many :bookmarks, dependent: :destroy
 
   def total_posts
-    posts.size
+    posts.publish.size
   end
 
   def perfect_sweetness_count
-    posts.where(sweetness_rating: Post.sweetness_ratings[:perfect_sweetness]).size
+    posts.publish.where(sweetness_rating: Post.sweetness_ratings[:perfect_sweetness]).size
   end
 
   def average_sweetness_scores
