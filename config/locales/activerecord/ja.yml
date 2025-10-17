@@ -45,7 +45,7 @@ ja:
         unpublish: 非公開
         sweetness_rating: あまピタ度
         review: レビュー
-        post_sweetness_score: あまさ評価
+        post_sweetness_score: 甘さ評価
         image: 商品の画像
       product:
         name: 商品名

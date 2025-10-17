@@ -1,50 +1,41 @@
 <div class="p-2 md:p-4">
-  <div class="p-2 w-full max-w-3xl mx-auto bg-base-100 rounded-4xl">
+  <div class="p-2 w-full max-w-4xl mx-auto bg-base-100 rounded-4xl">
     <h1 class="flex justify-between items-center text-xl md:text-2xl p-4 border-b border-base-200 w-full">
-      <span class="text-center flex-1"><%= @product.name %></span>
+      <span class="text-center flex-1"><%= t('products.show.title') %></span>
       <% if user_signed_in? %>
         <%= render 'bookmark_buttons', { product: @product } %>
       <% end %>
     </h1>
 
-    <div class="flex flex-col justify-center items-center sm:flex-row sm:items-start sm:gap-6">
-      <div class="flex flex-col items-center p-4">
-      <!-- 商品画像 -->
-      <% if @product.decorate.product_image.present? %>
-      <div class="p-4">
-        <%= @product.decorate.product_image(class: "w-22 h-22 sm:w-35 sm:h-35") %>
-      </div>
-      <% else %>
-      <div class="p-4">
-        <%= image_tag @product.product_image_url,
-          class: "product-image w-22 h-22 sm:w-35 sm:h-35",
-          alt: @product&.name || "商品画像",
-          onerror: "this.src='#{asset_path('default_image.png')}'" %>
-      </div>
-      <% end %>
+    <div class="flex justify-center flex-row items-start sm:gap-6">
+      <!-- 商品画像とURL -->
+      <div class="flex flex-col items-center gap-6 sm:gap-2">
+        <figure class="p-2 md:p-4">
+          <%= @product.decorate.product_image(class: "w-25 h-25 md:w-35 md:h-35",
+              alt: @product.name) %>
+        </figure>
 
-      <% if @product.product_url.present? %>
-        <%= link_to @product.product_url,
-            target: "_blank",
-            rel: "noopener",
-            class: "inline-flex items-center gap-1 underline text-sm text-secondary hover:opacity-80" do %>
-          <%= image_tag "shopping-cart.svg", class: "h-6 w-6" %>
-          <span><%= t('defaults.link.product_url') %></span>
+        <% if @product.product_url.present? %>
+          <%= link_to @product.product_url,
+              target: "_blank",
+              rel: "noopener",
+              class: "inline-flex items-center gap-1 underline text-sm text-secondary hover:opacity-80" do %>
+            <%= image_tag "shopping-cart.svg", class: "h-6 w-6" %>
+            <span><%= t('defaults.link.product_url') %></span>
+          <% end %>
         <% end %>
-      <% end %>
-    </div>
+      </div>
 
-      <div class="flex flex-col md:justify-start justify-center items-center md:items-start gap-2 md:gap-5 text-neutral py-4 md:px-0 md:py-6">
-        <div class="text-sm md:text-base text-base-300">
+      <div class="flex flex-col justify-start items-start gap-2 md:gap-5 text-neutral py-4 md:px-0 md:py-6">
+        <div class="text-sm md:text-base font-semibold">
+          <%= @product.name %>
+        </div>
+        <div class="text-sm text-base-300">
           <%= t('activerecord.attributes.product.manufacturer') %>：<%= @product.manufacturer %>
         </div>
-        <div class="text-sm md:text-base text-base-300">
+        <div class="text-sm text-base-300">
           <%= t('activerecord.attributes.product.category_id') %>：<%= @product.category.name %>
         </div>
-        <!-- 商品URL -->
-        <div class="flex flex-col justify-end items-end">
-
-      </div>
 
         <!-- あまピタカウント -->
         <div class="w-full md:w-auto justify-center md:block">
@@ -55,11 +46,12 @@
             </div>
           <% else %>
             <div class="flex flex-row ring-primary amapita-count-ring">
-              <%= image_tag "smiley-wink.svg", class: "h-8 w-8" %>
+              <%= image_tag "smiley-wink.svg", class: "h-6 w-6 sm:h-8 sm:w-8" %>
               <p><%= t("defaults.label.stats", count: @product.total_posts, perfect:@product.perfect_sweetness_count) %></p>
             </div>
           <% end %>
-        <!-- 新規投稿ボタン -->
+
+          <!-- 新規投稿ボタン -->
           <% if show_new_post_button?(@product) %>
             <div class="text-center pt-6">
               <%= link_to new_post_path(product_id: @product.id),
@@ -70,6 +62,7 @@
               <% end %>
             </div>
           <% end %>
+
           <!-- 非公開投稿の場合 -->
           <% if show_unpublish_post_link?(@user_unpublish_post) %>
             <div class="text-center pt-4">
@@ -82,146 +75,151 @@
               <% end %>
             </div>
           <% end %>
-        </div>   
+        </div>
       </div>
     </div>
 
     <% if @posts.present? %>
-      <!-- チャート -->
-      <div class="flex justify-center p-2 md:p-4">
-        <div class="w-full max-w-lg sm:max-w-xl p-2 border-secondary rounded-3xl bg-white">
-          <div class="mx-auto w-full max-w-md p-2">
-
-            <% if user_signed_in? && @user_post.present? %>
-              <% if @posts.any?(&:user) && @posts.any? { |p| p.user != current_user } %>
-                <!-- ログインユーザーと他ユーザーの投稿がある場合 -->
-                <%= render "shared/chart/sweetness_average",
-                  chart_id: "averageChart",
-                  user_data: [
-                    @user_post.post_sweetness_score.sweetness_strength,
-                    @user_post.post_sweetness_score.aftertaste_clarity,
-                    @user_post.post_sweetness_score.natural_sweetness,
-                    @user_post.post_sweetness_score.coolness,
-                    @user_post.post_sweetness_score.richness
-                  ],
-                  average_data: [
+      <div class="flex flex-col justify-center items-center lg:flex-row lg:items-start px-4 py-4 gap-6 w-full">
+        <!-- チャート -->
+        <div class="flex justify-center w-full lg:w-3/5 max-w-2xl">
+          <div class="w-full p-1 sm:p-6 border-secondary rounded-3xl bg-white">
+            <div class="p-1 text-base md:text-lg">
+              甘さ感覚チャート
+            </div>
+            <div class="mx-auto w-full max-w-md p-2">
+              <% if user_signed_in? && @user_post.present? %>
+                <% if @posts.any?(&:user) && @posts.any? { |p| p.user != current_user } %>
+                  <!-- ログインユーザーと他ユーザーの投稿がある場合 -->
+                  <%= render "shared/chart/sweetness_average",
+                    chart_id: "averageChart",
+                    user_data: [
+                      @user_post.post_sweetness_score.sweetness_strength,
+                      @user_post.post_sweetness_score.aftertaste_clarity,
+                      @user_post.post_sweetness_score.natural_sweetness,
+                      @user_post.post_sweetness_score.coolness,
+                      @user_post.post_sweetness_score.richness
+                    ],
+                    average_data: [
+                      @average_scores[:sweetness_strength],
+                      @average_scores[:aftertaste_clarity],
+                      @average_scores[:natural_sweetness],
+                      @average_scores[:coolness],
+                      @average_scores[:richness]
+                    ] %>
+                <% else %>
+                  <!-- ログインユーザーのみ投稿している場合 -->
+                  <%= render "shared/chart/sweetness_posts",
+                    chart_id: "radarChart",
+                    data: [
+                      @user_post.post_sweetness_score.sweetness_strength,
+                      @user_post.post_sweetness_score.aftertaste_clarity,
+                      @user_post.post_sweetness_score.natural_sweetness,
+                      @user_post.post_sweetness_score.coolness,
+                      @user_post.post_sweetness_score.richness
+                    ] %>
+                <% end %>
+              <% else %>
+                <!-- ログインユーザーは未投稿で他ユーザーの投稿がある場合 -->
+                <%= render "shared/chart/sweetness_average_only",
+                  chart_id: "averageChartOnly",
+                  data: [
                     @average_scores[:sweetness_strength],
                     @average_scores[:aftertaste_clarity],
                     @average_scores[:natural_sweetness],
                     @average_scores[:coolness],
                     @average_scores[:richness]
                   ] %>
-              <% else %>   
-              <!-- ログインユーザーのみ投稿している場合 -->
-              <%= render "shared/chart/sweetness_posts",
-                chart_id: "radarChart",
-                data: [
-                  @user_post.post_sweetness_score.sweetness_strength,
-                  @user_post.post_sweetness_score.aftertaste_clarity,
-                  @user_post.post_sweetness_score.natural_sweetness,
-                  @user_post.post_sweetness_score.coolness,
-                  @user_post.post_sweetness_score.richness
-                ] %>
               <% end %>
-
-            <% else %>
-              <!-- ログインユーザーは未投稿で他ユーザーの投稿がある場合 -->
-              <%= render "shared/chart/sweetness_average_only",
-                chart_id: "averageChartOnly",
-                data: [
-                  @average_scores[:sweetness_strength],
-                  @average_scores[:aftertaste_clarity],
-                  @average_scores[:natural_sweetness],
-                  @average_scores[:coolness],
-                  @average_scores[:richness]
-                ] %>
-            <% end %>
-
-          </div>
-        </div>
-      </div>
-
-      <!-- ユーザーレビュー -->
-      <div class="bg-white px-4 py-6 md:p-2 max-w-2xl mx-auto rounded-4xl flex flex-col items-center">
-        <div class="p-2 text-base md:text-xl"><%= t('.review') %></div>
-
-        <% @posts.each do |post| %>
-          <div class="py-4 border-b border-base-200 last:border-b-0">
-            <div class="flex flex-col md:flex-row gap-4 md:items-start">
-
-              <!-- 画像 -->
-              <% if post.image.attached? %>
-                <div class="flex-shrink-0">
-                  <%= post.decorate.post_image(class: "w-25 h-25 md:w-40 md:h-40") %>
-                </div>
-              <% elsif @product_image_uploader_id == post.user_id %>
-                <div class="flex-shrink-0">
-                  <%= @product.decorate.product_image(class: "w-25 h-25 md:w-40 md:h-40") %>
-                </div>
-              <% end %>
-
-              <!-- 投稿情報 -->
-              <div class="flex-1 flex flex-col justify-between gap-2">
-
-                <div class="flex flex-col sm:flex-row sm:items-center sm:gap-4">
-                  <!-- ユーザー情報 -->
-                  <div class="flex flex-col items-center">
-                    <%= post.user.decorate.avatar_image(class: "w-10 h-10") %>
-                    <span class="mt-1 text-sm font-medium"><%= post.user.name %></span>
-                  </div>
-
-                  <% rating_images = { 
-                      "lack_of_sweetness" => "smiley-meh.svg",
-                      "could_be_sweeter" => "smiley-blank.svg",
-                      "perfect_sweetness" => "smiley-wink.svg",
-                      "slightly_too_sweet" => "smiley-nervous.svg",
-                      "too_sweet" => "smiley-x-eyes.svg" 
-                    } %> 
-                  <% bg_colors = { 
-                      "lack_of_sweetness" => "bg-accent",
-                      "could_be_sweeter" => "bg-accent",
-                      "perfect_sweetness" => "bg-primary",
-                      "slightly_too_sweet" => "bg-secondary",
-                      "too_sweet" => "bg-secondary" 
-                    } %>
-
-                  <!-- 甘さ評価 -->
-                  <div class="inline-flex items-center rounded-2xl gap-2 px-3 md:px-5 py-2 md:py-4
-                              text-neutral text-sm md:text-base w-fit <%= bg_colors[post.sweetness_rating] %>">
-                    <%= image_tag rating_images[post.sweetness_rating], class: "h-6 w-6" %>
-                    <p><%= I18n.t("enums.post.sweetness_rating.#{post.sweetness_rating}") %></p>
-                  </div>
-                </div>
-
-                <!-- レビュー本文 -->
-                <div class="p-2 text-sm text-neutral">
-                  <p><%= truncate(post.review, length: 25, omission: '...') %></p>
-                </div>
-
-                <!-- 日付 + 編集・削除ボタン -->
-                <div class="flex flex-col items-end gap-2 md:gap-4 px-3 text-sm text-base-200">
-                  <div><%= l post.created_at %></div>
-                  <% if user_signed_in? && current_user.own?(post) %>
-                    <div class="flex gap-2">
-                      <%= link_to edit_post_path(post), class: "text-sm btn btn-outline btn-accent", data: { turbo: false } do %>
-                        <%= t('helpers.submit.edit') %>
-                      <% end %>
-                      <%= link_to post_path(post), class: "text-sm btn btn-outline btn-secondary", data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>
-                        <%= t('helpers.submit.delete') %>
-                      <% end %>
-                    </div>
-                  <% end %>
-                </div>
-
-              </div>
             </div>
           </div>
-        <% end %>
-        <div class="flex items-center justify-center p-4">
-          <%== pagy_nav(@pagy) %>
+        </div>
+
+        <!-- ユーザーレビュー -->
+        <div class="bg-white p-4 sm:p-6 w-full lg:w-2/5 max-w-lg rounded-4xl flex flex-col items-start">
+          <div class="p-1 text-base md:text-lg"><%= t('.review') %></div>
+
+          <% if @posts.any? %>
+            <div class="w-full">
+              <% @posts.each do |post| %>
+                <div class="py-4 w-full border-b border-base-200 last:border-b-0">
+                  <div class="flex flex-col gap-4 relative">
+                    <div class="flex flex-row gap-4 items-start">
+                      <!-- ユーザー情報 + 編集削除ボタン -->
+                      <div class="flex flex-col items-center p-2 w-20 shrink-0 gap-2">
+                        <%= post.user.decorate.avatar_image(class: "w-10 h-10") %>
+                        <span class="mt-1 text-xs text-center line-clamp-2"><%= post.user.name %></span>
+                        
+                        <!-- 編集・削除ボタン -->
+                        <% if user_signed_in? && current_user.own?(post) %>
+                          <div class="dropdown dropdown-bottom dropdown-end">
+                            <div tabindex="0" role="button" class="btn btn-sm btn-ghost hover:bg-[var(--color-base-400)] p-1">
+                              <%= image_tag "pencil-simple.svg", class: "h-5 w-5" %>/<%= image_tag "trash.svg", class: "h-5 w-5" %>
+                            </div>
+
+                            <ul tabindex="0" class="dropdown-content menu bg-white rounded-box w-24 p-2 shadow-sm text-xs flex flex-col text-center gap-2 z-10">
+                              <li>
+                                <%= link_to edit_post_path(post), class: "text-neutral", data: { turbo: false } do %>
+                                  <%= t('helpers.submit.edit') %>
+                                <% end %>
+                              </li>
+                              <li>
+                                <%= link_to post_path(post), class: "text-error",
+                                      data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>
+                                  <%= t('helpers.submit.delete') %>
+                                <% end %>
+                              </li>
+                            </ul>
+                          </div>
+                        <% end %>
+                      </div>
+                      
+                      <!-- 甘さ評価 + レビュー本文 -->
+                      <div class="flex-1 min-w-0 flex flex-col gap-1">
+                        <!-- 甘さ評価 -->
+                        <% rating_images = { 
+                            "lack_of_sweetness" => "smiley-meh.svg",
+                            "could_be_sweeter" => "smiley-blank.svg",
+                            "perfect_sweetness" => "smiley-wink.svg",
+                            "slightly_too_sweet" => "smiley-nervous.svg",
+                            "too_sweet" => "smiley-x-eyes.svg" 
+                          } %> 
+                        <% bg_colors = { 
+                            "lack_of_sweetness" => "bg-accent",
+                            "could_be_sweeter" => "bg-accent",
+                            "perfect_sweetness" => "bg-primary",
+                            "slightly_too_sweet" => "bg-secondary",
+                            "too_sweet" => "bg-secondary" 
+                          } %>
+                        <div class="flex items-center justify-start rounded-xl gap-2 px-5 py-2
+                                    text-neutral text-xs sm:text-sm w-fit <%= bg_colors[post.sweetness_rating] %>">
+                          <%= image_tag rating_images[post.sweetness_rating], class: "h-5 w-5 sm:h-7 sm:w-7" %>
+                          <p><%= I18n.t("enums.post.sweetness_rating.#{post.sweetness_rating}") %></p>
+                        </div>
+
+                        <% if post.review.present? %>
+                          <div class="text-xs sm:text-sm text-neutral break-words pt-3 pb-6">
+                            <p><%= truncate(post.review, length: 25, omission: '...') %></p>
+                          </div>
+                        <% end %>
+                      </div>
+                    </div>
+
+                    <!-- 日付 -->
+                    <div class="absolute bottom-0 right-0 text-xs text-base-200 whitespace-nowrap">
+                      <%= l post.created_at %>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+
+            <div class="flex items-center justify-center p-4 w-full">
+              <%== pagy_nav(@pagy) %>
+            </div>
+          <% end %>
         </div>
       </div>
-
     <% end %>
   </div>
 </div>
