@@ -9,27 +9,40 @@
   </div>
 </div>
 
+<%= render "visibility_setting", f: f %>
+
 <% if @post.image.attached? %>
   <div class="flex flex-col items-center gap-4">
     <div class="p-4 flex flex-col items-center">
       <%= @post.decorate.post_image(class: "w-30 h-30 md:w-40 md:h-40") %>
-      <p class="mt-2 text-sm text-neutral"><%= t('posts.edit.uploaded_image') %></p>
+      <p class="mt-2 text-sm text-neutral"><%= t('posts.edit.uploaded_post_image') %></p>
     </div>
 
     <div class="form-control w-full max-w-xs">
       <label class="label">
-        <span class="label-text text-sm p-1"><%= t('posts.edit.replace_image') %></span>
+        <span class="label-text text-sm p-1"><%= t('posts.edit.replace_post_image') %></span>
       </label>
       <%= f.file_field :image,
           class: "file-input file-input-accent file-input-sm sm:file-input-md text-base-300" %>
     </div>
   </div>
 <% else %>
-  <div class="form-control">
-    <div class="flex flex-col items-center">
+<div class="form-control">
+  <div class="flex flex-col items-center">
+    <div class="flex flex-row items-center">
       <%= f.label :image, t('activerecord.attributes.product.image'), class: "label p-2 text-neutral" %>
+      <div class="dropdown dropdown-top dropdown-hover pl-1">
+        <div tabindex="0" role="button" class="btn btn-xs btn-white btn-circle">?</div>
+        <ul tabindex="0" class="dropdown-content menu bg-base-100 text-base-300 rounded-box z-[1] w-40 p-1 shadow-sm text-xs">
+          <li><a class="p-1 sm:px-2 sm:py-1"><%= t('defaults.dropdown.no_post_image') %></a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="flex flex-col items-center">
       <%= f.file_field :image,
           class: "file-input file-input-accent file-input-sm sm:file-input-md text-base-300" %>
     </div>
   </div>
+</div>
+
 <% end %>

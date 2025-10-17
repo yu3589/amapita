@@ -4,84 +4,82 @@
       <%= t('.title') %>
     </h1>
 
-    <%= render 'shared/search_form', q: @q %>
+    <%= render 'search_form', q: @q %>
 
     <% if @products.present? %>
       <% @products.each do |product| %>
-        <div class="py-1 border-b border-base-200 last:border-b-0 max-w-3xl">
+        <div class="w-full border-b border-base-200 last:border-b-0 sm:max-w-3xl">
           
-            <div class="flex flex-row items-center md:items-start pt-4">
+            <div class="flex flex-row items-center sm:items-start p-1 sm:px-10">
               <!-- 画像 -->
-              <% if product.decorate.product_image.present? %>
-              <figure class="flex-shrink-0 p-1 md:p-4">
-                <%= product.decorate.product_image(class: "w-25 h-25 md:w-30 md:h-30") %>
+              <figure class="p-1 sm:py-4 px-8">
+                <%= product.decorate.product_image(class: "w-25 h-25 sm:w-30 sm:h-30",
+                    alt: product.name) %>
               </figure>
-              <% else %>
-              <figure class="flex-shrink-0 p-1 md:p-4">
-                  <%= image_tag product.product_image_url,
-                    class: "product-image w-25 h-25",
-                    alt: @product&.name || "商品画像",
-                    onerror: "this.src='#{asset_path('default_image.png')}'" %>
-              </figure>
-              <% end %>
-              <!-- 商品情報 -->
-              <%= product_link_or_tooltip(@category, product, class: "hover:opacity-70") do %>
-              <div class="relative flex-1 w-full flex flex-col items-center md:items-start gap-2 md:gap-4 p-2">
-                <p class="text-xs md:text-base text-base-300 text-center md:text-left">
-                  <%= product.manufacturer %>
-                </p>
-                <p class="text-sm md:text-xl font-semibold text-center md:text-left">
-                  <%= product.name %>
-                </p>
-                <div class="absolute top-8 sm:top-13 right-1">
-                  <span class="gap-1">
-                    <%= image_tag "arrow.svg", class: "h-6 w-6 ml-1" %>
-                  </span>
-                </div>
+
+              <div class="relative flex-1 w-full flex flex-col items-start gap-2 sm:gap-4 p-2">
+
+                <!-- 商品名・メーカー名 -->
+                <%= product_link_or_tooltip(@category, product, class: "hover:opacity-70 w-full") do %>
+                  <div class="sm:py-1">
+                    <p class="text-xs sm:text-sm text-base-300 text-center sm:text-left py-1">
+                      <%= product.manufacturer %>
+                    </p>
+                    <p class="text-sm sm:text-xl font-semibold text-center sm:text-left pt-3">
+                      <%= product.name %>
+                    </p>
+                    <div class="absolute top-8 right-1 hidden sm:block">
+                      <span class="gap-1">
+                        <%= image_tag "arrow.svg", class: "h-6 w-6 ml-1" %>
+                      </span>
+                    </div>
+                  </div>
+                <% end %>
+
                 <% stats = @product_stats&.dig(product.id) || { total_posts: 0, perfect_sweetness_count: 0 } %>
 
                 <% if stats[:total_posts].positive? %>
-                  <!-- あまピタカウント -->
-                  <div class="px-1 py-2">
-                    <div class="flex flex-col md:flex-row items-center gap-1 w-fit justify-center 
-                                md:justify-start amapita-count-ring ring-primary">
+                  <!-- 評価あり -->
+                  <div class="py-1">
+                    <div class="flex flex-col sm:flex-row items-center gap-1 w-fit justify-center 
+                                sm:justify-start amapita-count-ring ring-primary">
                       <%= image_tag "smiley-wink.svg", class: "h-8 w-8" %>
-                      <p class="text-sm md:text-base pb-1">
+                      <p class="text-sm sm:text-base pb-1 items-center">
                         <%= t("defaults.label.stats", count: stats[:total_posts], perfect: stats[:perfect_sweetness_count]) %>
                       </p>
                     </div>
                   </div>
                 <% else %>
-                  <div class="p-1">
-                    <div class="flex flex-col md:flex-row items-center gap-1 w-fit justify-center 
-                                md:justify-start amapita-count-ring ring-base-200">
+                  <!-- 評価なし -->
+                  <div class="p-0.5">
+                    <div class="flex flex-col sm:flex-row items-center gap-1 w-fit justify-center 
+                                sm:justify-start amapita-count-ring ring-base-200">
                       <%= image_tag "smiley-blank.svg", class: "h-8 w-8" %>
-                      <p class="text-sm md:text-base">
+                      <p class="text-sm sm:text-base pb-1">
                         <%= raw t('defaults.label.no_rating') %>
                       </p>
                     </div>
-                    <!-- 投稿画面へ遷移 -->
+
                     <% if show_new_post_button?(product) %>
-                    <div class="mt-4 md:mt-6 text-center">
-                      <%= link_to new_post_path(product_id: product.id),
-                                  class: "bg-success rounded-full px-3 py-1 md:px-4 py-3
-                                          inline-flex items-center shadow-sm transition hover-animation" do %>
-                        <span class="text-xs md:text-sm">
-                          <%= t('defaults.buttons.new_post') %>
-                        </span>
-                      <% end %>
-                    </div>
-                   <% end %>
+                      <div class="mt-4 text-center">
+                        <%= link_to new_post_path(product_id: product.id),
+                                    class: "bg-success rounded-full px-3 py-1 sm:px-4 py-3
+                                            inline-flex items-center shadow-sm transition hover-animation" do %>
+                          <span class="text-xs sm:text-sm">
+                            <%= t('defaults.buttons.new_post') %>
+                          </span>
+                        <% end %>
+                      </div>
+                    <% end %>
                   </div>
                 <% end %>
               </div>
             </div>
-          <% end %>
-        </div>
+          </div>
       <% end %>
 
 
-      <div class="flex justify-center pt-6 md:pt-8">
+      <div class="flex justify-center pt-6 sm:pt-8">
         <%== pagy_nav(@pagy) %>
       </div>
 
@@ -97,7 +95,7 @@
       <%= new_product_link_or_tooltip(class: "bg-success rounded-full px-4 py-3 sm:px-6 
                           inline-flex items-center gap-3 shadow-sm transition hover-animation") do %>
       <%= image_tag "smiley-wink.svg", class: "h-9 w-9" %>
-      <span class="text-xs md:text-sm">
+      <span class="text-xs sm:text-sm">
         <%= raw t('.product_register_suggestion') %>
       </span>
     <% end %>

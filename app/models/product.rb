@@ -3,11 +3,12 @@ class Product < ApplicationRecord
   has_one_attached :image
 
   validates :name, presence: true, length: { maximum: 40 }
-  validates :manufacturer, presence: { message: :select }
+  validates :manufacturer, presence: true
   validates :name, uniqueness: { scope: :manufacturer, message: :name_manufacturer_taken }
   validates :category_id, presence: { message: :select }
 
   belongs_to :category, optional: true
+  belongs_to :user
   has_many :posts, dependent: :destroy
   has_many :bookmarks, dependent: :destroy
 

@@ -15,6 +15,7 @@ class User < ApplicationRecord
 
   belongs_to :sweetness_type, optional: true
   has_many :sweetness_profiles, dependent: :destroy
+  has_many :products
   has_many :posts, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :like_posts, through: :likes, source: :post

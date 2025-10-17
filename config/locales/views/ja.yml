@@ -6,11 +6,11 @@ ja:
     require_login_user_rating: あまピタ評価をするにはログインが必要です
     placeholders:
       search_word: キーワードを入力
-      search_products: 商品名を入力
+      search_products: 商品名またはメーカーを入力
       new_comment: コメントを書く...
       require_word: 2文字以上の商品名を入力
+      manufacturer: メーカーまたは店名を入力
     select:
-      manufacturer: メーカーを選択
       category: カテゴリを選択
     flash_message:
       created: "%{item}を作成しました"
@@ -37,8 +37,13 @@ ja:
     dropdown:
       post_search_description: 検索後、商品を選択すると商品情報が取得できます
       no_product_image: 画像アップロードが無い場合、楽天画像又はデフォルト画像が選択されます
+      no_post_image: 画像アップロードが無い場合、商品詳細ページの画像が選択されます
       visibility_notice: 非公開の場合、投稿数はカウントされません
       privacy_notice: 他ユーザーには表示されません
+    notice:
+      about: 商品情報の編集について
+      product_info: ・同じ商品で情報に誤りがあった場合にご利用ください。
+      product_image: レビュー投稿者が独自の画像をアップロードしない場合、<br>登録した商品画像が表示されます。
     link:
       product_url: 商品を見る
     chart:
@@ -134,13 +139,19 @@ ja:
     new:
       title: 商品・あまピタ判定の登録
       title_reputation_only: あまピタ判定の登録
-      product_register_description: ※ 登録された商品情報は商品詳細画面へ表示されます
+      product_register_notice: 登録した商品情報は商品詳細ページに表示されます
+      product_editable_notice: 商品情報は登録後24時間以内なら編集できます。
       reputation_part: 評価部分
       visibility_setting: 全体に公開する
+      sweetness_evaluation_guide: 感じた甘さの感覚を評価してみよう！
     edit:
-      title: あまピタ判定の編集
-      uploaded_image: 現在の投稿画像
-      replace_image: 新しい画像をアップロード
+      title: 商品・あまピタ判定の編集
+      title_reputation_only: あまピタ判定の編集
+      uploaded_post_image: 現在の投稿画像
+      uploaded_product_image: 現在の商品画像
+      replace_post_image: 新しい画像をアップロード
+      replace_product_image: 新しい商品画像をアップロード
+      current_product_information: 現在登録されている商品情報
     index:
       new_post: みんなの甘さ評価
       twins_recommendations: あなたにオススメ！
@@ -179,6 +190,7 @@ ja:
         - ブルボン
         - UHA味覚糖
         - 東ハト
+        - ネスレ
         - ミスタードーナツ
         - サーティワンアイスクリーム
         - キリン
@@ -226,6 +238,22 @@ ja:
           - "スタバ"
           - "スターバックス"
           - "Starbucks"
+        キリン:
+          - キリンビバレッジ
+          - キリン
+        森永乳業:
+          - 森永乳業
+        ハーゲンダッツ:
+          - ハーゲンダッツ
+        サントリー:
+          - サントリー
+        アサヒ:
+          - アサヒ
+        ネスレ:
+          - ネスレ
+        リンツ:
+          - リンツ
+          -  Lindt
   categories:
     gummy: グミ
     jelly: ゼリー

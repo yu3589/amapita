@@ -1,4 +1,4 @@
-<div class="flex flex-col justify-center items-center text-center rounded-4xl m-2 sm:m-4">
+<div class="flex flex-col justify-center items-center text-center rounded-4xl m-2 sm:m-4 text-base">
   <%= form_with model: @post, local: true, class: "p-4 md:p-2 space-y-6" do |f| %>
 
     <% if @post.errors.any? %>
@@ -11,9 +11,12 @@
       </div>
     <% end %>
 
-    <% if @post.product.persisted? %>
+    <% if @post.editable_product? %>
+      <%= render "editable_product_form", f: f %>
       <%= render "visibility_setting", f: f %>
+    <% elsif @post.product.persisted? %>
       <%= render "existing_product_form", f: f %>
+      
     <% else %>
       <%= render "new_product_form", f: f %>
       <%= render "visibility_setting", f: f %>
@@ -21,7 +24,7 @@
 
     <%= render "common_rating_form", f: f %>
 
-    <div class="form-control">
+    <div class="form-control text-center w-full sm:w-110 pb-6">
       <%= f.label :review, t('activerecord.attributes.post.review'), class: "label text-neutral mb-2" %>
       <%= f.text_area :review, rows: 3, class: "textarea textarea-bordered w-full bg-white", placeholder: t('posts.form.post_placeholders') %>     
     </div>
@@ -31,8 +34,9 @@
             class: "text-base btn btn-lg btn-primary" %>
     </div>
   <% end %>
-
+  <div class="pt-2 pb-6">
   <%= link_to :back do %>
     <button class="text-base btn"><%= t("defaults.buttons.return") %></button>
   <% end %>
+  </div>
 </div>

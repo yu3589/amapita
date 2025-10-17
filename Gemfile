@@ -57,6 +57,9 @@ gem "ransack"
 gem "meta-tags"
 gem "pagy"
 
+# Security
+gem "rack-attack"
+
 # Debug & Development Tools
 gem "swimming_fish", "~> 0.2.2"
 

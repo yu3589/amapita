@@ -22,7 +22,7 @@ export default class extends Controller {
       return { valid: false, message: "40文字以内で入力してください" }
     }
 
-    const VALID_PATTERN = /^[a-zA-Z0-9\u3040-\u309F\u30A0-\u30FF\u4E00-\u9FAF\s\-_()（）・&＆！!？?]+$/
+    const VALID_PATTERN = /^[a-zA-Z0-9\u3040-\u309F\u30A0-\u30FF\u4E00-\u9FAF\s\-_()（）・&＆！!？?【】']+$/
     if (!VALID_PATTERN.test(trimmedKeyword)) {
       return { valid: false, message: "使用できない文字が含まれています" }
     }
@@ -61,7 +61,6 @@ export default class extends Controller {
         }
       })
       .catch(error => {
-        console.error("エラー:", error)
         this.hideLoading()
         this.showError("通信エラーが発生しました")
       })
@@ -121,8 +120,6 @@ export default class extends Controller {
     const name = radio.dataset.name || ""
     const shopName = radio.dataset.shopName || ""
     const iconPath = "/assets/store.svg"
-
-    console.log("📦 選択された商品:", name)
 
     this.urlTarget.value = url
     this.imageUrlTarget.value = imageUrl
@@ -186,16 +183,12 @@ export default class extends Controller {
       return manufacturerMapping[manufacturer].some(keyword => productName.includes(keyword))
     })
 
-    console.log("🏭 メーカー自動判定:", matchedManufacturer)
-
     this.manufacturerTarget.value = matchedManufacturer || "その他"
   }
 
   // カテゴリの判定
   selectCategoryByName(productName) {
-    console.log("🧪 商品名:", productName)
     if (!this.hasCategorySelectTarget) {
-      console.log("❌ categorySelectターゲットが見つかりません")
       return
     }
 
@@ -204,16 +197,18 @@ export default class extends Controller {
     const mapping = [
       { keyword: "アイス", name: "アイス" },
       { keyword: "シャーベット", name: "アイス" },
+      { keyword: "ハーゲンダッツ", name: "アイス" },
       { keyword: "ジェラート", name: "アイス" },
+      { keyword: "ケーキ", name: "ケーキ" },
+      { keyword: "クッキー", name: "クッキー・ビスケット" },
+      { keyword: "ビスケット", name: "クッキー・ビスケット" },
       { keyword: "チョコ", name: "チョコレート" },
       { keyword: "グミ", name: "グミ・ゼリー" },
       { keyword: "ゼリー", name: "グミ・ゼリー" },
-      { keyword: "クッキー", name: "クッキー・ビスケット" },
-      { keyword: "ビスケット", name: "クッキー・ビスケット" },
-      { keyword: "ケーキ", name: "ケーキ" },
       { keyword: "飲料", name: "飲み物" },
       { keyword: "ドリンク", name: "飲み物" },
       { keyword: "ジュース", name: "飲み物" },
+      { keyword: "ティー", name: "飲み物" },
       { keyword: "パン", name: "パン・ドーナツ" },
       { keyword: "ぱん", name: "パン・ドーナツ" },
       { keyword: "ドーナツ", name: "パン・ドーナツ" },
@@ -221,15 +216,12 @@ export default class extends Controller {
     ]
 
     let matchedCategory = mapping.find(m => productName.includes(m.keyword))
-    console.log("🧪 マッチしたカテゴリ:", matchedCategory)
 
     let selected = false
 
     if (matchedCategory) {
       for (let option of categorySelect.options) {
-        console.log(`🔍 比較中: "${option.text.trim()}" に "${matchedCategory.name}" が含まれるか`)
         if (option.text.trim().includes(matchedCategory.name)) {
-          console.log(`✅ カテゴリを選択: ${matchedCategory.name} (ID: ${option.value})`)
           categorySelect.value = option.value
           selected = true
           break
@@ -238,12 +230,10 @@ export default class extends Controller {
     }
 
     if (!selected) {
-      console.log("⚠️ マッチするカテゴリがないため「その他」を選択")
       for (let option of categorySelect.options) {
         if (option.text.trim() === "その他") {
           categorySelect.value = option.value
           selected = true
-          console.log(`✅ 「その他」を選択 (ID: ${option.value})`)
           break
         }
       }

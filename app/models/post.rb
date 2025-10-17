@@ -1,6 +1,7 @@
 class Post < ApplicationRecord
   include ImageValidatable
   has_one_attached :image
+  EDITABLE_HOURS = 24
 
   validates :sweetness_rating, presence: { message: :select }
   validates :post_sweetness_score, presence: true
@@ -36,5 +37,12 @@ class Post < ApplicationRecord
 
   def self.ransackable_associations(auth_object = nil)
     [ "product", "user", "category" ]
+  end
+
+  def editable_product?
+    return false if product.nil? || product.created_at.nil?
+    return false if product.user != self.user
+
+    Time.current - product.created_at <= EDITABLE_HOURS.hours
   end
 end
