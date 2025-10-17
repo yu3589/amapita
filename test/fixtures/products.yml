@@ -3,11 +3,13 @@
 one_product:
   id: 1
   category_id: 1
+  user_id: 1
   name: "MyString"
   manufacturer: "MyString"
 
 two_product:
   id: 2
+  user_id: 2
   category_id: 2
   name: "MyString1"
   manufacturer: "MyString"
