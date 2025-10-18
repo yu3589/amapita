@@ -79,7 +79,7 @@ export default class extends Controller {
       </div>
       <div class="max-h-70 w-full sm:max-w-md overflow-y-auto space-y-2 p-1 rounded-box border-2 border-base-200">
     `
-    const iconPath = "/assets/store.svg"
+    const iconPath = this.resultsTarget.dataset.storeIconPath
     results.forEach(item => {
       html += `
         <label class="card card-compact bg-base-100 shadow hover:bg-secondary/10 cursor-pointer transition w-full">
@@ -119,7 +119,7 @@ export default class extends Controller {
     const url = radio.value
     const name = radio.dataset.name || ""
     const shopName = radio.dataset.shopName || ""
-    const iconPath = "/assets/store.svg"
+    const iconPath = this.resultsTarget.dataset.storeIconPath
 
     this.urlTarget.value = url
     this.imageUrlTarget.value = imageUrl
