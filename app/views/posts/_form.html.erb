@@ -24,9 +24,9 @@
 
     <%= render "common_rating_form", f: f %>
 
-    <div class="form-control text-center w-full sm:w-110 pb-6">
+    <div class="form-control text-center pb-6">
       <%= f.label :review, t('activerecord.attributes.post.review'), class: "label text-neutral mb-2" %>
-      <%= f.text_area :review, rows: 3, class: "textarea textarea-bordered w-full bg-white", placeholder: t('posts.form.post_placeholders') %>     
+      <%= f.text_area :review, rows: 3, class: "textarea textarea-bordered bg-white w-full max-w-3xl", placeholder: t('posts.form.post_placeholders') %>     
     </div>
 
     <div class="form-control p-3">
