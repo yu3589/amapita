@@ -20,15 +20,15 @@ class ProfilesController < ApplicationController
     @sweetness_type =  @user.sweetness_type
 
     # デフォルトは投稿タブ
-    @active_tab = params[:tab].presence_in([ "posts", "bookmarks" ]) || "posts"
+    @active_tab = params[:tab].presence_in([ "posts", "liked_posts" ]) || "posts"
     # 投稿
     posts_query = @user.posts.order(id: :desc)
     @pagy_posts, @posts = pagy(posts_query, limit: 10, page_param: :posts_page)
     @posts = @posts&.decorate
-    # ブックマーク
-    bookmarks_query = @user.bookmark_products.order(id: :desc)
-    @pagy_bookmarks, @bookmarks = pagy(bookmarks_query, limit: 10, page_param: :bookmarks_page)
-    @bookmarks = @bookmarks&.decorate
+    # いいね
+    liked_posts_query = @user.like_posts.publish.order(id: :desc)
+    @pagy_likes, @likes = pagy(liked_posts_query, limit: 10, page_param: :liked_posts_page)
+    @likes = @likes&.decorate
   end
 
   private
