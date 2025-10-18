@@ -2,15 +2,12 @@
   <div class="p-2 w-full max-w-4xl mx-auto bg-base-100 rounded-4xl">
     <h1 class="flex justify-between items-center text-xl md:text-2xl p-4 border-b border-base-200 w-full">
       <span class="text-center flex-1"><%= t('products.show.title') %></span>
-      <% if user_signed_in? %>
-        <%= render 'bookmark_buttons', { product: @product } %>
-      <% end %>
     </h1>
 
     <div class="flex justify-center flex-row items-start sm:gap-6">
       <!-- 商品画像とURL -->
       <div class="flex flex-col items-center gap-6 sm:gap-2">
-        <figure class="p-2 md:p-4">
+        <figure class="pt-6 pr-4 md:p-4">
           <%= @product.decorate.product_image(class: "w-25 h-25 md:w-35 md:h-35",
               alt: @product.name) %>
         </figure>
@@ -26,9 +23,16 @@
         <% end %>
       </div>
 
-      <div class="flex flex-col justify-start items-start gap-2 md:gap-5 text-neutral py-4 md:px-0 md:py-6">
-        <div class="text-sm md:text-base font-semibold">
-          <%= @product.name %>
+      <div class="flex flex-col justify-start items-start gap-2 md:gap-4 text-neutral py-4 md:px-0">
+        <div class="flex items-center justify-between w-full text-sm md:text-lg">
+          <span class="px-1 sm:px-0">
+            <%= @product.name %>
+          </span>
+          <div class="px-1 sm:px-4">
+          <% if user_signed_in? %>
+            <%= render 'bookmark_buttons', { product: @product } %>
+          <% end %>
+          </div>
         </div>
         <div class="text-sm text-base-300">
           <%= t('activerecord.attributes.product.manufacturer') %>：<%= @product.manufacturer %>
@@ -38,7 +42,7 @@
         </div>
 
         <!-- あまピタカウント -->
-        <div class="w-full md:w-auto justify-center md:block">
+        <div class="w-fit md:w-auto justify-center md:block text-base">
           <% if @product.total_posts.zero? %>
             <div class="flex flex-row ring-base-200 amapita-count-ring">
               <%= image_tag "smiley-blank.svg", class: "h-8 w-8" %>
@@ -53,7 +57,7 @@
 
           <!-- 新規投稿ボタン -->
           <% if show_new_post_button?(@product) %>
-            <div class="text-center pt-6">
+            <div class="text-center pt-4 sm:pt-6">
               <%= link_to new_post_path(product_id: @product.id),
                   class: "bg-success button-primary inline-flex shadow-sm hover-animation" do %>
                 <span class="text-sm">
@@ -80,7 +84,7 @@
     </div>
 
     <% if @posts.present? %>
-      <div class="flex flex-col justify-center items-center lg:flex-row lg:items-start px-4 py-4 gap-6 w-full">
+      <div class="flex flex-col justify-center items-center lg:flex-row lg:items-start p-1 sm:px-4 sm:py-4 gap-6 w-full">
         <!-- チャート -->
         <div class="flex justify-center w-full lg:w-3/5 max-w-2xl">
           <div class="w-full p-1 sm:p-6 border-secondary rounded-3xl bg-white">
@@ -152,30 +156,24 @@
                         
                         <!-- 編集・削除ボタン -->
                         <% if user_signed_in? && current_user.own?(post) %>
-                          <div class="dropdown dropdown-bottom dropdown-end">
-                            <div tabindex="0" role="button" class="btn btn-sm btn-ghost hover:bg-[var(--color-base-400)] p-1">
-                              <%= image_tag "pencil-simple.svg", class: "h-5 w-5" %>/<%= image_tag "trash.svg", class: "h-5 w-5" %>
+                          <div class="flex flex-row gap-3">
+                            <div class="btn btn-sm btn-ghost hover:bg-[var(--color-base-400)] p-1">
+                              <%= link_to edit_post_path(post), data: { turbo: false } do %>
+                                <%= image_tag "pencil-simple.svg", class: "h-5 w-5" %>
+                              <% end %>
                             </div>
-
-                            <ul tabindex="0" class="dropdown-content menu bg-white rounded-box w-24 p-2 shadow-sm text-xs flex flex-col text-center gap-2 z-10">
-                              <li>
-                                <%= link_to edit_post_path(post), class: "text-neutral", data: { turbo: false } do %>
-                                  <%= t('helpers.submit.edit') %>
-                                <% end %>
-                              </li>
-                              <li>
-                                <%= link_to post_path(post), class: "text-error",
-                                      data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>
-                                  <%= t('helpers.submit.delete') %>
-                                <% end %>
-                              </li>
-                            </ul>
+                            <div class="btn btn-sm btn-ghost hover:bg-[var(--color-base-400)] p-1">
+                              <%= link_to post_path(post),
+                                  data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>
+                                <%= image_tag "trash.svg", class: "h-5 w-5" %>
+                              <% end %>
+                            </div>
                           </div>
                         <% end %>
                       </div>
                       
                       <!-- 甘さ評価 + レビュー本文 -->
-                      <div class="flex-1 min-w-0 flex flex-col gap-1">
+                      <%= link_to post_path(post), class: "flex-1 min-w-0 flex flex-col gap-1 hover:opacity-70" do %>
                         <!-- 甘さ評価 -->
                         <% rating_images = { 
                             "lack_of_sweetness" => "smiley-meh.svg",
@@ -199,10 +197,10 @@
 
                         <% if post.review.present? %>
                           <div class="text-xs sm:text-sm text-neutral break-words pt-3 pb-6">
-                            <p><%= truncate(post.review, length: 25, omission: '...') %></p>
+                            <p><%= truncate(post.review, length: 28, omission: '...') %></p>
                           </div>
                         <% end %>
-                      </div>
+                      <% end %>
                     </div>
 
                     <!-- 日付 -->
@@ -220,6 +218,7 @@
           <% end %>
         </div>
       </div>
+
     <% end %>
   </div>
 </div>

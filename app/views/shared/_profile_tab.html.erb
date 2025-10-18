@@ -1,22 +1,22 @@
-    <div class="p-6">
+    <div class="p-1 sm:p-6">
       <div class="tabs tabs-border justify-center w-full">
         <!-- 投稿 -->
         <a href="<%= profile_path(tab: 'posts') %>" 
-            class="tab text-sm md:text-base text-secondary hover:text-secondary <%= 'tab-active' if active_tab == 'posts' %>">
+            class="tab text-sm md:text-base text-accent hover:text-accent <%= 'tab-active' if active_tab == 'posts' %>">
             <%= t('profiles.tabs.posts') %>
         </a>
 
         <!-- ブックマーク -->
-        <a href="<%= profile_path(tab: 'bookmarks') %>" 
-            class="tab text-sm md:text-base text-accent hover:text-accent <%= 'tab-active' if active_tab == 'bookmarks' %>">
-            <%= t('profiles.tabs.bookmarks') %>
+        <a href="<%= profile_path(tab: 'liked_posts') %>" 
+            class="tab text-sm md:text-base text-primary hover:text-primary <%= 'tab-active' if active_tab == 'liked_posts' %>">
+            <%= t('profiles.tabs.liked_posts') %>
         </a>
         </div>
 
         <!-- タブコンテンツ -->
         <div class="w-full">
         <% if active_tab == 'posts' %>
-        <div class="border-3 border-secondary bg-white rounded-4xl w-full md:p-6">
+        <div class="border-3 border-accent bg-white rounded-4xl w-full p-1 sm:p-2">
             <div class="flex flex-col mx-auto items-center justify-center text-sm text-base-300 sm:text-base w-full">
                 <% if posts.present? %>
                 <%= render posts %>
@@ -28,16 +28,16 @@
                 <% end %>
             </div>
         </div>
-        <% elsif active_tab == 'bookmarks' %>
-        <div class="border-3 border-accent bg-white rounded-4xl w-full md:p-6">
+        <% elsif active_tab == 'liked_posts' %>
+        <div class="border-3 border-primary bg-white rounded-4xl w-full p-1 sm:p-2">
             <div class="flex flex-col mx-auto items-center justify-center text-sm text-base-300 sm:text-base w-full">
-                <% if bookmarks.present? %>
-                <%= render "products/user_bookmarks", products: bookmarks %>
+                <% if likes.present? %>
+                <%= render "posts/liked_posts", posts: likes %>
                 <div class="flex items-center justify-center p-4">
-                    <%== pagy_nav(pagy_bookmarks, link_extra: 'data-turbo-action="replace"', params: { tab: 'bookmarks' }) %>
+                    <%== pagy_nav(pagy_likes, link_extra: 'data-turbo-action="replace"', params: { tab: 'liked_posts' }) %>
                 </div>
                 <% else %>
-                <p class="p-4"><%= t('profiles.empty_states.no_bookmarks') %></p>
+                <p class="p-4"><%= t('profiles.empty_states.no_liked_posts') %></p>
                 <% end %>
             </div>
         </div>

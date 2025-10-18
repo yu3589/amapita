@@ -11,7 +11,7 @@
       </div>
 
       <div class="flex flex-col justify-center items-center gap-2 md:gap-4 text-neutral py-4 px-2">
-        <div class="text-lg md:text-xl font-semibold break-words">
+        <div class="text-lg md:text-xl break-words">
           <div class="flex flex-col items-start gap-2">
             <span><%= user.name %></span>
             <% if user_signed_in? && user != current_user && sweetness_twin?(user) %>
@@ -28,7 +28,7 @@
               <% if user == current_user %>
               <span class="text-sm">
                 <%= t('profiles.total_post', count: user.posts.publish.count) %>
-                  <div class="dropdown dropdown-down dropdown-hover pl-1">
+                  <div class="dropdown dropdown-down dropdown-end dropdown-hover pl-1">
                     <div tabindex="0" role="button" class="btn btn-xs btn-white btn-circle">?</div>
                       <ul tabindex="0" class="dropdown-content menu bg-base-100 text-base-300 rounded-box z-[1] w-30 p-1 shadow-sm text-xs">
                         <li><a><%= t('defaults.dropdown.privacy_notice') %></a></li>
@@ -85,7 +85,7 @@
 
           <% if user == current_user %>
             <div class="flex justify-end">
-              <%= link_to new_diagnosis_path, class: "text-sm btn btn-md btn-dash btn-primary hover-animation", data: { turbo: false } do %>
+              <%= link_to new_diagnosis_path, class: "text-sm bg-success button-primary hover-animation", data: { turbo: false } do %>
                 <%= t('defaults.buttons.retake_diagnosis') %>
               <% end %>
             </div>
@@ -98,7 +98,7 @@
           <%= raw t('profiles.diagnosis.no_data') %>
         </div>
         <div class="flex justify-center">
-          <%= link_to new_diagnosis_path, class: "text-sm btn btn-primary hover-animation", data: { turbo: false } do %>
+          <%= link_to new_diagnosis_path, class: "text-sm bg-success button-primary hover-animation", data: { turbo: false } do %>
             <%= t('defaults.buttons.take_diagnosis') %>
           <% end %>
         </div>

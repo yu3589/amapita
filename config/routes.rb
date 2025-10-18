@@ -31,7 +31,7 @@ Rails.application.routes.draw do
 
   resources :products, only: %i[index show]
 
-  resources :bookmarks, only: %i[create destroy]
+  resources :bookmarks, only: %i[index create destroy]
 
   resources :categories, only: %i[index show], param: :slug do
     resources :products, only: %i[show]

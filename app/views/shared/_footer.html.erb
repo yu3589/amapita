@@ -6,11 +6,22 @@
       </span>
     <% end %>
 
-    <%= link_to "#", class: "flex flex-col items-center justify-center leading-none opacity-60" do %>
+    <% if user_signed_in? %>
+    <%= link_to bookmarks_path, class: "flex flex-col items-center md:hover:bg-[var(--color-base-400)]" do %>
       <span class="p-2">
-      <%= image_tag "footer/magnifying_glass.svg", class: "h-7 w-7 md:h-8 md:w-8" %>
+      <%= image_tag "footer/bookmark.svg", class: "h-7 w-7 md:h-8 md:w-8" %>
       </span>
     <% end %>
+    <% else %>
+    <!-- 未ログイン -->
+    <div class="flex flex-col items-center justify-center leading-none tooltip tooltip-top relative"
+          data-tip="<%= t('defaults.require_login') %>">
+      <span class="p-2">
+        <%= render "shared/notification_badge" %>
+        <%= image_tag "footer/bookmark.svg", class: "h-7 w-7 md:h-8 md:w-8" %>
+      </span>
+    </div>
+  <% end %>
 
     <%= link_to categories_path, class: "flex flex-col items-center md:hover:bg-[var(--color-base-400)]" do %>
       <span class="p-2">
@@ -28,7 +39,7 @@
       <% end %>
     <% else %>
       <!-- 未ログイン -->
-      <div class="flex flex-col items-center justify-center leading-none tooltip tooltip-left sm:tooltip-top relative"
+      <div class="flex flex-col items-center justify-center leading-none tooltip tooltip-tooltip-top relative"
             data-tip="<%= t('defaults.require_login') %>">
         <span class="p-2">
           <%= render "shared/notification_badge" %>
