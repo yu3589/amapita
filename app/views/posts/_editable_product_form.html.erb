@@ -80,7 +80,10 @@
         </div>
       </div>
 
-      <div data-rakuten-search-target="results" class="hidden mt-4"></div>
+      <div data-rakuten-search-target="results"
+           class="hidden mt-4"
+           data-store-icon-path="<%= asset_path('store.svg') %>">
+      </div>
 
       <%= p.hidden_field :product_url, data: { rakuten_search_target: "url" } %>
       <%= p.hidden_field :product_image_url, data: { rakuten_search_target: "imageUrl" } %>
