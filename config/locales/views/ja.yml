@@ -112,10 +112,10 @@ ja:
     total_post: "公開した甘さ評価：%{count} 件"
     tabs:
       posts: 投稿した甘さ評価
-      bookmarks: 保存した商品
+      liked_posts: いいねした投稿
     empty_states:
       no_posts: 投稿した甘さ評価はありません
-      no_bookmarks: 保存した商品はありません
+      no_liked_posts: いいねした投稿はありません
     show:
       title: マイページ
     diagnosis:
@@ -277,7 +277,11 @@ ja:
     index:
       title: 通知
       no_notifications: 通知がありません
-      no_posts: 投稿は削除されています 
+      no_posts: 投稿は削除されています
+  bookmarks:
+    index:
+      title: ブックマークした商品一覧
+      no_bookmarked_products: ブックマークした商品はありません
   time:
     formats:
       default: "%Y年%m月%d日"
