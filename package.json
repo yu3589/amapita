@@ -11,6 +11,7 @@
     "@hotwired/stimulus": "^3.2.2",
     "@hotwired/turbo-rails": "^8.0.16",
     "chart.js": "^4.5.0",
-    "daisyui": "^5.0.47"
+    "daisyui": "^5.0.47",
+    "stimulus-autocomplete": "^3.1.0"
   }
 }
