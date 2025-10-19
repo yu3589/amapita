@@ -14,6 +14,17 @@ class CategoriesController < ApplicationController
     @product_stats = product_stats(@products)
   end
 
+  def autocomplete
+    @category = Category.find_by!(slug: params[:slug])
+    @products = @category.products
+                         .where("name LIKE ? OR manufacturer LIKE ?", "%#{params[:q]}%", "%#{params[:q]}%")
+                         .limit(10)
+                         .select(:name, :manufacturer)
+    respond_to do |format|
+      format.html { render partial: "categories/search", locals: { products: @products } }
+    end
+  end
+
   private
 
   def product_stats(products)

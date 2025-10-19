@@ -34,6 +34,9 @@ Rails.application.routes.draw do
   resources :bookmarks, only: %i[index create destroy]
 
   resources :categories, only: %i[index show], param: :slug do
+    member do
+      get :autocomplete
+    end
     resources :products, only: %i[show]
   end
 

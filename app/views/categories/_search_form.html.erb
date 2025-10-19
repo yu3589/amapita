@@ -6,14 +6,28 @@
 
     <!-- 商品名検索 -->
     <div class="flex flex-row items-stretch md:items-center gap-1 sm:gap-2 w-full">
-      <!-- カテゴリ情報を保持 -->
-      <%= f.hidden_field :category_slug, value: params.dig(:q, :category_slug) || @category&.slug %>
 
-      <!-- 検索入力 -->
-      <%= f.search_field :name_or_manufacturer_cont, 
-        class: "flex-1 bg-white rounded-4xl ring-2 w-full md:w-100 ring-[var(--color-base-400)] text-sm md:text-base md:py-2 px-4",
-        placeholder: t('defaults.placeholders.search_products'),
-        data: { search_clear_target: "input" } %>
+      <div data-controller="autocomplete"
+           data-autocomplete-url-value="<%= autocomplete_category_path(@category&.slug) %>"
+           data-autocomplete-param-name="q[name_or_manufacturer_cont]"
+           role="combobox"
+           class="relative w-full">
+
+        <!-- カテゴリ情報を保持 -->
+        <%= f.hidden_field :category_slug, value: params.dig(:q, :category_slug) || @category&.slug %>
+
+        <!-- 検索入力 -->
+        <%= f.search_field :name_or_manufacturer_cont, 
+          class: "flex-1 bg-white rounded-4xl ring-2 w-full md:w-100 ring-[var(--color-base-400)] text-sm md:text-base md:py-2 px-4",
+          placeholder: t('defaults.placeholders.search_products'),
+          data: { search_clear_target: "input",
+                  autocomplete_target: 'input' },
+                  aria: { autocomplete: "list" },
+                  autocomplete: "off" %>
+
+        <ul class="list-group bg-white absolute top-full left-0 w-full md:text-sm z-10 shadow-lg rounded-md"
+            data-autocomplete-target="results"></ul>
+      </div>
 
       <!-- 検索ボタン -->
       <%= f.submit t('helpers.submit.search'), 
