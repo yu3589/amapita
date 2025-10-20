@@ -30,10 +30,12 @@ module SweetnessTwins
     end
 
     def create_new_twins(latest_profile)
-      # 新しいツインユーザーを取得
       twin_users = SweetnessTwins::Matcher.find_twins_for(latest_profile)
+
+      # ツイン関係を双方向に付与（自分→相手、相手→自分）
       twin_users.each do |twin|
         SweetnessTwin.create!(user: @user, twin_user: twin)
+        SweetnessTwin.create!(user: twin, twin_user: @user)
       end
     end
   end
