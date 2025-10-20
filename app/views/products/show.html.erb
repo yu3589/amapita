@@ -15,7 +15,7 @@
         <% if @product.product_url.present? %>
           <%= link_to @product.product_url,
               target: "_blank",
-              rel: "noopener",
+              rel: "noopener noreferrer",
               class: "inline-flex items-center gap-1 underline text-sm text-secondary hover:opacity-80" do %>
             <%= image_tag "shopping-cart.svg", class: "h-6 w-6" %>
             <span><%= t('defaults.link.product_url') %></span>
