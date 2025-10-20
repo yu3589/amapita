@@ -77,6 +77,7 @@ ja:
         mypage: マイページ
         diagnosis: 甘さ感覚診断
         posts: みんなの甘さ評価一覧
+        contact: お問い合わせ
   admin:
     user_sessions:
       new:

@@ -37,6 +37,9 @@
             <li><%= link_to t('shared.header.sign_up'), new_user_registration_path %></li>
           <% end %>
           <li><%= link_to t('shared.header.about'), root_path %></li>
+          <li><%= link_to t('shared.header.contact'), "https://forms.gle/LLJvxhEZWpGxK1EV7",
+                  target: "_blank",
+                  rel: "noopener noreferrer" %></li>
           <li>
             <div class="flex items-center my-4 pointer-events-none">
               <div class="flex-grow border-t border-2 border-[var(--color-base-400)]"></div>
