@@ -33,13 +33,18 @@ module SweetnessTwins
     def update_twin_badges(latest_profile)
       badge = ::Badge.find_by(badge_kind: :sweetness_twin)
       return unless badge
-      # ツインユーザーを取得
+
       twin_users = SweetnessTwins::Matcher.find_twins_for(latest_profile)
-      # ユーザーと新しいツインユーザーの古いツインバッジを削除
+
+      # 既存のツイン関係とバッジを全削除してから再計算する
+      # （最新のsweetness_profileに基づいたツインを反映するため）
       UserBadge.where(user_id: [ @user.id ] + twin_users.map(&:id), badge: badge).delete_all
-      # 新しいツインユーザーにバッジを付与
+
+      # 自分に付与（まだ無ければ）
+      UserBadge.find_or_create_by!(user: @user, badge: badge)
+      # 相手にも付与（まだ無ければ）
       twin_users.each do |twin_user|
-        UserBadge.create!(user: twin_user, badge: badge)
+        UserBadge.find_or_create_by!(user: twin_user, badge: badge)
       end
     end
   end
