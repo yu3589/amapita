@@ -10,6 +10,8 @@ class User < ApplicationRecord
   has_one_attached :avatar
 
   validates :name, presence: true, length: { maximum: 20 }, uniqueness: true
+  validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP },
+            uniqueness: { case_sensitive: false }
   validates :uid, presence: true, uniqueness: { scope: :provider }
   validates :self_introduction, length: { maximum: 100 }
 
