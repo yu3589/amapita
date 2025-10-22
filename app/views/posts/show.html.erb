@@ -16,22 +16,24 @@
     <div class="flex flex-col justify-center items-center sm:flex-row sm:items-start sm:gap-6">
       <div class="flex flex-col items-center p-4">
         <!-- 商品画像 -->
-        <% if @post.image.attached? %>
+        <figure x-data="{ imageLoaded: false }"
+                x-init="imageLoaded = $el.querySelector('img')?.complete || false">
+          <div x-cloak x-show="!imageLoaded" class="flex animate-pulse space-x-4">
           <div class="p-4">
-            <%= @post.decorate.post_image(class: "w-22 h-22 md:w-35 md:h-35") %>
+            <div class="size-22 sm:size-35 rounded-xl bg-base-200"></div>
           </div>
-          <% elsif @post.product.decorate.product_image.present? %>
+          </div>
+
+          <div x-show="imageLoaded" x-transition>
           <div class="p-4">
-            <%= @post.product.decorate.product_image(class: "w-22 h-22 md:w-35 md:h-35") %>
+              <%= @post.decorate.post_image(
+                    class: "size-22 sm:size-35",
+                          "@load" => "imageLoaded = true",
+                          "@error"=> "imageLoaded = true"
+                  ) %>
+            </div>
           </div>
-        <% else %>
-          <div class="p-4">
-              <%= image_tag @post.product.product_image_url,
-                class: "product-image w-22 h-22 md:w-35 md:h-35",
-                alt: @post.product&.name || "商品画像",
-                onerror: "this.src='#{asset_path('default_image.png')}'" %>
-          </div>
-        <% end %>
+        </figure>
 
         <!-- 商品URL -->
         <% if @post.product.product_url.present? %>
