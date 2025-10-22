@@ -1,7 +1,8 @@
 <div class="p-2 md:p-4">
   <div class="flex flex-col p-2 items-center justify-center w-full max-w-3xl mx-auto bg-base-100 rounded-4xl">
     <h1 class="text-center text-base md:text-xl p-4 border-b border-base-200 w-full">
-      <%= t('.title') %></h1>
+      <%= t('.title') %>
+    </h1>
 
     <% unless user_signed_in? %>
       <div class="text-xs sm:text-sm text-stone-400 py-4">
@@ -11,94 +12,15 @@
 
     <div class="py-4 md:py-10">
       <div class="grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-10 items-center justify-center">
-
-        <%= link_to category_path("gummy-jelly"), class: "flex flex-col items-center justify-center leading-none" do %>
-          <div class="aspect-square w-30 md:w-40 relative hover-animation">
-            <%= image_tag "category/gummy.webp", class: "category-image" %>
-            <div class="absolute inset-0 bg-black/30 rounded-3xl"></div>
-            <span class="category-label-multi">
-              <%= t('categories.gummy') %>
-              <span class="text-xl md:text-2xl">・</span>
-              <%= t('categories.jelly') %>
-            </span>
-          </div>
-        <% end %>
-        <%= link_to category_path("chocolate"), class: "flex flex-col items-center justify-center leading-none" do %>
-          <div class="aspect-square w-30 md:w-40 relative hover-animation">
-            <%= image_tag "category/chocolate.webp", class: "category-image" %>
-            <div class="absolute inset-0 bg-black/30 rounded-3xl"></div>
-            <span class="category-label text-sm">
-              <%= t('categories.chocolate') %>
-            </span>
-          </div>
-        <% end %>
-        <%= link_to category_path("cookie-biscuit"), class: "flex flex-col items-center justify-center leading-none" do %>
-          <div class="aspect-square w-30 md:w-40 relative hover-animation">
-            <%= image_tag "category/cookie.webp", class: "category-image" %>
-            <div class="absolute inset-0 bg-black/30 rounded-3xl"></div>
-            <span class="category-label-multi">
-              <%= t('categories.cookie') %>
-              <span class="text-xl md:text-2xl">・</span>
-              <%= t('categories.biscuit') %>
-            </span>
-          </div>
-        <% end %>
-        <%= link_to category_path("bread-doughnut"), class: "flex flex-col items-center justify-center leading-none" do %>
-          <div class="aspect-square w-30 md:w-40 relative hover-animation">
-            <%= image_tag "category/doughnut.webp", class: "category-image" %>
-            <div class="absolute inset-0 bg-black/30 rounded-3xl"></div>
-            <span class="category-label-multi">
-              <%= t('categories.bread') %>
-              <span class="text-xl md:text-2xl">・</span>
-                <%= t('categories.doughnut') %>
-            </span>
-          </div>
-        <% end %>
-        <%= link_to category_path("ice-cream"), class: "flex flex-col items-center justify-center leading-none" do %>
-          <div class="aspect-square w-30 md:w-40 relative hover-animation">
-            <%= image_tag "category/ice_cream.webp", class: "category-image" %>
-            <div class="absolute inset-0 bg-black/30 rounded-3xl"></div>
-            <span class="category-label">
-              <%= t('categories.ice_cream') %>
-            </span>
-          </div>
-        <% end %>
-        <%= link_to category_path("drink"), class: "flex flex-col items-center justify-center leading-none" do %>
-          <div class="aspect-square w-30 md:w-40 relative hover-animation">
-            <%= image_tag "category/sweet_drink.webp", class: "category-image" %>
-            <div class="absolute inset-0 bg-black/30 rounded-3xl"></div>
-            <span class="category-label">
-              <%= t('categories.drink') %>
-            </span>
-          </div>
-        <% end %>
-        <%= link_to category_path("cake"), class: "flex flex-col items-center justify-center leading-none" do %>
-          <div class="aspect-square w-30 md:w-40 relative hover-animation">
-            <%= image_tag "category/sample_cake.webp", class: "category-image" %>
-            <div class="absolute inset-0 bg-black/30 rounded-3xl"></div>
-            <span class="category-label">
-              <%= t('categories.cake') %>
-            </span>
-          </div>
-        <% end %>
-        <%= link_to category_path("snack"), class: "flex flex-col items-center justify-center leading-none" do %>
-          <div class="aspect-square w-30 md:w-40 relative hover-animation">
-            <%= image_tag "category/sample_snack.webp", class: "category-image" %>
-            <div class="absolute inset-0 bg-black/30 rounded-3xl"></div>
-            <span class="category-label">
-              <%= t('categories.snack') %>
-            </span>
-          </div>
-        <% end %>
-        <%= link_to category_path("other"), class: "flex flex-col items-center justify-center col-span-2 md:col-span-1 leading-none" do %>
-          <div class="aspect-square w-30 md:w-40 relative hover-animation">
-            <%= image_tag "category/other.webp", class: "category-image" %>
-            <div class="absolute inset-0 bg-black/30 rounded-3xl"></div>
-            <span class="category-label">
-              <%= t('categories.other') %>
-            </span>
-          </div>
-        <% end %>
+        <%= category_card(category: "gummy-jelly", name: t('categories.gummy'), subname: t('categories.jelly')) %>
+        <%= category_card(category: "chocolate", name: t('categories.chocolate')) %>
+        <%= category_card(category: "cookie-biscuit", name: t('categories.cookie')) %>
+        <%= category_card(category: "bread-doughnut", name: t('categories.doughnut')) %>
+        <%= category_card(category: "ice-cream", name: t('categories.ice_cream')) %>
+        <%= category_card(category: "drink", name: t('categories.drink')) %>
+        <%= category_card(category: "cake", name: t('categories.cake')) %>
+        <%= category_card(category: "snack", name: t('categories.snack')) %>
+        <%= category_card(category: "other", name: t('categories.other'), extra_class: "col-span-2 md:col-span-1") %>
       </div>
     </div>
   </div>

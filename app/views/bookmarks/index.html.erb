@@ -10,9 +10,23 @@
         <div class="w-full border-b border-base-200 last:border-b-0 mb-4">
           <div class="flex flex-row items-center sm:items-start p-1 sm:px-10">
             <!-- 画像 -->
-            <figure class="p-1 sm:py-4 px-8">
-              <% product = product.decorate %>
-              <%= product.product_image(class: "w-25 h-25 sm:w-30 sm:h-30") %>
+            <figure x-data="{ imageLoaded: false }"
+                    x-init="imageLoaded = $el.querySelector('img')?.complete || false">
+              <div x-cloak x-show="!imageLoaded" class="flex animate-pulse space-x-4">
+                <div class="p-1 sm:py-4 sm:px-8">
+                  <div class="size-25 sm:size-30 rounded-xl bg-base-200"></div>
+                </div>
+              </div>
+
+              <div x-show="imageLoaded" x-transition>
+                <div class="p-1 sm:py-4 sm:px-8">
+                  <%= product.decorate.product_image(
+                        class: "size-25 sm:size-30",
+                        "@load" => "imageLoaded = true",
+                        "@error"=> "imageLoaded = true"
+                      ) %>
+                </div>
+              </div>
             </figure>
 
             <div class="relative flex-1 w-full flex flex-col items-start gap-2 sm:gap-4 p-2">
