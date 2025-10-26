@@ -53,6 +53,8 @@ Rails.application.routes.draw do
     resources :posts, only: %i[index destroy]
   end
 
+  get "privacy", to: "static_pages#privacy"
+  get "terms", to: "static_pages#terms"
   get "up" => "rails/health#show", as: :rails_health_check
   get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
