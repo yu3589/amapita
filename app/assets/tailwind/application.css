@@ -88,6 +88,10 @@
 @apply absolute inset-0 flex flex-col items-center justify-center text-white text-base md:text-2xl font-bold;
 }
 
+.legal-section-title {
+@apply text-lg md:text-xl font-semibold my-2 md:my-4 border-l-4 border-primary pl-3;
+}
+
 .pagy {
   @apply flex space-x-1 font-semibold text-sm text-gray-500;
   a:not(.gap) {
