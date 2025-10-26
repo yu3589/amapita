@@ -70,15 +70,22 @@ ja:
       post: 投稿する
       send: 送信
   shared:
-      header:
-        login: ログイン
-        logout: ログアウト
-        sign_up: 新規登録
-        about: アプリについて
-        mypage: マイページ
-        diagnosis: 甘さ感覚診断
-        posts: みんなの甘さ評価一覧
-        contact: お問い合わせ
+    header:
+      login: ログイン
+      logout: ログアウト
+      sign_up: 新規登録
+      about: アプリについて
+      mypage: マイページ
+      diagnosis: 甘さ感覚診断
+      posts: みんなの甘さ評価一覧
+      contact: お問い合わせ
+      terms_of_service: 利用規約
+      privacy_policy: プライバシーポリシー
+  static_pages:
+    terms:
+      title: 利用規約
+    privacy:
+      title: プライバシーポリシー
   admin:
     user_sessions:
       new:

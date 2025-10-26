@@ -37,16 +37,26 @@
             <li><%= link_to t('shared.header.sign_up'), new_user_registration_path %></li>
           <% end %>
           <li><%= link_to t('shared.header.about'), root_path %></li>
-          <li><%= link_to t('shared.header.contact'), "https://forms.gle/LLJvxhEZWpGxK1EV7",
-                  target: "_blank",
-                  rel: "noopener noreferrer" %></li>
-          <li>
             <div class="flex items-center my-4 pointer-events-none">
               <div class="flex-grow border-t border-2 border-[var(--color-base-400)]"></div>
             </div>
           </li>
           <li><%= link_to t('shared.header.posts'), posts_path %></li>
           <li><%= link_to t('shared.header.diagnosis'), new_diagnosis_path %></li>
+            <div class="flex items-center my-4 pointer-events-none">
+              <div class="flex-grow border-t border-2 border-[var(--color-base-400)]"></div>
+            </div>
+          <li><%= link_to t('shared.header.terms_of_service'), terms_path %></li>
+          <li><%= link_to t('shared.header.privacy_policy'), privacy_path %></li>
+          <li><%= link_to t('shared.header.contact'), "https://forms.gle/LLJvxhEZWpGxK1EV7",
+                  target: "_blank",
+                  rel: "noopener noreferrer" %></li>
+          <div class="flex items-center my-4 pointer-events-none">
+            <div class="flex-grow border-t border-2 border-[var(--color-base-400)]"></div>
+          </div>
+          <div class="flex justify-center items-center my-4 pointer-events-none">
+            <li> © 2025 あまピタッ！</li>
+          </div>
         </ul>
       </div>
     </div>
