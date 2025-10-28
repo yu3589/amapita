@@ -123,9 +123,9 @@
               <%= image_tag rating_images[@post.sweetness_rating], class: "h-8 w-8" %>
               <p><%= I18n.t("enums.post.sweetness_rating.#{@post.sweetness_rating}") %></p>
             </div>
-            <% if user_signed_in? && current_user.own?(@post) %>
+            <% if user_signed_in? && current_user.own?(@post) && @post.publish?%>
               <span class="flex flex-col items-center rounded-xl bg-base-200 p-2 sm:p-3">
-                <%= link_to "https://twitter.com/intent/tweet?url=#{post_url(@post)}&text=#{CGI.escape("【#{@post.product.name}】のあまピタ評価をしたよ！")}\n&hashtags=#{CGI.escape("あまピタ")}",
+                <%= link_to "https://twitter.com/intent/tweet?text=#{CGI.escape("【#{@post.product.name}】のあまピタ評価をしたよ！\n\n#あまピタッ\n#{post_url(@post)}")}",
                     target: "_blank",
                     rel: "noopener noreferrer" do %>
                 <%= image_tag "x-logo.svg", class: "h-6 w-6" %>

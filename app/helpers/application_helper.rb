@@ -40,7 +40,7 @@ module ApplicationHelper
     return asset_url("ogp.png") unless post&.product&.name
 
     begin
-      product_text = CGI.escape("「#{post.product.name}」の")
+      product_text = URI.encode_www_form_component("「#{post.product.name}」の").gsub("+", "%20")
       text_color = "6a6565"
 
       image_configs = {
@@ -56,7 +56,7 @@ module ApplicationHelper
 
       "https://res.cloudinary.com/dbar0jd0k/image/upload/" \
       "l_text:TakaoGothic_50_bold:#{product_text}," \
-      "co_rgb:#{text_color},w_500,c_fit,g_north,y_60/" \
+      "co_rgb:#{text_color},c_fit,g_north,y_60/" \
       "#{image_path}"
     rescue => e
       Rails.logger.error "OGP画像生成エラー: #{e.message}"
@@ -65,8 +65,8 @@ module ApplicationHelper
   end
 
   def post_meta_tags(post)
-    ogp_image = generate_sweetness_ogp_url(post)  # ← ここで商品名＆甘さ評価に応じた画像を生成
-    title = "「#{post.product.name}」の甘さ評価"
+    ogp_image = generate_sweetness_ogp_url(post)
+    title = "甘さ評価"
     description = "甘すぎない、物足りなくない。あなたにぴったりの甘さが見つかるアプリ。"
 
     {
@@ -75,7 +75,7 @@ module ApplicationHelper
       og: {
         title: title,
         description: description,
-        image: ogp_image,  # ← 動的に生成されたCloudinary URLが入る
+        image: ogp_image,
         url: request.original_url,
         type: "article"
       },

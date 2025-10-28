@@ -2,7 +2,7 @@ class Product < ApplicationRecord
   include ImageValidatable
   has_one_attached :image
 
-  validates :name, presence: true, length: { maximum: 40 }
+  validates :name, presence: true, length: { maximum: 24 }
   validates :manufacturer, presence: true
   validates :name, uniqueness: { scope: :manufacturer, message: :name_manufacturer_taken }
   validates :category_id, presence: { message: :select }
