@@ -35,4 +35,54 @@ module ApplicationHelper
       }
     }
   end
+
+  def generate_sweetness_ogp_url(post)
+    return asset_url("ogp.png") unless post&.product&.name
+
+    begin
+      product_text = CGI.escape("「#{post.product.name}」の")
+      text_color = "6a6565"
+
+      image_configs = {
+        lack_of_sweetness: "v1761662057/lack_of_sweetness_xgqer9.png",
+        could_be_sweeter: "v1761662266/could_be_sweeter_rnls4t.png",
+        perfect_sweetness: "v1761662272/perfect_sweetness_rdbdbl.png",
+        slightly_too_sweet: "v1761662274/slightly_too_sweet_gp35s8.png",
+        too_sweet: "v1761662270/too_sweet_e1q6fp.png"
+      }
+
+      image_path = image_configs[post.sweetness_rating.to_sym]
+      return asset_url("ogp.png") unless image_path
+
+      "https://res.cloudinary.com/dbar0jd0k/image/upload/" \
+      "l_text:TakaoGothic_50_bold:#{product_text}," \
+      "co_rgb:#{text_color},w_500,c_fit,g_north,y_60/" \
+      "#{image_path}"
+    rescue => e
+      Rails.logger.error "OGP画像生成エラー: #{e.message}"
+      asset_url("ogp.png")
+    end
+  end
+
+  def post_meta_tags(post)
+    ogp_image = generate_sweetness_ogp_url(post)  # ← ここで商品名＆甘さ評価に応じた画像を生成
+    title = "「#{post.product.name}」の甘さ評価"
+    description = "甘すぎない、物足りなくない。あなたにぴったりの甘さが見つかるアプリ。"
+
+    {
+      title: title,
+      description: description,
+      og: {
+        title: title,
+        description: description,
+        image: ogp_image,  # ← 動的に生成されたCloudinary URLが入る
+        url: request.original_url,
+        type: "article"
+      },
+      twitter: {
+        card: "summary_large_image",
+        image: ogp_image
+      }
+    }
+  end
 end
