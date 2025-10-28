@@ -69,6 +69,8 @@ class PostsController < ApplicationController
       return
     end
 
+    set_meta_tags(helpers.post_meta_tags(@post))
+
     @comment = Comment.new
     @comments = @post.comments.includes(:user).order(created_at: :desc)
 

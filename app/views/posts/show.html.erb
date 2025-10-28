@@ -13,7 +13,7 @@
       </div>
     </h1>
 
-    <div class="flex flex-col justify-center items-center sm:flex-row sm:items-start sm:gap-6">
+    <div class="flex flex-col justify-center items-center sm:flex-row sm:items-start sm:gap-6 relative">
       <div class="flex flex-col items-center p-4">
         <!-- 商品画像 -->
         <figure x-data="{ imageLoaded: false }"
@@ -71,6 +71,34 @@
               <% end %>
             </div>
           <% end %>
+
+          <!-- 編集・削除ボタン -->
+          <% if user_signed_in? && current_user.own?(@post) %>
+            <div class="dropdown dropdown-bottom dropdown-end absolute top-1 sm:top-2 right-4 sm:right-10 z-10">
+              <div tabindex="0" role="button" class="btn btn-lg btn-square btn-ghost hover:bg-[var(--color-base-400)]">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 24 24" class="inline-block h-7 w-7 text-base-300 stroke-current">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M5 12h.01M12 12h.01M19 12h.01
+                          M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"></path>
+                </svg>
+              </div>
+
+              <ul tabindex="0" class="dropdown-content menu bg-white rounded-box w-25 p-2 shadow-sm text-xs md:text-sm flex flex-col text-center gap-2">
+                <li>
+                  <%= link_to edit_post_path(@post), data: { turbo: false } do %>
+                    <%= t('helpers.submit.edit') %>
+                  <% end %>
+                </li>
+                <li>
+                  <%= link_to post_path(@post), class: "text-error",
+                        data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>
+                    <%= t('helpers.submit.delete') %>
+                  <% end %>
+                </li>
+              </ul>
+            </div>
+          <% end %>
         </div>
 
         <!-- 評価部分 -->
@@ -90,23 +118,21 @@
               "slightly_too_sweet" => "bg-secondary",
               "too_sweet" => "bg-secondary"
           } %>
-
-          <div class="inline-flex items-center rounded-2xl gap-2 py-2 md:py-3 px-4 text-neutral text-base <%= bg_colors[@post.sweetness_rating] %>">
-            <%= image_tag rating_images[@post.sweetness_rating], class: "h-8 w-8" %>
-            <p><%= I18n.t("enums.post.sweetness_rating.#{@post.sweetness_rating}") %></p>
-          </div>
-
-          <!-- 編集・削除ボタン -->
-          <% if user_signed_in? && current_user.own?(@post) %>
-            <div class="flex gap-4 pt-4 justify-end">
-              <%= link_to edit_post_path(@post), class: "text-sm ring-accent px-4 py-2 text-neutral ring-4 rounded-full transition duration-200 bg-base-100 hover:brightness-96", data: { turbo: false } do %>
-                編集
-              <% end %>
-              <%= link_to post_path(@post), class: "text-sm ring-secondary px-4 py-2 text-neutral ring-4 rounded-full transition duration-200 bg-base-100 hover:brightness-96", data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>
-                削除
-              <% end %>
+          <div class="flex flex-row items-center gap-4">
+            <div class="inline-flex items-center rounded-2xl gap-2 py-2 md:py-3 px-4 text-neutral text-base <%= bg_colors[@post.sweetness_rating] %>">
+              <%= image_tag rating_images[@post.sweetness_rating], class: "h-8 w-8" %>
+              <p><%= I18n.t("enums.post.sweetness_rating.#{@post.sweetness_rating}") %></p>
             </div>
-          <% end %>
+            <% if user_signed_in? && current_user.own?(@post) %>
+              <span class="flex flex-col items-center rounded-xl bg-base-200 p-2 sm:p-3">
+                <%= link_to "https://twitter.com/intent/tweet?url=#{post_url(@post)}&text=#{CGI.escape("【#{@post.product.name}】のあまピタ評価をしたよ！")}\n&hashtags=#{CGI.escape("あまピタ")}",
+                    target: "_blank",
+                    rel: "noopener noreferrer" do %>
+                <%= image_tag "x-logo.svg", class: "h-6 w-6" %>
+              </span>
+              <% end %>
+            <% end %>
+          </div>
         </div>
       </div>
     </div>
