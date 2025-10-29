@@ -42,6 +42,7 @@ module ApplicationHelper
     begin
       product_text = URI.encode_www_form_component("「#{post.product.name}」の").gsub("+", "%20")
       text_color = "6a6565"
+      cache_buster = post.updated_at.to_i
 
       image_configs = {
         lack_of_sweetness: "v1761662057/lack_of_sweetness_xgqer9.png",
@@ -55,9 +56,9 @@ module ApplicationHelper
       return asset_url("ogp.png") unless image_path
 
       "https://res.cloudinary.com/dbar0jd0k/image/upload/" \
-      "l_text:TakaoGothic_50_bold:#{product_text}," \
+      "l_text:TakaoGothic_40_bold:#{product_text}," \
       "co_rgb:#{text_color},c_fit,g_north,y_60/" \
-      "#{image_path}"
+      "#{image_path}?v=#{cache_buster}"
     rescue => e
       Rails.logger.error "OGP画像生成エラー: #{e.message}"
       asset_url("ogp.png")
@@ -66,7 +67,7 @@ module ApplicationHelper
 
   def post_meta_tags(post)
     ogp_image = generate_sweetness_ogp_url(post)
-    title = "甘さ評価"
+    title = "あまピタッ！"
     description = "甘すぎない、物足りなくない。あなたにぴったりの甘さが見つかるアプリ。"
 
     {
