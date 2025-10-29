@@ -125,7 +125,7 @@
             </div>
             <% if user_signed_in? && current_user.own?(@post) && @post.publish?%>
               <span class="flex flex-col items-center rounded-xl bg-base-200 p-2 sm:p-3">
-                <%= link_to "https://twitter.com/intent/tweet?text=#{CGI.escape("【#{@post.product.name}】のあまピタ評価をしたよ！\n\n#あまピタッ\n#{post_url(@post)}")}",
+                <%= link_to "https://twitter.com/intent/tweet?text=#{CGI.escape(@post.x_share_text)}",
                     target: "_blank",
                     rel: "noopener noreferrer" do %>
                 <%= image_tag "x-logo.svg", class: "h-6 w-6" %>

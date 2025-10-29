@@ -45,4 +45,13 @@ class Post < ApplicationRecord
 
     Time.current - product.created_at <= EDITABLE_HOURS.hours
   end
+
+  def share_url_with_cache_buster
+    Rails.application.routes.url_helpers.post_url(self, v: updated_at.to_i)
+  end
+
+  def x_share_text
+    return "" unless product&.name.present?
+      "【#{product.name}】のあまピタ判定をしたよ！\n\n#あまピタッ\n#{share_url_with_cache_buster}"
+  end
 end
