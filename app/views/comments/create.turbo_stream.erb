@@ -1,10 +1,9 @@
-<!-- 現在は発動しない -->
 <% if @comment.errors.any? %>
   <%= turbo_stream.replace "new_comment" do %>
     <%= render "posts/comment_form", post: @post, comment: @comment %>
   <% end %>
 <% else %>
-  <!-- 現在動作している部分 -->
+
   <%= turbo_stream.prepend "comments" do %>
     <%= render @comment %>
   <% end %>

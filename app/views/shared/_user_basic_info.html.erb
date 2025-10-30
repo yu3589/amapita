@@ -1,7 +1,11 @@
 <div class="p-1 sm:p-4">
   <div class="flex flex-col p-1 sm:p-2 w-full sm:max-w-3xl mx-auto bg-base-100 rounded-4xl">
     <h1 class="text-center text-xl md:text-2xl p-4 border-b border-base-200 w-full">
-      <%= user == current_user ? t('profiles.show.title') : t('profiles.info') %>
+      <% if controller_name == "users" && action_name == "show" %>
+        <%= t('profiles.info') %>
+      <% else %>
+        <%= t('profiles.show.title') %>
+      <% end %>
     </h1>
 
     <!-- ユーザー情報 -->
@@ -15,9 +19,17 @@
       </div>
 
       <div class="flex flex-col justify-center items-center gap-2 md:gap-4 text-neutral py-4 px-2">
-        <div class="text-base md:text-xl">
+        <div class="text-base md:text-xl w-full">
           <div class="flex flex-col items-start gap-2">
-            <span><%= user.name %></span>
+            <div class="flex items-center justify-between w-full gap-4">
+              <span><%= user.name %></span>
+              <!-- 編集 -->
+              <% if user == current_user %>
+                <%= link_to edit_profile_path, class: "rounded-xl bg-stone-200 duration-200 hover:brightness-96 p-1", data: { turbo: false } do %>
+                  <%= image_tag "pencil.svg", class: "h-6 w-6" %>
+                <% end %>
+              <% end %>
+            </div>
             <% if user_signed_in? && user != current_user && sweetness_twin?(user) %>
               <span class="flex flex-row gap-1 text-xs rounded-full items-center px-2 py-1 bg-info w-fit">
                 <%= image_tag "handshake.svg", class: "h-4 w-4" %>
@@ -32,37 +44,22 @@
               <% if user == current_user %>
               <span class="text-sm">
                 <%= t('profiles.total_post', count: user.posts.publish.count) %>
-                  <div class="dropdown dropdown-down dropdown-end dropdown-hover pl-1">
-                    <div tabindex="0" role="button" class="btn btn-xs btn-white btn-circle">?</div>
-                      <ul tabindex="0" class="dropdown-content menu bg-base-100 text-base-300 rounded-box z-[1] w-30 p-1 shadow-sm text-xs">
-                        <li><a><%= t('defaults.dropdown.privacy_notice') %></a></li>
-                      </ul>
-                  </div>
               </span>
               <% end %>
             <% end %>
           </div>
         </div>
 
-        <div class="text-sm md:text-base break-words max-w-[20ch] md:min-h-[1.5rem]">
+        <div class="text-sm md:text-base">
           <%= user.self_introduction.presence || "" %>
         </div>
-
-        <!-- 編集 -->
-        <% if user == current_user %>
-          <div class="flex w-full mt-2 justify-center sm:justify-end">
-            <%= link_to edit_profile_path, class: "text-sm btn btn-outline btn-accent", data: { turbo: false } do %>
-              <%= t('helpers.submit.edit') %>
-            <% end %>
-          </div>
-        <% end %>
       </div>
     </div>
 
     <!-- チャート -->
     <% if sweetness_profiles.present? %>
       <div class="flex justify-center pb-4 w-full">
-        <div class="w-full max-w-md md:max-w-lg p-2 rounded-3xl bg-white">
+        <div class="w-full max-w-md p-2 rounded-3xl bg-white">
 
           <div class="flex justify-end text-sm md:text-base font-bold mb-2">
             <span class="rounded-xl bg-secondary text-white px-3 py-2 text-sm md:text-base">

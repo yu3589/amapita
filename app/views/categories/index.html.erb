@@ -1,16 +1,10 @@
-<div class="p-2 md:p-4">
-  <div class="flex flex-col p-2 items-center justify-center w-full max-w-3xl mx-auto bg-base-100 rounded-4xl">
-    <h1 class="text-center text-base md:text-xl p-4 border-b border-base-200 w-full">
+<div class="p-1 md:p-4">
+  <div class="flex flex-col p-1 items-center justify-center w-full max-w-3xl mx-auto bg-base-100 rounded-4xl">
+    <h1 class="text-center text-lg md:text-xl p-2 md:p-4 border-b border-base-200 w-full">
       <%= t('.title') %>
     </h1>
 
-    <% unless user_signed_in? %>
-      <div class="text-xs sm:text-sm text-stone-400 py-4">
-        ※ <%= t('defaults.require_login_user_rating') %>
-      </div>
-    <% end %>
-
-    <div class="py-4 md:py-10">
+    <div class="py-5 md:py-10">
       <div class="grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-10 items-center justify-center">
         <%= category_card(category: "gummy-jelly", name: t('categories.gummy'), subname: t('categories.jelly')) %>
         <%= category_card(category: "chocolate", name: t('categories.chocolate')) %>

@@ -5,7 +5,7 @@
       <!-- ユーザー情報 -->
       <div class="flex flex-col pl-2 md:pl-6 text-sm">
         <%= user_profile_link_or_tooltip(post.user,
-          class: "flex items-center md:gap-2 hover:opacity-70") do %>
+          class: "flex items-center md:gap-2 md:hover:bg-stone-200 md:duration-250 md:rounded-4xl md:px-2 md:w-fit") do %>
           <%= post.user.decorate.avatar_image(class: "w-9 h-9 md:w-10 md:h-10") %>
 
           <div class="flex flex-col p-2 md:p-1 gap-1 md:gap-2 text-neutral">
