@@ -46,7 +46,7 @@
   </div>
 <% else %>
 <div class="form-control">
-  <div class="flex flex-col items-center">
+  <div class="flex flex-col items-center py-2 gap-1">
     <div class="flex flex-row items-center">
       <%= f.label :image, t('activerecord.attributes.product.image'), class: "label p-2 text-neutral" %>
       <div class="dropdown dropdown-top dropdown-hover pl-1">
@@ -58,7 +58,7 @@
     </div>
     <div class="flex flex-col items-center">
       <%= f.file_field :image,
-          class: "file-input file-input-accent file-input-sm sm:file-input-md text-base-300" %>
+          class: "file-input file-input-secondary file-input-sm sm:file-input-md text-base-300" %>
     </div>
   </div>
 </div>

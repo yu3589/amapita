@@ -1,5 +1,5 @@
 <div class="p-1 md:p-4">
-  <div class="flex flex-col p-1 items-center justify-center w-full max-w-2xl mx-auto bg-base-100 rounded-4xl">
+  <div class="flex flex-col p-1 items-center justify-center w-full max-w-3xl mx-auto bg-base-100 rounded-4xl">
     <h1 class="text-center text-lg md:text-xl p-2 md:p-4 border-b border-base-200 w-full">
       <%= t('.title') %>
     </h1>
@@ -18,7 +18,7 @@
         <%== pagy_nav(@pagy) %>
       </div>
     <% else %>
-      <div class="p-4 text-xs md:text-sm">
+      <div class="p-4 text-sm">
         <%= t('.no_notifications') %>
       </div>
     </div>

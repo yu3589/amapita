@@ -31,7 +31,7 @@
       </div>
     <% end %>
 
-    <div class="flex flex-col items-center p-8 gap-2 sm:gap-3 text-sm">
+    <div class="flex flex-col items-center p-8 gap-5 text-sm">
       <div class="flex justify-center text-neutral">
         <%= link_to new_user_registration_path, class: "underline-offset-4 hover:underline transition-all" do %>
           <%= t('.to_register_page') %>
@@ -50,7 +50,7 @@
       <div class="flex-grow border-t border-base-200"></div>
     </div>
 
-    <div class="pt-4 pb-12 text-center">
+    <div class="pt-3 pb-12 text-center">
       <%= render "devise/shared/links" %>
     </div>
 

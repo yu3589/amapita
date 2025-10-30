@@ -1,67 +1,59 @@
-<div class="fixed bottom-0 w-full px-4 py-4 z-30">
-  <div class="dock bg-base-100 dock-sm md:dock-lg border-t border-[var(--color-base-400)]">
-    <%= link_to posts_path, class: "flex flex-col items-center justify-center leading-none md:hover:bg-[var(--color-base-400)]" do %>
-      <span class="p-2">
-      <%= image_tag "footer/house.svg", class: "h-7 w-7 md:h-8 md:w-8" %>
-      </span>
+<div class="fixed bottom-0 w-full z-30">
+  <div class="dock bg-base-100 dock-md border-t border-stone-200 gap-2 mt-1">
+    <%= link_to posts_path, class: "flex flex-col items-center justify-center leading-none md:hover:bg-stone-200" do %>
+      <%= image_tag "footer/house.svg", class: "size-7" %>
+      <span class="text-xs text-center mt-1"><%= t('shared.footer.home') %></span>
     <% end %>
 
     <% if user_signed_in? %>
-    <%= link_to bookmarks_path, class: "flex flex-col items-center md:hover:bg-[var(--color-base-400)]" do %>
-      <span class="p-2">
-      <%= image_tag "footer/bookmark.svg", class: "h-7 w-7 md:h-8 md:w-8" %>
-      </span>
+    <%= link_to bookmarks_path, class: "flex flex-col items-center md:hover:bg-stone-200" do %>
+      <%= image_tag "footer/bookmark.svg", class: "size-7" %>
+      <span class="text-xs mt-1 text-center whitespace-nowrap"><%= t('shared.footer.bookmark') %></span>
     <% end %>
     <% else %>
     <!-- 未ログイン -->
     <div class="flex flex-col items-center justify-center leading-none tooltip tooltip-top relative"
           data-tip="<%= t('defaults.require_login') %>">
-      <span class="p-2">
         <%= render "shared/notification_badge" %>
-        <%= image_tag "footer/bookmark.svg", class: "h-7 w-7 md:h-8 md:w-8" %>
-      </span>
+        <%= image_tag "footer/bookmark.svg", class: "size-7" %>
+        <span class="text-xs mt-1 text-center whitespace-nowrap"><%= t('shared.footer.bookmark') %></span>
     </div>
   <% end %>
 
-    <%= link_to categories_path, class: "flex flex-col items-center md:hover:bg-[var(--color-base-400)]" do %>
-      <span class="p-2">
-      <%= image_tag "footer/plus_circle.svg", class: "h-10 w-10 md:h-11 md:w-11" %>
-      </span>
+    <%= link_to categories_path, class: "flex flex-col items-center md:hover:bg-stone-200" do %>
+      <%= image_tag "footer/plus_circle.svg", class: "size-8 sm:size-10" %>
+      <span class="text-xs text-center"><%= t('shared.footer.new_post') %></span>
     <% end %>
 
     <% if user_signed_in? %>
       <%= link_to notifications_path,
-          class: "flex flex-col items-center justify-center leading-none md:hover:bg-[var(--color-base-400)] relative" do %>
-        <span class="p-2">
-          <%= render "shared/notification_badge" %>
-          <%= image_tag "footer/bell.svg", class: "h-7 w-7 md:h-8 md:w-8" %>
-        </span>
+          class: "flex flex-col items-center justify-center leading-none md:hover:bg-stone-200 relative" do %>
+        <%= render "shared/notification_badge" %>
+        <%= image_tag "footer/bell.svg", class: "size-7" %>
+        <span class="text-xs mt-1 text-center"><%= t('shared.footer.notification') %></span>
       <% end %>
     <% else %>
       <!-- 未ログイン -->
-      <div class="flex flex-col items-center justify-center leading-none tooltip tooltip-tooltip-top relative"
+      <div class="flex flex-col items-center justify-center leading-none tooltip tooltip-top relative"
             data-tip="<%= t('defaults.require_login') %>">
-        <span class="p-2">
-          <%= render "shared/notification_badge" %>
-          <%= image_tag "footer/bell.svg", class: "h-7 w-7 md:h-8 md:w-8" %>
-        </span>
+        <%= render "shared/notification_badge" %>
+        <%= image_tag "footer/bell.svg", class: "size-7" %>
+        <span class="text-xs mt-1 text-center"><%= t('shared.footer.notification') %></span>
       </div>
     <% end %>
 
 
     <% if user_signed_in? %>
-      <%= link_to profile_path, class: "flex flex-col items-center justify-center leading-none md:hover:bg-[var(--color-base-400)]" do %>
-        <span class="p-2">
-        <%= image_tag "footer/user_circle.svg", class: "h-8 w-8 md:h-9 md:w-9" %>
-        </span>
+      <%= link_to profile_path, class: "flex flex-col items-center justify-center leading-none md:hover:bg-stone-200" do %>
+        <%= image_tag "footer/user_circle.svg", class: "size-8" %>
+        <span class="text-xs mt-1 text-center whitespace-nowrap"><%= t('shared.footer.mypage') %></span>
       <% end %>
     <% else %>
       <!-- 未ログイン -->
       <div class="flex flex-col items-center justify-center leading-none tooltip tooltip-left sm:tooltip-top"
                 data-tip="<%= t('defaults.require_login') %>">
-        <span class="p-2">
-        <%= image_tag "footer/user_circle.svg", class: "h-8 w-8 md:h-9 md:w-9" %>
-        </span>
+        <%= image_tag "footer/user_circle.svg", class: "size-8" %>
+        <span class="text-xs mt-1 text-center whitespace-nowrap"><%= t('shared.footer.mypage') %></span>
       </div>
     <% end %>
   </div>

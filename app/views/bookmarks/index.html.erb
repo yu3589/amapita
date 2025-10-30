@@ -1,14 +1,13 @@
 <div class="p-1 md:p-4">
-  <div class="flex flex-col p-2 items-center justify-center max-w-3xl mx-auto bg-base-100 rounded-4xl">
-    <h1 class="text-center text-md md:text-xl p-4 border-b border-base-200 w-full">
+  <div class="flex flex-col p-1 items-center justify-center w-full max-w-3xl mx-auto bg-base-100 rounded-4xl">
+    <h1 class="text-center text-lg md:text-xl p-2 md:p-4 border-b border-base-200 w-full">
       <%= t('.title') %>
     </h1>
-    <div class="p-4"></div>
     <% if @bookmarks.present? %>
       <% @bookmarks.each do |product| %>
         <!-- カード -->
         <div class="w-full border-b border-base-200 last:border-b-0 mb-4">
-          <div class="flex flex-row items-center sm:items-start p-1 sm:px-10">
+          <div class="flex flex-row items-center p-1 sm:px-10">
             <!-- 画像 -->
             <figure x-data="{ imageLoaded: false }"
                     x-init="imageLoaded = $el.querySelector('img')?.complete || false">
@@ -33,7 +32,7 @@
               <!-- 商品名・メーカー名 -->
               <div class="sm:py-1 w-full">
                 <div class="flex justify-between items-center w-full">
-                  <p class="text-xs sm:text-sm text-base-300 text-center sm:text-left py-1">
+                  <p class="text-sm text-base-300 text-center sm:text-left py-1">
                     <%= product.manufacturer %>
                   </p>
                   <% if user_signed_in? && current_user %>
@@ -44,7 +43,7 @@
                 </div>
 
                 <%= link_to product_path(product), class: "hover:opacity-70 w-full" do %>
-                  <p class="text-sm sm:text-xl font-semibold text-center sm:text-left pt-3">
+                  <p class="text-base sm:text-xl font-semibold text-center sm:text-left pt-3">
                     <%= product.name %>
                   </p>
                   <div class="absolute top-18 right-1 hidden sm:block">
@@ -97,7 +96,7 @@
         <%== pagy_nav(@pagy) %>
       </div>
     <% else %>
-      <p class="p-4"><%= t('no_bookmarked_products') %></p>
+      <p class="p-6"><%= t('bookmarks.index.no_bookmarked_products') %></p>
     <% end %>
   </div>
   </div>

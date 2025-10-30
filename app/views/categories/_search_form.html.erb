@@ -1,11 +1,11 @@
 <%= search_form_for q, url: category_path(@category), method: :get,
-    class: 'py-2 px-1 flex justify-center w-full',
+    class: 'py-3 px-1 flex justify-center w-full',
     data: { search_clear_target: "form" } do |f| %>
 
   <div class="bg-base-100 rounded-4xl py-2 px-1 md:p-6 max-w-md md:max-w-4xl mx-auto flex flex-col items-center">
 
     <!-- 商品名検索 -->
-    <div class="flex flex-row items-stretch md:items-center gap-1 sm:gap-2 w-full">
+    <div class="flex flex-row items-center gap-1 sm:gap-2 w-full">
 
       <div data-controller="autocomplete"
            data-autocomplete-url-value="<%= autocomplete_category_path(@category&.slug) %>"
@@ -18,7 +18,7 @@
 
         <!-- 検索入力 -->
         <%= f.search_field :name_or_manufacturer_cont, 
-          class: "flex-1 bg-white rounded-4xl ring-2 w-full md:w-100 ring-[var(--color-base-400)] text-sm md:text-base md:py-2 px-4",
+          class: "flex-1 bg-white rounded-4xl ring-2 w-full md:w-100 ring-[var(--color-base-400)] text-base md:py-2 px-4",
           placeholder: t('defaults.placeholders.search_products'),
           data: { search_clear_target: "input",
                   autocomplete_target: 'input' },
@@ -35,8 +35,8 @@
 
       <!-- クリアボタン -->
       <button type="button"
-              onclick="location.href='<%= category_path(@category.slug) if @category %>'"class="btn btn-sm mt-1 sm:btn-md sm:mt-0">
-        <%= t('helpers.submit.clear') %>
+              onclick="location.href='<%= category_path(@category.slug) if @category %>'"class="btn btn-sm sm:btn-md">
+        <%= image_tag "eraser.svg", class: "h-5 w-5" %>
       </button>
     </div>
   </div>

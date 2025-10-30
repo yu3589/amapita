@@ -6,7 +6,7 @@
             <%= t('profiles.tabs.posts') %>
         </a>
 
-        <!-- ブックマーク -->
+        <!-- いいね -->
         <a href="<%= profile_path(tab: 'liked_posts') %>" 
             class="tab text-sm md:text-base text-primary hover:text-primary <%= 'tab-active' if active_tab == 'liked_posts' %>">
             <%= t('profiles.tabs.liked_posts') %>
