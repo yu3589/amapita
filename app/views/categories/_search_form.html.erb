@@ -18,14 +18,14 @@
 
         <!-- 検索入力 -->
         <%= f.search_field :name_or_manufacturer_cont, 
-          class: "flex-1 bg-white rounded-4xl ring-2 w-full md:w-100 ring-[var(--color-base-400)] text-base md:py-2 px-4",
+          class: "flex-1 bg-white/80 rounded-4xl ring-2 w-full md:w-100 ring-[var(--color-base-400)] text-base md:py-2 px-4",
           placeholder: t('defaults.placeholders.search_products'),
           data: { search_clear_target: "input",
                   autocomplete_target: 'input' },
                   aria: { autocomplete: "list" },
                   autocomplete: "off" %>
 
-        <ul class="list-group bg-white absolute top-full left-0 w-full md:text-sm z-10 shadow-lg rounded-md"
+        <ul class="list-group bg-white/80 absolute top-full left-0 w-full md:text-sm z-10 shadow-lg rounded-md"
             data-autocomplete-target="results"></ul>
       </div>
 

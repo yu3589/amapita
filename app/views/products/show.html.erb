@@ -101,7 +101,7 @@
       <div class="flex flex-col justify-center lg:flex-row items-center lg:items-start p-1 sm:px-2 sm:py-4 gap-5 w-full">
         <!-- チャート -->
         <div class="flex justify-center w-full lg:w-3/5 max-w-md">
-          <div class="w-full p-1 sm:p-4 border-secondary rounded-3xl bg-white">
+          <div class="w-full p-1 sm:p-4 border-secondary rounded-3xl bg-white/80 ring-2 ring-stone-200/30">
             <div class="flex justify-center p-1 text-base md:text-lg">
               甘さ感覚チャート
             </div>
@@ -154,93 +154,92 @@
         </div>
 
         <!-- ユーザーレビュー -->
-        <div class="bg-white py-4 px-1 w-full lg:w-3/5 max-w-xl rounded-4xl flex flex-col items-center relative">
+        <div class="bg-white/80 ring-2 ring-stone-200/30 py-4 px-1 w-full lg:w-3/5 max-w-xl rounded-4xl flex flex-col items-center relative">
           <div class="p-1 text-base md:text-lg"><%= t('.review') %></div>
 
           <% @posts.each do |post| %>
-            <div class="py-4 w-full border-b border-stone-200 last:border-b-0 relative">
-              <div class="flex flex-col">
+          <div class="py-4 w-full border-b border-stone-200 last:border-b-0 relative">
+            <div class="flex flex-col">
 
-                <div class="flex flex-row gap-1 items-start">
-                  <!-- ユーザー情報 -->
-                  <div class="flex flex-col items-center p-1 w-30 shrink-0 gap-2">
-                    <%= post.user.decorate.avatar_image(class: "w-10 h-10") %>
-                    <span class="mt-1 text-xs text-center line-clamp-2 mx-1"><%= post.user.name %></span>
+              <div class="flex flex-row gap-1 items-start">
+                <!-- ユーザー情報 -->
+                <div class="flex flex-col items-center p-1 w-30 shrink-0 gap-2">
+                  <%= post.user.decorate.avatar_image(class: "w-10 h-10") %>
+                  <span class="mt-1 text-xs text-center line-clamp-2 mx-1"><%= post.user.name %></span>
+                </div>
+
+                <!-- 編集・削除ボタンまたはいいねボタン -->
+                <% if user_signed_in? && current_user.own?(post) %>
+                  <div class="dropdown dropdown-top dropdown-end absolute top-3 right-0 z-10">
+                    <div tabindex="0" role="button" class="btn btn-lg btn-square btn-ghost hover:bg-stone-200">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                          viewBox="0 0 24 24" class="inline-block h-7 w-7 text-base-300 stroke-current">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M5 12h.01M12 12h.01M19 12h.01
+                                M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"></path>
+                      </svg>
+                    </div>
+
+                    <ul tabindex="0" class="dropdown-content menu bg-white/80  rounded-box w-25 p-2 shadow-sm text-xs md:text-sm flex flex-col text-center gap-2">
+                      <li>
+                        <%= link_to edit_post_path(post), data: { turbo: false } do %>
+                          <%= t('helpers.submit.edit') %>
+                        <% end %>
+                      </li>
+                      <li>
+                        <%= link_to post_path(post), class: "text-error",
+                              data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>
+                          <%= t('helpers.submit.delete') %>
+                        <% end %>
+                      </li>
+                    </ul>
+                  </div>
+                <% elsif user_signed_in? && !post.unpublish? %>
+                  <div class="absolute top-4 right-3 z-10">
+                    <%= render 'posts/like_buttons', { post: post } %>
+                  </div>
+                <% end %>
+
+                <!-- 甘さ評価 + レビュー本文 -->
+                <%= link_to post_path(post), class: "flex-1 min-w-0 flex flex-col gap-1 hover:opacity-70 transition-opacity duration-200" do %>
+                  <% rating_images = { 
+                      "lack_of_sweetness" => "smiley-meh.svg",
+                      "could_be_sweeter" => "smiley-blank.svg",
+                      "perfect_sweetness" => "smiley-wink.svg",
+                      "slightly_too_sweet" => "smiley-nervous.svg",
+                      "too_sweet" => "smiley-x-eyes.svg" 
+                    } %>
+
+                  <% bg_colors = { 
+                      "lack_of_sweetness" => "bg-accent",
+                      "could_be_sweeter" => "bg-accent",
+                      "perfect_sweetness" => "bg-primary",
+                      "slightly_too_sweet" => "bg-secondary",
+                      "too_sweet" => "bg-secondary" 
+                    } %>
+
+                  <!-- 甘さ評価 -->
+                  <div class="flex items-center justify-start rounded-xl gap-2 px-4 py-2
+                              text-neutral text-xs sm:text-sm w-fit <%= bg_colors[post.sweetness_rating] %>">
+                    <%= image_tag rating_images[post.sweetness_rating], class: "h-5 w-5 sm:h-7 sm:w-7" %>
+                    <p><%= I18n.t("enums.post.sweetness_rating.#{post.sweetness_rating}") %></p>
                   </div>
 
-                  <!-- 編集・削除ボタンまたはいいねボタン -->
-                  <% if user_signed_in? && current_user.own?(post) %>
-                    <div class="dropdown dropdown-top dropdown-end absolute top-3 right-0 z-10">
-                      <div tabindex="0" role="button" class="btn btn-lg btn-square btn-ghost hover:bg-stone-200">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                            viewBox="0 0 24 24" class="inline-block h-7 w-7 text-base-300 stroke-current">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M5 12h.01M12 12h.01M19 12h.01
-                                  M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"></path>
-                        </svg>
-                      </div>
-
-                      <ul tabindex="0" class="dropdown-content menu bg-white rounded-box w-25 p-2 shadow-sm text-xs md:text-sm flex flex-col text-center gap-2">
-                        <li>
-                          <%= link_to edit_post_path(post), data: { turbo: false } do %>
-                            <%= t('helpers.submit.edit') %>
-                          <% end %>
-                        </li>
-                        <li>
-                          <%= link_to post_path(post), class: "text-error",
-                                data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>
-                            <%= t('helpers.submit.delete') %>
-                          <% end %>
-                        </li>
-                      </ul>
-                    </div>
-                  <% elsif user_signed_in? && !post.unpublish? %>
-                    <div class="absolute top-4 right-3">
-                      <%= render 'posts/like_buttons', { post: post } %>
+                  <!-- レビュ- -->
+                  <% if post.review.present? %>
+                    <div class="text-xs sm:text-sm text-neutral break-words pt-1 pb-3">
+                      <p><%= truncate(post.review, length: 37, omission: '...') %></p>
                     </div>
                   <% end %>
+                <% end %>
+              </div>
 
-                  <!-- 甘さ評価 + レビュー本文 -->
-                  <div class="flex-1 min-w-0 flex flex-col gap-1">
-                    <% rating_images = { 
-                        "lack_of_sweetness" => "smiley-meh.svg",
-                        "could_be_sweeter" => "smiley-blank.svg",
-                        "perfect_sweetness" => "smiley-wink.svg",
-                        "slightly_too_sweet" => "smiley-nervous.svg",
-                        "too_sweet" => "smiley-x-eyes.svg" 
-                      } %> 
-
-                    <% bg_colors = { 
-                        "lack_of_sweetness" => "bg-accent",
-                        "could_be_sweeter" => "bg-accent",
-                        "perfect_sweetness" => "bg-primary",
-                        "slightly_too_sweet" => "bg-secondary",
-                        "too_sweet" => "bg-secondary" 
-                      } %>
-
-                    <%= link_to post_path(post), class: "hover:opacity-70" do %>
-                      <div class="flex items-center justify-start rounded-xl gap-2 px-4 py-2
-                                  text-neutral text-xs sm:text-sm w-fit <%= bg_colors[post.sweetness_rating] %>">
-                        <%= image_tag rating_images[post.sweetness_rating], class: "h-5 w-5 sm:h-7 sm:w-7" %>
-                        <p><%= I18n.t("enums.post.sweetness_rating.#{post.sweetness_rating}") %></p>
-                      </div>
-                    <% end %>
-
-                    <% if post.review.present? %>
-                      <%= link_to post_path(post), class: "hover:opacity-70" do %>
-                        <div class="text-xs sm:text-sm text-neutral break-words pt-1 pb-3">
-                          <p><%= truncate(post.review, length: 37, omission: '...') %></p>
-                        </div>
-                      <% end %>
-                    <% end %>
-                  </div>
-                </div>
-
-                <div class="absolute bottom-2 right-2 text-xs text-base-200">
-                  <%= l post.created_at%>
-                </div>
+              <div class="absolute bottom-2 right-2 text-xs text-base-200">
+                <%= l post.created_at %>
               </div>
             </div>
+          </div>
+
           <% end %>
 
           <div class="flex items-center justify-center p-4 w-full">

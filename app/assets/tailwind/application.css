@@ -4,6 +4,7 @@
 @theme {
   --font-kiwi: "Kiwi Maru", serif;
   --font-roboto: "Roboto", sans-serif;
+  --font-noto: "Noto Serif JP", sans-serif;
 }
 
 
@@ -12,7 +13,7 @@
   default: false;
   prefersdark: false;
   color-scheme: "dark";
-  --color-base-100: #F9F9F9;
+  --color-base-100: #FFFFFD;
   --color-base-200: #C9C5C1;
   --color-base-300: #8c877e;
   --color-base-400: #DDDCDB;
@@ -69,7 +70,7 @@
 
 .swiper-button-next::after, .swiper-button-prev::after {
   font-size: 1.5rem;
-  color: #56524C;
+  color: #a19494;
 }
 
 .hover-animation {
