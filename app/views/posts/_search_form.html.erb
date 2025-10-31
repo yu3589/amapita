@@ -2,12 +2,12 @@
     class: 'p-1 md:p-4 flex justify-center',
     data: { search_clear_target: "form" } do |f| %>
 
-  <div class="flex flex-col items-center text-sm md:text-base bg-base-100 rounded-4xl py-3 px-2 md:p-4 max-w-md md:max-w-4xl mx-auto gap-4">
+  <div class="flex flex-col items-center text-sm md:text-base bg-base-100 ring-stone-200/50 ring-1 rounded-4xl py-3 px-2 md:p-4 max-w-md md:max-w-4xl mx-auto gap-4">
     <%= t('posts.index.search_title.new_posts') %>
     <!-- キーワード検索 -->
     <div class="flex flex-row items-stretch md:items-center gap-2 md:gap-3 w-full">
       <%= f.search_field :review_or_product_name_or_user_name_or_category_name_or_product_manufacturer_cont, 
-        class: "flex-1 bg-white md:p-2 rounded-4xl ring-3 w-full md:w-100 ring-[var(--color-base-400)] md:text-sm pl-2 md:px-4",
+        class: "flex-1 bg-white/70 md:p-2 rounded-4xl ring-3 w-full md:w-100 ring-[var(--color-base-400)] md:text-sm pl-2 md:px-4",
         placeholder: t('defaults.placeholders.search_word'),
         data: { search_clear_target: "input" } %>
 
@@ -27,7 +27,7 @@
             <%= f.select :category_name_eq,
                   Category.all.pluck(:name, :name),
                   { include_blank: t('activerecord.models.category') },
-                  class: "select w-full text-sm bg-white py-2",
+                  class: "select w-full text-sm bg-white/70 py-2",
                   data: { search_clear_target: "select" } %>
           </div>
 
@@ -36,7 +36,7 @@
             <%= f.select :product_manufacturer_eq,
                   I18n.t('products.manufacturers.list'),
                   { include_blank: t('activerecord.attributes.product.manufacturer') },
-                  class: "select w-full text-sm bg-white",
+                  class: "select w-full text-sm bg-white/70",
                   data: { search_clear_target: "select" } %>
           </div>
         </div>
@@ -44,7 +44,7 @@
         <!-- あまピタ度 -->
         <div class="mt-4">
           <div class="form-control">
-            <div class="bg-white p-1 sm:px-2 rounded-3xl ring-stone-200 ring-3 mx-auto w-fit">
+            <div class="bg-white/70 p-1 sm:px-2 rounded-3xl ring-stone-200 ring-3 mx-auto w-fit">
               <div class="flex justify-center md:mb-2">
                 <%= f.label :sweetness_rating_eq, t('activerecord.attributes.post.sweetness_rating'),
                   class: "label text-neutral text-center text-sm" %>

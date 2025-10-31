@@ -58,7 +58,7 @@
         
         <div class="flex flex-col text-base flex-wrap pt-4">
           <%= user_profile_link_or_tooltip(@post.user,
-              class: "flex items-center lg:gap-2 hover:opacity-70") do %>
+              class: "flex items-center md:gap-2 md:hover:bg-stone-200/80 md:duration-250 md:rounded-4xl md:px-2 md:w-fit") do %>
             <%= @post.user.decorate.avatar_image(class: "w-10 h-10") %>
             <div class="flex flex-col p-1 gap-2">
               <span class="text-base"><%= @post.user.name %></span>
@@ -91,7 +91,7 @@
                 </svg>
               </div>
 
-              <ul tabindex="0" class="dropdown-content menu bg-white rounded-box w-25 p-2 shadow-sm text-xs lg:text-sm flex flex-col text-center gap-2">
+              <ul tabindex="0" class="dropdown-content menu bg-white/80 rounded-box w-25 p-2 shadow-sm text-xs lg:text-sm flex flex-col text-center gap-2">
                 <li>
                   <%= link_to edit_post_path(@post), data: { turbo: false } do %>
                     <%= t('helpers.submit.edit') %>
@@ -164,7 +164,7 @@
     <div class="flex flex-col lg:flex-row justify-center items-center lg:items-start gap-1 p-3">
       <!-- チャート -->
       <div class="flex justify-center w-full lg:w-3/5 max-w-md">
-        <div class="w-full p-1 sm:p-4 border-secondary rounded-3xl bg-white">
+        <div class="w-full p-1 sm:p-4 border-secondary rounded-3xl bg-white/80 ring-2 ring-stone-200/30">
           <div class="flex justify-center pb-1 text-base">
             甘さ感覚チャート
           </div>
@@ -187,8 +187,8 @@
 
       <!-- あまピタ度・レビュー・ボタン（lg以上で表示） -->
       <div class="hidden lg:flex flex-col justify-start items-center w-full lg:w-2/5 max-w-md gap-1">
-        <div class="flex flex-col text-center items-start text-base py-4 text-neutral">
-        <p class="pb-1">あまピタ判定</p>
+        <div class="flex flex-col text-center items-center text-base py-4 text-neutral">
+        <p class="pb-2">あまピタ判定</p>
           <div class="flex-shrink-0">
             <% rating_images = {
                 "lack_of_sweetness" => "smiley-meh.svg",
@@ -220,30 +220,19 @@
                   <% end %>
                 </span>
               <% end %>
-
-              <% unless @post.unpublish? || current_user&.own?(@post) %>
-                <% if user_signed_in? %>
-                  <%= render 'like_buttons', { post: @post } %>
-                <% else %>
-                  <label class="cursor-pointer tooltip tooltip-top" 
-                        data-tip="<%= t('defaults.require_login') %>">
-                    <%= image_tag "heart.svg", class: "h-6 w-6 ml-1" %>
-                  </label>
-                <% end %>
-              <% end %>
             </div>
           </div>
         </div>
 
         <!-- レビューセクション -->
         <% if @post.review.present? %>
-        <div class="py-4">
-          <div class="bg-white py-4 px-1 w-full rounded-4xl flex flex-col items-center relative">
+        <div class="px-2 py-4">
+          <div class="bg-white/80 py-4 px-1 w-full rounded-4xl flex flex-col items-center relative ring-2 ring-stone-200/30">
             <div class="pb-1 text-base text-neutral">
               レビュー
             </div>
             <div class="flex flex-col justify-center items-center w-full">
-              <div class="w-full text-start text-sm p-3">
+              <div class="w-full text-start text-sm p-2">
                 <%= @post.review %>
               </div>
             </div>
@@ -265,7 +254,7 @@
         <!-- レビューセクション -->
         <% if @post.review.present? %>
         <div class="py-4 w-full">
-          <div class="bg-white py-4 px-1 w-full rounded-4xl flex flex-col items-center relative">
+          <div class="bg-white/80 py-4 px-1 w-full ring-2 ring-stone-200/30 rounded-4xl flex flex-col items-center relative">
             <div class="pb-1 text-base text-neutral">
               レビュー
             </div>

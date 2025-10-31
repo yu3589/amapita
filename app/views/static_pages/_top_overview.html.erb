@@ -1,9 +1,11 @@
-<div class="flex flex-col flex-grow items-center text-center p-6 sm:p-10">
-  <div class="text-lg sm:text-xl ring-primary sliders-title inline-flex items-center">
-    What is あまピタッ？
+<div class="flex flex-col items-center text-center p-6 sm:p-10">
+  <div class="text-lg sm:text-xl inline-flex items-center">
+    <div class="border-b-4 border-dotted border-accent inline-block pb-1">
+      What is あまピタッ？
+    </div>
   </div>
 
-  <div class="text-base py-6 sm:p-10 gap-2 leading-loose">
+  <div class="text-base py-6 sm:p-6 gap-2 leading-loose">
     あまピタッ！は<span class="sm:hidden"><br></span>「好みの甘味感覚が近い人」と
     <span class="sm:hidden"><br></span>繋がることで、<br>
     自分に合う"ちょうどいい甘さ"の<span class="sm:hidden"><br></span>
@@ -11,9 +13,13 @@
   </div>
 
   <div class="p-2">
-    <div class="text-md sm:text-xl ring-accent sliders-title inline-flex items-center gap-2">
-      <%= image_tag "smiley-wink.svg", class: "h-7 w-7" %>
-      こんな方におすすめ！
+    <div class="text-md sm:text-xl inline-flex items-center gap-2">
+      <div class="flex flex-col">
+        <div class="flex flex-row gap-1 items-center justify-center border-b-4 border-dotted border-secondary pb-1">
+          <%= image_tag "smiley-wink.svg", class: "h-7 w-7" %>
+           こんな方におすすめ！
+        </div>
+      </div>
     </div>
   </div>
 

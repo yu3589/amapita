@@ -16,7 +16,7 @@
         <!-- タブコンテンツ -->
         <div class="w-full">
         <% if active_tab == 'posts' %>
-        <div class="border-3 border-accent bg-white rounded-4xl w-full p-1 sm:p-2">
+        <div class="border-3 border-accent bg-white/80 rounded-4xl w-full p-1 sm:p-2">
             <div class="flex flex-col mx-auto items-center justify-center text-sm text-base-300 sm:text-base w-full">
                 <% if posts.present? %>
                 <%= render posts %>
@@ -29,7 +29,7 @@
             </div>
         </div>
         <% elsif active_tab == 'liked_posts' %>
-        <div class="border-3 border-primary bg-white rounded-4xl w-full p-1 sm:p-2">
+        <div class="border-3 border-primary bg-white/80 rounded-4xl w-full p-1 sm:p-2">
             <div class="flex flex-col mx-auto items-center justify-center text-sm text-base-300 sm:text-base w-full">
                 <% if likes.present? %>
                 <%= render "posts/liked_posts", posts: likes %>

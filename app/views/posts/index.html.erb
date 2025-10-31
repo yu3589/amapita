@@ -26,7 +26,7 @@
   <div class="flex justify-center gap-5 sm:gap-7 tabs-labels p-2 text-center w-full">
     <a href="<%= posts_path(tab: 'new') %>" 
       class="cursor-pointer button-secondary 
-              <%= params[:tab] != 'recommend' ? 'bg-white ring-accent' : 'bg-[var(--color-base-400)] ring-base-200' %>">
+              <%= params[:tab] != 'recommend' ? 'bg-white/80 ring-accent' : 'bg-[var(--color-base-400)] ring-base-200' %>">
       <div class="flex flex-row items-center justify-center gap-1">
         <span class="pt-2 sm:pt-0"><%= image_tag "cookie.svg", class: "h-5 w-5 md:h-6 md:w-6" %></span>
         <span class="pt-2 sm:pt-0"><%= t('.new_post') %></span>
@@ -36,7 +36,7 @@
     <% if user_signed_in? %>
       <a href="<%= posts_path(tab: 'recommend') %>"
         class="relative cursor-pointer button-secondary 
-                <%= params[:tab] == 'recommend' ? 'bg-white ring-primary' : 'bg-[var(--color-base-400)] ring-base-200' %>">
+                <%= params[:tab] == 'recommend' ? 'bg-white/80 ring-primary' : 'bg-[var(--color-base-400)] ring-base-200' %>">
         <div class="flex flex-row items-center gap-1">
           <%= image_tag "handshake.svg", class: "h-5 w-5 md:h-6 md:w-6" %>
           甘さツインの<br class="md:hidden">あまピタ評価
