@@ -3,7 +3,7 @@ ja:
     delete_confirm: 削除しますか？
     require_login: ログインが必要です
     require_login_user_profile: ユーザー詳細を見るにはログインが必要です
-    require_login_user_rating: あまピタ評価をするにはログインが必要です
+    require_login_user_rating: あまピタ判定をするにはログインが必要です
     placeholders:
       search_word: キーワードを入力
       search_products: 商品名又はメーカーを入力
@@ -26,11 +26,11 @@ ja:
       not_authorized: 権限がありません
     label:
       stats: "%{count}人中%{perfect}人があまピタッ！"
-      no_rating: あまピタ評価はまだありません
+      no_rating: あまピタ判定はまだありません
     buttons:
       post_index: 新着の<br>甘さ評価を見る 
       category_index: あまピタ判定をする<br>商品を探す
-      new_post: あまピタ評価をする
+      new_post: あまピタ判定をする
       retake_diagnosis: もう一度診断する
       take_diagnosis: 甘さ感覚診断をする
       search_rakuten: 楽天で<br>検索
@@ -179,7 +179,7 @@ ja:
       sweetness_evaluation_guide: 感じた甘さの感覚を評価してみよう！
     edit:
       title: 商品・あまピタ判定の編集
-      title_reputation_only: あまピタ判定の編集
+      title_reputation_only: あまピタ度・甘さ評価の編集
       uploaded_post_image: 現在の投稿画像
       uploaded_product_image: 現在の商品画像
       replace_post_image: 新しい画像をアップロード
@@ -196,9 +196,9 @@ ja:
         new_posts: みんなの甘さ評価から検索
         twin_recommendations: 甘さツインのあまピタ評価から検索
       message:
-        no_diagnosis: 甘さ感覚診断を行うと、<br>甘さツインの「あまピタッ！」評価一覧が見られます✧*
+        no_diagnosis: 甘さ感覚診断を行うと、<br>甘さツインのあまピタ評価一覧が見られます✧*
         general_notice: ※ 甘さツインがいない場合があります
-        twin_without_posts: 甘さツインのあまピタ評価はまだありません
+        twin_without_posts: 甘さツインのあまピタ評価はまだありません...。<br>新しい甘さとの出会いを楽しみにしていてください✧*
         no_twins: あなたの甘さツインはまだいないようです...。<br>新しい甘さとの出会いを楽しみにしていてください✧*
     show:
       title: レビュー詳細
@@ -298,11 +298,11 @@ ja:
     snack: スナック菓子
     other: その他
     index:
-      title: あまピタ評価するカテゴリを選択
+      title: あまピタ判定するカテゴリを選択
     show:
-      title: あまピタ評価する商品を選択
+      title: あまピタ判定する商品を選択
       product_not_found: 商品が見つかりませんでした
-      product_register_suggestion: 商品が見つからない場合、<br>君のあまピタ評価を登録してみよう！
+      product_register_suggestion: 商品が見つからない場合、<br>商品を登録してあまピタ判定をしてみよう！
   notifications:
     index:
       title: 通知
