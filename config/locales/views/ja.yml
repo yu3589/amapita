@@ -29,7 +29,7 @@ ja:
       no_rating: あまピタ評価はまだありません
     buttons:
       post_index: 新着の<br>甘さ評価を見る 
-      category_index: あまピタ判定する<br>商品を探す (カテゴリ一覧へ遷移)
+      category_index: あまピタ判定をする<br>商品を探す
       new_post: あまピタ評価をする
       retake_diagnosis: もう一度診断する
       take_diagnosis: 甘さ感覚診断をする

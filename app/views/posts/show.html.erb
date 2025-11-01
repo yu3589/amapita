@@ -137,13 +137,13 @@
               <p><%= I18n.t("enums.post.sweetness_rating.#{@post.sweetness_rating}") %></p>
             </div>
             <% if user_signed_in? && current_user.own?(@post) && @post.publish? %>
-              <span class="flex flex-col items-center rounded-xl bg-base-200 p-2 sm:p-3">
-                <%= link_to "https://twitter.com/intent/tweet?text=#{CGI.escape(@post.x_share_text)}",
+              <%= link_to "https://twitter.com/intent/tweet?text=#{CGI.escape(@post.x_share_text)}",
                     target: "_blank",
                     rel: "noopener noreferrer" do %>
+                <span class="flex flex-col items-center rounded-xl bg-base-200 p-2 sm:p-3">
                   <%= image_tag "x-logo.svg", class: "h-6 w-6" %>
-                <% end %>
-              </span>
+                </span>
+              <% end %>
             <% end %>
             <% unless @post.unpublish? || current_user&.own?(@post) %>
               <% if user_signed_in? %>
@@ -212,13 +212,13 @@
               </div>
 
               <% if user_signed_in? && current_user.own?(@post) && @post.publish? %>
-                <span class="flex flex-col items-center rounded-xl bg-base-200 p-2 sm:p-3">
-                  <%= link_to "https://twitter.com/intent/tweet?text=#{CGI.escape(@post.x_share_text)}",
+                <%= link_to "https://twitter.com/intent/tweet?text=#{CGI.escape(@post.x_share_text)}",
                       target: "_blank",
                       rel: "noopener noreferrer" do %>
+                  <span class="flex flex-col items-center rounded-xl bg-base-200 p-2 sm:p-3">
                     <%= image_tag "x-logo.svg", class: "h-6 w-6" %>
-                  <% end %>
                 </span>
+                <% end %>
               <% end %>
             </div>
           </div>
