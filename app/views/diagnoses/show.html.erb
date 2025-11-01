@@ -6,14 +6,25 @@
     <div class="text-base leading-relaxed text-neutral text-center p-3">
       あなたの<span class="sm:hidden"><br></span>「好みの甘さ感覚チャート」が<br>出来上がりました！
     </div>
-    <div class="px-2 py-4 md:py-6 text-neutral">
+    <div class="px-2 py-4 text-neutral">
       <div class="flex justify-center items-end flex-wrap gap-1 md:gap-2 text-base">
         <span class="text-left self-start">あなたは...</span>
         <span class="text-xl bg-primary text-center rounded-xl px-5 py-3 md:px-6 text-base-100">
           <%= I18n.t("enums.sweetness_type.sweetness_kind.#{@profile.sweetness_kind}") %>
         </span>
-        <span class="text-base text-neutral ml-auto md:ml-0">タイプ</span>
+        <span class="text-base text-neutral ml-auto md:ml-0">タイプ✧*</span>
       </div>
+    </div>
+
+    <div class="flex w-full justify-end px-10 sm:px-30">
+      <%= link_to "https://twitter.com/intent/tweet?url=#{root_url}diagnoses/result/#{@profile.token}&text=#{CGI.escape("【甘さ感覚診断結果】\n＼#{I18n.t("enums.sweetness_type.sweetness_kind.#{@profile.sweetness_kind}")}タイプ／でした！\n\n#甘さ感覚診断\n#あまピタッ")}",
+          target: "_blank",
+          rel: "noopener noreferrer" do %>
+        <span class="flex flex-row rounded-full bg-base-200 p-2 hover-animation">
+          <%= image_tag "x-logo.svg", class: "h-6 w-6" %>
+          <p class="pt-1 text-sm">でシェア</p>
+        </span>
+      <% end %>
     </div>
 
     <div class="flex justify-center p-4">
@@ -32,19 +43,15 @@
         </div>
     </div>
 
-    <div class="flex flex-col items-center gap-2 sm:gap-6 pt-4 pb-6">
-      <%= link_to "#", class: "flex flex-col items-center text-center text-sm button-primary bg-base-200 btn-accent opacity-60 pointer-events-none" do %>
-        X でシェア
-        <span class="text-sm text-center text-error">※ 準備中</span>
-      <% end %>
-      <div class="flex flex-row items-center gap-4">
-        <%= link_to posts_path, data: { turbo: false }, class: "text-center text-sm button-primary bg-primary" do %>
+
+      <div class="flex flex-row items-center gap-4 py-4 sm:py-6">
+        <%= link_to posts_path, data: { turbo: false }, class: "text-center text-sm button-primary bg-accent" do %>
           <%= raw t('defaults.buttons.post_index') %>
         <% end %>
-        <%= link_to categories_path, data: { turbo: false }, class: "text-center text-sm button-primary bg-accent" do %>
+        <%= link_to categories_path, data: { turbo: false }, class: "text-center text-sm button-primary bg-primary" do %>
           <%= raw t('defaults.buttons.category_index') %>
         <% end %>
       </div>
-    </div>
+
   </div>
 </div>

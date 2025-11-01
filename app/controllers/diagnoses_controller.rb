@@ -39,6 +39,8 @@ class DiagnosesController < ApplicationController
   def show
     @profile = SweetnessProfile.find_by!(token: params[:token])
     @sweetness_kind = @profile.sweetness_kind
+
+    set_meta_tags(helpers.diagnosis_meta_tags(@profile))
   end
 
   private
