@@ -1,7 +1,7 @@
 class UserDecorator < Draper::Decorator
   delegate_all
 
-  AVATAR_VARIANT_OPTIONS = { resize_to_fill: [ 80, 80 ], format: :webp, saver: { quality: 65 } }.freeze
+  AVATAR_VARIANT_OPTIONS = { resize_to_fill: [ 80, 80 ], format: :webp, quality: 70 }.freeze
 
   def avatar_image(**options)
     default_classes = "rounded-full object-cover"
