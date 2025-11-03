@@ -103,9 +103,6 @@ ja:
       destroy:
         success: ログアウトしました
         failure: 既にログアウトしています
-    dashboards:
-      index:
-        title: ダッシュボード
     products:
       index:
         title: 商品一覧

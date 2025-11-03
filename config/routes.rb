@@ -42,13 +42,12 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
-    root "dashboards#index"
+    root "products#index"
 
     get "login", to: "user_sessions#new"
     post "login", to: "user_sessions#create"
     delete "logout", to: "user_sessions#destroy"
 
-    resource :dashboard, only: %i[index]
     resources :products
     resources :posts, only: %i[index destroy]
   end
