@@ -27,7 +27,7 @@ class PostsController < ApplicationController
 
   def create
     @post = current_user.posts.build(post_params)
-    unless @post.product.user.present?
+    if @post.product&.user.blank?
       @post.product.user = current_user
     end
     if @post.save
