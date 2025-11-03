@@ -27,7 +27,9 @@ class PostsController < ApplicationController
 
   def create
     @post = current_user.posts.build(post_params)
-    @post.product.user = current_user
+    unless @post.product.user.present?
+      @post.product.user = current_user
+    end
     if @post.save
       # バッジの付与
       new_badge = PostBadge.check_and_award_post_badges(current_user)
