@@ -2,21 +2,22 @@ class Product < ApplicationRecord
   include ImageValidatable
   has_one_attached :image
 
-  validates :name, presence: true, length: { maximum: 40 }
-  validates :manufacturer, presence: { message: :select }
-  validates :name, uniqueness: { scope: :manufacturer, message: "とメーカーの組み合わせは既に存在します" }
+  validates :name, presence: true, length: { maximum: 24 }
+  validates :manufacturer, presence: true
+  validates :name, uniqueness: { scope: :manufacturer, message: :name_manufacturer_taken }
   validates :category_id, presence: { message: :select }
 
   belongs_to :category, optional: true
+  belongs_to :user
   has_many :posts, dependent: :destroy
   has_many :bookmarks, dependent: :destroy
 
   def total_posts
-    posts.size
+    posts.publish.size
   end
 
   def perfect_sweetness_count
-    posts.where(sweetness_rating: Post.sweetness_ratings[:perfect_sweetness]).size
+    posts.publish.where(sweetness_rating: Post.sweetness_ratings[:perfect_sweetness]).size
   end
 
   def average_sweetness_scores

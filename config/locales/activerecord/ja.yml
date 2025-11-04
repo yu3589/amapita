@@ -1,4 +1,15 @@
 ja:
+  errors:
+    format: "%{attribute}%{message}"
+    messages:
+      blank: "を入力してください"
+      required: "を入力してください"
+      select: "を選んでください"
+      too_long: "は%{count}文字以内で入力してください"
+      taken: が登録できませんでした。入力内容をご確認ください
+      too_short: "は%{count}文字以上で入力してください"
+      name_manufacturer_taken: "とメーカーの組み合わせは既に存在します"
+      confirmation: と一致しません
   activerecord:
     models:
       user: ユーザー
@@ -30,15 +41,18 @@ ja:
         remember_me: ログイン情報を記憶する
       profile: ユーザー情報
       post:
+        publish: 公開
+        unpublish: 非公開
         sweetness_rating: あまピタ度
         review: レビュー
-        post_sweetness_score: あまさ評価
+        post_sweetness_score: 甘さ評価
         image: 商品の画像
       product:
         name: 商品名
         image: 商品の画像
         category_id: カテゴリ
         manufacturer: メーカー
+        product_url: 楽天市場の商品URL
       comment:
         body: コメント
   enums:
@@ -46,7 +60,7 @@ ja:
       sweetness_kind:
         fresh_natural: さっぱり自然派
         rich_romantic: 濃厚ロマン派
-        sweet_dreamer: 甘党ドリーマー
+        sweet_dreamer: ザ・甘党
         balance_seeker: バランス探求派
     post:
       sweetness_rating:

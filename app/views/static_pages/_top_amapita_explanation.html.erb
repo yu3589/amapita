@@ -1,6 +1,6 @@
 <div class="flex flex-col flex-grow items-center text-center p-6 md:p-10">
-  <div class="text-lg md:text-xl ring-primary sliders-title inline-flex items-center">
-    「あまピタ度」とは？
+  <div class="text-lg md:text-xl border-b-4 border-dotted border-primary inline-block pb-1">
+    『 あまピタ度 』とは？
   </div>
 
   <div class="text-base md:text-md py-4 md:p-8 gap-2 leading-loose">
@@ -10,7 +10,7 @@
     ５段階で評価します。
   </div>
 
-  <div class="flex items-center justify-center gap-2 md:gap-5 px-2 py-10 md:pb-12">
+  <div class="flex items-center justify-center gap-2 md:gap-5 px-2 py-6 md:pb-12">
     <% smileys = [
       {img: "smiley-meh.svg", color: "bg-accent", size: "h-8 w-8 md:h-9 md:w-9"},
       {img: "smiley-blank.svg", color: "bg-accent", size: "h-8 w-8 md:h-9 md:w-9"},
@@ -36,15 +36,17 @@
   </div>
 
   <!-- 投稿バッジ -->
-  <div class="flex flex-row pb-4">
-    <div class="text-lg ring-secondary sliders-title inline-flex items-center gap-2">
-      <%= image_tag "badge.svg", class: "h-6 w-6" %>
-      投稿バッジとは？
+  <div class="text-md sm:text-xl inline-flex items-center gap-2">
+    <div class="flex flex-col">
+      <div class="flex flex-row gap-2 items-center justify-center border-b-4 border-dotted border-secondary pb-1">
+        <%= image_tag "badge.svg", class: "h-7 w-7" %>
+          投稿バッジ
+      </div>
     </div>
   </div>
 
   <div class="text-base md:text-md md:p-4 leading-loose">
-    投稿を重ねるごとに、<span class="md:hidden"><br></span>新しい称号バッジが手に入ります！
+    投稿を重ねるごとに、<span class="md:hidden"><br></span>新しい称号バッジが手に入ります。
     <br>あなたの甘さの冒険の歩みが、<span class="md:hidden"><br></span>そのままバッジに✧*
   </div>
 
@@ -69,7 +71,7 @@
     <% end %>
 
     <div class="text-sm py-4">
-      さらに投稿を重ねると、特別な称号が現れるかも…!?
+      さらに投稿を重ねると、特別な称号が現れるかも...!?
     </div>
   </div>
 </div>

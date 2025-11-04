@@ -57,6 +57,15 @@ gem "ransack"
 gem "meta-tags"
 gem "pagy"
 
+# Security
+gem "rack-attack"
+
+# Test
+gem "rspec-rails"
+gem "factory_bot_rails"
+gem "faker"
+gem "simplecov"
+
 # Debug & Development Tools
 gem "swimming_fish", "~> 0.2.2"
 

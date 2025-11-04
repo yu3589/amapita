@@ -1,0 +1,125 @@
+<div class="w-full py-1 md:py-3 md:px-2">
+  <% @likes.each do |post| %>
+    <!-- カード -->
+    <div class="card bg-base-100 p-2 shadow-sm min-h-52 rounded-4xl flex flex-col relative mb-4">
+      <!-- ユーザー情報 -->
+      <div class="flex flex-col pl-2 md:pl-6 text-sm">
+        <%= user_profile_link_or_tooltip(post.user,
+          class: "flex items-center md:gap-2 md:hover:bg-stone-200/80 md:duration-250 md:rounded-4xl md:px-2 md:w-fit") do %>
+          <%= post.user.decorate.avatar_image(class: "w-9 h-9 md:w-10 md:h-10") %>
+
+          <div class="flex flex-col p-2 md:p-1 gap-1 md:gap-2 text-neutral">
+            <%= post.user.name %>
+
+            <!-- バッジ -->
+            <div class="flex flex-row gap-1 flex-wrap">
+              <span class="flex flex-row gap-1 text-[11px] items-center text-neutral md:text-xs rounded-full px-2 py-1 bg-success w-fit whitespace-nowrap">
+                <%= image_tag "badge.svg", class: "h-5 w-5" %>
+                <%= display_post_badge(post.user) %>
+              </span>
+
+              <% if user_signed_in? && post.user != current_user && sweetness_twin?(post.user) %>
+                <span class="flex flex-row gap-1 text-[11px] md:text-xs items-center text-neutral rounded-full px-2 py-1 bg-info w-fit">
+                  <%= image_tag "handshake.svg", class: "h-4 w-4" %>
+                  <%= display_sweetness_twin_badge(post.user) %>
+                </span>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+      <!-- 投稿情報 -->
+      <div class="flex flex-row gap-2 items-start md:px-4 w-full">
+        <!-- 画像 -->
+      <figure x-data="{ imageLoaded: false }"
+              x-init="imageLoaded = $el.querySelector('img')?.complete || false"
+              class="flex-shrink-0" >
+        <div x-cloak x-show="!imageLoaded" class="flex animate-pulse space-x-4">
+          <div class="p-2 md:p-3">
+            <div class="size-22 sm:size-30 rounded-xl bg-base-200"></div>
+          </div>
+        </div>
+
+        <div x-show="imageLoaded" x-transition>
+          <div class="p-2 md:p-3">
+            <%= post.decorate.post_image(
+                  class: "size-22 sm:size-30",
+                        "@load" => "imageLoaded = true",
+                        "@error"=> "imageLoaded = true"
+                ) %>
+          </div>
+        </div>
+      </figure>
+
+        <div class="absolute top-3 right-6">
+            <span class="flex items-center gap-1">
+            <% unless post.unpublish? || current_user&.own?(post) %>
+                <% if user_signed_in? %>
+                <%= render 'posts/like_buttons', { post: post } %>
+                <% else %>
+                <label class="flex flex-row items-center gap-1 cursor-pointer tooltip tooltip-left sm:tooltip-bottom" 
+                        data-tip="<%= t('defaults.require_login') %>">
+                    <%= image_tag "heart.svg", class: "h-6 w-6 ml-1" %>
+                </label>
+                <% end %>
+            <% end %>
+            </span>
+        </div>
+
+        <div class="flex flex-col items-start flex-1 min-w-0 hover:opacity-70 w-full pb-3 md:pb-6">
+          <!-- 投稿情報 -->
+          <div class="flex-1 min-w-0 flex flex-col text-neutral justify-between w-full">
+            <%= link_to post_path(post) do %>
+              <div class="flex items-center justify-between py-1 text-base-300 text-xs w-full">
+                <%= post.product.manufacturer %>
+              </div>
+              <div class="mb-1 md:mb-3 w-full">
+                <div class="card-title text-base md:text-lg line-clamp-2">
+                  <%= post.product.name %>
+                </div>
+              </div>
+          </div>
+
+          <!-- あまピタ評価 -->
+          <div class="flex-shrink-0 w-full max-w-full">
+            <% rating_images = {
+              "lack_of_sweetness" => "smiley-meh.svg",
+              "could_be_sweeter" => "smiley-blank.svg",
+              "perfect_sweetness" => "smiley-wink.svg",
+              "slightly_too_sweet" => "smiley-nervous.svg",
+              "too_sweet" => "smiley-x-eyes.svg"
+            } %>
+
+            <% bg_colors = {
+              "lack_of_sweetness" => "bg-accent",
+              "could_be_sweeter" => "bg-accent",
+              "perfect_sweetness" => "bg-primary",
+              "slightly_too_sweet" => "bg-secondary",
+              "too_sweet" => "bg-secondary"
+            } %>
+
+            <div class="inline-flex items-center rounded-xl gap-2 px-3 py-2 md:py-2 md:px-4 text-neutral text-sm md:text-base <%= bg_colors[post.sweetness_rating] %> w-fit max-w-full overflow-hidden">
+              <%= image_tag rating_images[post.sweetness_rating], class: "h-7 w-7 md:h-8 md:w-8" %>
+              <p><%= I18n.t("enums.post.sweetness_rating.#{post.sweetness_rating}") %></p>
+            </div>
+          </div>
+          <div class="py-3 pr-8 text-xs md:text-sm truncate max-w-48 sm:max-w-xs
+            <%= post.review.present? ? '' : 'md:h-10 invisible' %>">
+            <%= post.review %>
+          </div>
+          <div class="absolute top-30 right-3 hidden sm:block">
+            <span class="gap-1">
+              <%= image_tag "arrow.svg", class: "h-6 w-6 ml-1" %>
+            </span>
+          </div>
+            <% end %>
+        </div>
+      </div>
+
+      <span class="absolute bottom-2 right-5 text-base-200 text-xs md:text-sm">
+        <%= time_ago_in_words(post.created_at) %>前
+      </span>
+    </div>
+  <% end %>
+</div>

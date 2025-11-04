@@ -1,16 +1,13 @@
 <div class="flex flex-col flex-grow items-center text-center p-6 sm:p-10">
-  <div class="text-base sm:text-xl ring-primary sliders-title text-center">
-    「甘さ感覚診断」でできること
+  <div class="text-base sm:text-xl border-b-4 border-dotted border-primary inline-block pb-1">
+    『 甘さ感覚診断 』でできること
   </div>
 
-  <div class="text-base sm:text-md py-6 sm:p-8 gap-2 leading-loose">
+  <div class="text-base sm:text-md py-4 sm:p-6 gap-2 leading-loose">
     甘さ感覚診断では、<span class="inline"><br></span>
-    あなたの好みの甘さ傾向タイプが<span class="sm:hidden"><br></span>わかります。
+    あなたの好みの甘さ傾向タイプが診断できます。
     <span class="inline"><br></span>
-    まずは、あなたの「好みの甘さ感覚」を診断してみましょう！
-    <div class="text-xs p-2 leading-loose">
-    *✧ ログインして診断すると、<br>甘さツインが教えてくれる「あまピタッ！」商品に出会えるかも！✧*
-    </div>
+    また、ログインをして診断すると、<span class="inline"><br></span>診断結果を元に「甘さツイン」が判定されます✧*
   </div>
 
   <div class="pb-4 sm:pb-6 w-fit">
@@ -24,22 +21,22 @@
   </div>
 
   <div class="flex flex-col items-center leading-loose">
-    <div class="bg-white rounded-4xl p-4 sm:py-4 sm:px-16 w-full max-w-4xl">
-      <div class="p-3 text-base">
-        ユーザー登録をすると ...?<span class="inline"><br></span>
+    <div class="ring-info ring-2 rounded-4xl p-4 sm:py-4 sm:px-2 max-w-xl">
+      <div class="p-2 sm:p-3 text-base sm:text-lg">
+       『 甘さツイン 』とは ...?<span class="inline"><br></span>
       </div>
       <div class="text-sm leading-loose">
-        好みの甘さ感覚が近いユーザー
+        好みの甘さ感覚が近い相手ユーザーに
         <div class="bg-info rounded-4xl p-2 inline-flex items-center gap-2 text-sm">
           <%= image_tag "handshake.svg", class: "h-5 w-5" %>
           甘さツイン
         </div>
-          の<span class="inline"><br></span>「あまピタッ！」評価一覧を<span class="sm:hidden"><br></span>
-          見ることができ、<span class="inline"><br></span>"ちょうど良い甘さ"の商品と<span class="sm:hidden"><br></span>
-          出会いやすくなります。
+          バッジが表示されます。<span class="inline"><br></span>投稿一覧では、甘さツインの『 あまピタ評価 』一覧を
+          見ることができ、<span class="inline"><br></span>"ちょうど良い甘さ"の商品と
+          出会いやすくなります✧*
         <div class="p-1">
       </div> 
-        <span class="text-base-200 text-xs">※ 診断結果によっては、<span class="sm:hidden"><br></span>
+        <span class="text-stone-400 text-sm">※ 診断結果によっては、<span class="sm:hidden"><br></span>
           甘さツインがいない場合があります。
         </span>
       </div>
@@ -52,7 +49,7 @@
       <% end %>
     </div>
 
-    <div class="w-fit text-sm sm:text-base">
+    <div class="w-fit text-sm sm:text-base pb-6 sm:pb-1">
       <%= link_to raw("みんなの甘さ評価を<span class='sm:hidden'><br></span>見に行く"), posts_path,
           class: "bg-primary sliders-button hover-animation w-fit text-center" %>
     </div>

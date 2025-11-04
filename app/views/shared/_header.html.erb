@@ -1,18 +1,17 @@
-<div class="navbar bg-base-100 fixed shadow-sm px-4 md:px-6 z-[9999]">
-
+<div class="navbar bg-base-100 fixed shadow-sm z-40 h-10 sm:h-12">
   <div class="flex-shrink-0">
-    <%= link_to root_path, class: "inline-block px-2" do %>
-      <%= image_tag "logo.webp", class: "h-12 md:h-14 w-auto" %>
+    <%= link_to root_path, class: "inline-block px-1 sm:px-2" do %>
+      <%= image_tag "icon-logo.webp", class: "w-30" %>
     <% end %>
   </div>
 
   <div class="ml-auto">
-    <div class="drawer drawer-end">
+    <div class="drawer drawer-end z-50">
       <input id="my-drawer-4" type="checkbox" class="drawer-toggle" />
       <div class="drawer-content">
-        <label for="my-drawer-4" class="btn btn-lg btn-square btn-ghost hover:bg-[var(--color-base-400)]">
+        <label for="my-drawer-4" class="btn btn-lg btn-square btn-ghost">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" 
-               viewBox="0 0 24 24" class="inline-block h-7 w-7 text-neutral stroke-current"> 
+               viewBox="0 0 24 24" class="inline-block h-7 w-7 text-base-300 stroke-current"> 
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
                   d="M5 12h.01M12 12h.01M19 12h.01
                      M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"></path>
@@ -20,9 +19,9 @@
         </label>
       </div>
 
-      <div class="drawer-side">
+      <div class="drawer-side z-50">
         <label for="my-drawer-4" aria-label="close sidebar" class="drawer-overlay"></label>
-        <ul class="menu bg-base-100 text-base-content min-h-full w-60 md:w-80 p-4">
+        <ul class="menu bg-base-100 text-base-content min-h-screen w-55 md:w-70 2xl:w-80 p-4">
           <% if user_signed_in? %>
             <li>
               <div class="flex items-center gap-3 p-2 md:p-4 pointer-events-none">
@@ -37,13 +36,26 @@
             <li><%= link_to t('shared.header.sign_up'), new_user_registration_path %></li>
           <% end %>
           <li><%= link_to t('shared.header.about'), root_path %></li>
-          <li>
             <div class="flex items-center my-4 pointer-events-none">
-              <div class="flex-grow border-t border-2 border-[var(--color-base-400)]"></div>
+              <div class="flex-grow border-t border-2 border-stone-200"></div>
             </div>
           </li>
           <li><%= link_to t('shared.header.posts'), posts_path %></li>
           <li><%= link_to t('shared.header.diagnosis'), new_diagnosis_path %></li>
+            <div class="flex items-center my-4 pointer-events-none">
+              <div class="flex-grow border-t border-2 border-stone-200"></div>
+            </div>
+          <li><%= link_to t('shared.header.terms_of_service'), terms_path %></li>
+          <li><%= link_to t('shared.header.privacy_policy'), privacy_path %></li>
+          <li><%= link_to t('shared.header.contact'), "https://forms.gle/LLJvxhEZWpGxK1EV7",
+                  target: "_blank",
+                  rel: "noopener noreferrer" %></li>
+          <div class="flex items-center my-4 pointer-events-none">
+            <div class="flex-grow border-t border-2 border-stone-200"></div>
+          </div>
+          <div class="flex justify-center items-center my-4 pointer-events-none">
+            <li> © 2025 あまピタッ！</li>
+          </div>
         </ul>
       </div>
     </div>

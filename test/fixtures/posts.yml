@@ -6,6 +6,7 @@ one:
   product_id: 1
   sweetness_rating: 1
   review: MyText
+  status: 0
 
 two:
   id: 2
@@ -13,3 +14,4 @@ two:
   product_id: 2
   sweetness_rating: 1
   review: MyText
+  status: 1

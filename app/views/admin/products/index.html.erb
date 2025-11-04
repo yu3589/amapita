@@ -10,10 +10,10 @@
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
         <% @products.each do |product| %>
           <!-- カード -->
-          <div class="card bg-base-100 p-2 md:p-4 ring-2 ring-[var(--color-base-400)] min-h-52 rounded-4xl flex flex-col relative">
+          <div class="card bg-base-100 p-2 md:p-4 ring-2 ring-stone-300 min-h-52 rounded-4xl flex flex-col relative">
             <!-- 画像 -->
-            <figure class="flex-shrink-0 w-full">
-              <%= product.product_image(class: "w-30 h-30 md:w-40 md:h-40") %>
+            <figure class="w-full">
+              <%= product.product_image(class: "size-30") %>
             </figure>
 
             <!-- 商品情報 -->
@@ -25,9 +25,22 @@
                 <div class="flex items-center justify-between py-1 text-base-300">
                   <%= product.manufacturer %>
                 </div>
-                <div class="card-title text-md md:text-lg line-clamp-3">
+                <div class="card-title text-base line-clamp-3">
                   <%= product.name %>
                 </div>
+                <!-- 商品URL -->
+                <% if product.product_url.present? %>
+                <div class="pt-3">
+                  <div class="flex flex-row underline gap-1">
+                    <%= image_tag "shopping-cart.svg", class: "h-6 w-6" %>
+                      <%= link_to t('defaults.link.product_url'),
+                          product.product_url,
+                          target: "_blank",
+                          rel: "noopener noreferrer",
+                          class: "text-sm text-secondary" %>
+                  </div>
+                </div>
+                <% end %>
               </div>
             </div>
 

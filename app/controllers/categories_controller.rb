@@ -14,6 +14,17 @@ class CategoriesController < ApplicationController
     @product_stats = product_stats(@products)
   end
 
+  def autocomplete
+    @category = Category.find_by!(slug: params[:slug])
+    @products = @category.products
+                         .where("name LIKE ? OR manufacturer LIKE ?", "%#{params[:q]}%", "%#{params[:q]}%")
+                         .limit(10)
+                         .select(:name, :manufacturer)
+    respond_to do |format|
+      format.html { render partial: "categories/search", locals: { products: @products } }
+    end
+  end
+
   private
 
   def product_stats(products)
@@ -22,8 +33,8 @@ class CategoriesController < ApplicationController
     products.each do |product|
       next if product.nil?
 
-      total_posts = product.posts.count || 0
-      perfect_sweetness_count = product.posts.where(sweetness_rating: :perfect_sweetness).count
+      total_posts = product.posts.publish.count || 0
+      perfect_sweetness_count = product.posts.publish.where(sweetness_rating: :perfect_sweetness).count
 
       stats[product.id] = {
         total_posts: total_posts,

@@ -1,19 +1,35 @@
-<div class="p-2 md:p-4">
-  <div class="flex flex-col p-2 w-full max-w-3xl mx-auto bg-base-100 rounded-4xl">
+<div class="p-1 sm:p-4">
+  <div class="flex flex-col p-1 sm:p-2 w-full sm:max-w-3xl mx-auto bg-base-100 rounded-4xl">
     <h1 class="text-center text-xl md:text-2xl p-4 border-b border-base-200 w-full">
-      <%= user == current_user ? t('profiles.show.title') : t('profiles.info') %>
+      <% if controller_name == "users" && action_name == "show" %>
+        <%= t('profiles.info') %>
+      <% else %>
+        <%= t('profiles.show.title') %>
+      <% end %>
     </h1>
 
     <!-- ユーザー情報 -->
-    <div class="flex flex-col justify-center items-center sm:flex-row sm:items-start sm:gap-6 w-full py-4">
-      <div class="md:p-4">
-        <%= user.decorate.avatar_image(class: "w-15 h-15 md:w-20 md:h-20") %>
+    <div class="flex justify-center items-center flex-row sm:items-start w-full pt-4">
+      <%= render "shared/loading" %>
+      <div class="p-3">
+        <%= user.decorate.avatar_image(
+              class: "size-15 sm:size-20",
+              data: { "loader-target": "true" }
+            ) %>
       </div>
 
-      <div class="flex flex-col justify-center items-center gap-2 md:gap-4 text-neutral py-4 px-2">
-        <div class="text-lg md:text-xl font-semibold break-words">
+      <div class="flex flex-col justify-center items-center gap-2 md:gap-4 text-neutral sm:py-4 px-2">
+        <div class="text-base md:text-xl w-full">
           <div class="flex flex-col items-start gap-2">
-            <span><%= user.name %></span>
+            <div class="flex items-center sm:items-start w-full gap-4">
+              <span><%= user.name %></span>
+              <!-- 編集 -->
+              <% if user == current_user %>
+                <%= link_to edit_profile_path, class: "rounded-xl bg-stone-200 duration-200 hover:brightness-96 p-1", data: { turbo: false } do %>
+                  <%= image_tag "pencil.svg", class: "h-6 w-6" %>
+                <% end %>
+              <% end %>
+            </div>
             <% if user_signed_in? && user != current_user && sweetness_twin?(user) %>
               <span class="flex flex-row gap-1 text-xs rounded-full items-center px-2 py-1 bg-info w-fit">
                 <%= image_tag "handshake.svg", class: "h-4 w-4" %>
@@ -21,39 +37,33 @@
               </span>
             <% end %>
             <% if display_post_badge(user).present? %>
-              <span class="flex flex-row gap-1 text-xs rounded-full px-2 py-1 bg-success">
+              <span class="flex flex-row gap-1 text-xs rounded-full px-2 py-1 bg-success items-center">
                 <%= image_tag "badge.svg", class: "h-5 w-5" %>
                 <%= display_post_badge(user) %>
               </span>
+              <% if user == current_user %>
               <span class="text-sm">
-                <%= t('profiles.total_post', count: user.posts.count) %>
+                <%= t('profiles.total_post', count: user.posts.publish.count) %>
               </span>
+              <% end %>
             <% end %>
           </div>
         </div>
-
-        <div class="text-sm md:text-base break-words max-w-[20ch] md:min-h-[1.5rem]">
-          <%= user.self_introduction.presence || "" %>
-        </div>
-
-        <!-- 編集 -->
-        <% if user == current_user %>
-          <div class="flex w-full mt-2 justify-center sm:justify-end">
-            <%= link_to edit_profile_path, class: "text-sm btn btn-outline btn-accent", data: { turbo: false } do %>
-              <%= t('helpers.submit.edit') %>
-            <% end %>
-          </div>
-        <% end %>
+      </div>
+    </div>
+    <div class="flex justify-center py-3">
+      <div class="text-sm max-w-xs sm:max-w-md">
+        <%= user.self_introduction.presence || "" %>
       </div>
     </div>
 
     <!-- チャート -->
     <% if sweetness_profiles.present? %>
       <div class="flex justify-center pb-4 w-full">
-        <div class="w-full max-w-md md:max-w-lg p-2 rounded-3xl bg-white">
+        <div class="w-full max-w-md p-2 rounded-3xl bg-white/80 ring-2 ring-stone-200/30">
 
           <div class="flex justify-end text-sm md:text-base font-bold mb-2">
-            <span class="rounded-xl bg-secondary text-white px-3 py-2 text-sm md:text-base">
+            <span class="rounded-xl bg-secondary text-white/80 px-3 py-2 text-sm md:text-base">
               <%= I18n.t("enums.sweetness_type.sweetness_kind.#{sweetness_type.sweetness_kind}") %>
             </span>
           </div>
@@ -77,7 +87,7 @@
 
           <% if user == current_user %>
             <div class="flex justify-end">
-              <%= link_to new_diagnosis_path, class: "text-sm btn btn-md btn-dash btn-primary hover-animation", data: { turbo: false } do %>
+              <%= link_to new_diagnosis_path, class: "text-sm bg-success button-primary hover-animation", data: { turbo: false } do %>
                 <%= t('defaults.buttons.retake_diagnosis') %>
               <% end %>
             </div>
@@ -86,11 +96,11 @@
       </div>
     <% else %>
       <% if user == current_user %>
-        <div class="text-center py-6 text-sm md:text-base text-base-200">
+        <div class="text-center py-6 text-sm md:text-base text-base-300/70">
           <%= raw t('profiles.diagnosis.no_data') %>
         </div>
-        <div class="flex justify-center">
-          <%= link_to new_diagnosis_path, class: "text-sm btn btn-primary hover-animation", data: { turbo: false } do %>
+        <div class="flex justify-center py-4">
+          <%= link_to new_diagnosis_path, class: "text-sm bg-success button-primary hover-animation", data: { turbo: false } do %>
             <%= t('defaults.buttons.take_diagnosis') %>
           <% end %>
         </div>

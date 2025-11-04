@@ -10,11 +10,14 @@ class User < ApplicationRecord
   has_one_attached :avatar
 
   validates :name, presence: true, length: { maximum: 20 }, uniqueness: true
+  validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP },
+            uniqueness: { case_sensitive: false }
   validates :uid, presence: true, uniqueness: { scope: :provider }
   validates :self_introduction, length: { maximum: 100 }
 
   belongs_to :sweetness_type, optional: true
   has_many :sweetness_profiles, dependent: :destroy
+  has_many :products
   has_many :posts, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :like_posts, through: :likes, source: :post

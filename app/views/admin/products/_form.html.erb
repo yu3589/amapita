@@ -13,18 +13,13 @@
       </div>
     <% end %>
 
-    <div class="form-control">
-      <%= f.label :image, t('activerecord.attributes.product.image'), class: "label p-2 text-neutral" %>
-      <span class="text-error">*</span>
+    <div class="form-control flex flex-col">
+      <div class="flex flex-row justify-center py-2 gap-1">
+        <%= f.label :image, t('activerecord.attributes.product.image'), class: "label p-2 text-neutral" %>
+        <span class="text-error">*</span>
+      </div>
       <%= f.file_field :image,
-            class: "block w-full max-w-xs mx-auto text-sm text-base-300
-                    file:mr-4 file:py-2 file:px-2 bg-base-100 rounded-xl 
-                    ring-2 ring-[var(--color-base-400)]
-                    file:rounded-l-lg
-                    file:text-sm
-                    file:bg-accent file:transition file:duration-200 file:hover:brightness-96
-                    file:text-neutral
-                    cursor-pointer" %>
+            class: "file-input file-input-secondary file-input text-base-300" %>
     </div>
 
     <div class="form-control">
@@ -37,19 +32,18 @@
 
     <div class="form-control">
       <div class="label p-2 text-neutral flex justify-center items-center space-x-1">
+        <%= f.label :product_url %>
+      </div>
+        <%= f.text_field :product_url, class: "input input-bordered" %>
+    </div>
+
+    <div class="form-control">
+      <div class="label p-2 text-neutral flex justify-center items-center space-x-1">
         <%= f.label :manufacturer %>
         <span class="text-error">*</span>
       </div>
       <%= f.text_field :manufacturer, 
-            list: "manufacturer_list",
-            placeholder: t("defaults.select.manufacturer"),
             class: "input input-bordered" %>
-
-      <datalist id="manufacturer_list">
-        <% I18n.t("products.manufacturers.list").each do |manufacturer| %>
-          <option value="<%= manufacturer %>"><%= manufacturer %></option>
-        <% end %>
-      </datalist>
     </div>
 
     <div class="form-control">

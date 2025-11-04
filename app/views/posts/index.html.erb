@@ -1,10 +1,10 @@
-<div class="max-w-2xl md:max-w-7xl mx-auto">
+<div class="max-w-2xl md:max-w-7xl 2xl:max-w-screen-2xl mx-auto items-center">
   <!-- タブ切替用ラジオ -->
   <input type="radio" name="posts_tab" id="radio-new" class="hidden" <%= params[:tab] != 'recommend' ? 'checked' : '' %>>
   <input type="radio" name="posts_tab" id="radio-recommend" class="hidden" <%= params[:tab] == 'recommend' ? 'checked' : '' %>>
 
   <!-- 検索フォーム -->
-  <div class="w-full max-w-xl mx-auto py-3">
+  <div class="w-full max-w-xl mx-auto pb-1 sm:py-3">
     <div id="search-form-new" class="<%= params[:tab] == 'recommend' ? 'hidden' : '' %>">
       <%= form_with url: posts_path, method: :get, local: true do |f| %>
         <%= hidden_field_tag :tab, 'new' %>
@@ -23,25 +23,23 @@
   </div>
 
   <!-- タブ -->
-  <div class="flex justify-center gap-5 md:gap-10 tabs-labels p-2 text-center">
+  <div class="flex justify-center gap-5 sm:gap-7 tabs-labels p-2 text-center w-full">
     <a href="<%= posts_path(tab: 'new') %>" 
       class="cursor-pointer button-secondary 
-              <%= params[:tab] != 'recommend' ? 'bg-white ring-accent' : 'bg-[var(--color-base-400)] ring-base-200' %>">
-      <div class="flex flex-row items-center gap-1">
-        <%= image_tag "cookie.svg", class: "h-5 w-5 md:h-6 md:w-6" %>
-        <%= t('.new_post') %>
+              <%= params[:tab] != 'recommend' ? 'bg-white/80 ring-accent' : 'bg-[var(--color-base-400)] ring-base-200' %>">
+      <div class="flex flex-row items-center justify-center gap-1">
+        <span class="pt-2 sm:pt-0"><%= image_tag "cookie.svg", class: "h-5 w-5 md:h-6 md:w-6" %></span>
+        <span class="pt-2 sm:pt-0"><%= t('.new_post') %></span>
       </div>
     </a>
 
     <% if user_signed_in? %>
       <a href="<%= posts_path(tab: 'recommend') %>"
         class="relative cursor-pointer button-secondary 
-                <%= params[:tab] == 'recommend' ? 'bg-white ring-primary' : 'bg-[var(--color-base-400)] ring-base-200' %>
-                tooltip tooltip-top"
-        data-tip="<%= t('.tooltips.twins_recommendations_user') %>">
+                <%= params[:tab] == 'recommend' ? 'bg-white/80 ring-primary' : 'bg-[var(--color-base-400)] ring-base-200' %>">
         <div class="flex flex-row items-center gap-1">
           <%= image_tag "handshake.svg", class: "h-5 w-5 md:h-6 md:w-6" %>
-          <%= t('.twins_recommendations') %>
+          甘さツインの<br class="md:hidden">あまピタ評価
         </div>
       </a>
 
@@ -51,74 +49,68 @@
               data-tip="<%= t('defaults.require_login') %>">
           <div class="flex flex-row items-center gap-1 opacity-70">
             <%= image_tag "handshake.svg", class: "h-5 w-5 md:h-6 md:w-6" %>
-            <%= t('.twins_recommendations') %>
+            甘さツインの<br class="md:hidden">あまピタ評価
           </div>
-          <div class="dropdown dropdown-bottom dropdown-end absolute right-1 bottom-1">
-            <div tabindex="0" role="button" class="btn bg-base-100 btn-xs btn-circle text-base-300">?</div>
-              <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-1 w-35 p-1 shadow-sm text-xs pointer-events-none">
-                <li><a><%= raw t('.tooltips.twins_recommendations_guest') %></a></li>
-              </ul>
-            </div>
         </span>
       </div>
     <% end %>
   </div>
 
-<!-- 投稿一覧 -->
-<div class="w-full max-w-7xl mx-auto tabs-content md:px-30">
-  <!-- 新着 -->
-  <div id="tab-new-content" class="tab-panel w-full <%= params[:tab] == 'recommend' ? 'hidden' : '' %>">
-    <% if @new_posts.present? %>
-      <div class="grid gap-y-4 md:grid-cols-2 md:gap-y-2 md:gap-x-1 justify-between">
-        <%= render @new_posts %>
-      </div>
-
-      <div class="flex items-center justify-center mt-4">
-        <%== pagy_nav(@pagy_new) %>
-      </div>
-    <% else %>
-      <div class="flex flex-col justify-center gap-5 md:gap-5 p-6 items-center text-center text-xs md:text-sm">
-        <%= image_tag "smiley-x-eyes-fill.svg", class: "h-15 w-15 md:h-20 md:w-20" %>
-        <div class="mb-3"><%= t('defaults.message.no_post') %></div>
-      </div>
-    <% end %>
-  </div>
-
-  <!-- おすすめ一覧 -->
-  <div id="tab-recommend-content" class="tab-panel w-full <%= params[:tab] == 'recommend' ? '' : 'hidden' %>">
-    <% case recommend_state(current_user, @recommended_posts) %>
-    <% when :not_diagnosed %>
-      <div class="flex flex-col justify-center gap-5 md:gap-5 p-6 items-center text-center text-xs md:text-sm">
-      <div class="mt-3"><%= raw t('.message.no_diagnosis') %></div>
-      <div class="text-error"><%= t('.message.general_notice') %></div>
-        <div class="bg-accent sliders-button">
-          <%= link_to t('.button.take_diagnosis'), new_diagnosis_path %>
+  <!-- 投稿一覧 -->
+  <div class="w-full tabs-content sm:px-20 lg:px-50 xl:px-20 2xl:px-0">
+    <!-- 新着 -->
+    <div id="tab-new-content" class="tab-panel w-full <%= params[:tab] == 'recommend' ? 'hidden' : '' %>">
+      <% if @new_posts.present? %>
+        <div class="grid gap-y-1 xl:grid-cols-2 xl:gap-y-1 xl:gap-x-1 2xl:grid-cols-3 justify-items-center">
+          <%= render @new_posts %>
         </div>
-      </div>
-    <% when :twin_with_posts %>
-      <div class="grid gap-y-4 md:grid-cols-2 md:gap-y-2 md:gap-x-1 justify-between">
-        <%= render @recommended_posts %>
-      </div>
-      <div class="flex items-center justify-center mt-4">
-        <%== pagy_nav(@pagy_recommend) %>
-      </div>
-     <% when :twin_without_posts %>
-      <div class="flex flex-col justify-center gap-5 md:gap-5 p-6 items-center text-center text-xs md:text-sm">
-        <%= image_tag "moon.svg", class: "h-15 w-15 md:h-20 md:w-20" %>
-        <div class="mb-3"><%= t('.message.twin_without_posts') %></div>
-      </div>
-    <% when :no_twin %>
-      <div class="flex flex-col justify-center gap-5 md:gap-5 p-6 items-center text-center text-xs md:text-sm">
-        <%= image_tag "moon.svg", class: "h-15 w-15 md:h-20 md:w-20" %>
-        <div class="mb-3 leading-relaxed"><%= raw t('.message.no_twins') %></div>
-      </div>
-    <% else %>
-      <div class="flex flex-col justify-center gap-5 md:gap-5 p-6 items-center text-center text-xs md:text-sm">
-        <%= image_tag "smiley-x-eyes-fill.svg", class: "h-15 w-15 md:h-20 md:w-20" %>
-        <div class="mb-3"><%= t('defaults.message.no_post') %></div>
-      </div>
-    <% end %>
+
+        <div class="flex items-center justify-center mt-4">
+          <%== pagy_nav(@pagy_new) %>
+        </div>
+      <% else %>
+        <div class="flex flex-col justify-center gap-1 md:gap-5 p-2 md:p-6 items-center text-center text-xs md:text-sm">
+          <%= image_tag "smiley-x-eyes-fill.svg", class: "h-15 w-15 md:h-20 md:w-20" %>
+          <div class="mb-3"><%= t('defaults.message.no_post') %></div>
+        </div>
+      <% end %>
+    </div>
+
+    <!-- おすすめ一覧 -->
+    <div id="tab-recommend-content" class="tab-panel w-full <%= params[:tab] == 'recommend' ? '' : 'hidden' %>">
+      <% case recommend_state(current_user, @recommended_posts) %>
+      <% when :not_diagnosed %>
+        <div class="flex flex-col justify-center gap-1 md:gap-5 p-2 md:p-6 items-center text-center text-xs md:text-sm">
+          <div class="mt-3"><%= raw t('.message.no_diagnosis') %></div>
+          <div class="text-error"><%= t('.message.general_notice') %></div>
+          <div class="rounded-full px-4 py-3 bg-success hover-animation">
+            <%= link_to t('.button.take_diagnosis'), new_diagnosis_path %>
+          </div>
+        </div>
+      <% when :twin_with_posts %>
+        <div class="grid gap-y-2 xl:grid-cols-2 xl:gap-y-1 xl:gap-x-1 2xl:grid-cols-3 justify-items-center">
+          <%= render @recommended_posts %>
+        </div>
+        <div class="flex items-center justify-center mt-4">
+          <%== pagy_nav(@pagy_recommend) %>
+        </div>
+      <% when :twin_without_posts %>
+        <div class="flex flex-col justify-center gap-5 md:gap-5 p-6 items-center text-center text-xs md:text-sm">
+          <%= image_tag "moon.svg", class: "h-15 w-15 md:h-20 md:w-20" %>
+          <div class="mb-3"><%= t('.message.twin_without_posts') %></div>
+        </div>
+      <% when :no_twin %>
+        <div class="flex flex-col justify-center gap-5 md:gap-5 p-6 items-center text-center text-xs md:text-sm">
+          <%= image_tag "moon.svg", class: "h-15 w-15 md:h-20 md:w-20" %>
+          <div class="mb-3 leading-relaxed"><%= raw t('.message.no_twins') %></div>
+        </div>
+      <% else %>
+        <div class="flex flex-col justify-center gap-5 md:gap-5 p-6 items-center text-center text-xs md:text-sm">
+          <%= image_tag "smiley-x-eyes-fill.svg", class:"h-15 w-15 md:h-20 md:w-20" %>
+          <div class="mb-3"><%= t('defaults.message.no_post') %></div>
+        </div>
+      <% end %>
+    </div>
   </div>
-</div>
 
 </div>

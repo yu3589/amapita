@@ -1,0 +1,30 @@
+<div class="pt-3">
+  <div class="flex flex-row justify-center items-center">
+    <p><%= t('posts.new.visibility_setting') %></p>
+      <div class="dropdown dropdown-top dropdown-hover pl-1">
+        <div tabindex="0" role="button" class="btn btn-xs btn-white/80 btn-circle">?</div>
+        <ul tabindex="0" class="dropdown-content menu bg-base-100 text-base-300 rounded-box z-[1] w-40 p-1 shadow-sm text-xs">
+          <li><a class="p-1 sm:px-2 sm:py-1"><%= t('defaults.dropdown.visibility_notice') %></a></li>
+        </ul>
+      </div>
+  </div>
+  <div class="flex justify-center space-x-4 pt-3 sm:p-4 gap-3 sm:gap-15">
+    <label class="flex items-center space-x-2 cursor-pointer">
+      <%= f.radio_button :status, 'publish', 
+                          class: "radio radio-sm radio-secondary",
+                          checked: true %>
+      <span class="radio-text">
+        <%= t('activerecord.attributes.post.publish') %>
+      </span>
+
+    </label>
+
+    <label class="flex items-center space-x-2 cursor-pointer">
+      <%= f.radio_button :status, 'unpublish', 
+                          class: "radio radio-sm radio-secondary" %>
+      <span class="radio-text">
+        <%= t('activerecord.attributes.post.unpublish') %>
+      </span>
+    </label>
+  </div>
+</div>

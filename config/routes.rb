@@ -2,7 +2,8 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {
     registrations: "users/registrations",
     sessions: "users/sessions",
-    omniauth_callbacks: "users/omniauth_callbacks"
+    omniauth_callbacks: "users/omniauth_callbacks",
+    passwords: "users/passwords"
     }
 
   root "static_pages#top"
@@ -16,6 +17,9 @@ Rails.application.routes.draw do
 
   resources :posts do
     resources :comments, only: %i[create destroy], shallow: true
+    collection do
+      get :search_products
+    end
   end
 
   resources :likes, only: %i[create destroy]
@@ -28,24 +32,28 @@ Rails.application.routes.draw do
 
   resources :products, only: %i[index show]
 
-  resources :bookmarks, only: %i[create destroy]
+  resources :bookmarks, only: %i[index create destroy]
 
   resources :categories, only: %i[index show], param: :slug do
+    member do
+      get :autocomplete
+    end
     resources :products, only: %i[show]
   end
 
   namespace :admin do
-    root "dashboards#index"
+    root "products#index"
 
     get "login", to: "user_sessions#new"
     post "login", to: "user_sessions#create"
     delete "logout", to: "user_sessions#destroy"
 
-    resource :dashboard, only: %i[index]
     resources :products
     resources :posts, only: %i[index destroy]
   end
 
+  get "privacy", to: "static_pages#privacy"
+  get "terms", to: "static_pages#terms"
   get "up" => "rails/health#show", as: :rails_health_check
   get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest

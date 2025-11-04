@@ -1,0 +1,66 @@
+<%= f.hidden_field :product_id, value: @post.product.id %>
+<div class="flex justify-center w-full">
+  <div class="py-2 px-4 sm:py-3 sm:px-5 rounded-4xl text-sm text-neutral w-fit ring-base-200 ring-2">
+    <span class="text-left inline-block leading-loose">
+      <p><%= t('activerecord.attributes.product.name') %>：<%= @post.product.name %></p>
+      <p><%= t('activerecord.attributes.product.manufacturer') %>：<%= @post.product.manufacturer %></p>
+      <p><%= t('activerecord.attributes.product.category_id') %>：<%= @post.product.category.name %></p>
+    </span>
+  </div>
+</div>
+
+<%= render "visibility_setting", f: f %>
+
+<% if @post.image.attached? %>
+  <div class="flex flex-col items-center gap-4">
+    <figure x-data="{ imageLoaded: false }" 
+            x-init="$nextTick(() => { 
+              const img = $el.querySelector('img');
+              if (img?.complete) imageLoaded = true;
+            })"
+            class="p-4 flex flex-col items-center">
+      <div x-cloak x-show="!imageLoaded" class="flex animate-pulse space-x-4">
+        <div class="size-30 rounded-xl bg-base-200"></div>
+      </div>
+
+      <div x-show="imageLoaded" x-transition>
+        <%= @post.decorate.post_image(
+              class: "size-30",
+              "x-on:load": "imageLoaded = true",
+              "x-on:error": "imageLoaded = true"
+            ) %>
+      </div>
+
+      <p class="mt-2 text-sm text-neutral">
+        <%= t('posts.edit.uploaded_post_image') %>
+      </p>
+    </figure>
+
+    <div class="form-control w-full max-w-xs">
+      <label class="label">
+        <span class="label-text text-sm p-1"><%= t('posts.edit.replace_post_image') %></span>
+      </label>
+      <%= f.file_field :image,
+          class: "file-input file-input-accent file-input-sm sm:file-input-md text-base-300" %>
+    </div>
+  </div>
+<% else %>
+<div class="form-control">
+  <div class="flex flex-col items-center py-2 gap-1">
+    <div class="flex flex-row items-center">
+      <%= f.label :image, t('activerecord.attributes.product.image'), class: "label p-2 text-neutral" %>
+      <div class="dropdown dropdown-top dropdown-hover pl-1">
+        <div tabindex="0" role="button" class="btn btn-xs btn-white/80 btn-circle">?</div>
+        <ul tabindex="0" class="dropdown-content menu bg-base-100 text-base-300 rounded-box z-[1] w-40 p-1 shadow-sm text-xs">
+          <li><a class="p-1 sm:px-2 sm:py-1"><%= t('defaults.dropdown.no_post_image') %></a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="flex flex-col items-center">
+      <%= f.file_field :image,
+          class: "file-input file-input-secondary file-input-sm sm:file-input-md text-base-300" %>
+    </div>
+  </div>
+</div>
+
+<% end %>

@@ -112,8 +112,11 @@ erDiagram
     products {
         bigint id PK "ID"
         int category_id FK "カテゴリID"
+        int user_id FK "ユーザーID"
         string name "商品名"
         string manufacturer "メーカー名"
+        string product_url "商品URL"
+        string product_image_url "画像URL"
         datetime created_at "作成日時"
         datetime updated_at "更新日時"
     }
@@ -224,6 +227,7 @@ erDiagram
     users }o--|| sweetness_types : "多:1"
     users ||--o{ sweetness_profiles : "1:多"
     users ||--o{ posts : "1:多"
+    users ||--o{ products : "1:多"
     users ||--o{ sweetness_twins : "1:多"
     %% twin_user_idもusersを参照（自己参照）
     
@@ -236,6 +240,7 @@ erDiagram
     posts ||--|| post_sweetness_scores : "1:1"
     products ||--o{ posts : "1対多"
     products }o--|| categories : "多対1"
+    products }o--|| users : "多対1"
 
     %% === ユーザーのアクション（いいね・コメント・通知・ブックマーク） ===
     users ||--o{ likes : "1:多"

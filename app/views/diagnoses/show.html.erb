@@ -1,24 +1,35 @@
-<div class="p-2 md:p-4"> 
-  <div class="p-2 rounded-3xl w-full max-w-3xl mx-auto bg-base-100">
-    <div class="text-xl md:text-2xl text-neutral text-center p-4">
+<div class="p-1 md:p-4">
+  <div class="flex flex-col p-1 items-center justify-center w-full max-w-3xl mx-auto bg-base-100 rounded-4xl">
+    <div class="text-center text-lg md:text-2xl p-2 md:p-4 border-b border-base-200 w-full">
       <%= t('.title') %>
     </div>
-    <div class="text-base md:text-xl border-t border-base-200 leading-relaxed text-neutral text-center p-6">
+    <div class="text-base leading-relaxed text-neutral text-center p-3">
       あなたの<span class="sm:hidden"><br></span>「好みの甘さ感覚チャート」が<br>出来上がりました！
     </div>
-    <div class="px-10 py-4 md:py-6 text-neutral">
+    <div class="px-2 py-4 text-neutral">
       <div class="flex justify-center items-end flex-wrap gap-1 md:gap-2 text-base">
         <span class="text-left self-start">あなたは...</span>
-        <span class="text-xl md:text-2xl bg-primary text-center rounded-3xl px-5 py-3 md:px-6 md:py-4 text-base-100">
+        <span class="text-xl bg-primary text-center rounded-xl px-5 py-3 md:px-6 text-base-100">
           <%= I18n.t("enums.sweetness_type.sweetness_kind.#{@profile.sweetness_kind}") %>
         </span>
-        <span class="text-base text-neutral ml-auto md:ml-0">タイプです</span>
+        <span class="text-base text-neutral ml-auto md:ml-0">タイプ✧*</span>
       </div>
+    </div>
+
+    <div class="flex w-full justify-end px-10 sm:px-30">
+      <%= link_to "https://twitter.com/intent/tweet?url=#{root_url}diagnoses/result/#{@profile.token}&text=#{CGI.escape("【甘さ感覚診断結果】\n＼#{I18n.t("enums.sweetness_type.sweetness_kind.#{@profile.sweetness_kind}")}タイプ／でした！\n\n#甘さ感覚診断\n#あまピタッ")}",
+          target: "_blank",
+          rel: "noopener noreferrer" do %>
+        <span class="flex flex-row rounded-full bg-base-200 p-2 hover-animation">
+          <%= image_tag "x-logo.svg", class: "h-6 w-6" %>
+          <p class="pt-1 text-sm">でシェア</p>
+        </span>
+      <% end %>
     </div>
 
     <div class="flex justify-center p-4">
         <div class="w-full max-w-md">
-        <div class="p-4 border-secondary rounded-3xl bg-white">
+        <div class="p-4 border-secondary rounded-3xl bg-white/80 ring-2 ring-stone-200/30">
             <%= render "shared/chart/sweetness_profile_chart",
             chart_id: "radarChart",
             data: [
@@ -32,12 +43,15 @@
         </div>
     </div>
 
-    <div class="flex flex-col items-center gap-6 p-8">
-      <%= link_to "#", class: "flex flex-col items-center text-base btn btn-xl btn-accent opacity-60 pointer-events-none" do %>
-        X でシェアする
-        <span class="text-sm text-center text-error">※ 準備中</span>
-      <% end %>
-      <%= link_to "閉じる", posts_path, data: { turbo: false }, class: "text-base btn btn-lg" %>
-    </div>
+
+      <div class="flex flex-row items-center gap-4 py-4 sm:py-6">
+        <%= link_to posts_path, data: { turbo: false }, class: "text-center text-sm button-primary bg-accent" do %>
+          <%= raw t('defaults.buttons.post_index') %>
+        <% end %>
+        <%= link_to categories_path, data: { turbo: false }, class: "text-center text-sm button-primary bg-primary" do %>
+          <%= raw t('defaults.buttons.category_index') %>
+        <% end %>
+      </div>
+
   </div>
 </div>

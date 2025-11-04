@@ -4,6 +4,7 @@
 @theme {
   --font-kiwi: "Kiwi Maru", serif;
   --font-roboto: "Roboto", sans-serif;
+  --font-noto: "Noto Serif JP", sans-serif;
 }
 
 
@@ -12,7 +13,7 @@
   default: false;
   prefersdark: false;
   color-scheme: "dark";
-  --color-base-100: #F9F9F9;
+  --color-base-100: #FFFFFD;
   --color-base-200: #C9C5C1;
   --color-base-300: #8c877e;
   --color-base-400: #DDDCDB;
@@ -48,15 +49,15 @@
 }
 
 .button-primary {
-  @apply px-5 py-3 md:px-6 text-base-100 rounded-full transition duration-200 hover:brightness-96;
+  @apply px-5 py-3 md:px-6 rounded-full transition duration-200 hover:brightness-96;
 }
 
 .button-secondary {
-  @apply rounded-2xl p-3 md:px-8 text-sm md:text-base text-neutral ring-4 transition duration-200;
+  @apply rounded-2xl py-2 px-3 md:py-3 md:px-7 text-sm md:text-base text-neutral ring-4 transition duration-200;
 }
 
 .amapita-count-ring {
-  @apply items-center gap-2 rounded-2xl p-1 md:px-6 md:py-2 text-base text-neutral ring-3 md:ring-4;
+  @apply items-center rounded-2xl p-2 md:px-6 md:py-2 text-neutral ring-3 md:ring-4;
 }
 
 .sliders-title {
@@ -69,7 +70,7 @@
 
 .swiper-button-next::after, .swiper-button-prev::after {
   font-size: 1.5rem;
-  color: #56524C;
+  color: #a19494;
 }
 
 .hover-animation {
@@ -86,6 +87,10 @@
 
 .category-label-multi {
 @apply absolute inset-0 flex flex-col items-center justify-center text-white text-base md:text-2xl font-bold;
+}
+
+.legal-section-title {
+@apply text-lg md:text-xl font-semibold my-2 md:my-4 border-l-4 border-primary pl-3;
 }
 
 .pagy {

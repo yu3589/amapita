@@ -1,6 +1,4 @@
 class Admin::ProductsController < Admin::BaseController
-  before_action :authenticate_user!
-
   def index
     @q = Product.ransack(params[:q])
     products_scope = @q.result(distinct: true).includes(:category).order(created_at: :desc)
@@ -15,6 +13,7 @@ class Admin::ProductsController < Admin::BaseController
 
   def create
     @product = Product.new(product_params)
+    @product.user = current_user
     if @product.save
       redirect_to admin_products_path, notice: t("defaults.flash_message.registered", item: Product.model_name.human)
     else
@@ -33,7 +32,7 @@ class Admin::ProductsController < Admin::BaseController
       redirect_to admin_products_path, notice: t("defaults.flash_message.updated", item: Product.model_name.human)
     else
       flash.now[:alert] = t("defaults.flash_message.not_updated", item: Product.model_name.human)
-      render :new, status: :unprocessable_entity
+      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -47,6 +46,6 @@ class Admin::ProductsController < Admin::BaseController
     private
 
   def product_params
-    params.require(:product).permit(:name, :manufacturer, :category_id, :image)
+    params.require(:product).permit(:name, :manufacturer, :category_id, :image, :product_url, :product_image_url)
   end
 end

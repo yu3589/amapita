@@ -1,6 +1,4 @@
 class Admin::PostsController < Admin::BaseController
-  before_action :authenticate_user!
-
   def index
     @q = Post.ransack(params[:q])
     posts_scope = @q.result(distinct: true).includes(:user, :category).order(created_at: :desc)
