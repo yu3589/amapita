@@ -23,23 +23,25 @@
     </div>
 
     <!-- 詳細検索 -->
-    <div class="w-full">
+    <div class="w-full text-sm">
       <div class="grid grid-cols-2 gap-2 md:gap-4 px-1 md:px-6">
 
         <!-- カテゴリ -->
         <div class="col-span-1">
+          <%= f.label :category_id, t('activerecord.models.category') %>
           <%= f.select :category_name_eq,
             Category.all.pluck(:name, :name),
-                { include_blank: t('activerecord.models.category') },
-                class: "select w-full text-sm bg-white/70 py-2",
+                { include_blank: t('defaults.pull_down') },
+                class: "select w-full text-sm bg-white/70",
                 data: { search_clear_target: "select" } %>
         </div>
 
         <!-- メーカー -->
         <div class="col-span-1">
+           <%= f.label :manufacturer, t('activerecord.attributes.product.manufacturer') %>
           <%= f.select :product_manufacturer_eq,
                 I18n.t('products.manufacturers.list'),
-                { include_blank: t('activerecord.attributes.product.manufacturer') },
+                { include_blank: t('defaults.pull_down') },
                 class: "select w-full text-sm bg-white/70",
                 data: { search_clear_target: "select" } %>
           </div>
