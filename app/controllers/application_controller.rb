@@ -22,4 +22,23 @@ class ApplicationController < ActionController::Base
       @unchecked_notifications_count = current_user.received_notifications.unchecked.count
     end
   end
+
+  # あまピタカウント
+  def product_stats(products)
+    stats = {}
+
+    products.each do |product|
+      next if product.nil?
+
+      total_posts = product.posts.publish.count || 0
+      perfect_sweetness_count = product.posts.publish.where(sweetness_rating: :perfect_sweetness).count
+
+      stats[product.id] = {
+        total_posts: total_posts,
+        perfect_sweetness_count: perfect_sweetness_count
+      }
+    end
+
+    stats
+  end
 end
