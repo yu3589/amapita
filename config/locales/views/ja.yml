@@ -13,6 +13,7 @@ ja:
       sample_email: sample@example.com
     select:
       category: カテゴリを選択
+    pull_down: 選択してください
     flash_message:
       created: "%{item}を作成しました"
       not_created: "%{item}を作成出来ませんでした"
@@ -37,6 +38,7 @@ ja:
       show_unpublished_post: 自分の投稿詳細を見る
       return: 戻る
       close: 閉じる
+      clear: 取消
     dropdown:
       post_search_description: 検索後、商品を選択すると商品情報が取得できます
       no_product_image: 画像アップロードが無い場合、楽天画像又はデフォルト画像が選択されます
@@ -48,6 +50,7 @@ ja:
       product_image: レビュー投稿者が独自の画像をアップロードしない場合、<br>登録した商品画像が表示されます。
     link:
       product_url: 商品を見る
+      product_register_suggestion: 商品が見つからない場合、<br>商品登録をしてあまピタ判定してみよう！
     chart:
       sweetness_profile: 好みの甘さ感覚
       sweetness_user: あなたの評価
@@ -59,6 +62,8 @@ ja:
       thanks_message: ✧* たくさんの甘さ評価ありがとうございます！✧*
     message:
       no_post: 投稿がありません
+      no_product: 商品が見つかりませんでした
+      search_suggestion: 他のキーワードでもう一度検索してください
   helpers:
     submit:
       create: 登録
@@ -205,6 +210,8 @@ ja:
     title: 商品の登録
     search:
       title: 商品名から探す
+    index:
+      title: 商品一覧
     show:
       title: みんなのレビュー
       review: ユーザーレビュー
@@ -295,11 +302,8 @@ ja:
     snack: スナック菓子
     other: その他
     index:
-      title: あまピタ判定するカテゴリを選択
-    show:
       title: あまピタ判定する商品を選択
-      product_not_found: 商品が見つかりませんでした
-      product_register_suggestion: 商品が見つからない場合、<br>商品を登録してあまピタ判定をしてみよう！
+      search_category: カテゴリから探す
   notifications:
     index:
       title: 通知

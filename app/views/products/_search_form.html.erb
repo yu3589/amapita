@@ -1,0 +1,55 @@
+
+<%= search_form_for @q,
+      url: (@category.present? ? category_products_path(@category.slug) : products_path),
+      method: :get,
+      class: 'py-3 px-1 flex justify-center w-full',
+      data: { search_clear_target: "form" } do |f| %>
+
+  <div class="bg-base-100 rounded-4xl py-2 px-1 md:p-6 max-w-md md:max-w-4xl mx-auto flex flex-col items-center">
+    <div class="flex flex-row items-center gap-1 sm:gap-2 w-full">
+
+      <div data-controller="autocomplete"
+           data-autocomplete-url-value="<%= @category.present? ? category_products_autocomplete_path(@category&.slug) : autocomplete_products_path %>"
+           role="combobox"
+           class="relative w-full">
+
+        <%= f.search_field :name_or_manufacturer_cont, 
+            class: "flex-1 bg-white/80 rounded-xl ring-2 w-full md:w-100 ring-[var(--color-base-400)] text-base md:py-2 px-4",
+            placeholder: t('defaults.placeholders.search_products'),
+            required: true,
+            data: {
+              search_clear_target: "input", 
+              autocomplete_target: 'input',
+            },
+            aria: { autocomplete: "list" },
+            autocomplete: "off" %>
+
+        <ul class="list-group bg-white absolute top-full left-0 w-full md:text-sm z-10 shadow-lg rounded-md"
+            data-autocomplete-target="results"></ul>
+      </div>
+
+      <%= f.submit t('helpers.submit.search'), class: "hidden sm:block btn btn-secondary" %>
+
+      <% if @category.present? %>
+        <button type="button"
+                onclick="location.href='<%= category_path(@category.slug) %>'"
+                class="btn btn-sm sm:btn-md">
+         <%= t('helpers.submit.clear') %>
+        </button>
+      <% elsif controller_name == "categories" %>
+        <button type="button"
+                onclick="location.href='<%= categories_path %>'"
+                class="btn btn-sm sm:btn-md">
+          <%= t('helpers.submit.clear') %>
+        </button>
+      <% else %>
+        <button type="button"
+                onclick="location.href='<%= products_path %>'"
+                class="btn btn-sm sm:btn-md">
+          <%= t('helpers.submit.clear') %>
+        </button>
+      <% end %>
+
+    </div>
+  </div>
+<% end %>

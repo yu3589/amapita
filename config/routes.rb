@@ -30,15 +30,16 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :products, only: %i[index show]
-
   resources :bookmarks, only: %i[index create destroy]
 
+  get "products/autocomplete", to: "products#autocomplete", as: :autocomplete_products
+
+  resources :products, only: %i[index show]
+
   resources :categories, only: %i[index show], param: :slug do
-    member do
-      get :autocomplete
-    end
-    resources :products, only: %i[show]
+    get "products", to: "categories#products", as: :products
+    get "products/autocomplete", to: "categories#products_autocomplete", as: :products_autocomplete
+    get "products/:id", to: "products#show", as: :product
   end
 
   namespace :admin do
