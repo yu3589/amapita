@@ -1,0 +1,22 @@
+<% if @products.empty? %>
+  <li class="w-full flex items-center py-2 px-3 text-sm border-b border-stone-200 last:border-b-0"
+      role="presentation">
+    <div class="flex flex-col">
+    <span class="text-base-300"><%= t('defaults.message.no_product') %></span>
+    <span class="text-stone-400/80"><%= t('defaults.message.search_suggestion') %></span>
+    </div>
+  </li>
+<% else %>
+  <% @products.each do |product| %>
+    <li class="w-full flex items-center py-2 px-3 text-sm text-neutral hover:bg-stone-200 cursor-pointer border-b border-stone-200 last:border-b-0"
+        role="option"
+        data-autocomplete-value="<%= product.name %>"
+        data-autocomplete-product-id="<%= product.id %>"
+        data-autocomplete-product-url="<%= defined?(@category) && @category.present? ? category_product_path(@category.slug, product) : product_path(product) %>">
+      <span><%= product.name %></span>
+      <% if product.manufacturer.present? %>
+        <span class="ml-2 text-base-300 text-xs"><%= product.manufacturer %></span>
+      <% end %>
+    </li>
+  <% end %>
+<% end %>

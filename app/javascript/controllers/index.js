@@ -7,12 +7,12 @@ import FadeController from "./fade_controller"
 import ResetFormController from "./reset_form_controller"
 import FromPostController from "./from_post_controller"
 import RakutenSearchController from "./rakuten_search_controller"
-import { Autocomplete } from "stimulus-autocomplete"
+import AutocompleteController from "./autocomplete_controller"
 import LoadingController from "./loading_controller"
 
 application.register("fade", FadeController)
 application.register("reset-form", ResetFormController)
 application.register("from-post", FromPostController)
 application.register("rakuten-search", RakutenSearchController)
-application.register("autocomplete", Autocomplete)
+application.register("autocomplete", AutocompleteController)
 application.register("loading", LoadingController)
