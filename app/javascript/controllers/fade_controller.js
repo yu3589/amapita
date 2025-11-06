@@ -17,8 +17,10 @@ export default class extends Controller {
   }
 
   showMessage() {
+    this.element.classList.add('transition-opacity', 'duration-300')
+
     this.element.classList.remove('opacity-0')
-    this.element.classList.add('opacity-100', 'transition-opacity', 'duration-100')
+    this.element.classList.add('opacity-100')
 
     setTimeout(() => {
       this.element.classList.remove('opacity-100')
@@ -26,7 +28,7 @@ export default class extends Controller {
       
       setTimeout(() => {
         this.element.remove()
-      }, 500)
-    }, 3000)
+      }, 300)
+    }, 2500)
   }
 }
