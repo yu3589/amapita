@@ -22,11 +22,20 @@ class ProfilesController < ApplicationController
     # デフォルトは投稿タブ
     @active_tab = params[:tab].presence_in([ "posts", "liked_posts" ]) || "posts"
     # 投稿
-    posts_query = @user.posts.order(id: :desc)
+    posts_query = @user.posts.includes(
+      :image_attachment,
+      user: :avatar_attachment,
+      product: :image_attachment
+      )
+    .order(id: :desc)
     @pagy_posts, @posts = pagy(posts_query, limit: 10, page_param: :posts_page)
     @posts = @posts&.decorate
     # いいね
-    liked_posts_query = @user.like_posts.publish.order(id: :desc)
+    liked_posts_query = @user.like_posts.includes(
+      :image_attachment,
+      user: :avatar_attachment,
+      product: :image_attachment
+    ).publish.joins(:likes).where(likes: { user: @user }).order("likes.created_at DESC")
     @pagy_likes, @likes = pagy(liked_posts_query, limit: 10, page_param: :liked_posts_page)
     @likes = @likes&.decorate
   end

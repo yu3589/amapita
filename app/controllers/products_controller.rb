@@ -4,7 +4,7 @@ class ProductsController < ApplicationController
   def index
     @q = Product.ransack(params[:q])
     products_result = @q.result(distinct: true)
-                        .includes(:posts)
+                        .includes(:image_attachment)
                         .order(manufacturer: :asc, name: :asc)
     @pagy, @products = pagy(products_result)
     @product_stats = product_stats(@products)

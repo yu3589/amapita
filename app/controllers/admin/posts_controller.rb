@@ -1,7 +1,14 @@
 class Admin::PostsController < Admin::BaseController
   def index
     @q = Post.ransack(params[:q])
-    posts_scope = @q.result(distinct: true).includes(:user, :category).order(created_at: :desc)
+    posts_scope = @q.result(distinct: true)
+                    .includes(
+                      :category,
+                      :image_attachment,
+                      user: :avatar_attachment,
+                      product: :image_attachment,
+                    )
+                    .order(created_at: :desc)
     @total_count = posts_scope.count
     @pagy, @posts = pagy(posts_scope)
     @posts = @posts.decorate

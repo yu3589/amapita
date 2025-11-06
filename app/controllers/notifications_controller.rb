@@ -3,7 +3,12 @@ class NotificationsController < ApplicationController
 
   def index
     @notifications = current_user.received_notifications
-                                 .includes(:sender, :notifiable)
+                                 .includes(
+                                  :sender,
+                                  :notifiable,
+                                  sender: :avatar_attachment,
+                                  notifiable: { post: :product }
+                                 )
                                  .order(created_at: :desc)
     @pagy, @notifications = pagy(@notifications, limit: 12)
   end

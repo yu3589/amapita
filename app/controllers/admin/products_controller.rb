@@ -1,7 +1,12 @@
 class Admin::ProductsController < Admin::BaseController
   def index
     @q = Product.ransack(params[:q])
-    products_scope = @q.result(distinct: true).includes(:category).order(created_at: :desc)
+    products_scope = @q.result(distinct: true)
+                       .includes(
+                         :image_attachment,
+                         :category
+                        )
+                       .order(created_at: :desc)
     @total_count = products_scope.count
     @pagy, @products = pagy(products_scope)
     @products = @products.decorate
