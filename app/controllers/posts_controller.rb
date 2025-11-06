@@ -3,7 +3,14 @@ class PostsController < ApplicationController
 
   def index
     @q_new = Post.ransack(params[:q_new])
-    new_posts_scope = @q_new.result(distinct: true).publish.includes(:user, :category).order(created_at: :desc)
+    new_posts_scope = @q_new.result(distinct: true)
+                            .publish
+                            .includes(
+                              :image_attachment,
+                              user: :avatar_attachment,
+                              product: :image_attachment
+                            )
+                            .order(created_at: :desc)
     @pagy_new, @new_posts = pagy(new_posts_scope)
     @new_posts = @new_posts.decorate
 
@@ -64,7 +71,11 @@ class PostsController < ApplicationController
   end
 
   def show
-    @post = Post.find(params[:id]).decorate
+    @post = Post.includes(
+              :image_attachment,
+              user: :avatar_attachment,
+              product: :image_attachment
+            ).find(params[:id]).decorate
 
     unless @post.publish? || current_user&.own?(@post)
         redirect_to posts_path, alert: t("defaults.flash_message.not_authorized")
@@ -108,7 +119,11 @@ class PostsController < ApplicationController
                                     .publish
                                     .perfect_sweetness
                                     .where(sweetness_rating: :perfect_sweetness)
-                                    .includes(:user, :category)
+                                    .includes(
+                                      :image_attachment,
+                                      user: :avatar_attachment,
+                                      product: :image_attachment
+                                    )
                                     .order(created_at: :desc)
     [ q_recommend, recommended_posts ]
   end

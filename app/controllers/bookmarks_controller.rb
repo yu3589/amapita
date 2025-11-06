@@ -2,7 +2,9 @@ class BookmarksController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    bookmarks_query = current_user.bookmark_products.order(id: :desc)
+    bookmarks_query = current_user.bookmark_products
+                                  .includes(:image_attachment)
+                                  .order("bookmarks.created_at DESC")
     @pagy, @bookmarks = pagy(bookmarks_query, limit: 10)
     @bookmarks = @bookmarks&.decorate
   end

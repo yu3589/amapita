@@ -44,7 +44,7 @@ class CategoriesController < ApplicationController
   def load_category_products
     @q = @category.products.ransack(params[:q])
     products_result = @q.result(distinct: true)
-                        .includes(:posts, :category)
+                        .includes(:image_attachment)
                         .order(manufacturer: :asc, name: :asc)
 
     @pagy, @products = pagy(products_result)
