@@ -9,6 +9,7 @@ import FromPostController from "./from_post_controller"
 import RakutenSearchController from "./rakuten_search_controller"
 import AutocompleteController from "./autocomplete_controller"
 import LoadingController from "./loading_controller"
+import PasswordVisibilityController from "./password_visibility_controller"
 
 application.register("fade", FadeController)
 application.register("reset-form", ResetFormController)
@@ -16,3 +17,4 @@ application.register("from-post", FromPostController)
 application.register("rakuten-search", RakutenSearchController)
 application.register("autocomplete", AutocompleteController)
 application.register("loading", LoadingController)
+application.register("password-visibility", PasswordVisibilityController)
