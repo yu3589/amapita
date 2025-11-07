@@ -30,4 +30,29 @@
     ちょうどいい甘さは楽しみたい方<br>
     ・季節ごとの好みの甘さの変化を楽しみたい方
   </div>
+
+  <div class="flex flex-row gap-3 pt-2 sm:gap-5 sm:py-4 text-base">
+    <% if user_signed_in? %>
+    <div class="pb-4 sm:pb-1">
+      <%= link_to raw("あまピタ判定をする"), categories_path,
+          class: "bg-accent sliders-button hover-animation w-fit text-center" %>
+    </div>
+    <% else %>
+     <div class="pb-2 sm:pb-1">
+      <%= link_to "新規登録", new_user_registration_path,
+            class: "bg-accent sliders-button hover-animation text-center" %>
+    </div>
+    <div class="pb-4 sm:pb-1">
+      <%= link_to "ログイン", new_user_session_path,
+          class: "bg-secondary sliders-button hover-animation text-center" %>
+    </div>
+    <% end %>
+  </div>
+  <div class="pb-4 sm:pb-1 text-center">
+    <button
+      class="bg-primary sliders-button text-center"
+      onclick="document.querySelector('.swiper-button-next').click()">
+      アプリの説明を見る
+    </button>
+  </div>
 </div>

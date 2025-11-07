@@ -4,6 +4,10 @@ ja:
     require_login: ログインが必要です
     require_login_user_profile: ユーザー詳細を見るにはログインが必要です
     require_login_user_rating: あまピタ判定をするにはログインが必要です
+    password_format: ※ 6文字以上
+    password_visibility: パスワードを表示
+    password_confirmation_visibility: 確認用パスワードを表示
+    or: または
     placeholders:
       search_word: キーワードを入力
       search_products: 商品名又はメーカーを入力
@@ -66,6 +70,7 @@ ja:
       search_suggestion: 他のキーワードでもう一度検索してください
   helpers:
     submit:
+      register: アカウント作成
       create: 登録
       submit: 保存
       update: 更新する
@@ -126,13 +131,16 @@ ja:
       header:
         logout: ログアウト
   devise:
+    registrations:
+      new:
+        title: 新規登録
+        to_login_page: すでにアカウントをお持ちの方はこちら
     sessions:
       new:
         title: ログイン
         login: ログイン
         to_register_page: ユーザー登録の方はこちら
         password_forget: パスワードをお忘れの方はこちら
-        or: または
     passwords:
       new:
         title: パスワードリセット

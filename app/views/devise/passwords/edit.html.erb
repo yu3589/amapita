@@ -1,34 +1,63 @@
 <main class="container flex-1 pt-4 pb-14 sm:p-4 mx-auto flex items-center justify-center">
-  <div class="w-full max-w-lg bg-base-100 rounded-3xl px-4 md:px-15 md:py-2">
+  <div class="w-full max-w-lg bg-base-100 rounded-3xl px-4 md:px-15 md:py-2 mx-auto flex flex-col items-center">
     <div class="mb-6 text-center">
       <h2 class="text-xl md:text-2xl text-neutral font-bold pt-4"><%= t('.title') %></h2>
     </div>
 
-    <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
-      <%= render "devise/shared/error_messages", resource: resource %>
-      <%= f.hidden_field :reset_password_token %>
-
-      <div class="form-control mb-2 sm:mb-4 p-2">
-        <div class="pl-2 pb-1">
-          <%= t('.new_password') %>
-        </div>
-        <%= f.password_field :password,
-            autofocus: true,
-            autocomplete: "new-password",
-            class: "input input-bordered w-full h-10 md:h-12 rounded-full px-4 focus:outline-none" %>
-        <% if @minimum_password_length %>
-          <p class="text-sm pl-3 pt-1 text-base-300">半角英数字・<%= @minimum_password_length %>文字以上</p>
-        <% end %>
+    <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put, class: "w-full flex flex-col items-center" }) do |f| %>
+      <div class="w-full flex justify-center">
+        <%= render "devise/shared/error_messages", resource: resource %>
       </div>
+      <%= f.hidden_field :reset_password_token %>
+      
+      <div class="w-65 sm:w-70">
+        <!-- 新しいパスワード -->
+        <fieldset class="fieldset my-1" data-controller="password-visibility">
+          <legend class="fieldset-legend pl-2">
+            <%= image_tag "lock-key.svg", class: "h-5 w-5" %>
+            <%= f.label :password, t('.new_password'), class: "text-base sm:text-sm" %>
+              <p class="label text-stone-400 text-xs pl-2"><%= t('defaults.password_format') %></p>
+          </legend>
 
-      <div class="form-control mb-2 sm:mb-4 p-2">
-        <div class="pl-2 pb-1">
-          <%= t('.password_confirmation') %>
-        </div>
-        <%= f.password_field :password_confirmation,
-            autocomplete: "new-password",
-            placeholder: t('activerecord.attributes.user.password_confirmation'),
-            class: "input input-bordered w-full h-10 md:h-12 rounded-full px-4 focus:outline-none" %>
+          <%= f.password_field :password,
+                autofocus: true,
+                autocomplete: "new-password",
+                class: "input focus:outline-none w-full",
+                data: { password_visibility_target: "input" } %>
+
+          <div class="flex items-center justify-between">
+            <label class="label cursor-pointer gap-2 pl-1">
+              <input type="checkbox"
+                    class="toggle toggle-xs border-stone-300/90 bg-stone-200 checked:border-stone-400 checked:bg-stone-300"
+                    data-password-visibility-target="checkbox"
+                    data-action="password-visibility#update">
+              <span class="label-text text-xs text-stone-400"><%= t('defaults.password_visibility') %></span>
+            </label>
+          </div>
+        </fieldset>
+
+        <!-- パスワード確認 -->
+        <fieldset class="fieldset my-1" data-controller="password-visibility">
+          <legend class="fieldset-legend pl-2">
+            <%= image_tag "lock-key.svg", class: "h-5 w-5" %>
+            <%= f.label :password_confirmation, t('.password_confirmation'), class: "text-base sm:text-sm" %>
+          </legend>
+
+          <%= f.password_field :password_confirmation,
+                autocomplete: "new-password",
+                class: "input focus:outline-none w-full",
+                data: { password_visibility_target: "input" } %>
+
+          <div class="flex items-center justify-between">
+            <label class="label cursor-pointer gap-2 pl-1">
+              <input type="checkbox"
+                    class="toggle toggle-xs border-stone-300/90 bg-stone-200 checked:border-stone-400 checked:bg-stone-300"
+                    data-password-visibility-target="checkbox"
+                    data-action="password-visibility#update">
+              <span class="label-text text-xs text-stone-400"><%= t('defaults.password_visibility') %></span>
+            </label>
+          </div>
+        </fieldset>
       </div>
 
       <div class="form-control flex justify-center py-4">
