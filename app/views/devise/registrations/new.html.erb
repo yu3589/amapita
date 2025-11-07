@@ -1,6 +1,6 @@
-<main class="container flex-1 pt-4 pb-14 sm:p-4 mx-auto flex items-center justify-center">
+<main class="container flex-1 p-2 sm:p-4 mx-auto flex items-center justify-center">
   <div class="w-full max-w-lg bg-base-100 rounded-3xl p-4 md:px-15 md:py-2 mx-auto flex flex-col items-center">
-    <div class="flex flex-row items-center justify-center py-3 sm:py-6">
+    <div class="flex flex-row items-center justify-center py-4 sm:py-6">
       <h2 class="text-xl md:text-2xl text-neutral"><%= t('.title') %></h2>
     </div>
 
@@ -19,28 +19,28 @@
         <%= render "devise/shared/error_messages", resource: resource %>
       </div>
 
-      <div class="w-65 sm:w-70">
+      <div class="w-70">
         <fieldset class="fieldset my-1">
           <legend class="fieldset-legend pl-2">
-          <%= image_tag "user.svg", class: "h-5 w-5" %>
-            <%= f.label :name, class: "text-base sm:text-sm" %>
+          <%= image_tag "user.svg", class: "size-5 sm:size-6" %>
+            <%= f.label :name, class: "text-base" %>
           </legend>
           <%= f.text_field :name, placeholder: "表示名", class: "input focus:outline-none w-full" %>
         </fieldset>
 
         <fieldset class="fieldset my-1">
           <legend class="fieldset-legend pl-2">
-            <%= image_tag "envelope.svg", class: "h-5 w-5" %>
-            <%= f.label :email, class: "text-base sm:text-sm" %>
+            <%= image_tag "envelope.svg", class: "size-5 sm:size-6" %>
+            <%= f.label :email, class: "text-base" %>
           </legend>
           <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: t('defaults.placeholders.sample_email'), class: "input focus:outline-none w-full" %>
         </fieldset>
 
-        <fieldset class="fieldset my-1" data-controller="password-visibility">
+        <fieldset class="fieldset my-2" data-controller="password-visibility">
           <legend class="fieldset-legend pl-2">
-            <%= image_tag "lock-key.svg", class: "h-5 w-5" %>
-            <%= f.label :password, class: "text-base sm:text-sm" %>
-            <p class="label text-stone-400 text-xs pl-2"><%= t('defaults.password_format') %></p>
+            <%= image_tag "lock-key.svg", class: "size-5 sm:size-6" %>
+            <%= f.label :password, class: "text-base" %>
+            <p class="label text-stone-400 text-sm pl-2"><%= t('defaults.password_format') %></p>
           </legend>
 
           <%= f.password_field :password, 
@@ -51,20 +51,20 @@
               } %>
           
           <div class="flex items-center justify-between">
-            <label class="label cursor-pointer gap-2 pl-1">
+            <label class="label cursor-pointer gap-1 pl-1">
               <input type="checkbox" 
-                    class="toggle toggle-xs border-stone-300/90 bg-stone-200 checked:border-stone-400 checked:bg-stone-300"
+                    class="toggle toggle-sm border-stone-300/90 bg-stone-200 checked:border-stone-400 checked:bg-stone-300"
                     data-password-visibility-target="checkbox"
                     data-action="password-visibility#update">
-              <span class="label-text text-xs text-stone-400">パスワードを表示</span>
+              <span class="label-text text-sm text-stone-400"><%= t('defaults.password_visibility') %></span>
             </label>
           </div>
         </fieldset>
 
-        <fieldset class="fieldset my-1" data-controller="password-visibility">
+        <fieldset class="fieldset my-2" data-controller="password-visibility">
           <legend class="fieldset-legend pl-2">
-            <%= image_tag "lock-key.svg", class: "h-5 w-5" %>
-            <%= f.label :password_confirmation, class: "text-base sm:text-sm" %>
+            <%= image_tag "lock-key.svg", class: "size-5 sm:size-6" %>
+            <%= f.label :password_confirmation, class: "text-base" %>
           </legend>
 
           <%= f.password_field :password_confirmation,
@@ -75,18 +75,18 @@
               } %>
           
           <div class="flex items-center justify-between">
-            <label class="label cursor-pointer gap-2 pl-1">
+            <label class="label cursor-pointer gap-1 pl-1">
               <input type="checkbox" 
-                    class="toggle toggle-xs border-stone-300/90 bg-stone-200 checked:border-stone-400 checked:bg-stone-300"
+                    class="toggle toggle-sm border-stone-300/90 bg-stone-200 checked:border-stone-400 checked:bg-stone-300"
                     data-password-visibility-target="checkbox"
                     data-action="password-visibility#update">
-              <span class="label-text text-xs text-stone-400"><%= t('defaults.password_confirmation_visibility') %></span>
+              <span class="label-text text-sm text-stone-400"><%= t('defaults.password_confirmation_visibility') %></span>
             </label>
           </div>
         </fieldset>
       </div>
 
-      <div class="form-control flex justify-center py-4">
+      <div class="form-control flex justify-center py-4 sm:py-6">
         <%= f.submit t('helpers.submit.register'), class: "bg-secondary button-primary" %>
       </div>
     <% end %>
