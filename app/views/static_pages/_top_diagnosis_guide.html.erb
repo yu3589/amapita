@@ -15,7 +15,7 @@
       <%= link_to "診断してみる", new_diagnosis_path,
           class: "bg-accent sliders-button hover-animation w-full text-center" %>
     <% else %>
-      <%= link_to "登録して診断する", new_user_registration_path(from_landing: 1),
+      <%= link_to "新規登録する", new_user_registration_path,
           class: "bg-accent sliders-button hover-animation w-full text-center" %>
     <% end %>
   </div>
@@ -49,8 +49,8 @@
       <% end %>
     </div>
 
-    <div class="w-fit text-sm sm:text-base pb-6 sm:pb-1">
-      <%= link_to raw("みんなの甘さ評価を<span class='sm:hidden'><br></span>見に行く"), posts_path,
+    <div class="w-fit sm:text-base pb-6 sm:pb-1">
+      <%= link_to "みんなの甘さ評価を見る", posts_path,
           class: "bg-primary sliders-button hover-animation w-fit text-center" %>
     </div>
   </div>
