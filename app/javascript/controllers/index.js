@@ -10,6 +10,7 @@ import RakutenSearchController from "./rakuten_search_controller"
 import AutocompleteController from "./autocomplete_controller"
 import LoadingController from "./loading_controller"
 import PasswordVisibilityController from "./password_visibility_controller"
+import ImageSourceSelectorController from "./image_source_selector_controller"
 
 application.register("fade", FadeController)
 application.register("reset-form", ResetFormController)
@@ -18,3 +19,4 @@ application.register("rakuten-search", RakutenSearchController)
 application.register("autocomplete", AutocompleteController)
 application.register("loading", LoadingController)
 application.register("password-visibility", PasswordVisibilityController)
+application.register("image-source-selector", ImageSourceSelectorController)

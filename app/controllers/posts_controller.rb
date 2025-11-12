@@ -59,14 +59,11 @@ class PostsController < ApplicationController
 
   def update
     @post = current_user.posts.find(params[:id])
-    if @post.update(post_params)
-      # 非公開 -> 公開でバッジが新しく付与された際にモーダル表示
-      new_badge = PostBadge.check_and_award_post_badges(current_user)
-      session[:badge_modal] = new_badge.name if new_badge&.name.present?
-      redirect_to post_path(@post), notice: t("defaults.flash_message.updated", item: Post.model_name.human)
+
+    if @post.update(process_image_params(post_params))
+      handle_successful_update
     else
-      flash.now[:alert] = t("defaults.flash_message.not_updated", item: Post.model_name.human)
-      render :edit, status: :unprocessable_entity
+      handle_failed_update
     end
   end
 
@@ -128,13 +125,42 @@ class PostsController < ApplicationController
     [ q_recommend, recommended_posts ]
   end
 
+  def process_image_params(params)
+    should_remove_image = params.dig(:product_attributes, :remove_image) == "true"
+    processed_params = params.deep_dup
+    processed_params[:product_attributes]&.delete(:remove_image)
+
+    if should_remove_image
+      # 楽天画像を使う場合: アップロード画像を削除
+      @post.product.image.purge if @post.product.image.attached?
+    elsif processed_params.dig(:product_attributes, :image).present?
+      # アップロード画像を使う場合: 楽天URLをクリア
+      processed_params[:product_attributes][:product_url] = nil
+      processed_params[:product_attributes][:product_image_url] = nil
+    end
+
+    processed_params
+  end
+
+  def handle_successful_update
+    # 非公開 -> 公開でバッジが新しく付与された際にモーダル表示
+    new_badge = PostBadge.check_and_award_post_badges(current_user)
+    session[:badge_modal] = new_badge.name if new_badge&.name.present?
+    redirect_to post_path(@post), notice: t("defaults.flash_message.updated", item: Post.model_name.human)
+  end
+
+  def handle_failed_update
+    flash.now[:alert] = t("defaults.flash_message.not_updated", item: Post.model_name.human)
+    render :edit, status: :unprocessable_entity
+  end
+
   def post_params
     params.require(:post).permit(
     :sweetness_rating, :review, :product_id, :image, :status,
     product_attributes: [
       :id, :name, :manufacturer, :category_id, :image, :product_url, :product_image_url ],
     post_sweetness_score_attributes: [
-      :sweetness_strength, :aftertaste_clarity, :natural_sweetness, :coolness, :richness
+      :id, :sweetness_strength, :aftertaste_clarity, :natural_sweetness, :coolness, :richness
     ]
     )
   end
