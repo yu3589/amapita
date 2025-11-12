@@ -20,8 +20,8 @@ module ImageValidatable
     attachment = send(attachment_name)
     return unless attachment.attached?
 
-    unless attachment.content_type.in?(%w[image/png image/jpg image/jpeg])
-      errors.add(attachment_name, "はJPG・JPEG・PNG形式のファイルのみ対応しています")
+    unless attachment.content_type.in?(%w[image/png image/jpg image/jpeg image/webp])
+      errors.add(attachment_name, "はJPG・JPEG・PNG・WebP形式のファイルのみ対応しています")
     end
 
     if attachment.blob.byte_size > 5.megabytes
