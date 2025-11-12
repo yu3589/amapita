@@ -1,3 +1,19 @@
-<%= turbo_stream.replace "liked-button-for-post-#{@post.id}" do %>
-  <%= render 'posts/like', post: @post %>
+<%= turbo_stream.replace "like-button-mobile-#{@post.id}" do %>
+  <%= render 'posts/like_buttons', post: @post, button_id: "like-button-mobile-#{@post.id}" %>
+<% end %>
+
+<%= turbo_stream.replace "like-button-pc-#{@post.id}" do %>
+  <%= render 'posts/like_buttons', post: @post, button_id: "like-button-pc-#{@post.id}" %>
+<% end %>
+
+<%= turbo_stream.replace "like-button-product-page-#{@post.id}" do %>
+  <%= render 'posts/like_buttons', post: @post, button_id: "like-button-product-page-#{@post.id}" %>
+<% end %>
+
+<%= turbo_stream.replace "like-button-partial-page-#{@post.id}" do %>
+  <%= render 'posts/like_buttons', post: @post, button_id: "like-button-partial-page-#{@post.id}" %>
+<% end %>
+
+<%= turbo_stream.replace "like-button-mypage-#{@post.id}" do %>
+  <%= render 'posts/like_buttons', post: @post, button_id: "like-button-mypage-#{@post.id}" %>
 <% end %>
