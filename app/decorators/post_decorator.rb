@@ -9,6 +9,11 @@ class PostDecorator < Draper::Decorator
     merged_classes  = [ default_classes, custom_classes ].compact.join(" ")
 
     image_source = if object.image.attached? && object.image.blob.persisted?
+      if object.image.blob.content_type == "image/webp"
+        object.image
+      else
+        object.image.variant(POST_VARIANT_OPTIONS)
+      end
       object.image.variant(POST_VARIANT_OPTIONS)
     elsif object.product&.image&.attached? && object.product.image.blob.persisted?
       object.product.image.variant(POST_VARIANT_OPTIONS)

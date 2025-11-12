@@ -1,41 +1,38 @@
-<div class="flex flex-col justify-center w-full sm:pt-2">
-  <div class="py-2 sm:py-4 px-4 sm:px-5 rounded-4xl text-sm text-stone-400 w-fit ring-base-200 ring-2">
-    <div class="text-center mb-3">
-      <div class="flex items-center justify-center gap-2 sm:gap-1">
-        <%= image_tag "warning.svg", class: "h-5 w-5 flex-shrink-0" %>
-        <span class="text-error"><%= t('defaults.notice.about') %></span>
-      </div>
-    </div>
-    <div class="text-left space-y-1">
-      <p><%= t('defaults.notice.product_info') %></p>
-      <p>・全く異なる商品を登録する場合は、
-        <%= link_to "新規商品登録", categories_path,
-            class: "text-secondary hover:text-secondary underline" %>
-          からお願いいたします。</p>
-    </div>
+<div tabindex="0" class="collapse collapse-arrow bg-base-100 border-base-100 border
+            p-0.5 rounded-4xl text-sm text-stone-400 w-fit ring-stone-300 ring-2">
+  <div class="collapse-title relative flex items-center justify-center gap-2 sm:gap-1">
+    <%= image_tag "warning.svg", class: "size-5" %>
+    <span class="text-error"><%= t('defaults.notice.about') %></span>
+  </div>
+  <div class="collapse-content text-sm text-left space-y-0.5">
+    <p><%= t('defaults.notice.usage_guideline') %></p>
+    <p><%= t('defaults.notice.side_effects') %></p>
+    <p>・全く異なる商品を登録する場合は、<span class="md:hidden"><br></span>
+      <%= link_to "新規商品登録", categories_path,
+          class: "text-secondary hover:text-secondary underline" %>からお願いいたします。</p>
   </div>
 </div>
 
 <!-- 既存の商品情報 -->
-<div class="flex flex-col justify-center items-center p-4 space-y-2 rounded-4xl px-4 bg-white/80 max-w-md mx-auto">
-  <p class="text-text-neutral pt-1 text-sm">
+<div class="flex flex-col justify-center items-center py-3 px-1 sm:p-4 space-y-2 rounded-4xl bg-white/80 max-w-md mx-auto ring-stone-100 ring-2">
+  <p class="text-text-neutral text-sm py-1">
     <%= t('posts.edit.current_product_information') %>
   </p>
 
-  <div class="flex flex-row items-start justify-center w-full gap-4">
+  <div class="flex flex-col sm:flex-row items-center sm:items-start justify-center w-full gap-4">
     <!-- 画像 -->
     <figure x-data="{ imageLoaded: false }"
             x-init="imageLoaded = $el.querySelector('img')?.complete || false">
       <div x-cloak x-show="!imageLoaded" class="flex animate-pulse space-x-4">
         <div class="flex flex-col items-center">
-          <div class="size-20 sm:size-30 rounded-xl bg-base-200"></div>
+          <div class="size-22 sm:size-30 rounded-xl bg-stone-300"></div>
         </div>
       </div>
 
       <div x-show="imageLoaded" x-transition>
         <div class="flex flex-col items-center">
           <%= @post.product.decorate.product_image(
-                class: "size-20 sm:size-30",
+                class: "size-22 sm:size-30",
                 "@load" => "imageLoaded = true",
                 "@error"=> "imageLoaded = true"
               ) %>
@@ -64,7 +61,7 @@
             <span class="text-error">*</span>
             <div class="dropdown dropdown-top dropdown-hover pl-1">
             <div tabindex="0" role="button" class="btn btn-xs btn-white/80 btn-circle">?</div>
-            <ul tabindex="0" class="dropdown-content menu bg-base-100 text-base-300 rounded-box z-[1] w-40 p-1 shadow-sm text-xs">
+            <ul tabindex="0" class="dropdown-content menu bg-base-100 text-base-300 rounded-box z-10 w-35 p-1 shadow-sm text-xs">
                 <li><a><%= t('defaults.dropdown.post_search_description') %></a></li>
             </ul>
             </div>
@@ -104,12 +101,12 @@
       <%= p.hidden_field :product_image_url, data: { rakuten_search_target: "imageUrl" } %>
     </div>
 
-    <!-- メーカー -->
-    <div class="sm:flex sm:flex-row sm:justify-center sm:items-center sm:gap-3">
+    <!-- メーカー・カテゴリ -->
+    <div class="sm:flex sm:flex-row sm:justify-center sm:items-center sm:gap-3 mt-4">
       <div class="form-control">
         <div class="label p-2 text-neutral flex justify-center items-center space-x-1">
-            <%= p.label :manufacturer %>
-            <span class="text-error">*</span>
+          <%= p.label :manufacturer %>
+          <span class="text-error">*</span>
         </div>
 
         <%= p.text_field :manufacturer, 
@@ -136,20 +133,61 @@
       </div>
     </div>
 
-    <!-- 画像アップロード -->
-    <div class="form-control">
-      <div class="flex flex-row justify-center items-center gap-1 sm:pt-4">
-        <%= p.label :image, t('posts.edit.replace_product_image'), class: "label p-2 text-neutral text-sm" %>
-        <div class="dropdown dropdown-top dropdown-hover pl-1">
-          <div tabindex="0" role="button" class="btn btn-xs btn-white/80 btn-circle">?</div>
-          <ul tabindex="0" class="dropdown-content menu bg-base-100 text-base-300 rounded-box z-[1] w-40 p-1 shadow-sm text-xs">
-            <li><a><%= t('defaults.dropdown.no_product_image') %></a></li>
-          </ul>
+    <!-- 画像選択 -->
+    <div class="form-control" data-controller="image-source-selector">
+      <div class="flex flex-row justify-center items-center gap-1 sm:pt-4 pb-1">
+        <%= p.label :image, t('posts.edit.product_image_source'), class: "label py-4 text-neutral" %>
+      </div>
+
+      <%= p.hidden_field :remove_image, 
+          value: @post.product.image.attached? ? "false" : "true",
+          data: { image_source_selector_target: "removeImageFlag" } %>
+
+      <!-- ラジオボタン -->
+      <div class="flex flex-col items-center sm:flex-row sm:items-start justify-center gap-4 mb-4">
+        <div class="flex flex-col items-start sm:flex-row sm:items-start gap-5 sm:gap-6">
+          <label class="flex items-start cursor-pointer gap-2">
+            <%= radio_button_tag 'image_source', 'uploaded',
+                @post.product.image.attached?,
+                class: "radio radio-sm radio-secondary",
+                data: { 
+                  action: "change->image-source-selector#toggle",
+                  image_source_selector_target: "uploadedRadio"
+                } %>
+            <span class="label-text text-sm"><%= t('posts.edit.use_uploaded_image') %></span>
+          </label>
+
+          <label class="flex items-start cursor-pointer gap-2">
+            <%= radio_button_tag 'image_source', 'url',
+                !@post.product.image.attached? && @post.product.product_image_url.present?,
+                class: "radio radio-sm radio-secondary",
+                data: { 
+                  action: "change->image-source-selector#toggle",
+                  image_source_selector_target: "urlRadio"
+                } %>
+            <span class="label-text text-sm"><%= t('posts.edit.use_rakuten_image') %></span>
+          </label>
         </div>
       </div>
-      <div class="flex flex-col items-center">
-        <%= p.file_field :image,
-            class: "file-input file-input-accent file-input-sm sm:file-input-md text-base-300" %>
+
+      <!-- アップロード画像 -->
+      <div data-image-source-selector-target="fileSection" class="<%= 'hidden' unless @post.product.image.attached? %>">
+        <div class="flex flex-col items-center gap-2 py-1">
+          <%= p.file_field :image,
+              class: "file-input file-input-secondary text-base-300" %>
+          <div class="flex items-center justify-center flex-col text-xs text-stone-400 pb-4">
+            <%= t('defaults.image_upload_limit') %>
+          </div>
+      </div>
+
+      <!-- 楽天画像 -->
+      <div data-image-source-selector-target="urlSection" class="<%= 'hidden' if @post.product.image.attached? %>">
+        <div class="flex items-center justify-center flex-col text-sm text-stone-400 gap-1 pl-5">
+          <div class="text-left leading-relaxed">
+            <p><%= t('posts.edit.search_rakuten_for_image') %></p>
+            <p><%= t('posts.edit.rakuten_search_hint') %></p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -166,12 +204,4 @@
   </div>
 </div>
 
-<div class="flex justify-center items-center text-base-200 w-full text-sm py-4">
-  <div class="flex items-center gap-5 w-full">
-    <div class="flex-1 border-t border-dashed border-stone-400"></div>
-      <span class="text-stone-400 text-sm font-medium">
-        <%= t('posts.new.reputation_part') %>
-      </span>
-    <div class="flex-1 border-t border-dashed border-stone-400"></div>
-  </div>
-</div>
+<%= render "section_divider" %>

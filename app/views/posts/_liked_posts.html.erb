@@ -5,7 +5,7 @@
       <!-- ユーザー情報 -->
       <div class="flex flex-col pl-2 md:pl-6 text-sm">
         <%= user_profile_link_or_tooltip(post.user,
-          class: "flex items-center md:gap-2 md:hover:bg-stone-200/80 md:duration-250 md:rounded-4xl md:px-2 md:w-fit") do %>
+          class: "flex items-center md:gap-2 md:hover:bg-stone-200/60 md:duration-250 md:rounded-4xl md:px-2 md:w-fit") do %>
           <%= post.user.decorate.avatar_image(class: "w-9 h-9 md:w-10 md:h-10") %>
 
           <div class="flex flex-col p-2 md:p-1 gap-1 md:gap-2 text-neutral">
@@ -13,14 +13,14 @@
 
             <!-- バッジ -->
             <div class="flex flex-row gap-1 flex-wrap">
-              <span class="flex flex-row gap-1 text-[11px] items-center text-neutral md:text-xs rounded-full px-2 py-1 bg-success w-fit whitespace-nowrap">
-                <%= image_tag "badge.svg", class: "h-5 w-5" %>
+              <span class="flex flex-row gap-1 text-10px items-center text-neutral md:text-xs rounded-full px-2 py-1 bg-success w-fit whitespace-nowrap">
+                <%= image_tag "badge.svg", class: "size-4 sm:size-5" %>
                 <%= display_post_badge(post.user) %>
               </span>
 
               <% if user_signed_in? && post.user != current_user && sweetness_twin?(post.user) %>
-                <span class="flex flex-row gap-1 text-[11px] md:text-xs items-center text-neutral rounded-full px-2 py-1 bg-info w-fit">
-                  <%= image_tag "handshake.svg", class: "h-4 w-4" %>
+                <span class="flex flex-row gap-1 text-xs items-center text-neutral rounded-full px-2 py-1 bg-info w-fit">
+                  <%= image_tag "handshake.svg", class: "size-4 sm:size-5" %>
                   <%= display_sweetness_twin_badge(post.user) %>
                 </span>
               <% end %>
@@ -36,13 +36,13 @@
               x-init="imageLoaded = $el.querySelector('img')?.complete || false"
               class="flex-shrink-0" >
         <div x-cloak x-show="!imageLoaded" class="flex animate-pulse space-x-4">
-          <div class="p-2 md:p-3">
-            <div class="size-22 sm:size-30 rounded-xl bg-base-200"></div>
+          <div class="p-1 sm:p-2">
+            <div class="size-22 sm:size-30 rounded-xl bg-stone-300"></div>
           </div>
         </div>
 
         <div x-show="imageLoaded" x-transition>
-          <div class="p-2 md:p-3">
+          <div class="p-1 sm:p-2">
             <%= post.decorate.post_image(
                   class: "size-22 sm:size-30",
                         "@load" => "imageLoaded = true",
@@ -52,15 +52,15 @@
         </div>
       </figure>
 
-        <div class="absolute top-3 right-6">
+        <div class="absolute top-3 sm:top-3 right-3 sm:right-6">
             <span class="flex items-center gap-1">
             <% unless post.unpublish? || current_user&.own?(post) %>
                 <% if user_signed_in? %>
-                <%= render 'posts/like_buttons', { post: post } %>
+                <%= render 'posts/like_buttons', { post: post, button_id: "like-button-mypage-#{post.id}" } %>
                 <% else %>
                 <label class="flex flex-row items-center gap-1 cursor-pointer tooltip tooltip-left sm:tooltip-bottom" 
                         data-tip="<%= t('defaults.require_login') %>">
-                    <%= image_tag "heart.svg", class: "h-6 w-6 ml-1" %>
+                    <%= image_tag "heart.svg", class: "size-6 ml-1" %>
                 </label>
                 <% end %>
             <% end %>
@@ -69,19 +69,19 @@
 
         <div class="flex flex-col items-start flex-1 min-w-0 hover:opacity-70 w-full pb-3 md:pb-6">
           <!-- 投稿情報 -->
-          <div class="flex-1 min-w-0 flex flex-col text-neutral justify-between w-full">
+          <div class="flex-1 min-w-0 flex flex-col text-neutral justify-between pr-5 w-full pt-2">
             <%= link_to post_path(post) do %>
               <div class="flex items-center justify-between py-1 text-base-300 text-xs w-full">
                 <%= post.product.manufacturer %>
               </div>
-              <div class="mb-1 md:mb-3 w-full">
-                <div class="card-title text-base md:text-lg line-clamp-2">
+              <div class="pb-1 md:pb-3">
+                <div class="text-base md:text-lg py-1 max-w-[200px] sm:max-w-xl">
                   <%= post.product.name %>
                 </div>
               </div>
           </div>
 
-          <!-- あまピタ評価 -->
+          <!-- あまピタ判定 -->
           <div class="flex-shrink-0 w-full max-w-full">
             <% rating_images = {
               "lack_of_sweetness" => "smiley-meh.svg",
@@ -100,17 +100,17 @@
             } %>
 
             <div class="inline-flex items-center rounded-xl gap-2 px-3 py-2 md:py-2 md:px-4 text-neutral text-sm md:text-base <%= bg_colors[post.sweetness_rating] %> w-fit max-w-full overflow-hidden">
-              <%= image_tag rating_images[post.sweetness_rating], class: "h-7 w-7 md:h-8 md:w-8" %>
+              <%= image_tag rating_images[post.sweetness_rating], class: "size-7 md:size-8" %>
               <p><%= I18n.t("enums.post.sweetness_rating.#{post.sweetness_rating}") %></p>
             </div>
           </div>
-          <div class="py-3 pr-8 text-xs md:text-sm truncate max-w-48 sm:max-w-xs
+          <div class="py-3 pr-2 text-sm truncate max-w-56 md:max-w-xs break-words overflow-hidden text-ellipsis
             <%= post.review.present? ? '' : 'md:h-10 invisible' %>">
             <%= post.review %>
           </div>
-          <div class="absolute top-30 right-3 hidden sm:block">
+          <div class="absolute top-26 sm:top-30 right-1 sm:right-3">
             <span class="gap-1">
-              <%= image_tag "arrow.svg", class: "h-6 w-6 ml-1" %>
+              <%= image_tag "arrow.svg", class: "size-6 ml-1" %>
             </span>
           </div>
             <% end %>

@@ -9,7 +9,7 @@
           <span class="text-error">*</span>
           <div class="dropdown dropdown-top dropdown-hover pl-1">
             <div tabindex="0" role="button" class="btn btn-xs btn-white/80 btn-circle">?</div>
-            <ul tabindex="0" class="dropdown-content menu bg-base-100 text-base-300 rounded-box z-[1] w-40 p-1 shadow-sm text-xs">
+            <ul tabindex="0" class="dropdown-content menu bg-base-100 text-base-300 rounded-box z-10 w-35 p-1 shadow-sm text-xs">
               <li><a><%= t('defaults.dropdown.post_search_description') %></a></li>
             </ul>
           </div>
@@ -17,7 +17,7 @@
 
         <div class="flex justify-center gap-1 w-full items-center">
           <%= p.search_field :name,
-              class: "input input-bordered flex-1 bg-white/80",
+              class: "input input-bordered flex-1 bg-white/80 text-base",
               placeholder: t("defaults.placeholders.require_word"),
               data: { rakuten_search_target: "keyword" } %>
           <button type="button" 
@@ -61,7 +61,7 @@
               list: "manufacturer_list",
               placeholder: t("defaults.placeholders.manufacturer"),
               data: { rakuten_search_target: "manufacturer" },
-              class: "input input-bordered bg-white/80" %>
+              class: "input input-bordered bg-white/80 text-base" %>
         <%= tag.div id: "manufacturer-mapping", 
               data: { mapping: I18n.t("products.manufacturers.mapping").to_json }, 
               style: "display:none;" %>
@@ -76,25 +76,28 @@
         <%= p.select :category_id,
               options_from_collection_for_select(Category.all, :id, :name, @post.product.category_id),
               { prompt: t("defaults.select.category") },
-              class: "select select-bordered bg-white/80",
+              class: "select select-bordered bg-white/80 text-base",
               data: { rakuten_search_target: "categorySelect" } %>
       </div>
     </div>
 
     <!-- 画像アップロード -->
-    <div class="form-control">
+    <div class="form-control py-2">
       <div class="flex flex-row justify-center items-center gap-1 sm:pt-2">
         <%= p.label :image, t('activerecord.attributes.product.image'), class: "label p-2 text-neutral" %>
         <div class="dropdown dropdown-top dropdown-hover pl-1">
           <div tabindex="0" role="button" class="btn btn-xs btn-white/80/80 btn-circle">?</div>
-          <ul tabindex="0" class="dropdown-content menu bg-base-100 text-base-300 rounded-box z-[1] w-40 p-1 shadow-sm text-xs">
+          <ul tabindex="0" class="dropdown-content menu bg-base-100 text-base-300 rounded-box z-1 w-40 p-1 shadow-sm text-xs">
             <li><a><%= t('defaults.dropdown.no_product_image') %></a></li>
           </ul>
         </div>
       </div>
       <div class="flex flex-col items-center">
         <%= p.file_field :image,
-            class: "file-input file-input-accent file-input-sm sm:file-input-md text-base-300" %>
+            class: "file-input file-input-secondary text-base-300" %>
+        <div class="flex items-center justify-center flex-col text-xs text-stone-400 p-0.5">
+          <%= t('defaults.image_upload_limit') %>
+        </div>
       </div>
     </div>
 
@@ -108,7 +111,12 @@
         <%= image_tag "warning-circle.svg", class: "h-5 w-5 flex-shrink-0" %>
         <span><%= raw t('defaults.notice.product_image') %></span>
       </div>
-      <p class="p-1"></p>
+      <p class="p-0.5"></p>
+      <div class="flex items-center gap-2">
+        <%= image_tag "warning-circle.svg", class: "h-5 w-5 flex-shrink-0" %>
+        <span><%= raw t('defaults.notice.post_delete_notice') %></span>
+      </div>
+      <p class="p-0.5"></p>
       <div class="flex items-center gap-2">
         <%= image_tag "alarm.svg", class: "h-5 w-5 flex-shrink-0" %>
         <span><%= t('posts.new.product_editable_notice') %></span>
@@ -117,12 +125,4 @@
   </div>
 </div>
 
-<div class="flex justify-center items-center text-base-200 w-full text-sm pt-3">
-  <div class="flex items-center gap-5 w-full">
-    <div class="flex-1 border-t border-dashed border-stone-400"></div>
-      <span class="text-stone-400 text-sm font-medium">
-        <%= t('posts.new.reputation_part') %>
-      </span>
-    <div class="flex-1 border-t border-dashed border-stone-400"></div>
-  </div>
-</div>
+<%= render "posts/section_divider" %>

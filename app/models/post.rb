@@ -26,7 +26,7 @@ class Post < ApplicationRecord
     too_sweet: 4
   }
 
-  enum status: { publish: 0, unpublish: 1 }
+  enum :status, { publish: 0, unpublish: 1 }
 
   scope :perfect_sweetness, -> { where(sweetness_rating: :perfect_sweetness) }
   scope :publish, -> { where(status: :publish) }
@@ -52,6 +52,6 @@ class Post < ApplicationRecord
 
   def x_share_text
     return "" unless product&.name.present?
-      "【#{product.name}】のあまピタ判定をしたよ！\n\n#あまピタッ\n#{share_url_with_cache_buster}"
+      "【#{product.name}】のあまピタ判定をしたよ！\n\n#あまピタ\n#{share_url_with_cache_buster}"
   end
 end

@@ -128,26 +128,19 @@ module ApplicationHelper
     else
       content_tag :div, options.merge(
         class: "#{options[:class]} tooltip tooltip-top",
-        data: { tip: t("defaults.require_login_user_rating") }
+        data: { tip: t("defaults.require_login") }
       ), &block
     end
   end
 
-  def product_link_or_tooltip(category, product, options = {}, &block)
-    if user_signed_in?
-
-      path = if category.present?
-              category_product_path(category.slug, product)
+  def product_link(category, product, options = {}, &block)
+    path =
+      if category.present?
+        category_product_path(category.slug, product)
       else
-              product_path(product)
+        product_path(product)
       end
 
-      link_to path, options, &block
-    else
-      content_tag :div, options.merge(
-        class: "#{options[:class]} tooltip tooltip-top",
-        data: { tip: t("defaults.require_login") }
-      ), &block
-    end
+    link_to path, options, &block
   end
 end

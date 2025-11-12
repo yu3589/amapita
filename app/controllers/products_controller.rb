@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :authenticate_user!, only: %i[show]
+  skip_before_action :authenticate_user!
 
   def index
     @q = Product.ransack(params[:q])
@@ -33,7 +33,7 @@ class ProductsController < ApplicationController
   private
 
   def setup_product_details
-    published_posts = @product.posts.publish.includes(:user)
+    published_posts = @product.posts.publish.includes(user: :avatar_attachment)
 
     if user_signed_in?
       @user_unpublish_post = @product.posts.unpublish.find_by(user_id: current_user.id)

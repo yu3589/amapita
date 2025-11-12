@@ -9,7 +9,12 @@ class ProductDecorator < Draper::Decorator
     merged_classes  = [ default_classes, custom_classes ].compact.join(" ")
 
     image_source = if object.image.attached? && object.image.blob.persisted?
-      object.image.variant(PRODUCT_VARIANT_OPTIONS)
+      # 元画像がすでにWebP形式なら変換しない
+      if object.image.blob.content_type == "image/webp"
+        object.image
+      else
+        object.image.variant(PRODUCT_VARIANT_OPTIONS)
+      end
     elsif object.product_image_url.present?
       object.product_image_url
     else

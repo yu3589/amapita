@@ -1,0 +1,8 @@
+<div class="floating-new-product-button">
+  <%= new_product_link_or_tooltip(class: "floating_button bg-accent md:bg-accent/90 md:hover:bg-accent py-3 px-6 xl:px-2 xl:py-4 2xl:px-5 hover-animation") do %>
+    <%= image_tag "footer/plus_circle.svg", class: "h-7 w-7 sm:h-8 sm:w-8" %>
+    <span class="text-sm text-center">
+      <%= raw t('defaults.link.product_register_suggestion') %>
+    </span>
+  <% end %>
+</div>

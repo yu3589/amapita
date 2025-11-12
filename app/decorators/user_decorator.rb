@@ -9,7 +9,11 @@ class UserDecorator < Draper::Decorator
     merged_classes  = [ default_classes, custom_classes ].compact.join(" ")
 
     image_url = if object.avatar.attached?
+      if object.avatar.blob.content_type == "image/webp"
+        object.avatar
+      else
       object.avatar.variant(UserDecorator::AVATAR_VARIANT_OPTIONS)
+      end
     elsif object.profile_image_url.present?
       object.profile_image_url
     else
