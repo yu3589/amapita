@@ -1,5 +1,5 @@
 <div class="flex flex-col justify-center items-center text-center rounded-4xl m-2 sm:m-4 text-base">
-  <%= form_with model: @post, local: true, class: "p-4 md:p-2 space-y-4" do |f| %>
+  <%= form_with model: @post, local: true, class: "p-2 space-y-4" do |f| %>
 
     <% if @post.errors.any? %>
       <div class="error-messages text-error bg-base-100 p-2 md:p-4 rounded-4xl ring-2 ring-error">
@@ -16,7 +16,6 @@
       <%= render "visibility_setting", f: f %>
     <% elsif @post.product.persisted? %>
       <%= render "existing_product_form", f: f %>
-      
     <% else %>
       <%= render "new_product_form", f: f %>
       <%= render "visibility_setting", f: f %>
@@ -24,17 +23,17 @@
 
     <%= render "common_rating_form", f: f %>
 
-    <div class="form-control text-center pb-6">
+    <div class="form-control flex flex-col text-center justify-center items-center pt-4 sm:py-2 sm:pb-4">
       <%= f.label :review, t('activerecord.attributes.post.review'), class: "label text-neutral mb-2" %>
-      <%= f.text_area :review, rows: 3, class: "textarea textarea-bordered bg-white/80 w-full max-w-3xl", placeholder: t('posts.form.post_placeholders') %>     
+      <%= f.text_area :review, rows: 3, class: "textarea text-base textarea-bordered bg-white/80 w-full sm:max-w-2xl", placeholder: t('posts.form.post_placeholders') %>     
     </div>
 
-    <div class="form-control p-1">
+    <div class="form-control pt-6">
       <%= f.submit f.object.new_record? ? t('helpers.submit.post') : t('helpers.submit.update'),
             class: "text-base btn btn-lg btn-secondary" %>
     </div>
   <% end %>
-  <div class="pt-2 pb-6">
+  <div class="pb-10 sm:pb-6 pt-5">
   <%= link_to :back do %>
     <button class="text-base btn"><%= t("defaults.buttons.return") %></button>
   <% end %>

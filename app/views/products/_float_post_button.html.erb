@@ -1,0 +1,21 @@
+<% if show_new_post_button?(@product) %>
+  <div class="sm:hidden not-odd:fixed bottom-20 left-0 right-0 px-2 z-10 flex justify-center">
+    <% if user_signed_in? %>
+      <%= link_to new_post_path(product_id: @product.id),
+          class: "floating_button py-4 px-10 sm:px-5 bg-info inline-flex gap-2 items-center justify-center" do %>
+        <%= image_tag "cookie.svg", class: "size-7" %>
+        <span class="text-base">
+          <%= raw t('defaults.buttons.new_post') %>
+        </span>
+      <% end %>
+    <% else %>
+      <div class="floating_button bg-info py-4 px-10 sm:px-5 inline-flex gap-2 items-center justify-center tooltip tooltip-top"
+          data-tip="<%= t('defaults.require_login') %>">
+        <%= image_tag "cookie.svg", class: "size-7" %>
+        <span class="text-base">
+          <%= raw t('defaults.buttons.new_post') %>
+        </span>
+      </div>
+    <% end %>
+  </div>
+<% end %>
