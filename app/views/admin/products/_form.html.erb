@@ -52,7 +52,10 @@
         <span class="text-error">*</span>
       </div>
       <%= f.select :category_id,
-            options_from_collection_for_select(Category.all, :id, :name, @product.category_id),
+            options_from_collection_for_select(
+              Category.where(name: I18n.t('categories.list')).order(:id),
+              :id, :name, @product&.category_id
+            ),
             { prompt: t("defaults.select.category") },
             class: "select select-bordered" %>
     </div>

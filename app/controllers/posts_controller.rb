@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, only: %i[new create]
+  before_action :set_categories, only: %i[new create edit update]
 
   def index
     @q_new = Post.ransack(params[:q_new])
@@ -152,6 +153,16 @@ class PostsController < ApplicationController
   def handle_failed_update
     flash.now[:alert] = t("defaults.flash_message.not_updated", item: Post.model_name.human)
     render :edit, status: :unprocessable_entity
+  end
+
+  def set_categories
+    return if params[:product_id].present?
+
+    categories_hash = Category.where(name: I18n.t("categories.list")).pluck(:name, :id).to_h
+    @categories = I18n.t("categories.list").filter_map do |name|
+      id = categories_hash[name]
+      [ name, id ] if id
+    end
   end
 
   def post_params

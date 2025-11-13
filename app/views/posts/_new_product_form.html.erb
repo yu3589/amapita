@@ -50,7 +50,7 @@
     </div>
 
     <!-- メーカー -->
-    <div class="sm:flex sm:flex-row sm:justify-center sm:items-center sm:gap-3">
+    <div class="sm:flex sm:flex-row sm:justify-center sm:items-center sm:gap-2">
       <div class="form-control">
         <div class="label p-2 text-neutral flex justify-center items-center space-x-1">
           <%= p.label :manufacturer %>
@@ -69,14 +69,14 @@
 
       <!-- カテゴリ -->
       <div class="form-control">
-        <div class="label p-2 text-neutral flex justify-center items-center space-x-1">
+        <div class="label p-2 text-neutral flex justify-center items-center space-x-5">
           <%= p.label :category_id %>
           <span class="text-error">*</span>
         </div>
         <%= p.select :category_id,
-              options_from_collection_for_select(Category.all, :id, :name, @post.product.category_id),
+              options_for_select(@categories, @post.product.category_id),
               { prompt: t("defaults.select.category") },
-              class: "select select-bordered bg-white/80 text-base",
+              class: "select select-bordered bg-white/80 sm:w-40",
               data: { rakuten_search_target: "categorySelect" } %>
       </div>
     </div>
