@@ -23,17 +23,17 @@
 
     <%= render "common_rating_form", f: f %>
 
-    <div class="form-control flex flex-col text-center justify-center items-center pt-4 sm:py-2 sm:pb-4">
+    <div class="form-control flex flex-col text-center justify-center items-center pt-2 sm:py-2 sm:pb-4">
       <%= f.label :review, t('activerecord.attributes.post.review'), class: "label text-neutral mb-2" %>
       <%= f.text_area :review, rows: 3, class: "textarea text-base textarea-bordered bg-white/80 w-full sm:max-w-2xl", placeholder: t('posts.form.post_placeholders') %>     
     </div>
 
-    <div class="form-control pt-6">
+    <div class="form-control pt-3 sm:pt-0">
       <%= f.submit f.object.new_record? ? t('helpers.submit.post') : t('helpers.submit.update'),
             class: "text-base btn btn-lg btn-secondary" %>
     </div>
   <% end %>
-  <div class="pb-10 sm:pb-6 pt-5">
+  <div class="pb-12 sm:pb-6 pt-4">
   <%= link_to :back do %>
     <button class="text-base btn"><%= t("defaults.buttons.return") %></button>
   <% end %>

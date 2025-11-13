@@ -20,14 +20,14 @@
                 x-init="imageLoaded = $el.querySelector('img')?.complete || false">
           <div x-cloak x-show="!imageLoaded" class="flex animate-pulse space-x-4">
             <div class="p-4">
-              <div class="size-30 rounded-xl bg-stone-300"></div>
+              <div class="size-30 sm:size-35 rounded-xl bg-stone-300"></div>
             </div>
           </div>
 
           <div x-show="imageLoaded" x-transition>
             <div class="p-4">
               <%= @post.decorate.post_image(
-                    class: "size-30",
+                    class: "size-30 sm:size-35",
                     "@load" => "imageLoaded = true",
                     "@error"=> "imageLoaded = true"
                   ) %>
