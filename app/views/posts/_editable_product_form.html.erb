@@ -1,8 +1,8 @@
-<div tabindex="0" class="collapse collapse-arrow bg-base-100 border-base-100 border
-            p-0.5 rounded-4xl text-sm text-stone-400 w-fit ring-stone-300 ring-2">
+<div tabindex="0" class="collapse sm:collapse-open collapse-arrow bg-base-100 border-base-100 border
+            p-0 rounded-4xl text-sm text-stone-400 w-fit ring-stone-300 ring-2">
   <div class="collapse-title relative flex items-center justify-center gap-2 sm:gap-1">
     <%= image_tag "warning.svg", class: "size-5" %>
-    <span class="text-error"><%= t('defaults.notice.about') %></span>
+    <span class="text-error sm:text-base"><%= t('defaults.notice.about') %></span>
   </div>
   <div class="collapse-content text-sm text-left space-y-0.5">
     <p><%= t('defaults.notice.usage_guideline') %></p>
@@ -13,42 +13,7 @@
   </div>
 </div>
 
-<!-- 既存の商品情報 -->
-<div class="flex flex-col justify-center items-center py-3 px-1 sm:p-4 space-y-2 rounded-4xl bg-white/80 max-w-md mx-auto ring-stone-100 ring-2">
-  <p class="text-text-neutral text-sm py-1">
-    <%= t('posts.edit.current_product_information') %>
-  </p>
-
-  <div class="flex flex-col sm:flex-row items-center sm:items-start justify-center w-full gap-4">
-    <!-- 画像 -->
-    <figure x-data="{ imageLoaded: false }"
-            x-init="imageLoaded = $el.querySelector('img')?.complete || false">
-      <div x-cloak x-show="!imageLoaded" class="flex animate-pulse space-x-4">
-        <div class="flex flex-col items-center">
-          <div class="size-22 sm:size-30 rounded-xl bg-stone-300"></div>
-        </div>
-      </div>
-
-      <div x-show="imageLoaded" x-transition>
-        <div class="flex flex-col items-center">
-          <%= @post.product.decorate.product_image(
-                class: "size-22 sm:size-30",
-                "@load" => "imageLoaded = true",
-                "@error"=> "imageLoaded = true"
-              ) %>
-        </div>
-      </div>
-    </figure>
-
-    <!-- 商品情報 -->
-    <div class="flex flex-col justify-center text-sm text-neutral text-start gap-4 pt-3">
-      <%= f.hidden_field :product_id, value: @post.product.id %>
-      <p><%= t('activerecord.attributes.product.name') %>：<%= @post.product.name %></p>
-      <p><%= t('activerecord.attributes.product.manufacturer') %>：<%= @post.product.manufacturer %></p>
-      <p><%= t('activerecord.attributes.product.category_id') %>：<%= @post.product.category.name %></p>
-    </div>
-  </div>
-</div>
+<%= render 'posts/product_info', post: @post, f: f, editable: true %>
 
 <div data-controller="rakuten-search">
   <%= f.fields_for :product do |p| %>
@@ -102,7 +67,7 @@
     </div>
 
     <!-- メーカー・カテゴリ -->
-    <div class="sm:flex sm:flex-row sm:justify-center sm:items-center sm:gap-3 mt-4">
+    <div class="sm:flex sm:flex-row sm:justify-center sm:items-center gap-2 mt-2">
       <div class="form-control">
         <div class="label p-2 text-neutral flex justify-center items-center space-x-1">
           <%= p.label :manufacturer %>
@@ -135,7 +100,7 @@
 
     <!-- 画像選択 -->
     <div class="form-control" data-controller="image-source-selector">
-      <div class="flex flex-row justify-center items-center gap-1 sm:pt-4 pb-1">
+      <div class="flex flex-row justify-center items-center gap-1 sm:pt-3 pb-1">
         <%= p.label :image, t('posts.edit.product_image_source'), class: "label py-4 text-neutral" %>
       </div>
 

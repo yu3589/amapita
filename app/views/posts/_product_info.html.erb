@@ -1,0 +1,50 @@
+<div class="flex flex-col justify-center items-center p-3 sm:p-4 rounded-4xl bg-stone-100/50 max-w-68 sm:max-w-md  mx-auto ring-stone-200 ring-2">
+  <% if editable %>
+    <p class="text-text-neutral text-sm pb-3">
+      <%= t('posts.edit.current_product_info') %>
+    </p>
+  <% else %>
+    <p class="text-text-neutral text-sm sm:text-base pb-3">
+      <%= t('posts.edit.product_info') %>
+    </p>
+  <% end %>
+
+  <div class="flex flex-col sm:flex-row items-center sm:items-start justify-center w-full gap-4">
+    <!-- 画像 -->
+    <figure x-data="{ imageLoaded: false }" x-init="imageLoaded = $el.querySelector('img')?.complete || false">
+      <div x-cloak x-show="!imageLoaded" class="flex animate-pulse space-x-4">
+        <div class="flex flex-col items-center">
+          <div class="size-25 sm:size-30 rounded-xl bg-stone-300"></div>
+        </div>
+      </div>
+
+      <div x-show="imageLoaded" x-transition>
+        <div class="flex flex-col items-center">
+          <%= post.product.decorate.product_image(
+                class: "size-25 sm:size-30",
+                "@load" => "imageLoaded = true",
+                "@error"=> "imageLoaded = true"
+              ) %>
+        </div>
+      </div>
+    </figure>
+
+    <!-- 商品情報 -->
+    <div class="flex flex-col justify-center text-sm text-neutral text-start gap-1.5 sm:gap-4 pt-2">
+      <% if editable %>
+        <%= f.hidden_field :product_id, value: post.product.id %>
+        <p class="max-w-[280px]"><%= t('activerecord.attributes.product.name') %>：<%= post.product.name %></p>
+        <p><%= t('activerecord.attributes.product.manufacturer') %>：<%= post.product.manufacturer %></p>
+        <p><%= t('activerecord.attributes.product.category_id') %>：<%= post.product.category.name %></p>
+      <% else %>
+        <div class="gap-1.5 sm:gap-4 pt-2 rounded-4xl text-sm text-neutral w-auto sm:w-max-xs">
+          <span class="text-left inline-block leading-loose">
+            <p class="max-w-[280px]"><%= t('activerecord.attributes.product.name') %>：<%= post.product.name %></p>
+            <p><%= t('activerecord.attributes.product.manufacturer') %>：<%= post.product.manufacturer %></p>
+            <p><%= t('activerecord.attributes.product.category_id') %>：<%= post.product.category.name %></p>
+          </span>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

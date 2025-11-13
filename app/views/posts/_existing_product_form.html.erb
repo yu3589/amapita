@@ -1,36 +1,6 @@
 <%= f.hidden_field :product_id, value: @post.product.id %>
-<div class="flex flex-col sm:flex-row items-center sm:items-start justify-center text-center w-full gap-2 py-2 sm:gap-4">
-  <!-- 画像 -->
-  <figure x-data="{ imageLoaded: false }"
-          x-init="imageLoaded = $el.querySelector('img')?.complete || false">
-    <div x-cloak x-show="!imageLoaded" class="flex animate-pulse space-x-4">
-      <div class="flex flex-col items-center">
-        <div class="size-20 sm:size-30 rounded-xl bg-stone-300"></div>
-      </div>
-    </div>
 
-    <div x-show="imageLoaded" x-transition>
-      <div class="flex flex-col items-center">
-        <%= @post.product.decorate.product_image(
-              class: "size-20 sm:size-30",
-              "@load" => "imageLoaded = true",
-              "@error"=> "imageLoaded = true"
-            ) %>
-      </div>
-    </div>
-  </figure>
-
-  <!-- 商品情報 -->
-  <div class="flex justify-center w-full sm:w-auto pt-2 sm:pt-3">
-    <div class="py-2 px-3 sm:py-3 rounded-4xl text-sm text-neutral w-auto w-max-64 sm:w-max-xs ring-stone-300 ring-2">
-      <span class="text-left inline-block leading-loose">
-        <p class="max-w-[200px] sm:max-w-xl"><%= t('activerecord.attributes.product.name') %>：<%= @post.product.name %></p>
-        <p><%= t('activerecord.attributes.product.manufacturer') %>：<%= @post.product.manufacturer %></p>
-        <p><%= t('activerecord.attributes.product.category_id') %>：<%= @post.product.category.name %></p>
-      </span>
-    </div>
-  </div>
-</div>
+<%= render "posts/product_info", post: @post, editable: false %>
 
 <%= render "visibility_setting", f: f %>
 
