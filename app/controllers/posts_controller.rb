@@ -135,8 +135,7 @@ class PostsController < ApplicationController
       # 楽天画像を使う場合: アップロード画像を削除
       @post.product.image.purge if @post.product.image.attached?
     elsif processed_params.dig(:product_attributes, :image).present?
-      # アップロード画像を使う場合: 楽天URLをクリア
-      processed_params[:product_attributes][:product_url] = nil
+      # アップロード画像を使う場合: 楽天画像URLをクリア
       processed_params[:product_attributes][:product_image_url] = nil
     end
 
@@ -169,7 +168,7 @@ class PostsController < ApplicationController
     params.require(:post).permit(
     :sweetness_rating, :review, :product_id, :image, :status,
     product_attributes: [
-      :id, :name, :manufacturer, :category_id, :image, :product_url, :product_image_url ],
+      :id, :name, :manufacturer, :category_id, :image, :product_url, :product_image_url, :remove_image ],
     post_sweetness_score_attributes: [
       :id, :sweetness_strength, :aftertaste_clarity, :natural_sweetness, :coolness, :richness
     ]
