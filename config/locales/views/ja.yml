@@ -198,7 +198,8 @@ ja:
       uploaded_product_image: 現在の商品画像
       replace_post_image: 新しい画像をアップロード
       replace_product_image: 新しい商品画像をアップロード
-      current_product_information: 現在登録されている商品情報
+      current_product_info: 現在登録されている商品情報
+      product_info: 商品情報
       product_image_source: 画像の差し替え
       use_uploaded_image: アップロード画像を使用
       use_rakuten_image: 楽天の画像を使用
