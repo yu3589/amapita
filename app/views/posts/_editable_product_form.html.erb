@@ -126,10 +126,10 @@
             <span class="text-error">*</span>
         </div>
         <%= p.select :category_id,
-                options_from_collection_for_select(Category.all, :id, :name, @post.product.category_id),
-                { prompt: t("defaults.select.category") },
-                class: "select select-bordered bg-white/80",
-                data: { rakuten_search_target: "categorySelect" } %>
+              options_for_select(@categories, @post.product.category_id),
+              { prompt: t("defaults.select.category") },
+              class: "select select-bordered bg-white/80 sm:w-40",
+              data: { rakuten_search_target: "categorySelect" } %>
       </div>
     </div>
 
@@ -178,6 +178,7 @@
           <div class="flex items-center justify-center flex-col text-xs text-stone-400 pb-4">
             <%= t('defaults.image_upload_limit') %>
           </div>
+        </div>
       </div>
 
       <!-- 楽天画像 -->

@@ -200,18 +200,15 @@ export default class extends Controller {
       { keyword: "ハーゲンダッツ", name: "アイス" },
       { keyword: "ジェラート", name: "アイス" },
       { keyword: "ケーキ", name: "ケーキ" },
-      { keyword: "クッキー", name: "クッキー・ビスケット" },
-      { keyword: "ビスケット", name: "クッキー・ビスケット" },
+      { keyword: "クッキー", name: "クッキー" },
+      { keyword: "ビスケット", name: "クッキー" },
       { keyword: "チョコ", name: "チョコレート" },
       { keyword: "グミ", name: "グミ・ゼリー" },
       { keyword: "ゼリー", name: "グミ・ゼリー" },
       { keyword: "飲料", name: "飲み物" },
       { keyword: "ドリンク", name: "飲み物" },
       { keyword: "ジュース", name: "飲み物" },
-      { keyword: "ティー", name: "飲み物" },
-      { keyword: "パン", name: "パン・ドーナツ" },
-      { keyword: "ぱん", name: "パン・ドーナツ" },
-      { keyword: "ドーナツ", name: "パン・ドーナツ" },
+      { keyword: "ドーナツ", name: "ドーナツ" },
       { keyword: "スナック", name: "スナック菓子" }
     ]
 

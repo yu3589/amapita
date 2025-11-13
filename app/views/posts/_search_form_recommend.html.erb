@@ -34,7 +34,7 @@
         <div class="col-span-1">
           <%= f.label :category_id, t('activerecord.models.category') %>
           <%= f.select :category_name_eq,
-            Category.all.pluck(:name, :name),
+                I18n.t('categories.list'),
                 { include_blank: t('defaults.pull_down') },
                 class: "select w-full text-xs sm:text-sm bg-white/70",
                 data: { search_clear_target: "select" } %>

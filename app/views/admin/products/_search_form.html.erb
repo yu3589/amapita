@@ -25,7 +25,7 @@
           <!-- カテゴリ -->
           <div class="col-span-1">
             <%= f.select :category_name_eq,
-                  Category.all.pluck(:name, :name),
+                  I18n.t('categories.list'),
                   { include_blank: t('activerecord.models.category') },
                   class: "select w-full text-sm bg-white/80 py-2",
                   data: { search_clear_target: "select" } %>
