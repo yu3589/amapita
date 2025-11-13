@@ -114,7 +114,11 @@ class User < ApplicationRecord
   end
 
   def like(post)
+    return if like?(post)
     like_posts << post
+  rescue ActiveRecord::RecordInvalid => e
+    Rails.logger.error("Like creation failed for user:#{id}, post:#{post.id} - #{e.message}")
+    false
   end
 
   def liked(post)
@@ -122,6 +126,7 @@ class User < ApplicationRecord
   end
 
   def like?(post)
-    like_posts.include?(post)
+    # キャッシュを避ける
+    likes.exists?(post_id: post.id)
   end
 end

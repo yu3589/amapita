@@ -28,14 +28,14 @@
       <% end %>
     </div>
 
-    <div class="absolute top-3 sm:top-4 right-2 sm:right-4">
+    <div class="absolute top-5 sm:top-6 right-5 sm:right-6">
       <span class="flex items-center gap-1">
         <% unless post.publish? %>
-          <%= image_tag "lock-key.svg", class: "size-5 sm:size-7" %>
+          <%= image_tag "lock-key.svg", class: "size-6 sm:size-7" %>
         <% end %>
-        <% unless post.unpublish? || current_user&.own?(post) %>
+        <% if post.publish? && !current_user&.own?(post) %>
           <% if user_signed_in? %>
-            <%= render 'posts/like_buttons', { post: post, button_id: "like-button-partial-page-#{post.id}" } %>
+            <%= render 'posts/like_buttons', { post: post, button_id: "like-button-#{post.id}" } %>
           <% else %>
             <label class="flex flex-row items-center gap-1 cursor-pointer tooltip tooltip-left sm:tooltip-bottom" 
                   data-tip="<%= t('defaults.require_login') %>">
@@ -45,7 +45,7 @@
         <% end %>
         <!-- 編集・削除ボタン -->
         <% if user_signed_in? && current_user.own?(post) %>
-          <div class="dropdown dropdown-bottom dropdown-end z-10">
+          <div class="dropdown dropdown-top dropdown-end z-10">
             <div tabindex="0" role="button" class="btn btn-lg btn-square btn-ghost hover:bg-stone-300">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                    viewBox="0 0 24 24" class="inline-block h-7 w-7 text-base-300 stroke-current">
