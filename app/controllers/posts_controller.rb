@@ -4,8 +4,17 @@ class PostsController < ApplicationController
 
   def index
     @q_new = Post.ransack(params[:q_new])
-    new_posts_scope = @q_new.result(distinct: true)
-    new_posts_scope = apply_other_manufacturer_filter(new_posts_scope, :q_new)
+    # 実際の検索結果取得
+    if params.dig(:q_new, :product_manufacturer_eq) == "その他"
+      # 「その他」の場合：メーカー条件以外でransack実行
+      search_params = params[:q_new].dup
+      search_params.delete(:product_manufacturer_eq)
+
+      base_scope = Post.ransack(search_params).result(distinct: true)
+      new_posts_scope = base_scope.joins(:product).merge(Product.manufacturer_other)
+    else
+      new_posts_scope = @q_new.result(distinct: true)
+    end
     new_posts_scope = new_posts_scope.publish
                                     .includes(
                                       :image_attachment,
@@ -119,8 +128,20 @@ class PostsController < ApplicationController
                       .where(user_id: twin_user_ids)
                       .ransack(params[:q_recommend])
 
-    recommended_scope = @q_recommend.result(distinct: true)
-    recommended_scope = apply_other_manufacturer_filter(recommended_scope, :q_recommend)
+    if params.dig(:q_recommend, :product_manufacturer_eq) == "その他"
+      search_params = params[:q_recommend].dup
+      search_params.delete(:product_manufacturer_eq)
+
+      base_scope = Post.perfect_sweetness
+                      .where(user_id: twin_user_ids)
+                      .ransack(search_params)
+                      .result(distinct: true)
+
+      recommended_scope = base_scope.joins(:product).merge(Product.manufacturer_other)
+    else
+      recommended_scope = @q_recommend.result(distinct: true)
+    end
+
     recommended_scope = recommended_scope.publish
                                         .perfect_sweetness
                                         .includes(
@@ -131,17 +152,6 @@ class PostsController < ApplicationController
                                         .order(created_at: :desc)
 
     [ @q_recommend, recommended_scope ]
-  end
-
-  def apply_other_manufacturer_filter(scope, params_key)
-    manufacturer_param = params.dig(params_key, :product_manufacturer_eq)
-
-    return scope unless manufacturer_param == "その他"
-    # paramsを直接変更せず、dupでコピーを作成し新しいクエリを作成
-    params_copy = params[params_key].dup
-    params_copy.delete(:product_manufacturer_eq)
-
-    scope.joins(:product).merge(Product.manufacturer_other)
   end
 
   def process_image_params(params)
