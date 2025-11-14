@@ -4,7 +4,7 @@
       <h2 class="text-xl md:text-2xl text-neutral"><%= t('.title') %></h2>
     </div>
 
-    <div class="py-4 text-center">
+    <div class="py-3 text-center">
       <%= render "devise/shared/links" %>
     </div>
 
@@ -93,7 +93,7 @@
 
     <div class="flex flex-col items-center pt-4 pb-8 sm:pt-3 text-sm">
       <div class="flex justify-center text-neutral">
-        <%= link_to new_user_session_path, class: "underline-offset-4 hover:underline transition-all" do %>
+        <%= link_to new_user_session_path, class: "underline-offset-4 underline" do %>
           <%= t('.to_login_page') %>
         <% end %>
       </div>

@@ -49,6 +49,7 @@ ja:
       no_post_image: 画像アップロードが無い場合、上記の商品詳細ページの画像が選択されます
       visibility_notice: 非公開の場合、投稿数はカウントされません
       image_source_selection: "アップロード画像と楽天画像のどちらを使用するか選択できます"
+      twins_description: 好みの甘さ感覚が近いユーザー
     notice:
       about: 商品情報の編集について
       usage_guideline: ・同じ商品で情報に誤りがあった場合にご利用ください。
@@ -210,7 +211,6 @@ ja:
       button:
         take_diagnosis: 診断してみる
       tooltips:
-        twins_description: 「甘さツイン」= 好みの甘さ感覚が近いユーザー
         twins_recommendations_user: 甘さツインのあまピタ一覧
       search_title:
         new_posts: 『 みんなの甘さ評価 』から検索
