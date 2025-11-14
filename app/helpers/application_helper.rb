@@ -91,13 +91,13 @@ module ApplicationHelper
   def diagnosis_meta_tags(profile)
     ogp_image = case profile.sweetness_kind.to_sym
     when :fresh_natural
-      "https://res.cloudinary.com/dbar0jd0k/image/upload/v1761990278/fresh_natural_evayip.png"
+      "https://res.cloudinary.com/dbar0jd0k/image/upload/v1763108364/fresh_natural_kwdkrr.png"
     when :rich_romantic
-      "https://res.cloudinary.com/dbar0jd0k/image/upload/v1761990277/rich_romantic_nfkn1c.png"
+      "https://res.cloudinary.com/dbar0jd0k/image/upload/v1763108363/rich_romantic_q9yomb.png"
     when :sweet_dreamer
-      "https://res.cloudinary.com/dbar0jd0k/image/upload/v1761990278/sweet_dreamer_qvgclj.png"
+      "https://res.cloudinary.com/dbar0jd0k/image/upload/v1763108363/sweet_dreamer_pstyvz.png"
     when :balance_seeker
-      "https://res.cloudinary.com/dbar0jd0k/image/upload/v1761990277/balance_seeker_ufeiyg.png"
+      "https://res.cloudinary.com/dbar0jd0k/image/upload/v1763108363/balance_seeker_ddlftk.png"
     else
       image_url("ogp.png")
     end

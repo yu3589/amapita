@@ -1,46 +1,80 @@
 <div class="p-1 md:p-4">
   <div class="flex flex-col p-1 items-center justify-center w-full max-w-3xl mx-auto bg-base-100 rounded-4xl">
-    <h1 class="text-center text-lg md:text-xl p-2 md:p-4 border-b border-base-200 w-full">
+    <h1 class="text-center text-lg md:text-xl md:p-4 border-b border-base-200 w-full">
       <%= t('.title') %>
     </h1>
 
     <%= form_with url: diagnoses_path, method: :post, local: true, scope: :diagnosis do |f| %>
       <div class="py-4 px-2 md:px-8 w-full">
-        <div class="mb-4 text-center">
+        <div class="mb-2 text-center">
           <% t("diagnoses.new.descriptions").each do |desc| %>
             <p class="mb-1 text-sm md:text-base"><%= desc %></p>
           <% end %>
+
+          <% unless user_signed_in? %>
+            <div class="text-sm text-base-300 text-center pt-4 leading-relaxed">
+              <span class="inline-flex items-center gap-1 whitespace-nowrap">
+                <span class="bg-info rounded-4xl p-1 inline-flex items-center gap-1 text-sm text-neutral">
+                  <%= image_tag "handshake.svg", class: "h-5 w-5" %>
+                  甘さツイン
+                </span>
+                <span class="inline-flex items-center gap-1 text-sm">
+                  <div class="dropdown dropdown-top dropdown-right dropdown-hover">
+                    <div tabindex="0" role="button" class="btn btn-xs btn-white/80 btn-circle">?</div>
+                    <ul tabindex="0" class="dropdown-content menu bg-base-100 text-base-300 rounded-box z-1 w-35 p-0.5 shadow-sm text-xs">
+                      <li><a><%= t('defaults.dropdown.twins_description') %></a></li>
+                    </ul>
+                  </div>
+                  の判定には
+                </span>
+              </span>
+              <div class="text-sm">
+                <%= link_to "ログイン", new_user_session_path,
+                class: "text-secondary hover:text-secondary underline" %>が必要です
+              </div>
+            </div>
+          <% end %>
         </div>
+
 
         <div class="form-control text-left text-neutral p-1 md:p-2 w-full">
           <% @questions.each_with_index do |q, index| %>
-            <div class="w-full max-w-md mx-auto px-2 py-4 md:p-4">
+            <div class="w-full max-w-md mx-auto px-2 py-4 md:p-3">
               
-              <div class="label-text mb-2 md:mb-6 pt-2 font-semibold md:text-base break-words">
+              <div class="label-text my-2 font-semibold md:text-base break-words">
                 <span class="mr-2">Q<%= index + 1 %>.</span><%= q["question"] %>
               </div>
               
               <% if index == 0 %>
                 <div class="w-full flex justify-center my-3">
-                  <%= image_tag "diagnosis/pancake.webp", class: "w-full rounded-4xl" %>
+                  <%= image_tag "diagnosis/pancake.webp", class: "w-1/6 rounded-4xl" %>
+                </div>
+              <% end %>
+
+              <% if index == 1 %>
+                <div class="w-full flex justify-center my-3">
+                  <%= image_tag "diagnosis/plate.webp", class: "w-1/6 rounded-4xl" %>
                 </div>
               <% end %>
 
               <% if index == 2 %>
-                <div class="w-full flex justify-center my-3">
-                  <%= image_tag "diagnosis/assorted_fruits.webp", class: "w-full rounded-4xl" %>
+                <div class="w-full flex justify-center">
+                  <%= image_tag "diagnosis/assorted_fruits.webp", class: "w-1/6 rounded-4xl" %>
                 </div>
               <% end %>
 
               <% if index == 3 %>
-                <div class="pb-2 text-center text-sm text-stone-400">
+                <div class="text-center text-sm text-stone-400">
                   <%= t('.example') %>
+                </div>
+                <div class="w-full flex justify-center my-3">
+                  <%= image_tag "diagnosis/mint.webp", class: "w-1/6 rounded-4xl" %>
                 </div>
               <% end %>
 
               <% if index == 4 %>
                 <div class="w-full flex justify-center my-3">
-                  <%= image_tag "diagnosis/chocolate.webp", class: "w-full rounded-4xl" %>
+                  <%= image_tag "diagnosis/chocolate.webp", class: "w-1/6 rounded-4xl" %>
                 </div>
               <% end %>
 
@@ -57,7 +91,7 @@
             </div>
           <% end %>
 
-          <div class="text-center mt-3 pb-6 md:pb-4">
+          <div class="text-center mt-3 pb-10 md:pb-4">
             <%= f.submit "診断する", class: "text-base btn btn-lg btn-accent" %>
           </div>
         </div>
