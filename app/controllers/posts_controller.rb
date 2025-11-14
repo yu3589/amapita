@@ -5,13 +5,15 @@ class PostsController < ApplicationController
   def index
     @q_new = Post.ransack(params[:q_new])
     new_posts_scope = @q_new.result(distinct: true)
-                            .publish
-                            .includes(
-                              :image_attachment,
-                              user: :avatar_attachment,
-                              product: :image_attachment
-                            )
-                            .order(created_at: :desc)
+    new_posts_scope = apply_other_manufacturer_filter(new_posts_scope, :q_new)
+    new_posts_scope = new_posts_scope.publish
+                                    .includes(
+                                      :image_attachment,
+                                      user: :avatar_attachment,
+                                      product: :image_attachment
+                                    )
+                                    .order(created_at: :desc)
+
     @pagy_new, @new_posts = pagy(new_posts_scope)
     @new_posts = @new_posts.decorate
 
@@ -112,18 +114,34 @@ class PostsController < ApplicationController
     return [ nil, Post.none ] unless user_signed_in?
 
     twin_user_ids = SweetnessTwin.where(user_id: current_user.id).pluck(:twin_user_id)
-    q_recommend = Post.perfect_sweetness.where(user_id: twin_user_ids).ransack(params[:q_recommend])
-    recommended_posts =  q_recommend.result(distinct: true)
-                                    .publish
-                                    .perfect_sweetness
-                                    .where(sweetness_rating: :perfect_sweetness)
-                                    .includes(
-                                      :image_attachment,
-                                      user: :avatar_attachment,
-                                      product: :image_attachment
-                                    )
-                                    .order(created_at: :desc)
-    [ q_recommend, recommended_posts ]
+
+    @q_recommend = Post.perfect_sweetness
+                      .where(user_id: twin_user_ids)
+                      .ransack(params[:q_recommend])
+
+    recommended_scope = @q_recommend.result(distinct: true)
+    recommended_scope = apply_other_manufacturer_filter(recommended_scope, :q_recommend)
+    recommended_scope = recommended_scope.publish
+                                        .perfect_sweetness
+                                        .includes(
+                                          :image_attachment,
+                                          user: :avatar_attachment,
+                                          product: :image_attachment
+                                        )
+                                        .order(created_at: :desc)
+
+    [ @q_recommend, recommended_scope ]
+  end
+
+  def apply_other_manufacturer_filter(scope, params_key)
+    manufacturer_param = params.dig(params_key, :product_manufacturer_eq)
+
+    return scope unless manufacturer_param == "その他"
+    # paramsを直接変更せず、dupでコピーを作成し新しいクエリを作成
+    params_copy = params[params_key].dup
+    params_copy.delete(:product_manufacturer_eq)
+
+    scope.joins(:product).merge(Product.manufacturer_other)
   end
 
   def process_image_params(params)
