@@ -96,7 +96,7 @@
           <div class="absolute top-2 right-2 sm:right-24 z-10 flex items-center gap-3 sm:gap-4">
             <!-- いいね -->
             <% unless @post.unpublish? || current_user&.own?(@post) %>
-              <div class="flex-shrink-0">
+              <div class="flex-shrink-0 pb-10">
                 <% if user_signed_in? %>
                   <%= render 'posts/like_buttons', { post: @post, button_id: "like-button-#{@post.id}" } %>
                 <% else %>
@@ -110,7 +110,7 @@
             <% end %>
 
             <!-- ブックマーク -->
-            <div class="flex-shrink-0">
+            <div class="flex-shrink-0 pb-10">
               <% if user_signed_in? %>
                 <%= render 'products/bookmark_buttons', { product: @post.product } %>
               <% else %>
