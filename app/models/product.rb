@@ -12,6 +12,18 @@ class Product < ApplicationRecord
   has_many :posts, dependent: :destroy
   has_many :bookmarks, dependent: :destroy
 
+  def self.full_manufacturer_list
+    @full_manufacturer_list ||= I18n.t("products.manufacturers.list")
+  end
+
+  def self.main_manufacturers
+    @main_manufacturers ||= full_manufacturer_list - [ "その他" ]
+  end
+
+  scope :manufacturer_other, -> {
+    where.not(manufacturer: main_manufacturers)
+  }
+
   def total_posts
     posts.publish.size
   end
