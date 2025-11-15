@@ -114,15 +114,14 @@ class User < ApplicationRecord
   end
 
   def like(post)
-    return if like?(post)
-    like_posts << post
+    likes.find_or_create_by!(post: post)
   rescue ActiveRecord::RecordInvalid => e
     Rails.logger.error("Like creation failed for user:#{id}, post:#{post.id} - #{e.message}")
     false
   end
 
   def liked(post)
-    like_posts.destroy(post)
+    likes.find_by(post: post)&.destroy
   end
 
   def like?(post)

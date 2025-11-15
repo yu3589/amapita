@@ -30,7 +30,7 @@
       </div>
 
       <!-- 投稿情報 -->
-      <div class="flex flex-row gap-2 items-start md:px-4 w-full">
+      <div class="flex flex-row gap-2 items-center md:px-4 w-full">
         <!-- 画像 -->
       <figure x-data="{ imageLoaded: false }"
               x-init="imageLoaded = $el.querySelector('img')?.complete || false"
@@ -104,7 +104,7 @@
               <p><%= I18n.t("enums.post.sweetness_rating.#{post.sweetness_rating}") %></p>
             </div>
           </div>
-          <div class="py-3 pr-2 text-sm truncate max-w-56 md:max-w-xs break-words overflow-hidden text-ellipsis
+          <div class="py-3 pr-2 text-sm truncate max-w-48 md:max-w-72 break-words overflow-hidden text-ellipsis
             <%= post.review.present? ? '' : 'md:h-10 invisible' %>">
             <%= post.review %>
           </div>

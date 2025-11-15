@@ -28,14 +28,16 @@
       <% end %>
     </div>
 
-    <div class="absolute top-5 sm:top-6 right-5 sm:right-6">
+    <div class="absolute top-1 sm:top-3 right-1 sm:right-2">
       <span class="flex items-center gap-1">
         <% unless post.publish? %>
           <%= image_tag "lock-key.svg", class: "size-6 sm:size-7" %>
         <% end %>
         <% if post.publish? && !current_user&.own?(post) %>
           <% if user_signed_in? %>
+            <div class="pt-2 pr-2">
             <%= render 'posts/like_buttons', { post: post, button_id: "like-button-#{post.id}" } %>
+            </div>
           <% else %>
             <label class="flex flex-row items-center gap-1 cursor-pointer tooltip tooltip-left sm:tooltip-bottom" 
                   data-tip="<%= t('defaults.require_login') %>">

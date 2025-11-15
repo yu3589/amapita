@@ -55,6 +55,8 @@ ja:
         product_url: 楽天市場の商品URL
       comment:
         body: コメント
+      sweetness_type:
+        sweetness_kind: 甘さ傾向タイプ
   enums:
     sweetness_type:
       sweetness_kind:
