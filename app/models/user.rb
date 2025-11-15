@@ -94,15 +94,18 @@ class User < ApplicationRecord
   end
 
   def bookmark(product)
-    bookmark_products << product
+    bookmarks.find_or_create_by!(product: product)
+  rescue ActiveRecord::RecordInvalid => e
+    Rails.logger.error("Bookmark creation failed for user:#{id}, product:#{product.id} - #{e.message}")
+    false
   end
 
   def unbookmark(product)
-    bookmark_products.destroy(product)
+    bookmarks.find_by(product: product)&.destroy
   end
 
   def bookmark?(product)
-    bookmark_products.include?(product)
+    bookmarks.exists?(product_id: product.id)
   end
 
   def sweetness_twin_badges

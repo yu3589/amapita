@@ -82,7 +82,7 @@
 }
 
 .category-label {
-@apply absolute inset-0 flex items-center justify-center text-white md:text-2xl font-bold;
+@apply absolute inset-0 flex items-center justify-center text-white text-lg md:text-2xl font-bold;
 }
 
 .category-label-multi {

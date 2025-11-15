@@ -24,17 +24,17 @@
   </div>
 
   <div class="text-base p-4 sm:p-6 leading-loose text-left inline-block">
-    ・自分と似た甘さの好みを持つ人のレビューを参考にして、
-    <br class="hidden sm:block">新しい商品に出会いたい方<br>
+    ・自分と似た甘さの好みを<span class="md:hidden"><br></span>持つ人のレビューを参考にして、
+    <br>新しい商品に出会いたい方<br>
     ・甘すぎるものは苦手だけど、<span class="sm:hidden"><br></span>
     ちょうどいい甘さは楽しみたい方<br>
-    ・季節ごとの好みの甘さの変化を楽しみたい方
+    ・甘いものが大好きな方
   </div>
 
   <div class="flex flex-row gap-3 pt-2 sm:gap-5 sm:py-4 text-base">
     <% if user_signed_in? %>
     <div class="pb-4 sm:pb-1">
-      <%= link_to raw("あまピタ判定をする"), categories_path,
+      <%= link_to raw("甘さ感覚診断をする"), new_diagnosis_path,
           class: "bg-accent sliders-button hover-animation w-fit text-center" %>
     </div>
     <% else %>

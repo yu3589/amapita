@@ -15,7 +15,7 @@ module CategoriesHelper
                          "@load": "imageLoaded = true",
                          "@error": "imageLoaded = true")
         # 黒オーバーレイ
-        concat content_tag(:div, "", class: "absolute inset-0 bg-black/20 rounded-3xl")
+        concat content_tag(:div, "", class: "absolute inset-0 bg-black/27 rounded-3xl")
         # ラベル
         label_text = subname ? "#{name}・#{subname}" : name
         label_class = subname ? "category-label-multi" : "category-label"
