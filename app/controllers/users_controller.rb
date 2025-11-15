@@ -11,7 +11,7 @@ class UsersController < ApplicationController
                                   :image_attachment,
                                   product: :image_attachment
                                 ).order(id: :desc)
-    @pagy_posts, @posts = pagy(posts_query, limit: 10)
+    @pagy_posts, @posts = pagy(posts_query, limit: 2)
     @posts = @posts&.publish.decorate
   end
 end
