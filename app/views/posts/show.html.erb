@@ -157,7 +157,42 @@
     <!-- チャートとレビュー -->
     <div class="flex flex-col lg:flex-row justify-center items-center lg:items-start gap-1 px-2">
       <!-- チャート -->
-      <div class="flex justify-center w-full lg:w-3/5 max-w-md pt-2 sm:pt-4">
+      <div class="flex flex-col justify-center w-full lg:w-3/5 max-w-md pt-2 sm:pt-4 gap-1">
+        <!-- lg以下の評価表示 -->
+        <div class="lg:hidden flex flex-col text-center items-center text-base text-neutral pb-2">
+          <% rating_images = {
+              "lack_of_sweetness" => "smiley-meh.svg",
+              "could_be_sweeter" => "smiley-blank.svg",
+              "perfect_sweetness" => "smiley-wink.svg",
+              "slightly_too_sweet" => "smiley-nervous.svg",
+              "too_sweet" => "smiley-x-eyes.svg"
+          } %>
+
+          <% bg_colors = {
+              "lack_of_sweetness" => "bg-accent",
+              "could_be_sweeter" => "bg-accent",
+              "perfect_sweetness" => "bg-primary",
+              "slightly_too_sweet" => "bg-secondary",
+              "too_sweet" => "bg-secondary"
+          } %>
+          <div class="flex flex-row items-center justify-center gap-2 lg:gap-3 flex-wrap">
+            <div class="inline-flex items-center rounded-2xl gap-1 py-2 lg:py-3 px-3 text-neutral text-base <%= bg_colors[@post.sweetness_rating] %>">
+              <%= image_tag rating_images[@post.sweetness_rating], class: "h-8 w-8" %>
+              <p><%= I18n.t("enums.post.sweetness_rating.#{@post.sweetness_rating}") %></p>
+            </div>
+
+            <% if user_signed_in? && current_user.own?(@post) && @post.publish? %>
+              <%= link_to "https://twitter.com/intent/tweet?text=#{CGI.escape(@post.x_share_text)}",
+                    target: "_blank",
+                    rel: "noopener noreferrer" do %>
+                <span class="flex flex-col items-center rounded-xl bg-base-200 p-2 sm:p-3">
+                  <%= image_tag "x-logo.svg", class: "size-6" %>
+              </span>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+
         <div class="w-full p-1 sm:p-4 border-secondary rounded-3xl bg-white/80 ring-2 ring-stone-200/50">
           <div class="flex justify-center pb-2 text-base">
             <%= t('defaults.sweetness_chart') %>
