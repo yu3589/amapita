@@ -17,7 +17,7 @@
     </div>
 
     <div class="flex w-full justify-end px-10 sm:px-30">
-      <%= link_to "https://twitter.com/intent/tweet?url=#{root_url}diagnoses/result/#{@profile.token}&text=#{CGI.escape("【甘さ感覚診断結果】\n＼#{I18n.t("enums.sweetness_type.sweetness_kind.#{@profile.sweetness_kind}")}タイプ／でした！\n\n#甘さ感覚診断\n#あまピタ")}",
+      <%= link_to "https://twitter.com/intent/tweet?url=#{root_url}diagnoses/result/#{@profile.token}&text=#{CGI.escape("【甘さ感覚診断結果】\n＼#{I18n.t("enums.sweetness_type.sweetness_kind.#{@profile.sweetness_kind}")}タイプ／でした！\n\n#甘さ感覚診断\n#あまピタ\n")}",
           target: "_blank",
           rel: "noopener noreferrer" do %>
         <span class="flex flex-row rounded-full bg-base-200 p-2 hover-animation">
