@@ -80,17 +80,19 @@
     <div id="tab-recommend-content" class="tab-panel w-full <%= params[:tab] == 'recommend' ? '' : 'hidden' %>">
       <% case recommend_state(current_user, @recommended_posts) %>
       <% when :not_diagnosed %>
-        <div class="flex flex-col justify-center leading-relaxed py-6 sm:py-8 items-center text-center text-sm">
-          <div class="py-2">甘さツインと、<span class="md:hidden"><br></span>"ちょうどいい甘さ"の冒険を楽しもう✧*<br>
+        <div class="flex flex-col justify-center leading-relaxed py-6 sm:py-8 items-center text-center text-sm sm:text-base">
+          <div class="flex items-center justify-center py-2">
+            <span> "ちょうどいい甘さ"の体験を楽しもう</span>
+            <%= image_tag "smiley-wink.svg", class: "size-6" %>
           </div>
-          <div class="py-2">甘さ感覚診断を行うと、<span class="inline"><br></span>好みの甘さ感覚が近いユーザー
-            <span class="md:hidden"><br></span>『 甘さツイン 』と出会えます。
+          <div class="py-2 leading-relaxed">甘さ感覚診断を行うと、<span class="inline"><br></span>好みの甘さ感覚が近いユーザー
+            <span class="md:hidden"><br></span>『 甘さツイン 』と出会えます✧*
           </div>
           <div class="flex flex-col py-4 sm:py-6 items-center">
-            <%= link_to t('.button.take_diagnosis'), new_diagnosis_path,
-                class: "bg-accent sliders-button hover-animation hover-animation" %>
-              <div class="text-stone-400 pt-4 sm:pt-8 items-center">
-                <%= raw t('.message.general_notice') %>
+            <%= link_to t('defaults.buttons.take_diagnosis'), new_diagnosis_path,
+                class: "btn btn-accent text-base text-neutral" %>
+              <div class="text-error text-sm pt-4 sm:pt-6 items-center">
+                <%= raw t('defaults.message.general_notice') %>
               </div>
           </div>
       </div>

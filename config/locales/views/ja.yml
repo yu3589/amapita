@@ -38,7 +38,7 @@ ja:
       category_index: あまピタ判定する<br>商品を探す
       new_post: あまピタ判定する
       retake_diagnosis: もう一度診断する
-      take_diagnosis: 甘さ感覚診断をする
+      take_diagnosis: 診断してみる ✧*
       search_rakuten: 楽天で<br>検索
       show_unpublished_post: 自分の投稿詳細を見る
       return: 戻る
@@ -69,9 +69,10 @@ ja:
       badge_name: "%{badge_name}"
       thanks_message: ✧*たくさんのあまピタ判定ありがとうございます！✧*
     message:
-      no_post: 投稿がありません
+      no_post: 投稿がありませんでした
       no_product: 商品が見つかりませんでした
       search_suggestion: 他のキーワードでもう一度検索してください
+      general_notice: ※ 診断結果によっては、<br>甘さツインがいない場合があります。
   helpers:
     submit:
       register: アカウント作成
@@ -156,18 +157,19 @@ ja:
         change_password: パスワード変更
   profiles:
     info: ユーザー情報
+    user_info: ユーザー情報
+    mypage: マイページ
     total_post: "公開した甘さ評価：%{count} 件"
+    diagnosis_status: 甘さ感覚診断：未診断
     tabs:
       posts: 投稿した甘さ評価
       liked_posts: いいねした投稿
     empty_states:
       no_posts: 投稿した甘さ評価はありません
       no_liked_posts: いいねした投稿はありません
-    show:
-      title: マイページ
     diagnosis:
       latest_date: 最終診断日
-      no_data: 甘さ感覚診断を行うと、<br>好みの甘さ感覚チャートが表示されます。
+      no_data: 甘さ感覚診断を行うと、ここに<br>好みの甘さ感覚チャートが表示されます。
     edit:
       title: プロフィール編集
       authentication: 外部アカウント連携
@@ -208,15 +210,12 @@ ja:
       rakuten_search_hint: ※ 未設定の場合は、商品名検索から商品を選択してください
     index:
       new_post: みんなの甘さ評価
-      button:
-        take_diagnosis: 診断してみる
       tooltips:
         twins_recommendations_user: 甘さツインのあまピタ一覧
       search_title:
         new_posts: 『 みんなの甘さ評価 』から検索
         twin_recommendations: 『 甘さツインのあまピタ評価 』から検索
       message:
-        general_notice: ※ 診断結果によっては、<br>甘さツインがいない場合があります
         twin_without_posts: 甘さツインのあまピタ評価はまだありません...。<br>新しい甘さとの出会いを楽しみにしていてください✧*
         no_twins: あなたの甘さツインはまだいないようです...。<br>新しい甘さとの出会いを楽しみにしていてください✧*
     show:
