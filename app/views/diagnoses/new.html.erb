@@ -13,10 +13,12 @@
 
           <% unless user_signed_in? %>
             <div class="text-sm text-base-300 text-center pt-4 leading-relaxed">
-              <span class="inline-flex items-center gap-1 whitespace-nowrap">
-                <span class="bg-info rounded-4xl p-1 inline-flex items-center gap-1 text-sm text-neutral">
-                  <%= image_tag "handshake.svg", class: "h-5 w-5" %>
-                  甘さツイン
+              <div class="inline-flex flex-wrap items-center justify-center gap-1">
+                <span class="inline-flex items-center gap-1 whitespace-nowrap">
+                  <span class="bg-info rounded-4xl p-1 inline-flex items-center gap-1 text-sm text-neutral">
+                    <%= image_tag "handshake.svg", class: "h-5 w-5" %>
+                    甘さツイン
+                  </span>
                 </span>
                 <span class="inline-flex items-center gap-1 text-sm">
                   <div class="dropdown dropdown-top dropdown-right dropdown-hover">
@@ -25,9 +27,12 @@
                       <li><a><%= t('defaults.dropdown.twins_description') %></a></li>
                     </ul>
                   </div>
-                  の判定には
+                  <span class="whitespace-nowrap sm:whitespace-normal">の判定および</span>
                 </span>
-              </span>
+                <span class="whitespace-nowrap">
+                  診断結果を記録するには
+                </span>
+              </div>
               <div class="text-sm">
                 <%= link_to "ログイン", new_user_session_path,
                 class: "text-secondary hover:text-secondary underline" %>が必要です

@@ -72,13 +72,13 @@
                     <%= link_to new_post_path(product_id: product.id),
                                 class: "bg-info rounded-full px-3 py-2 sm:px-4 inline-flex items-center shadow-sm transition hover-animation gap-2" do %>
                       <%= image_tag "cookie.svg", class: "size-5 sm:size-6" %>
-                      <span class="text-xs sm:text-sm"><%= t('defaults.buttons.new_post') %></span>
+                      <span class="text-sm"><%= t('defaults.buttons.new_post') %></span>
                     <% end %>
                   <% else %>
-                    <div class="bg-info rounded-full px-3 py-2 sm:px-4 inline-flex items-center shadow-sm transition hover-animation gap-2 tooltip tooltip-top"
+                    <div class="bg-info rounded-full py-2 px-5 inline-flex items-center shadow-sm transition hover-animation gap-2 tooltip tooltip-top"
                         data-tip="<%= t('defaults.require_login') %>">
                       <%= image_tag "cookie.svg", class: "size-5 sm:size-6" %>
-                      <span class="text-xs sm:text-sm"><%= t('defaults.buttons.new_post') %></span>
+                      <span class="text-sm sm:text-base"><%= t('defaults.buttons.new_post') %></span>
                     </div>
                   <% end %>
                 </div>

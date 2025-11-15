@@ -21,8 +21,8 @@
   <% end %>
 
     <%= link_to categories_path, class: "flex flex-col items-center md:hover:bg-stone-200" do %>
-      <%= image_tag "footer/plus_circle.svg", class: "size-8 sm:size-10" %>
-      <span class="text-xs text-center"><%= t('shared.footer.new_post') %></span>
+      <%= image_tag "cookie.svg", class: "size-7 sm:size-8" %>
+      <span class="text-xs text-center whitespace-nowrap"><%= t('shared.footer.new_post') %></span>
     <% end %>
 
     <% if user_signed_in? %>

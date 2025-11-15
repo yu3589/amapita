@@ -93,14 +93,14 @@ ja:
       about: アプリについて
       mypage: マイページ
       diagnosis: 甘さ感覚診断
-      posts: みんなの甘さ評価一覧
+      products: 商品一覧
       contact: お問い合わせ
       terms_of_service: 利用規約
       privacy_policy: プライバシーポリシー
     footer:
       home: 投稿一覧
       bookmark: ブックマーク
-      new_post: 新規投稿
+      new_post: あまピタ判定
       notification: 通知
       mypage: マイページ
   static_pages:
