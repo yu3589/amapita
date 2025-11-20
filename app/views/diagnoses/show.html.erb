@@ -49,20 +49,20 @@
           <%= link_to posts_path(tab: :recommend), data: { turbo: false }, class: "text-center text-sm button-primary bg-info sm:flex-none hover-animation" do %>
             <span class="flex flex-row gap-1 justify-center">
               <%= image_tag "handshake.svg", class: "h-6 w-6" %>
-              甘さツインのあまピタ評価を見る
+              <%= t('.sweetness_twin_posts') %>
             </span>
           <% end %>
           <%= link_to categories_path, data: { turbo: false }, class: "text-center text-sm button-primary bg-success sm:flex-none hover-animation" do %>
             <span class="flex flex-row gap-1 justify-center">
               <%= image_tag "cookie.svg", class: "h-6 w-6" %>
-              あまピタ判定する商品を探す
+              <%= t('.search_button') %>
             </span>
           <% end %>
         </div>
         <div class="flex justify-center w-full">
           <%= link_to new_diagnosis_path, data: { turbo: false }, class: "text-center text-sm button-primary bg-stone-200 hover-animation" do %>
             <span class="flex flex-row gap-1 justify-center">
-              もう一度診断する
+              <%= t('.retake_diagnosis') %>
             </span>
           <% end %>
         </div>
@@ -71,14 +71,14 @@
           <%= link_to posts_path, data: { turbo: false }, class: "text-center text-sm button-primary bg-info sm:flex-none hover-animation" do %>
             <span class="flex flex-row gap-1 justify-center">
               <%= image_tag "cookie.svg", class: "h-6 w-6" %>
-              みんなの甘さ評価を見る
+              <%= t('.explore_reviews') %>
             </span>
           <% end %>
         </div>
         <div class="flex justify-center w-full">
           <%= link_to new_diagnosis_path, data: { turbo: false }, class: "text-center text-sm button-primary bg-stone-200 hover-animation" do %>
             <span class="flex flex-row gap-1 justify-center">
-              もう一度診断する
+              <%= t('.retake_diagnosis') %>
             </span>
           <% end %>
         </div>

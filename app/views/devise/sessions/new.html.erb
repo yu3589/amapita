@@ -9,9 +9,9 @@
     </div>
 
     <div class="flex items-center w-full py-2">
-      <div class="flex-grow border-t border-stone-300"></div>
+      <div class="grow border-t border-stone-300"></div>
       <span class="mx-4 text-stone-400 text-sm"><%= t('defaults.or') %></span>
-      <div class="flex-grow border-t border-stone-300"></div>
+      <div class="grow border-t border-stone-300"></div>
     </div>
 
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
@@ -37,7 +37,7 @@
           <legend class="fieldset-legend pl-2 pb-1">
             <%= image_tag "lock-key.svg", class: "size-5 sm:size-6" %>
             <%= f.label :password, class: "text-base" %>
-            <p class="label text-stone-400 text-sm pl-2"><%= t('defaults.password_format') %></p>
+            <p class="label text-stone-400 text-xs pl-2"><%= t('defaults.password_format') %></p>
           </legend>
 
           <%= f.password_field :password,
@@ -63,14 +63,14 @@
       <% if devise_mapping.rememberable? %>
         <div class="form-control pl-1 py-2">
           <label class="inline-flex items-center">
-            <%= f.check_box :remember_me, class: "checkbox checkbox-sm checkbox-secondary mr-2" %>
+            <%= f.check_box :remember_me, class: "checkbox checkbox-sm sm:checkbox-xs checkbox-secondary mr-2" %>
             <%= f.label :remember_me, class: "text-sm" %>
           </label>
         </div>
       <% end %>
 
       <div class="form-control flex justify-center pt-4">
-        <%= f.submit t('.login'), class: "bg-accent button-primary" %>
+        <%= f.submit t('.login'), class: "bg-secondary button-primary" %>
       </div>
     <% end %>
 
