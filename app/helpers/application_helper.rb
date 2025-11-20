@@ -1,6 +1,15 @@
 module ApplicationHelper
   include Pagy::Frontend
 
+  # 共通情報
+  def base_meta_info
+    {
+      site: "あまピタッ！",
+      title: "あまピタッ！",
+      description: "甘すぎない、物足りなくない。あなたに“ちょうどいい甘さ”の商品が見つかるアプリ"
+    }
+  end
+
   def user_profile_link_or_tooltip(user, options = {}, &block)
     if user_signed_in?
       link_to user_path(user), options, &block
@@ -13,69 +22,42 @@ module ApplicationHelper
   end
 
   def default_meta_tags
+    info = base_meta_info
+
     {
-      site: "あまピタッ！",
-      title: "あまピタッ！",
+      site: info[:site],
+      title: info[:title],
       reverse: true,
       charset: "utf-8",
-      description: "甘すぎない、物足りなくない。あなたにぴったりの甘さが見つかるアプリ。",
+      description: info[:description],
       canonical: request.original_url,
       og: {
-        site_name: :site,
-        title: :title,
-        description: :description,
+        site_name: info[:site],
+        title: info[:title],
+        description: info[:description],
         type: "website",
         url: request.original_url,
         image: image_url("ogp.png"),
         locale: "ja-JP"
       },
-        twitter: {
+      twitter: {
         card: "summary_large_image",
         image: image_url("ogp.png")
       }
     }
   end
 
-  def generate_sweetness_ogp_url(post)
-    return asset_url("ogp.png") unless post&.product&.name
-
-    begin
-      product_text = URI.encode_www_form_component("「#{post.product.name}」の").gsub("+", "%20")
-      text_color = "5d5959"
-      cache_buster = post.updated_at.to_i
-
-      image_configs = {
-        lack_of_sweetness: "v1761961624/lack_of_sweetness_ono0hs.png",
-        could_be_sweeter: "v1761961624/lack_of_sweetness_ono0hs.png",
-        perfect_sweetness: "v1761961623/perfect_sweetness_x77fs3.png",
-        slightly_too_sweet: "v1761961624/slightly_too_sweet_wznrwj.png",
-        too_sweet: "v1761961624/too_sweet_jvsjke.png"
-      }
-
-      image_path = image_configs[post.sweetness_rating.to_sym]
-      return asset_url("ogp.png") unless image_path
-
-      "https://res.cloudinary.com/dbar0jd0k/image/upload/" \
-      "l_text:TakaoGothic_40_bold:#{product_text}," \
-      "co_rgb:#{text_color},c_fit,g_north,y_65/" \
-      "#{image_path}?v=#{cache_buster}"
-    rescue => e
-      Rails.logger.error "OGP画像生成エラー: #{e.message}"
-      asset_url("ogp.png")
-    end
-  end
-
+  # 投稿OGP
   def post_meta_tags(post)
+    info = base_meta_info
     ogp_image = generate_sweetness_ogp_url(post)
-    title = "あまピタッ！"
-    description = "甘すぎない、物足りなくない。あなたにぴったりの甘さが見つかるアプリ。"
 
     {
-      title: title,
-      description: description,
+      title: info[:title],
+      description: info[:description],
       og: {
-        title: title,
-        description: description,
+        title: info[:title],
+        description: info[:description],
         image: ogp_image,
         url: request.original_url,
         type: "article"
@@ -87,7 +69,7 @@ module ApplicationHelper
     }
   end
 
-  # 診断結果用
+  # 診断OGP
   def diagnosis_meta_tags(profile)
     ogp_image = case profile.sweetness_kind.to_sym
     when :fresh_natural
@@ -102,15 +84,14 @@ module ApplicationHelper
       image_url("ogp.png")
     end
 
-    title = "あまピタッ！"
-    description = "甘すぎない、物足りなくない。あなたにぴったりの甘さが見つかるアプリ。"
+    info = base_meta_info
 
     {
-      title: title,
-      description: description,
+      title: info[:title],
+      description: info[:description],
       og: {
-        title: title,
-        description: description,
+        title: info[:title],
+        description: info[:description],
         image: ogp_image,
         url: request.original_url,
         type: "article"
