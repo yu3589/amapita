@@ -1,12 +1,12 @@
 <div class="flex flex-col items-center text-center p-6 sm:p-10">
   <div class="text-lg sm:text-xl inline-flex items-center">
     <div class="border-b-4 border-dotted border-accent inline-block pb-1">
-      What is あまピタッ？
+      <%= t('static_pages.top_overview.service_title') %>
     </div>
   </div>
 
   <div class="text-base py-6 sm:p-6 gap-2 leading-loose">
-    あまピタッ！は<span class="sm:hidden"><br></span>「好みの甘味感覚が近い人」と
+    あまピタッ！は<span class="sm:hidden"><br></span>「好みの甘さ感覚が近い人」と
     <span class="sm:hidden"><br></span>繋がることで、<br>
     自分に合う"ちょうどいい甘さ"の<span class="sm:hidden"><br></span>
     商品と出会える<br>レビューサービスです。
@@ -17,42 +17,46 @@
       <div class="flex flex-col">
         <div class="flex flex-row gap-1 items-center justify-center border-b-4 border-dotted border-secondary pb-1">
           <%= image_tag "smiley-wink.svg", class: "h-7 w-7" %>
-           こんな方におすすめ！
+           <%= t('static_pages.top_overview.recommendation_title') %>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="text-base p-4 sm:p-6 leading-loose text-left inline-block">
-    ・自分と似た甘さの好みを<span class="md:hidden"><br></span>持つ人のレビューを参考にして、
-    <br>新しい商品に出会いたい方<br>
-    ・甘すぎるものは苦手だけど、<span class="sm:hidden"><br></span>
-    ちょうどいい甘さは楽しみたい方<br>
-    ・甘いものが好きな方
+  <div class="text-base p-4 sm:p-6 text-left inline-block leading-loose">
+    <ul class="space-y-2 list-none">
+      <li>
+        ✧* 甘さの感じ方が近い人<span class="sm:hidden"><br></span>のレビューで、
+        <br> 「甘すぎた...」の失敗なく<span class="sm:hidden"><br></span>新しい商品に出会いたい方
+      </li>
+      <li>
+        ✧* 甘すぎるものは苦手だけど、<span class="sm:hidden"><br></span>
+        ちょうどいい甘さは楽しみたい方
+      </li>
+      <li>
+        ✧* 甘いものが好きで、<span class="sm:hidden"><br></span>同じ甘党の人と甘さを追求したい方
+      </li>
+    </ul>
   </div>
 
   <div class="flex flex-row gap-3 pt-2 sm:gap-5 sm:py-4 text-base">
     <% if user_signed_in? %>
     <div class="pb-4 sm:pb-1">
-      <%= link_to raw("甘さ感覚診断をする"), new_diagnosis_path,
-          class: "bg-accent sliders-button hover-animation w-fit text-center" %>
+      <%= link_to t('static_pages.top_overview.take_diagnosis'), new_diagnosis_path,
+          class: "bg-accent sliders-button w-fit" %>
     </div>
     <% else %>
      <div class="pb-2 sm:pb-1">
-      <%= link_to "新規登録", new_user_registration_path,
-            class: "bg-accent sliders-button hover-animation text-center" %>
-    </div>
-    <div class="pb-4 sm:pb-1">
-      <%= link_to "ログイン", new_user_session_path,
-          class: "bg-secondary sliders-button hover-animation text-center" %>
+      <%= link_to t('static_pages.top_overview.sign_up'), new_user_registration_path,
+            class: "bg-accent sliders-button" %>
     </div>
     <% end %>
   </div>
-  <div class="pb-4 sm:pb-1 text-center">
+  <div class="pb-4 sm:pb-1">
     <button
-      class="bg-primary sliders-button text-center"
+      class="bg-secondary sliders-button"
       onclick="document.querySelector('.swiper-button-next').click()">
-      アプリの説明を見る
+      <%= t('static_pages.top_overview.view_app_explanation') %>
     </button>
   </div>
 </div>

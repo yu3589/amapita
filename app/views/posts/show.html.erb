@@ -14,7 +14,7 @@
     </h1>
 
     <div class="flex flex-col justify-center items-center sm:flex-row sm:items-start sm:gap-4 relative">
-      <div class="flex flex-col items-center gap-4 sm:gap-2 flex-shrink-0">
+      <div class="flex flex-col items-center gap-4 sm:gap-2">
         <!-- 商品画像 -->
         <figure x-data="{ imageLoaded: false }"
                 x-init="imageLoaded = $el.querySelector('img')?.complete || false">
@@ -93,10 +93,10 @@
           <% end %>
 
           <!-- 編集・削除＆ブックマーク -->
-          <div class="absolute top-2 right-2 sm:right-24 z-10 flex items-center gap-3 sm:gap-4">
+          <div class="absolute top-2 right-2 sm:top-1 sm:right-24 z-10 flex items-center gap-3 sm:gap-4">
             <!-- いいね -->
             <% unless @post.unpublish? || current_user&.own?(@post) %>
-              <div class="flex-shrink-0 pb-10">
+              <div class="pb-10">
                 <% if user_signed_in? %>
                   <%= render 'posts/like_buttons', { post: @post, button_id: "like-button-#{@post.id}" } %>
                 <% else %>
@@ -110,7 +110,7 @@
             <% end %>
 
             <!-- ブックマーク -->
-            <div class="flex-shrink-0 pb-10">
+            <div class="pb-10">
               <% if user_signed_in? %>
                 <%= render 'products/bookmark_buttons', { product: @post.product } %>
               <% else %>
@@ -160,6 +160,7 @@
       <div class="flex flex-col justify-center w-full lg:w-3/5 max-w-md pt-2 sm:pt-4 gap-1">
         <!-- lg以下の評価表示 -->
         <div class="lg:hidden flex flex-col text-center items-center text-base text-neutral pb-2">
+        <p class="pb-1 pr-24"><%= t('.rating') %></p>
           <% rating_images = {
               "lack_of_sweetness" => "smiley-meh.svg",
               "could_be_sweeter" => "smiley-blank.svg",
@@ -217,8 +218,7 @@
       <!-- 評価部分（lg以上） -->
       <div class="hidden lg:flex flex-col justify-start items-center w-full lg:w-2/5 max-w-md gap-1">
         <div class="flex flex-col text-center items-start text-base py-4 text-neutral">
-        <p class="pb-1 pl-2"><%= t('.rating') %></p>
-          <div class="flex-shrink-0">
+          <p class="pb-1 pl-2"><%= t('.rating') %></p>
             <% rating_images = {
                 "lack_of_sweetness" => "smiley-meh.svg",
                 "could_be_sweeter" => "smiley-blank.svg",
@@ -250,7 +250,6 @@
                 <% end %>
               <% end %>
             </div>
-          </div>
         </div>
 
         <!-- レビュー -->

@@ -28,7 +28,7 @@
       <% end %>
     </div>
 
-    <div class="absolute top-1 sm:top-3 right-1 sm:right-2">
+    <div class="absolute top-1 sm:top-3 right-3 sm:right-5">
       <span class="flex items-center gap-1">
         <% unless post.publish? %>
           <%= image_tag "lock-key.svg", class: "size-6 sm:size-7" %>
@@ -80,8 +80,7 @@
     <div class="flex flex-row gap-2 items-center md:px-4 w-full">
       <!-- 画像 -->
       <figure x-data="{ imageLoaded: false }"
-              x-init="imageLoaded = $el.querySelector('img')?.complete || false"
-              class="flex-shrink-0">
+              x-init="imageLoaded = $el.querySelector('img')?.complete || false">
         <div x-cloak x-show="!imageLoaded" class="flex animate-pulse space-x-4">
           <div class="p-1 sm:p-2">
             <div class="size-23 sm:size-30 rounded-xl bg-stone-300"></div>
@@ -136,7 +135,7 @@
               <p><%= I18n.t("enums.post.sweetness_rating.#{post.sweetness_rating}") %></p>
             </div>
           </div>
-          <div class="py-3 pr-2 text-sm truncate max-w-48 md:max-w-72 break-words overflow-hidden text-ellipsis
+          <div class="py-3 pr-2 text-sm truncate max-w-48 md:max-w-72 wrap-break-word overflow-hidden text-ellipsis
             <%= post.review.present? ? '' : 'md:h-10 invisible' %>">
             <%= post.review %>
           </div>

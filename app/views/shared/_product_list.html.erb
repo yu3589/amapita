@@ -30,14 +30,14 @@
               </p>
 
               <% if user_signed_in? %>
-                <div class="absolute top-3 right-5 sm:top-7 sm:right-28">
+                <div class="absolute top-1 right-3 sm:top-5 sm:right-28">
                   <%= render 'products/bookmark_buttons', { product: product } %>
                 </div>
               <% end %>
             </div>
 
             <%= product_link(category, product, class: "hover:opacity-70 w-full") do %>
-              <p class="text-base sm:text-lg text-center sm:text-left pt-1 pb-2 sm:pb-3 max-w-[200px] sm:max-w-xl">
+              <p class="text-sm sm:text-lg text-center sm:text-left pt-1 pb-2 sm:pb-3 max-w-[200px] sm:max-w-xl">
                 <%= product.name %>
               </p>
               <div class="absolute top-14 -right-1 sm:right-8 sm:top-20">

@@ -7,7 +7,7 @@
     <% if @notifications.present? %>
     <div class="flex flex-col items-center max-w-2xl p-1 md:py-2 md:px-10">
       <div class="flex flex-col w-full items-end p-1">
-        <%= link_to "すべて既読",
+        <%= link_to t('.mark_all_as_read'),
             mark_all_as_read_notifications_path,
             data: { turbo_method: :patch },
             class: "btn btn-sm btn-outline btn-secondary" %>

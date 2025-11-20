@@ -1,6 +1,9 @@
 module ApplicationHelper
   include Pagy::Frontend
 
+  SITE_TITLE = "あまピタッ！"
+  SITE_DESCRIPTION = '甘すぎない、物足りなくない。あなたに"ちょうどいい甘さ"の商品が見つかるアプリ'
+
   def user_profile_link_or_tooltip(user, options = {}, &block)
     if user_signed_in?
       link_to user_path(user), options, &block
@@ -14,11 +17,11 @@ module ApplicationHelper
 
   def default_meta_tags
     {
-      site: "あまピタッ！",
-      title: "あまピタッ！",
+      site: SITE_TITLE,
+      title: SITE_TITLE,
       reverse: true,
       charset: "utf-8",
-      description: "甘すぎない、物足りなくない。あなたにぴったりの甘さが見つかるアプリ。",
+      description: SITE_DESCRIPTION,
       canonical: request.original_url,
       og: {
         site_name: :site,
@@ -29,13 +32,14 @@ module ApplicationHelper
         image: image_url("ogp.png"),
         locale: "ja-JP"
       },
-        twitter: {
+      twitter: {
         card: "summary_large_image",
         image: image_url("ogp.png")
       }
     }
   end
 
+  # 投稿OGP
   def generate_sweetness_ogp_url(post)
     return asset_url("ogp.png") unless post&.product&.name
 
@@ -67,15 +71,13 @@ module ApplicationHelper
 
   def post_meta_tags(post)
     ogp_image = generate_sweetness_ogp_url(post)
-    title = "あまピタッ！"
-    description = "甘すぎない、物足りなくない。あなたにぴったりの甘さが見つかるアプリ。"
 
     {
-      title: title,
-      description: description,
+      title: SITE_TITLE,
+      description: SITE_DESCRIPTION,
       og: {
-        title: title,
-        description: description,
+        title: SITE_TITLE,
+        description: SITE_DESCRIPTION,
         image: ogp_image,
         url: request.original_url,
         type: "article"
@@ -87,7 +89,7 @@ module ApplicationHelper
     }
   end
 
-  # 診断結果用
+  # 診断OGP
   def diagnosis_meta_tags(profile)
     ogp_image = case profile.sweetness_kind.to_sym
     when :fresh_natural
@@ -102,15 +104,12 @@ module ApplicationHelper
       image_url("ogp.png")
     end
 
-    title = "あまピタッ！"
-    description = "甘すぎない、物足りなくない。あなたにぴったりの甘さが見つかるアプリ。"
-
     {
-      title: title,
-      description: description,
+      title: SITE_TITLE,
+      description: SITE_DESCRIPTION,
       og: {
-        title: title,
-        description: description,
+        title: SITE_TITLE,
+        description: SITE_DESCRIPTION,
         image: ogp_image,
         url: request.original_url,
         type: "article"

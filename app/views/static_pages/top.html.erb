@@ -5,9 +5,9 @@
     </div>
     <div class="flex flex-col items-center pt-4 md:pt-8 text-sm sm:text-2xl text-center font-noto font-bold text-stone-600/90">
       <p class="py-0.5 sm:py-1 border-b-1 sm:border-b-2 border-solid border-stone-500/70 inline-block pb-1 w-fit">
-      ” ち ょ う ど い い 甘 さ ”</p>
+        <%= t('static_pages.top.main_message') %></p>
       <p class="py-0.5 sm:py-1 border-b-1 sm:border-b-2 border-solid border-stone-500/70 inline-block pb-1 w-fit">
-      っ て 幸 せ だ ！</p>
+        <%= t('static_pages.top.sub_message') %></p>
     </div>
   </div>
 </div>
@@ -26,28 +26,4 @@
     <div class="swiper-button-prev"></div>
     <div class="swiper-button-next"></div>
   </div>
-
-  <script>
-  document.addEventListener("turbo:load", () => {
-    initSwiper();
-  });
-  function initSwiper() {
-    const swiper = new Swiper(".swiper", {
-      // Optional parameters
-      direction: "horizontal",
-      loop: false,
-      speed: 600,
-      spaceBetween: 20,
-
-      // pagination: {
-      //   el: ".swiper-pagination",
-      // },
-
-      navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev",
-      },
-    });
-  }
-  </script>
 </div>

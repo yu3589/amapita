@@ -1,20 +1,20 @@
 <div class="flex flex-col flex-grow items-center text-center p-6 sm:p-10">
   <div class="text-base sm:text-xl border-b-4 border-dotted border-primary inline-block pb-1">
-    『 甘さ感覚診断 』でできること
+    <%= t('static_pages.top_diagnosis_guide.diagnosis_title') %>
   </div>
 
   <div class="text-base sm:text-md py-4 sm:p-6 gap-2 leading-loose">
-    好みの甘さ傾向タイプが診断できます。
+    <%= raw t('static_pages.top_diagnosis_guide.basic_feature') %>
     <span class="inline"><br></span>
-    ログインをして診断すると、<span class="inline"><br></span>結果を元に「甘さツイン」が判定されます✧*
+    <%= raw t('static_pages.top_diagnosis_guide.premium_feature') %>
   </div>
 
   <div class="pb-4 sm:pb-6 w-fit">
     <% if user_signed_in? %>
-      <%= link_to "診断してみる", new_diagnosis_path,
+      <%= link_to t('static_pages.top_diagnosis_guide.take_diagnosis'), new_diagnosis_path,
           class: "bg-accent sliders-button hover-animation w-full text-center" %>
     <% else %>
-      <%= link_to "新規登録する", new_user_registration_path,
+      <%= link_to t('static_pages.top_diagnosis_guide.sign_up'), new_user_registration_path,
           class: "bg-accent sliders-button hover-animation w-full text-center" %>
     <% end %>
   </div>
@@ -22,19 +22,24 @@
   <div class="flex flex-col items-center leading-loose">
     <div class="ring-info ring-2 rounded-4xl py-2 px-3 sm:py-4 sm:px-4 max-w-xl">
       <div class="py-2 sm:pb-3 text-base sm:text-lg">
-       『 甘さツイン 』とは ...?<span class="inline"><br></span>
+        <%= t('static_pages.top_diagnosis_guide.sweetness_twin_title') %><span class="inline"><br></span>
       </div>
       <div class="text-sm leading-loose">
-        好みの甘さ感覚が近いユーザーに<span class="inline"><br></span>
-        <div class="bg-info rounded-4xl p-2 inline-flex items-center gap-2 text-sm">
+        あなたと"好みの甘さ感覚が近い<span class="md:hidden"><br></span>ユーザー"を指します。<br>
+        対象のユーザーに <span class="md:hidden"><br></span>
+        <div class="bg-info rounded-4xl py-1 px-2 inline-flex items-center gap-1 text-sm">
           <%= image_tag "handshake.svg", class: "h-5 w-5" %>
           甘さツイン
         </div>
-          バッジが<span class="md:hidden"><br></span>表示されます。<span class="inline"><br></span>投稿一覧では、<span class="md:hidden"><br></span>甘さツインの『 あまピタ評価 』一覧を<span class="inline"><br></span>
-          見ることができ、<span class="md:hidden"><br></span>"ちょうど良い甘さ"の商品と<span class="inline"><br></span>
-          出会いやすくなります✧*
-        <div class="p-1">
-      </div> 
+          バッジが<span class="md:hidden"><br></span>表示されます。<span class="inline"><br></span>
+          投稿一覧では、甘さツインの<span class="md:hidden"><br></span>『 あまピタ評価 』一覧を<span class="inline"><br></span>
+          見ることができ、<span class="md:hidden"><br></span>"ちょうど良い甘さ"の商品と出会えます✧*<br>
+          <div class="py-1 sm:py-2">
+          ✧* あなたにぴったりな<span class="inline-flex items-center gap-1">甘さの世界を楽しもう<%= image_tag "smiley-wink.svg", class: "h-5 w-5" %>
+          </div>
+          </span>
+        <div class="py-1">
+      </div>
         <span class="text-stone-400 text-sm">※ 診断結果によっては、<span class="sm:hidden"><br></span>
           甘さツインがいない場合があります。
         </span>
@@ -43,13 +48,13 @@
 
     <div class="p-4 sm:p-6 w-full text-base">
       <% unless user_signed_in? %>
-        <%= link_to "登録せずに診断する", new_diagnosis_path,
+        <%= link_to t('static_pages.top_diagnosis_guide.guest_diagnosis'), new_diagnosis_path,
             class: "bg-secondary sliders-button hover-animation w-fit text-center" %>
       <% end %>
     </div>
 
     <div class="w-fit sm:text-base pb-6 sm:pb-1">
-      <%= link_to "みんなの甘さ評価を見る", posts_path,
+      <%= link_to t('static_pages.top_diagnosis_guide.explore_reviews'), posts_path,
           class: "bg-primary sliders-button hover-animation w-fit text-center" %>
     </div>
   </div>

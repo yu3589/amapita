@@ -1,16 +1,14 @@
 <div class="flex flex-col flex-grow items-center text-center p-6 md:p-10">
   <div class="text-lg md:text-xl border-b-4 border-dotted border-primary inline-block pb-1">
-    『 あまピタ度 』とは？
+    <%= t('static_pages.top_amapita_explanation.sweetness_rating_title') %>
   </div>
 
   <div class="text-base md:text-md py-4 md:p-8 gap-2 leading-loose">
-    商品のレビューをする際、<br>
-    好みの甘さに<span class="md:hidden"><br></span>
-    「どれだけ”ピタッ”とハマったか」を<br>
-    ５段階で評価します。
+    商品のレビューをする際、<br>好みの甘さに<span class="md:hidden"><br></span>
+    <%= raw t('static_pages.top_amapita_explanation.sweetness_rating_explanation') %>
   </div>
 
-  <div class="flex items-center justify-center gap-2 md:gap-5 px-2 py-6 md:pb-12">
+  <div class="flex items-center justify-center gap-3 md:gap-5 px-2 py-6 md:pb-12">
     <% smileys = [
       {img: "smiley-meh.svg", color: "bg-accent", size: "h-8 w-8 md:h-9 md:w-9"},
       {img: "smiley-blank.svg", color: "bg-accent", size: "h-8 w-8 md:h-9 md:w-9"},
@@ -23,7 +21,7 @@
       <% if s[:highlight] %>
         <span class="relative p-1 rounded-full <%= s[:color] %> gap-1">
           <span class="absolute -top-7 px-10 left-1/2 -translate-x-1/2 text-sm whitespace-nowrap">
-            ＼ あまピタッ！ ／
+            <%= t('static_pages.top_amapita_explanation.perfect_sweetness') %>
           </span>
           <%= image_tag s[:img], class: s[:size] %>
         </span>
@@ -37,16 +35,16 @@
 
   <!-- 投稿バッジ -->
   <div class="text-md sm:text-xl inline-flex items-center gap-2">
-    <div class="flex flex-col">
+    <div class="flex flex-col pb-3">
       <div class="flex flex-row gap-2 items-center justify-center border-b-4 border-dotted border-secondary pb-1">
         <%= image_tag "badge.svg", class: "h-7 w-7" %>
-          投稿バッジ
+          <%= t('static_pages.top_amapita_explanation.post_badge_title') %>
       </div>
     </div>
   </div>
 
   <div class="text-base md:text-md md:p-4 leading-loose">
-    投稿を重ねるごとに、<span class="md:hidden"><br></span>新しい称号バッジが手に入ります。
+    投稿を重ねるごとに、<span class="md:hidden"><br></span>新しいバッジが手に入ります。
     <br>あなたの甘さの冒険の歩みが、<span class="md:hidden"><br></span>そのままバッジに✧*
   </div>
 
@@ -71,7 +69,7 @@
     <% end %>
 
     <div class="text-sm py-4">
-      さらに投稿を重ねると、特別な称号が現れるかも...!?
+      <%= t('static_pages.top_amapita_explanation.badge_hint_message') %>
     </div>
   </div>
 
@@ -80,14 +78,14 @@
       <button
         class="bg-stone-300 w-full sliders-button text-center"
         onclick="document.querySelector('.swiper-button-prev').click()">
-        戻る
+          <%= t('defaults.buttons.return') %>
       </button>
     </div>
         <div class="pb-4 sm:pb-4 text-center">
       <button
         class="bg-primary sliders-button text-center"
         onclick="document.querySelector('.swiper-button-next').click()">
-        次へ
+          <%= t('defaults.buttons.next') %>
       </button>
     </div>
   </div>
