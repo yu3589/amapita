@@ -1,7 +1,7 @@
 module ApplicationHelper
   include Pagy::Frontend
 
-  SITE_TITLE = 'あまピタッ！'
+  SITE_TITLE = "あまピタッ！"
   SITE_DESCRIPTION = '甘すぎない、物足りなくない。あなたに"ちょうどいい甘さ"の商品が見つかるアプリ'
 
   def user_profile_link_or_tooltip(user, options = {}, &block)
