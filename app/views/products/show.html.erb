@@ -11,7 +11,7 @@
       </h1>
     </div>
 
-    <div class="flex justify-start sm:justify-center flex-row items-start w-full pb-2 sm:gap-4">
+    <div class="flex justify-center flex-row items-start w-full pb-2 sm:gap-4">
       <!-- 商品画像とURL -->
       <div class="flex flex-col items-center gap-6 sm:gap-2 flex-shrink-0">
 
@@ -51,12 +51,12 @@
             <%= @product.manufacturer %>
           </div>
           <% if user_signed_in? %>
-            <div class="absolute top-2 right-1 sm:right-0">
+            <div class="absolute top-1 right-0">
               <%= render 'bookmark_buttons', { product: @product } %>
             </div>
           <% end %>
         </div>
-        <div class="text-base md:text-lg px-1 sm:px-0 max-w-sm pt-1 pb-2 text-center sm:text-left">
+        <div class="text-sm md:text-lg px-1 sm:px-0 max-w-sm pt-1 pb-2 text-center sm:text-left">
           <%= @product.name %>
         </div>
       </div>
