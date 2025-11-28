@@ -18,7 +18,7 @@ questions:
     options:
       - text: "後味スッキリ"
         score: 1
-      - text: "ちょっとだけ甘さ残るのが好き"
+      - text: "ちょっとだけ甘さが残るのが好き"
         score: 2
       - text: "ほんのり甘さが続くのが好き"
         score: 3
