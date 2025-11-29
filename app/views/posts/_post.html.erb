@@ -57,7 +57,7 @@
               </svg>
             </div>
 
-            <ul tabindex="0" class="dropdown-content menu bg-white rounded-box w-25 p-2 shadow-sm text-xs md:text-sm flex flex-col text-center gap-2">
+            <ul tabindex="0" class="dropdown-content menu bg-base-100/90 rounded-box w-25 p-2 shadow-sm text-xs md:text-sm flex flex-col text-center gap-2">
               <li>
                 <%= link_to edit_post_path(post), class: "text-neutral",
                       data: { turbo: false } do %>
@@ -105,7 +105,7 @@
             <div class="flex items-center justify-between py-1 text-base-300 text-xs w-full">
               <%= post.product.manufacturer %>
             </div>
-            <div class="pb-1 md:pb-3">
+            <div class="pb-3">
               <div class="text-base md:text-lg">
                 <%= post.product.name %>
               </div>
@@ -113,7 +113,7 @@
           </div>
 
           <!-- あまピタ判定 -->
-          <div class="flex justify-start items-start flex-shrink-0 w-full max-w-full">
+          <div class="flex justify-start items-start shrink-0 w-full max-w-full">
             <% rating_images = {
               "lack_of_sweetness" => "smiley-meh.svg",
               "could_be_sweeter" => "smiley-blank.svg",

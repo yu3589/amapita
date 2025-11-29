@@ -96,7 +96,8 @@
   </div>
 <% else %>
   <div class="flex flex-col justify-center gap-1 md:gap-5 p-2 md:p-4 items-center text-center text-xs md:text-sm">
-    <%= image_tag "smiley-x-eyes-fill.svg", class: "h-15 w-15 md:h-20 md:w-20" %>
-    <div class="mb-3"><%= t('defaults.message.no_product') %></div>
+    <%= image_tag "smiley-x-eyes-fill.svg", class: "size-15 md:size-18" %>
+    <span><%= t('defaults.message.no_product') %></span>
+    <span><%= t('defaults.message.search_suggestion') %></span>
   </div>
 <% end %>

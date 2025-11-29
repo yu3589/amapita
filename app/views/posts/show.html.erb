@@ -49,7 +49,7 @@
       </div>
 
       <div class="flex flex-col justify-start items-center sm:items-start gap-2 text-neutral py-4 md:px-0">
-        <div class="flex flex-col gap-1 items-center sm:items-start sm:gap-3 w-full">
+        <div class="flex flex-col gap-2 items-center sm:items-start sm:gap-3 w-full">
           <div class="flex items-center justify-center sm:justify-between w-full gap-2">
             <div class="text-xs sm:text-sm text-base-300 max-w-sm text-center sm:text-left mx-auto sm:mx-0">
               <%= @post.product.manufacturer %>
@@ -93,7 +93,7 @@
           <% end %>
 
           <!-- 編集・削除＆ブックマーク -->
-          <div class="absolute top-2 right-2 sm:top-1 sm:right-24 z-10 flex items-center gap-3 sm:gap-4">
+          <div class="absolute top-2 right-2 sm:top-1 sm:right-12 z-10 flex items-center gap-3 sm:gap-4">
             <!-- いいね -->
             <% unless @post.unpublish? || current_user&.own?(@post) %>
               <div class="pb-10">
@@ -134,7 +134,7 @@
                   </svg>
                 </div>
 
-                <ul tabindex="0" class="dropdown-content menu bg-white rounded-box w-25 p-2 shadow-sm text-xs lg:text-sm flex flex-col text-center gap-2">
+                <ul tabindex="0" class="dropdown-content menu bg-base-100/90 rounded-box w-25 p-2 shadow-sm text-xs lg:text-sm flex flex-col text-center gap-2">
                   <li>
                     <%= link_to edit_post_path(@post), data: { turbo: false } do %>
                       <%= t('helpers.submit.edit') %>
@@ -256,10 +256,10 @@
         <% if @post.review.present? %>
           <div class="px-2 pt-1 pb-2 w-full">
             <div class="bg-white/80 py-4 px-2 w-full rounded-4xl flex flex-col items-start relative ring-2 ring-stone-200/50">
-              <div class="pb-1 text-base text-neutral w-full text-center">
+              <div class="pb-2 text-base text-neutral w-full text-center">
                 <%= t('posts.review') %>
               </div>
-              <div class="w-full text-sm text-start">
+              <div class="w-full text-sm text-start px-2">
                 <%= @post.review %>
               </div>
             </div>
@@ -268,7 +268,7 @@
         <!-- 商品詳細ボタン -->
         <div class="flex flex-col lg:flex-row justify-center items-center text-center py-4">
         <%= link_to product_path(@post.product),
-            class: "btn text-neutral btn-success flex items-center gap-2" do %>
+            class: "btn text-neutral btn-accent flex items-center gap-2" do %>
           <%= image_tag "chat.svg", class: "size-6" %>
           <%= t('.to_product_page') %>
         <% end %>

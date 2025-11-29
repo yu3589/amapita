@@ -26,8 +26,8 @@
   <div class="text-base p-4 sm:p-6 text-left inline-block leading-loose">
     <ul class="space-y-2 list-none">
       <li>
-        ✧* 甘さの感じ方が近い人<span class="sm:hidden"><br></span>のレビューで、
-        <br> 「甘すぎた...」の失敗なく<span class="sm:hidden"><br></span>新しい商品に出会いたい方
+        ✧* 甘さの感じ方が近い人のレビューで、
+        <br> 「 甘すぎた... 」「 物足りない... 」の<span class="sm:hidden"><br></span>失敗なく商品に出会いたい方
       </li>
       <li>
         ✧* 甘すぎるものは苦手だけど、<span class="sm:hidden"><br></span>
@@ -39,22 +39,22 @@
     </ul>
   </div>
 
-  <div class="flex flex-row gap-3 pt-2 sm:gap-5 sm:py-4 text-base">
+  <div class="flex flex-row sm:gap-5 text-base">
     <% if user_signed_in? %>
-    <div class="pb-4 sm:pb-1">
+    <div class="py-2 sm:pb-1">
       <%= link_to t('static_pages.top_overview.take_diagnosis'), new_diagnosis_path,
           class: "bg-accent sliders-button w-fit" %>
     </div>
     <% else %>
-     <div class="pb-2 sm:pb-1">
+     <div class="py-2 sm:pb-1">
       <%= link_to t('static_pages.top_overview.sign_up'), new_user_registration_path,
             class: "bg-accent sliders-button" %>
     </div>
     <% end %>
   </div>
-  <div class="pb-4 sm:pb-1">
+  <div class="py-3 sm:pb-1">
     <button
-      class="bg-secondary sliders-button"
+      class="bg-primary sliders-button"
       onclick="document.querySelector('.swiper-button-next').click()">
       <%= t('static_pages.top_overview.view_app_explanation') %>
     </button>

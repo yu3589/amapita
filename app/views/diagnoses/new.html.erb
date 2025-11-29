@@ -1,6 +1,6 @@
 <div class="p-1 md:p-4">
-  <div class="flex flex-col p-1 items-center justify-center w-full max-w-3xl mx-auto bg-base-100 rounded-4xl">
-    <h1 class="text-center text-lg md:text-xl md:p-4 border-b border-base-200 w-full">
+  <div class="flex flex-col p-1 items-center justify-center w-full max-w-4xl mx-auto bg-base-100 rounded-4xl">
+    <h1 class="text-center text-lg md:text-xl border-b border-base-200 w-full p-2 md:p-4">
       <%= t('.title') %>
     </h1>
 
@@ -22,8 +22,8 @@
                 </span>
                 <span class="inline-flex items-center gap-1 text-sm">
                   <div class="dropdown dropdown-top dropdown-right dropdown-hover">
-                    <div tabindex="0" role="button" class="btn btn-xs btn-white/80 btn-circle">?</div>
-                    <ul tabindex="0" class="dropdown-content menu bg-base-100 text-base-300 rounded-box z-1 w-35 p-0.5 shadow-sm text-xs">
+                    <div tabindex="0" role="button" class="btn btn-xs btn-white btn-circle">?</div>
+                    <ul tabindex="0" class="dropdown-content menu bg-base-100/90 text-base-300 rounded-box z-1 w-32 p-0.5 shadow-sm text-xs">
                       <li><a><%= t('defaults.dropdown.twins_description') %></a></li>
                     </ul>
                   </div>
@@ -46,7 +46,7 @@
           <% @questions.each_with_index do |q, index| %>
             <div class="w-full max-w-md mx-auto px-2 py-4 md:p-3">
               
-              <div class="label-text my-2 font-semibold md:text-base break-words">
+              <div class="label-text my-2 font-semibold md:text-base wrap-break-word">
                 <span class="mr-2">Q<%= index + 1 %>.</span><%= q["question"] %>
               </div>
               
@@ -85,11 +85,11 @@
 
               <div class="pt-1 space-y-1">
                 <% q["options"].each do |opt| %>
-                  <label class="label cursor-pointer flex items-start gap-2 text-neutral py-1 rounded-md md:hover:bg-stone-200 break-words">
+                  <label class="label cursor-pointer flex items-start gap-2 text-neutral py-1 rounded-md md:hover:bg-stone-200 wrap-break-word">
                     <%= f.radio_button q["category"], opt["score"],
                         checked: (@selected_answers && @selected_answers[q["category"]] == opt["score"].to_s),
                         class: "radio radio-accent radio-xs mt-1" %>
-                    <span class="whitespace-normal break-words"><%= opt["text"] %></span>
+                    <span class="whitespace-normal wrap-break-word"><%= opt["text"] %></span>
                   </label>
                 <% end %>
               </div>

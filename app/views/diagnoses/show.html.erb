@@ -4,7 +4,7 @@
       <%= t('.title') %>
     </div>
     <div class="text-sm sm:text-base leading-relaxed text-neutral text-center pt-3 sm:py-6">
-      あなたの<span class="sm:hidden"><br></span>「好みの甘さ感覚チャート」が<br>出来上がりました！
+      あなたの<span class="sm:hidden"><br></span><%=raw t('.sweetness_chart_completed') %>
     </div>
     <div class="px-2 py-4 sm:py-1 text-neutral">
       <div class="flex justify-center items-end flex-wrap gap-1 md:gap-2 text-base">
@@ -12,11 +12,11 @@
         <span class="text-lg font-semibold bg-secondary text-center rounded-xl px-5 py-3 md:px-6 text-base-100 font-noto">
           <%= I18n.t("enums.sweetness_type.sweetness_kind.#{@profile.sweetness_kind}") %>
         </span>
-        <span class="text-base text-neutral ml-auto md:ml-0">タイプ✧*</span>
+        <span class="text-base text-neutral ml-auto md:ml-0">タイプ ✧*</span>
       </div>
     </div>
 
-    <div class="flex w-full justify-end px-10 sm:px-30">
+    <div class="flex w-full justify-end px-6 sm:px-30">
       <%= link_to "https://twitter.com/intent/tweet?url=#{root_url}diagnoses/result/#{@profile.token}&text=#{CGI.escape("【甘さ感覚診断結果】\n＼#{I18n.t("enums.sweetness_type.sweetness_kind.#{@profile.sweetness_kind}")}タイプ／でした！\n\n#甘さ感覚診断\n#あまピタ\n")}",
           target: "_blank",
           rel: "noopener noreferrer" do %>

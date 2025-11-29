@@ -17,7 +17,7 @@
         <% end %>
       </div>
 
-      <div class="flex flex-col items-center justify-center max-w-86 md:max-w-sm mx-auto">
+      <div class="flex flex-col items-center justify-center max-w-86 mx-auto">
         <div class="px-4">
           <!-- ユーザー情報 -->
           <div class="mb-4 md:mb-6">
@@ -57,7 +57,7 @@
               <div class="mt-4 px-2">
                 <label class="form-label"><%=t('.authentication') %></label>
               </div>
-              <div class="inline-flex items-center border-2 border-[var(--color-base-400)]
+              <div class="inline-flex items-center border-2 border-stone-300
                           bg-white text-bg-neutral rounded-2xl p-3 w-auto">
                 <img src="https://developers.google.com/identity/images/g-logo.png"
                     alt="Google Logo" class="h-5 mr-2" />
@@ -83,7 +83,7 @@
             <%= f.submit t('helpers.submit.update'), class: "text-base btn sm:btn-lg btn-secondary" %>
           </div>
 
-        <%=link_to profile_path, class: "pt-6 pb-10" do%>
+        <%=link_to profile_path, class: "pt-4 pb-10" do%>
           <div class="flex justify-center w-full">
             <div class="text-sm md:text-base btn" >
               <%= t('defaults.buttons.return') %>

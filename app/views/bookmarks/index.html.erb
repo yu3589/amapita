@@ -6,7 +6,7 @@
     <% if @bookmarks.present? %>
       <% @bookmarks.each do |product| %>
         <!-- カード -->
-        <div class="w-full border-b border-base-200 last:border-b-0 mb-4">
+        <div class="w-full border-b border-base-200 last:border-b-0 py-2">
           <div class="flex flex-row items-center p-1 sm:px-10">
             <!-- 画像 -->
             <figure x-data="{ imageLoaded: false }"
@@ -32,18 +32,18 @@
               <!-- 商品名・メーカー名 -->
               <div class="sm:py-1 w-full">
                 <div class="flex justify-between items-center w-full">
-                  <p class="text-sm text-base-300 text-center sm:text-left sm:py-1">
+                  <p class="text-xs sm:text-sm text-base-300 text-center sm:text-left sm:py-1">
                     <%= product.manufacturer %>
                   </p>
                   <% if user_signed_in? && current_user %>
-                    <div class="absolute top-0 sm:top-4 -right-1 sm:right-14 flex-shrink-0">
+                    <div class="absolute top-0 sm:top-2 -right-1 sm:right-14 shrink-0">
                       <%= render 'products/bookmark_buttons', { product: product } %>
                     </div>
                   <% end %>
                 </div>
 
                 <%= link_to product_path(product), class: "hover:opacity-70 w-full" do %>
-                  <p class="text-base sm:text-xl font-semibold text-center sm:text-left pt-3">
+                  <p class="text-sm sm:text-lg text-center sm:text-left pt-3">
                     <%= product.name %>
                   </p>
                   <div class="absolute top-18 -right-1 sm:right-1">
