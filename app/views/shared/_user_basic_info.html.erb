@@ -122,17 +122,17 @@
       <p class="text-base-300 text-sm md:text-base pt-2">
       <%= t('profiles.diagnosis_status') %>
     </div>
-    <div class="text-center pt-6 text-sm md:text-base text-stone-400 leading-relaxed">
+    <div class="text-center pt-6 text-sm text-stone-500 leading-relaxed">
       診断を行うと、<span class="md:hidden"><br></span>好みの甘さ感覚が近いユーザー<br>
       『 甘さツイン 』が判定され、<br>
         "ちょうど良い甘さ"の商品と<span class="md:hidden"><br></span>出会いやすくなります✧*
       </div>
-      <div class="flex justify-center pt-4">
+      <div class="flex justify-center pt-6">
         <%= link_to new_diagnosis_path, class: "text-base text-neutral btn btn-accent", data: { turbo: false } do %>
           <%= t('defaults.buttons.take_diagnosis') %>
         <% end %>
       </div>
-      <div class="flex flex-col justify-center mx-auto text-error items-center text-center text-sm py-6">
+      <div class="flex flex-col justify-center mx-auto text-stone-400 items-center text-center text-sm py-6">
             <%= raw t('defaults.message.general_notice') %>
       </div>
   <% end %>

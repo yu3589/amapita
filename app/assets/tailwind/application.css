@@ -105,6 +105,10 @@
   @apply sm:w-auto rounded-full shadow-lg md:hover:shadow-md flex items-center justify-center gap-2 sm:gap-1 2xl:gap-3;
 }
 
+.footer-nav-item {
+  @apply flex flex-col items-center md:hover:bg-stone-200/80;
+}
+
 .pagy {
   @apply flex space-x-1 font-semibold text-sm text-gray-500;
   a:not(.gap) {

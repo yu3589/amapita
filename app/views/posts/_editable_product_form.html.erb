@@ -25,8 +25,8 @@
             <%= p.label :name, class: "label p-2 text-neutral" %>
             <span class="text-error">*</span>
             <div class="dropdown dropdown-top dropdown-hover pl-1">
-            <div tabindex="0" role="button" class="btn btn-xs btn-white/80 btn-circle">?</div>
-            <ul tabindex="0" class="dropdown-content menu bg-base-100 text-base-300 rounded-box z-10 w-35 p-1 shadow-sm text-xs">
+            <div tabindex="0" role="button" class="btn btn-xs btn-white btn-circle">?</div>
+            <ul tabindex="0" class="dropdown-content menu bg-base-100/90 text-base-300 rounded-box z-10 w-35 p-1 shadow-sm text-xs">
                 <li><a><%= t('defaults.dropdown.post_search_description') %></a></li>
             </ul>
             </div>
@@ -163,7 +163,7 @@
   <div class="py-2 px-4 rounded-4xl text-sm text-stone-400 w-fit ring-base-200 ring-2">
     <div class="text-left">
       <div class="flex items-center gap-2">
-        <%= image_tag "warning-circle.svg", class: "h-5 w-5 flex-shrink-0" %>
+        <%= image_tag "warning-circle.svg", class: "h-5 w-5 shrink-0" %>
         <span><%= raw t('defaults.notice.product_image') %></span>
       </div>
     </div>

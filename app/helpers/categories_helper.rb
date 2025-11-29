@@ -4,7 +4,7 @@ module CategoriesHelper
   # subname: サブラベル
   def category_card(category:, name:, subname: nil, extra_class: "")
     link_to category_path(category), class: "flex flex-col items-center justify-center leading-none #{extra_class}" do
-      content_tag :div, class: "aspect-square w-30 md:w-40 relative hover-animation",
+      content_tag :div, class: "aspect-square w-32 md:w-40 relative hover-animation",
                         x_data: "{ imageLoaded: false }",
                         x_init: "imageLoaded = $el.querySelector('img')?.complete || false" do
         # ローディング

@@ -57,7 +57,7 @@
   </div>
 
   <!-- 投稿一覧 -->
-  <div class="w-full tabs-content sm:px-20 lg:px-52 xl:px-20 2xl:px-0">
+  <div class="w-full tabs-content sm:px-20 lg:px-52 xl:px-32 2xl:px-0">
     <!-- 新着 -->
     <div id="tab-new-content" class="tab-panel w-full <%= params[:tab] == 'recommend' ? 'hidden' : '' %>">
       <% if @new_posts.present? %>
@@ -70,8 +70,9 @@
         </div>
       <% else %>
         <div class="flex flex-col justify-center gap-1 md:gap-5 p-2 md:p-6 items-center text-center text-sm">
-          <%= image_tag "smiley-x-eyes-fill.svg", class: "h-15 w-15 md:h-20 md:w-20" %>
-          <div class="mb-3"><%= t('defaults.message.no_post') %></div>
+          <%= image_tag "smiley-x-eyes-fill.svg", class: "size-15 md:size-18" %>
+          <span><%= t('defaults.message.no_post') %></span>
+          <span><%= t('defaults.message.post_search_suggestion') %></span>
         </div>
       <% end %>
     </div>
@@ -80,8 +81,8 @@
     <div id="tab-recommend-content" class="tab-panel w-full <%= params[:tab] == 'recommend' ? '' : 'hidden' %>">
       <% case recommend_state(current_user, @recommended_posts) %>
       <% when :not_diagnosed %>
-        <div class="flex flex-col justify-center leading-relaxed py-6 sm:py-8 items-center text-center text-sm sm:text-base">
-          <div class="flex items-center justify-center py-2">
+        <div class="flex flex-col justify-center text-stone-500 leading-relaxed py-6 sm:py-8 items-center text-center text-sm sm:text-base">
+          <div class="flex items-center justify-center text-neutral py-2">
             <span> "ちょうどいい甘さ"の体験を楽しもう</span>
             <%= image_tag "smiley-wink.svg", class: "size-6" %>
           </div>
@@ -91,7 +92,7 @@
           <div class="flex flex-col py-4 sm:py-6 items-center">
             <%= link_to t('defaults.buttons.take_diagnosis'), new_diagnosis_path,
                 class: "btn btn-accent text-base text-neutral" %>
-              <div class="text-error text-sm pt-4 sm:pt-6 items-center">
+              <div class="text-stone-400 text-sm pt-4 sm:pt-6 items-center">
                 <%= raw t('defaults.message.general_notice') %>
               </div>
           </div>
@@ -105,17 +106,17 @@
         </div>
       <% when :twin_without_posts %>
         <div class="flex flex-col justify-center gap-8 py-6 sm:py-8 items-center text-center text-sm leading-relaxed">
-          <%= image_tag "moon.svg", class: "h-15 w-15 md:h-20 md:w-20" %>
+          <%= image_tag "moon.svg", class: "size-15 md:size-18" %>
           <div class="mb-3"><%= raw t('.message.twin_without_posts') %></div>
         </div>
       <% when :no_twin %>
         <div class="flex flex-col justify-center gap-6 py-6 sm:py-8 items-center text-center text-sm leading-relaxed">
-          <%= image_tag "moon.svg", class: "h-15 w-15 md:h-20 md:w-20" %>
+          <%= image_tag "moon.svg", class: "size-15 md:size-18" %>
           <div class="mb-3 leading-relaxed"><%= raw t('.message.no_twins') %></div>
         </div>
       <% else %>
         <div class="flex flex-col justify-center gap-6 py-6 sm:py-8 items-center text-center text-sm leading-relaxed">
-          <%= image_tag "smiley-x-eyes-fill.svg", class:"h-15 w-15 md:h-20 md:w-20" %>
+          <%= image_tag "smiley-x-eyes-fill.svg", class:"size-15 md:size-18" %>
           <div class="mb-3"><%= t('defaults.message.no_post') %></div>
         </div>
       <% end %>

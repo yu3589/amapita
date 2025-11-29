@@ -1,4 +1,3 @@
-<%# 一意のID生成(呼び出し元で指定可能にする) %>
 <% button_id = local_assigns[:button_id] || "like-button-#{post.id}" %>
 
 <%= turbo_frame_tag button_id do %>
