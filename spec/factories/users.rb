@@ -6,4 +6,9 @@ FactoryBot.define do
     password_confirmation { "password123" }
     uid { SecureRandom.urlsafe_base64 }
   end
+
+  factory :google_user, class: User do
+    sequence(:email) { |n| "TEST#{n}@example.com" }
+    password { "googleuser123" }
+  end
 end
