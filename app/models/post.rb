@@ -52,6 +52,6 @@ class Post < ApplicationRecord
 
   def x_share_text
     return "" unless product&.name.present?
-      "【#{product.name}】のあまピタ判定をしたよ！\n\n#あまピタ\n#{share_url_with_cache_buster}"
+      "【#{product.name}】のあまピタ判定をしたよ！\n\n#あまピタ\n#{share_url_with_cache_buster}\n"
   end
 end

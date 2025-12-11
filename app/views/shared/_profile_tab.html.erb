@@ -1,48 +1,52 @@
-    <div class="p-1 sm:p-6">
-      <div class="tabs tabs-border justify-center w-full">
-        <!-- 投稿 -->
+  <% if @user.sweetness_profiles.present? %>
+    <div class="w-full max-w-xl xl:w-1/2 flex flex-col pb-10 xl:pb-1 lg:pt-10">
+  <% else %>
+    <div class="w-full max-w-xl flex flex-col flex-none pb-10 xl:pb-1 xl:pt-2">
+  <% end %>
+    <div class="p-1 xl:px-1">
+      <div class="tabs-border flex justify-center w-full">
         <a href="<%= profile_path(tab: 'posts') %>" 
-            class="tab text-sm md:text-base text-accent hover:text-accent <%= 'tab-active' if active_tab == 'posts' %>">
-            <%= t('profiles.tabs.posts') %>
+           data-turbo="false"
+           class="tab text-sm md:text-base text-accent hover:text-accent <%= 'tab-active' if active_tab == 'posts' %>">
+          <%= t('profiles.tabs.posts') %>
         </a>
-
-        <!-- いいね -->
-        <a href="<%= profile_path(tab: 'liked_posts') %>" 
-            class="tab text-sm md:text-base text-primary hover:text-primary <%= 'tab-active' if active_tab == 'liked_posts' %>">
-            <%= t('profiles.tabs.liked_posts') %>
+        <a href="<%= profile_path(tab: 'liked_posts') %>"
+           data-turbo="false"
+           class="tab text-sm md:text-base text-primary hover:text-primary <%= 'tab-active' if active_tab == 'liked_posts' %>">
+          <%= t('profiles.tabs.liked_posts') %>
         </a>
-        </div>
-
-        <!-- タブコンテンツ -->
-        <div class="w-full">
-        <% if active_tab == 'posts' %>
-        <div class="border-3 border-accent bg-white/80 rounded-4xl w-full p-1 sm:p-2">
-            <div class="flex flex-col mx-auto items-center justify-center text-sm text-base-300 sm:text-base w-full">
-                <% if posts.present? %>
-                <%= render posts %>
-                <div class="flex items-center justify-center p-4">
-                    <%== pagy_nav(pagy_posts, link_extra: 'data-turbo-action="replace"', params: { tab: 'posts' }) %>
-                </div>
-                <% else %>
-                <p class="p-4"><%= t('profiles.empty_states.no_posts') %></p>
-                <% end %>
-            </div>
-        </div>
-        <% elsif active_tab == 'liked_posts' %>
-        <div class="border-3 border-primary bg-white/80 rounded-4xl w-full p-1 sm:p-2">
-            <div class="flex flex-col mx-auto items-center justify-center text-sm text-base-300 sm:text-base w-full">
-                <% if likes.present? %>
-                <%= render "posts/liked_posts", posts: likes %>
-                <div class="flex items-center justify-center p-4">
-                    <%== pagy_nav(pagy_likes, link_extra: 'data-turbo-action="replace"', params: { tab: 'liked_posts' }) %>
-                </div>
-                <% else %>
-                <p class="p-4"><%= t('profiles.empty_states.no_liked_posts') %></p>
-                <% end %>
-            </div>
-        </div>
-        <% end %>
-        </div>
       </div>
+
+      <div class="w-full xl:min-h-[600px]">
+        <% if active_tab == 'posts' %>
+          <div class="border-3 border-accent bg-white/80 rounded-4xl w-full p-1">
+            <div class="flex flex-col mx-auto items-center justify-center text-sm text-base-300 xl:text-base w-full">
+              <% if posts.present? %>
+                <%= render posts %>
+                <div class="flex items-center justify-center p-4 sm:p-0">
+                  <%== pagy_nav(pagy_posts, link_extra: 'data-turbo-action="replace"', params: { tab: 'posts' }) %>
+                </div>
+              <% else %>
+                <p class="p-4 text-stone-400"><%= t('profiles.empty_states.no_posts') %></p>
+              <% end %>
+            </div>
+          </div>
+        <% elsif active_tab == 'liked_posts' %>
+          <div class="border-3 border-primary bg-white/80 rounded-4xl w-full pb-1">
+            <div class="flex flex-col mx-auto items-center justify-center text-sm text-base-300 xl:text-base w-full">
+              <% if likes.present? %>
+                <%= render "posts/liked_posts", posts: likes %>
+                <div class="flex items-center justify-center p-4 sm:p-0">
+                  <%== pagy_nav(pagy_likes, link_extra: 'data-turbo-action="replace"', params: { tab: 'liked_posts' }) %>
+                </div>
+              <% else %>
+                <p class="p-4 text-stone-400"><%= t('profiles.empty_states.no_liked_posts') %></p>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
   </div>
+
 </div>

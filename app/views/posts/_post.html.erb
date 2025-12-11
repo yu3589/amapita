@@ -28,14 +28,16 @@
       <% end %>
     </div>
 
-    <div class="absolute top-3 sm:top-4 right-2 sm:right-4">
+    <div class="absolute top-1 sm:top-3 right-3 sm:right-5">
       <span class="flex items-center gap-1">
         <% unless post.publish? %>
-          <%= image_tag "lock-key.svg", class: "size-5 sm:size-7" %>
+          <%= image_tag "lock-key.svg", class: "size-6 sm:size-7" %>
         <% end %>
-        <% unless post.unpublish? || current_user&.own?(post) %>
+        <% if post.publish? && !current_user&.own?(post) %>
           <% if user_signed_in? %>
-            <%= render 'posts/like_buttons', { post: post, button_id: "like-button-partial-page-#{post.id}" } %>
+            <div class="pt-2 pr-2">
+            <%= render 'posts/like_buttons', { post: post, button_id: "like-button-#{post.id}" } %>
+            </div>
           <% else %>
             <label class="flex flex-row items-center gap-1 cursor-pointer tooltip tooltip-left sm:tooltip-bottom" 
                   data-tip="<%= t('defaults.require_login') %>">
@@ -45,7 +47,7 @@
         <% end %>
         <!-- 編集・削除ボタン -->
         <% if user_signed_in? && current_user.own?(post) %>
-          <div class="dropdown dropdown-bottom dropdown-end z-10">
+          <div class="dropdown dropdown-top dropdown-end z-10">
             <div tabindex="0" role="button" class="btn btn-lg btn-square btn-ghost hover:bg-stone-300">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                    viewBox="0 0 24 24" class="inline-block h-7 w-7 text-base-300 stroke-current">
@@ -55,7 +57,7 @@
               </svg>
             </div>
 
-            <ul tabindex="0" class="dropdown-content menu bg-white rounded-box w-25 p-2 shadow-sm text-xs md:text-sm flex flex-col text-center gap-2">
+            <ul tabindex="0" class="dropdown-content menu bg-base-100/90 rounded-box w-25 p-2 shadow-sm text-xs md:text-sm flex flex-col text-center gap-2">
               <li>
                 <%= link_to edit_post_path(post), class: "text-neutral",
                       data: { turbo: false } do %>
@@ -78,8 +80,7 @@
     <div class="flex flex-row gap-2 items-center md:px-4 w-full">
       <!-- 画像 -->
       <figure x-data="{ imageLoaded: false }"
-              x-init="imageLoaded = $el.querySelector('img')?.complete || false"
-              class="flex-shrink-0">
+              x-init="imageLoaded = $el.querySelector('img')?.complete || false">
         <div x-cloak x-show="!imageLoaded" class="flex animate-pulse space-x-4">
           <div class="p-1 sm:p-2">
             <div class="size-23 sm:size-30 rounded-xl bg-stone-300"></div>
@@ -104,7 +105,7 @@
             <div class="flex items-center justify-between py-1 text-base-300 text-xs w-full">
               <%= post.product.manufacturer %>
             </div>
-            <div class="pb-1 md:pb-3">
+            <div class="pb-3">
               <div class="text-base md:text-lg">
                 <%= post.product.name %>
               </div>
@@ -112,7 +113,7 @@
           </div>
 
           <!-- あまピタ判定 -->
-          <div class="flex justify-start items-start flex-shrink-0 w-full max-w-full">
+          <div class="flex justify-start items-start shrink-0 w-full max-w-full">
             <% rating_images = {
               "lack_of_sweetness" => "smiley-meh.svg",
               "could_be_sweeter" => "smiley-blank.svg",
@@ -134,7 +135,7 @@
               <p><%= I18n.t("enums.post.sweetness_rating.#{post.sweetness_rating}") %></p>
             </div>
           </div>
-          <div class="py-3 pr-2 text-sm truncate max-w-48 md:max-w-72 break-words overflow-hidden text-ellipsis
+          <div class="py-3 pr-2 text-sm truncate max-w-48 md:max-w-72 wrap-break-word overflow-hidden text-ellipsis
             <%= post.review.present? ? '' : 'md:h-10 invisible' %>">
             <%= post.review %>
           </div>

@@ -1,15 +1,15 @@
 <div class="flex flex-col justify-center items-center p-3 sm:p-4 rounded-4xl bg-stone-100/50 max-w-68 sm:max-w-md  mx-auto ring-stone-200 ring-2">
   <% if editable %>
-    <p class="text-text-neutral text-sm pb-3">
+    <p class="text-sm pb-3">
       <%= t('posts.edit.current_product_info') %>
     </p>
   <% else %>
-    <p class="text-text-neutral text-sm sm:text-base pb-3">
+    <p class="text-sm sm:text-base pb-3">
       <%= t('posts.edit.product_info') %>
     </p>
   <% end %>
 
-  <div class="flex flex-col sm:flex-row items-center sm:items-start justify-center w-full gap-4">
+  <div class="flex flex-col sm:flex-row items-center sm:items-start justify-center w-full gap-4 sm:gap-6">
     <!-- 画像 -->
     <figure x-data="{ imageLoaded: false }" x-init="imageLoaded = $el.querySelector('img')?.complete || false">
       <div x-cloak x-show="!imageLoaded" class="flex animate-pulse space-x-4">

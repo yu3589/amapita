@@ -4,14 +4,25 @@ class PostsController < ApplicationController
 
   def index
     @q_new = Post.ransack(params[:q_new])
-    new_posts_scope = @q_new.result(distinct: true)
-                            .publish
-                            .includes(
-                              :image_attachment,
-                              user: :avatar_attachment,
-                              product: :image_attachment
-                            )
-                            .order(created_at: :desc)
+    # 実際の検索結果取得
+    if params.dig(:q_new, :product_manufacturer_eq) == "その他"
+      # 「その他」の場合：メーカー条件以外でransack実行
+      search_params = params[:q_new].dup
+      search_params.delete(:product_manufacturer_eq)
+
+      base_scope = Post.ransack(search_params).result(distinct: true)
+      new_posts_scope = base_scope.joins(:product).merge(Product.manufacturer_other)
+    else
+      new_posts_scope = @q_new.result(distinct: true)
+    end
+    new_posts_scope = new_posts_scope.publish
+                                    .includes(
+                                      :image_attachment,
+                                      user: :avatar_attachment,
+                                      product: :image_attachment
+                                    )
+                                    .order(created_at: :desc)
+
     @pagy_new, @new_posts = pagy(new_posts_scope)
     @new_posts = @new_posts.decorate
 
@@ -112,18 +123,35 @@ class PostsController < ApplicationController
     return [ nil, Post.none ] unless user_signed_in?
 
     twin_user_ids = SweetnessTwin.where(user_id: current_user.id).pluck(:twin_user_id)
-    q_recommend = Post.perfect_sweetness.where(user_id: twin_user_ids).ransack(params[:q_recommend])
-    recommended_posts =  q_recommend.result(distinct: true)
-                                    .publish
-                                    .perfect_sweetness
-                                    .where(sweetness_rating: :perfect_sweetness)
-                                    .includes(
-                                      :image_attachment,
-                                      user: :avatar_attachment,
-                                      product: :image_attachment
-                                    )
-                                    .order(created_at: :desc)
-    [ q_recommend, recommended_posts ]
+
+    @q_recommend = Post.perfect_sweetness
+                      .where(user_id: twin_user_ids)
+                      .ransack(params[:q_recommend])
+
+    if params.dig(:q_recommend, :product_manufacturer_eq) == "その他"
+      search_params = params[:q_recommend].dup
+      search_params.delete(:product_manufacturer_eq)
+
+      base_scope = Post.perfect_sweetness
+                      .where(user_id: twin_user_ids)
+                      .ransack(search_params)
+                      .result(distinct: true)
+
+      recommended_scope = base_scope.joins(:product).merge(Product.manufacturer_other)
+    else
+      recommended_scope = @q_recommend.result(distinct: true)
+    end
+
+    recommended_scope = recommended_scope.publish
+                                        .perfect_sweetness
+                                        .includes(
+                                          :image_attachment,
+                                          user: :avatar_attachment,
+                                          product: :image_attachment
+                                        )
+                                        .order(created_at: :desc)
+
+    [ @q_recommend, recommended_scope ]
   end
 
   def process_image_params(params)

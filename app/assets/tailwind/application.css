@@ -82,7 +82,7 @@
 }
 
 .category-label {
-@apply absolute inset-0 flex items-center justify-center text-white md:text-2xl font-bold;
+@apply absolute inset-0 flex items-center justify-center text-white text-lg md:text-2xl font-bold;
 }
 
 .category-label-multi {
@@ -94,7 +94,7 @@
 }
 
 .floating-new-post-button {
-  @apply fixed bottom-20 2xl:bottom-24 left-0 right-0 sm:left-auto xl:right-12 2xl:right-64 sm:bottom-20 px-2 sm:px-0 z-10 flex justify-center sm:block;
+  @apply fixed bottom-20 2xl:bottom-24 left-0 right-0 sm:left-auto xl:right-16 2xl:right-64 sm:bottom-20 px-2 sm:px-0 z-10 flex justify-center sm:block;
 }
 
 .floating-new-product-button{
@@ -103,6 +103,10 @@
 
 .floating_button {
   @apply sm:w-auto rounded-full shadow-lg md:hover:shadow-md flex items-center justify-center gap-2 sm:gap-1 2xl:gap-3;
+}
+
+.footer-nav-item {
+  @apply flex flex-col items-center md:hover:bg-stone-200/80;
 }
 
 .pagy {

@@ -1,18 +1,17 @@
 <div class="fixed bottom-0 w-full z-30">
   <div class="dock bg-base-100 dock-md border-t border-stone-200 gap-2 mt-1">
-    <%= link_to posts_path, class: "flex flex-col items-center justify-center leading-none md:hover:bg-stone-200" do %>
+    <%= link_to posts_path, class: "footer-nav-item" do %>
       <%= image_tag "footer/house.svg", class: "size-7" %>
       <span class="text-xs text-center mt-1"><%= t('shared.footer.home') %></span>
     <% end %>
 
     <% if user_signed_in? %>
-    <%= link_to bookmarks_path, class: "flex flex-col items-center md:hover:bg-stone-200" do %>
+    <%= link_to bookmarks_path, class: "footer-nav-item" do %>
       <%= image_tag "footer/bookmark.svg", class: "size-7" %>
       <span class="text-xs mt-1 text-center whitespace-nowrap"><%= t('shared.footer.bookmark') %></span>
     <% end %>
     <% else %>
-    <!-- 未ログイン -->
-    <div class="flex flex-col items-center justify-center leading-none tooltip tooltip-top relative"
+    <div class="flex flex-col items-center tooltip tooltip-top"
           data-tip="<%= t('defaults.require_login') %>">
         <%= render "shared/notification_badge" %>
         <%= image_tag "footer/bookmark.svg", class: "size-7" %>
@@ -20,21 +19,20 @@
     </div>
   <% end %>
 
-    <%= link_to categories_path, class: "flex flex-col items-center md:hover:bg-stone-200" do %>
-      <%= image_tag "footer/plus_circle.svg", class: "size-8 sm:size-10" %>
-      <span class="text-xs text-center"><%= t('shared.footer.new_post') %></span>
+    <%= link_to categories_path, class: "footer-nav-item" do %>
+      <%= image_tag "cookie.svg", class: "size-7 sm:size-8" %>
+      <span class="text-xs text-center whitespace-nowrap"><%= t('shared.footer.new_post') %></span>
     <% end %>
 
     <% if user_signed_in? %>
       <%= link_to notifications_path,
-          class: "flex flex-col items-center justify-center leading-none md:hover:bg-stone-200 relative" do %>
+          class: "footer-nav-item" do %>
         <%= render "shared/notification_badge" %>
         <%= image_tag "footer/bell.svg", class: "size-7" %>
         <span class="text-xs mt-1 text-center"><%= t('shared.footer.notification') %></span>
       <% end %>
     <% else %>
-      <!-- 未ログイン -->
-      <div class="flex flex-col items-center justify-center leading-none tooltip tooltip-top relative"
+      <div class="flex flex-col items-center tooltip tooltip-top"
             data-tip="<%= t('defaults.require_login') %>">
         <%= render "shared/notification_badge" %>
         <%= image_tag "footer/bell.svg", class: "size-7" %>
@@ -44,13 +42,12 @@
 
 
     <% if user_signed_in? %>
-      <%= link_to profile_path, class: "flex flex-col items-center justify-center leading-none md:hover:bg-stone-200" do %>
+      <%= link_to profile_path, class: "footer-nav-item" do %>
         <%= image_tag "footer/user_circle.svg", class: "size-8" %>
         <span class="text-xs mt-1 text-center whitespace-nowrap"><%= t('shared.footer.mypage') %></span>
       <% end %>
     <% else %>
-      <!-- 未ログイン -->
-      <div class="flex flex-col items-center justify-center leading-none tooltip tooltip-left sm:tooltip-top"
+      <div class="flex flex-col items-center tooltip tooltip-left sm:tooltip-top"
                 data-tip="<%= t('defaults.require_login') %>">
         <%= image_tag "footer/user_circle.svg", class: "size-8" %>
         <span class="text-xs mt-1 text-center whitespace-nowrap"><%= t('shared.footer.mypage') %></span>

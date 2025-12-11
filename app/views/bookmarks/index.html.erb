@@ -6,7 +6,7 @@
     <% if @bookmarks.present? %>
       <% @bookmarks.each do |product| %>
         <!-- カード -->
-        <div class="w-full border-b border-base-200 last:border-b-0 mb-4">
+        <div class="w-full border-b border-base-200 last:border-b-0 py-2">
           <div class="flex flex-row items-center p-1 sm:px-10">
             <!-- 画像 -->
             <figure x-data="{ imageLoaded: false }"
@@ -28,25 +28,25 @@
               </div>
             </figure>
 
-            <div class="relative flex-1 w-full flex flex-col items-start gap-2 sm:gap-4 p-2">
+            <div class="relative flex-1 w-full flex flex-col items-center sm:items-start gap-2 sm:gap-4 p-2">
               <!-- 商品名・メーカー名 -->
               <div class="sm:py-1 w-full">
                 <div class="flex justify-between items-center w-full">
-                  <p class="text-sm text-base-300 text-center sm:text-left py-1">
+                  <p class="text-xs sm:text-sm text-base-300 text-center sm:text-left sm:py-1">
                     <%= product.manufacturer %>
                   </p>
                   <% if user_signed_in? && current_user %>
-                    <div class="absolute top-1 sm:top-4 right-1 sm:right-14 flex-shrink-0">
+                    <div class="absolute top-0 sm:top-2 -right-1 sm:right-14 shrink-0">
                       <%= render 'products/bookmark_buttons', { product: product } %>
                     </div>
                   <% end %>
                 </div>
 
                 <%= link_to product_path(product), class: "hover:opacity-70 w-full" do %>
-                  <p class="text-base sm:text-xl font-semibold text-center sm:text-left pt-3">
+                  <p class="text-sm sm:text-lg text-center sm:text-left pt-3">
                     <%= product.name %>
                   </p>
-                  <div class="absolute top-18 right-1 hidden sm:block">
+                  <div class="absolute top-18 -right-1 sm:right-1">
                     <span class="gap-1">
                       <%= image_tag "arrow.svg", class: "h-6 w-6 ml-1" %>
                     </span>
@@ -57,9 +57,9 @@
               <% if product.total_posts.positive? %>
                 <!-- 評価あり -->
                 <div class="py-1">
-                  <div class="flex flex-col sm:flex-row items-center gap-1 w-fit justify-center 
+                  <div class="flex flex-row items-center gap-1 w-fit justify-center 
                               sm:justify-start amapita-count-ring ring-primary">
-                    <%= image_tag "smiley-wink.svg", class: "h-8 w-8" %>
+                    <%= image_tag "smiley-wink.svg", class: "size-6 sm:size-7" %>
                     <p class="text-sm sm:text-base pb-1 items-center">
                       <%= t("defaults.label.stats", count: product.total_posts, 
                         perfect: product.perfect_sweetness_count) %>
@@ -69,9 +69,9 @@
               <% else %>
                 <!-- 評価なし -->
                 <div class="p-0.5">
-                  <div class="flex flex-col sm:flex-row items-center gap-1 w-fit justify-center 
+                  <div class="flex flex-row items-center gap-1 w-fit justify-center 
                               sm:justify-start amapita-count-ring ring-base-200">
-                    <%= image_tag "smiley-blank.svg", class: "h-8 w-8" %>
+                    <%= image_tag "smiley-blank.svg", class: "size-6 sm:size-7" %>
                     <p class="text-sm sm:text-base pb-1">
                       <%= raw t('defaults.label.no_rating') %>
                     </p>
@@ -79,10 +79,9 @@
 
                   <div class="mt-4 text-center">
                     <%= link_to new_post_path(product_id: product.id),
-                                class: "bg-success rounded-full px-3 py-1 sm:px-4 py-3
-                                        inline-flex items-center shadow-sm transition hover-animation" do %>
-                      <span class="text-xs sm:text-sm">
-                        <%= t('defaults.buttons.new_post') %>
+                                class: "bg-info rounded-full px-5 py-2 inline-flex items-center shadow-sm transition hover-animation gap-1" do %>
+                      <%= image_tag "cookie.svg", class: "size-5 sm:size-6" %>
+                      <span class="text-sm"><%= t('defaults.buttons.new_post') %></span>
                       </span>
                     <% end %>
                   </div>

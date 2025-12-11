@@ -9,7 +9,7 @@ class User < ApplicationRecord
 
   has_one_attached :avatar
 
-  validates :name, presence: true, length: { maximum: 20 }, uniqueness: true
+  validates :name, presence: true, length: { maximum: 20 }
   validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP },
             uniqueness: { case_sensitive: false }
   validates :uid, presence: true, uniqueness: { scope: :provider }
@@ -94,15 +94,18 @@ class User < ApplicationRecord
   end
 
   def bookmark(product)
-    bookmark_products << product
+    bookmarks.find_or_create_by!(product: product)
+  rescue ActiveRecord::RecordInvalid => e
+    Rails.logger.error("Bookmark creation failed for user:#{id}, product:#{product.id} - #{e.message}")
+    false
   end
 
   def unbookmark(product)
-    bookmark_products.destroy(product)
+    bookmarks.find_by(product: product)&.destroy
   end
 
   def bookmark?(product)
-    bookmark_products.include?(product)
+    bookmarks.exists?(product_id: product.id)
   end
 
   def sweetness_twin_badges
@@ -114,14 +117,18 @@ class User < ApplicationRecord
   end
 
   def like(post)
-    like_posts << post
+    likes.find_or_create_by!(post: post)
+  rescue ActiveRecord::RecordInvalid => e
+    Rails.logger.error("Like creation failed for user:#{id}, post:#{post.id} - #{e.message}")
+    false
   end
 
   def liked(post)
-    like_posts.destroy(post)
+    likes.find_by(post: post)&.destroy
   end
 
   def like?(post)
-    like_posts.include?(post)
+    # キャッシュを避ける
+    likes.exists?(post_id: post.id)
   end
 end

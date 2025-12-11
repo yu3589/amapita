@@ -18,9 +18,9 @@ questions:
     options:
       - text: "後味スッキリ"
         score: 1
-      - text: "ちょっとだけ残るのが好き"
+      - text: "ちょっとだけ甘さが残るのが好き"
         score: 2
-      - text: "ほんのり続くのが好き"
+      - text: "ほんのり甘さが続くのが好き"
         score: 3
       - text: "しっかり甘さを感じていたい"
         score: 4
@@ -42,9 +42,9 @@ questions:
         score: 5
 
   - category: "coolness"
-    question: "スースー系のお菓子、あなたは？"
+    question: "スースー系のお菓子、あなたは好き？"
     options:
-      - text: "あまり得意じゃない"
+      - text: "苦手"
         score: 1
       - text: "少し苦手かも"
         score: 2

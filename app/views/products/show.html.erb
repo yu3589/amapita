@@ -11,21 +11,21 @@
       </h1>
     </div>
 
-    <div class="flex justify-start sm:justify-center flex-row items-start w-full pb-2 sm:gap-4">
+    <div class="flex justify-center flex-row items-start w-full pb-2 sm:gap-4">
       <!-- 商品画像とURL -->
-      <div class="flex flex-col items-center gap-6 sm:gap-2 flex-shrink-0">
+      <div class="flex flex-col items-center gap-6 sm:gap-2 shrink-0">
 
       <figure x-data="{ imageLoaded: false }"
               x-init="imageLoaded = $el.querySelector('img')?.complete || false">
         <div x-cloak x-show="!imageLoaded" class="flex animate-pulse space-x-4">
           <div class="pt-6 px-4 sm:p-4">
-            <div class="size-30 sm:size-35 rounded-xl bg-stone-300"></div>
+            <div class="size-25 sm:size-35 rounded-xl bg-stone-300"></div>
           </div>
         </div>
         <div x-show="imageLoaded" x-transition>
           <div class="pt-6 px-4 sm:p-4">
             <%= @product.decorate.product_image(
-                  class: "size-30 sm:size-35 object-contain",
+                  class: "size-25 sm:size-35 object-contain",
                   "@load" => "imageLoaded = true",
                   "@error"=> "imageLoaded = true"
                 ) %>
@@ -44,19 +44,19 @@
       <% end %>
     </div>
 
-    <div class="flex flex-col justify-start items-center sm:items-start text-neutral py-4 md:px-0">
+    <div class="relative flex flex-col justify-start items-center sm:items-start text-neutral pt-6 sm:py-4 md:px-0">
       <div class="flex flex-col items-center sm:items-start w-full">
-        <div class="flex items-center pl-1 justify-between w-full">
+        <div class="flex items-center pl-1 sm:pl-0 justify-between w-full">
           <div class="text-xs sm:text-sm text-base-300 max-w-sm pb-1">
             <%= @product.manufacturer %>
           </div>
           <% if user_signed_in? %>
-            <div class="flex-shrink-0">
+            <div class="absolute top-1 right-0">
               <%= render 'bookmark_buttons', { product: @product } %>
             </div>
           <% end %>
         </div>
-        <div class="text-base md:text-lg px-1 sm:px-0 max-w-sm pt-1 pb-2 text-center sm:text-left">
+        <div class="text-sm md:text-lg px-1 sm:px-0 max-w-sm pt-1 pb-2 text-center sm:text-left">
           <%= @product.name %>
         </div>
       </div>
@@ -180,19 +180,19 @@
 
               <div class="flex flex-row gap-1 items-start">
                 <!-- ユーザー情報 -->
-                <div class="flex flex-col items-center p-1 w-24 sm:w-28 shrink-0 gap-1">
+                <div class="flex flex-col items-center p-1 w-24 shrink-0 gap-1">
                   <%= post.user.decorate.avatar_image(class: "w-10 h-10") %>
                   <span class="mt-1 text-xs text-start line-clamp-3 sm:line-clamp-2 mx-1"><%= post.user.name %></span>
                 </div>
 
                 <!-- 編集・削除・いいねボタン -->
                 <% if user_signed_in? && current_user.own?(post) %>
-                  <div class="dropdown dropdown-left dropdown-top absolute top-3 sm:top-4 right-0 sm:right-1 pt-2 z-10">
+                  <div class="dropdown dropdown-left dropdown-top absolute top-3 sm:top-4 right-0 sm:right-2 pt-2 z-10">
                     <div tabindex="0" role="button" class="rounded-xl bg-stone-100 ring-2 ring-base-200 duration-200 hover:brightness-96 p-1 sm:p-2">
-                      <%= image_tag "pencil.svg", class: "size-5 flex-shrink-0" %>
+                      <%= image_tag "pencil.svg", class: "size-5 shrink-0" %>
                     </div>
 
-                    <ul tabindex="0" class="dropdown-content menu bg-white rounded-box w-25 p-2 shadow-sm text-xs md:text-sm flex flex-col text-center gap-2">
+                    <ul tabindex="0" class="dropdown-content menu bg-base-100/90 rounded-box w-25 p-2 shadow-sm text-xs md:text-sm flex flex-col text-center gap-2">
                       <li>
                         <%= link_to edit_post_path(post), data: { turbo: false } do %>
                           <%= t('helpers.submit.edit') %>
@@ -207,8 +207,8 @@
                     </ul>
                   </div>
                 <% elsif user_signed_in? && !post.unpublish?  %>
-                  <div class="absolute top-6 right-0 sm:right-2 z-10">
-                    <%= render 'posts/like_buttons', { post: post, button_id: "like-button-product-page-#{post.id}" } %>
+                  <div class="absolute top-6 right-2 z-10">
+                    <%= render 'posts/like_buttons', { post: post, button_id: "like-button-#{post.id}" } %>
                   </div>
                 <% end %>
 
@@ -231,15 +231,15 @@
                     } %>
 
                   <!-- 甘さ評価 -->
-                  <div class="flex items-center justify-start rounded-xl gap-1 sm:gap-2 px-1 sm:px-4 py-2.5
+                  <div class="flex items-center justify-start rounded-xl gap-1 sm:gap-2 px-2 sm:px-4 py-2.5
                               text-neutral text-sm w-fit <%= bg_colors[post.sweetness_rating] %>">
-                    <%= image_tag rating_images[post.sweetness_rating], class: "h-5 w-5 sm:h-7 sm:w-7 flex-shrink-0" %>
+                    <%= image_tag rating_images[post.sweetness_rating], class: "h-6 w-6 sm:h-7 sm:w-7 shrink-0" %>
                     <p class="truncate"><%= I18n.t("enums.post.sweetness_rating.#{post.sweetness_rating}") %></p>
                   </div>
 
                   <!-- レビュー -->
                   <% if post.review.present? %>
-                    <div class="text-xs sm:text-sm text-neutral break-words pt-1 pb-3">
+                    <div class="text-xs sm:text-sm text-neutral wrap-break-word pt-1 pb-3">
                       <p><%= truncate(post.review, length: 38, omission: '...') %></p>
                     </div>
                   <% end %>

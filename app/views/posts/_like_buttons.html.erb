@@ -1,10 +1,9 @@
-<%# 一意のID生成(呼び出し元で指定可能にする) %>
 <% button_id = local_assigns[:button_id] || "like-button-#{post.id}" %>
 
-<div id="<%= button_id %>">
+<%= turbo_frame_tag button_id do %>
   <% if current_user.like?(post) %>
     <%= render 'posts/liked', post: post, button_id: button_id %>
   <% else %>
     <%= render 'posts/like', post: post, button_id: button_id %>
   <% end %>
-</div>
+<% end %>

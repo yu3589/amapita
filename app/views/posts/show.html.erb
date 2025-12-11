@@ -14,20 +14,20 @@
     </h1>
 
     <div class="flex flex-col justify-center items-center sm:flex-row sm:items-start sm:gap-4 relative">
-      <div class="flex flex-col items-center gap-4 sm:gap-2 flex-shrink-0">
+      <div class="flex flex-col items-center gap-4 sm:gap-2">
         <!-- 商品画像 -->
         <figure x-data="{ imageLoaded: false }"
                 x-init="imageLoaded = $el.querySelector('img')?.complete || false">
           <div x-cloak x-show="!imageLoaded" class="flex animate-pulse space-x-4">
             <div class="p-4">
-              <div class="size-30 sm:size-35 rounded-xl bg-stone-300"></div>
+              <div class="size-25 sm:size-35 rounded-xl bg-stone-300"></div>
             </div>
           </div>
 
           <div x-show="imageLoaded" x-transition>
             <div class="p-4">
               <%= @post.decorate.post_image(
-                    class: "size-30 sm:size-35",
+                    class: "size-25 sm:size-35",
                     "@load" => "imageLoaded = true",
                     "@error"=> "imageLoaded = true"
                   ) %>
@@ -49,12 +49,13 @@
       </div>
 
       <div class="flex flex-col justify-start items-center sm:items-start gap-2 text-neutral py-4 md:px-0">
-        <div class="flex flex-col gap-1 items-center sm:items-start sm:gap-3 w-full">
+        <div class="flex flex-col gap-2 items-center sm:items-start sm:gap-3 w-full">
           <div class="flex items-center justify-center sm:justify-between w-full gap-2">
             <div class="text-xs sm:text-sm text-base-300 max-w-sm text-center sm:text-left mx-auto sm:mx-0">
               <%= @post.product.manufacturer %>
             </div>
           </div>
+
           <!-- lg未満：リンク付き -->
           <div class="block lg:hidden text-lg px-1 sm:px-0 max-w-xs text-center sm:text-left mx-auto sm:mx-0 underline decoration-offset-4">
             <%= link_to product_path(@post.product) do %>
@@ -92,53 +93,74 @@
           <% end %>
 
           <!-- 編集・削除＆ブックマーク -->
-          <% if user_signed_in? %>
-            <div class="absolute top-2 right-2 sm:right-24 z-10 flex items-center sm:gap-2">
-
-              <div class="flex-shrink-0">
-                <%= render 'products/bookmark_buttons', { product: @post.product } %>
-              </div>
-
-              <% if current_user.own?(@post) %>
-                <!-- 編集・削除 -->
-                <div class="dropdown dropdown-bottom dropdown-end">
-                  <div tabindex="0" role="button" class="btn btn-lg btn-square btn-ghost hover:bg-stone-300">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                        viewBox="0 0 24 24" class="inline-block h-7 w-7 text-base-300 stroke-current">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M5 12h.01M12 12h.01M19 12h.01
-                              M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"></path>
-                    </svg>
+          <div class="absolute top-2 right-2 sm:top-1 sm:right-12 z-10 flex items-center gap-3 sm:gap-4">
+            <!-- いいね -->
+            <% unless @post.unpublish? || current_user&.own?(@post) %>
+              <div class="pb-10">
+                <% if user_signed_in? %>
+                  <%= render 'posts/like_buttons', { post: @post, button_id: "like-button-#{@post.id}" } %>
+                <% else %>
+                  <div class="cursor-pointer tooltip tooltip-top z-10" 
+                      data-tip="<%= t('defaults.require_login') %>"
+                      onclick="location.href='<%= new_user_session_path %>'">
+                    <%= image_tag "heart.svg", class: "size-6 ml-1" %>
                   </div>
+                <% end %>
+              </div>
+            <% end %>
 
-                  <ul tabindex="0" class="dropdown-content menu bg-white rounded-box w-25 p-2 shadow-sm text-xs lg:text-sm flex flex-col text-center gap-2">
-                    <li>
-                      <%= link_to edit_post_path(@post), data: { turbo: false } do %>
-                        <%= t('helpers.submit.edit') %>
-                      <% end %>
-                    </li>
-                    <li>
-                      <%= link_to post_path(@post), class: "text-error",
-                            data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>
-                        <%= t('helpers.submit.delete') %>
-                      <% end %>
-                    </li>
-                  </ul>
+            <!-- ブックマーク -->
+            <div class="pb-10">
+              <% if user_signed_in? %>
+                <%= render 'products/bookmark_buttons', { product: @post.product } %>
+              <% else %>
+                <div class="cursor-pointer tooltip tooltip-top" 
+                    data-tip="<%= t('defaults.require_login') %>"
+                    onclick="location.href='<%= new_user_session_path %>'">
+                  <%= image_tag "bookmark.svg", class: "size-6 ml-1" %>
                 </div>
               <% end %>
-
             </div>
-          <% end %>
+
+            <!-- 編集・削除 -->
+            <% if user_signed_in? && current_user.own?(@post) %>
+              <div class="dropdown dropdown-bottom dropdown-end pb-10">
+                <div tabindex="0" role="button" class="btn btn-lg btn-square btn-ghost hover:bg-stone-300">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                      viewBox="0 0 24 24" class="inline-block h-7 w-7 text-base-300 stroke-current">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M5 12h.01M12 12h.01M19 12h.01
+                            M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"></path>
+                  </svg>
+                </div>
+
+                <ul tabindex="0" class="dropdown-content menu bg-base-100/90 rounded-box w-25 p-2 shadow-sm text-xs lg:text-sm flex flex-col text-center gap-2">
+                  <li>
+                    <%= link_to edit_post_path(@post), data: { turbo: false } do %>
+                      <%= t('helpers.submit.edit') %>
+                    <% end %>
+                  </li>
+                  <li>
+                    <%= link_to post_path(@post), class: "text-error",
+                          data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>
+                      <%= t('helpers.submit.delete') %>
+                    <% end %>
+                  </li>
+                </ul>
+              </div>
+            <% end %>
+          </div>
         </div>
       </div>
     </div>
-
-    <!-- 評価部分（lg未満） -->
-    <div class="lg:hidden flex justify-center w-full py-2">
-      <div class="flex flex-col text-center items-start text-sm pb-2 text-neutral">
-        <p class="pb-1"><%= t('.rating') %></p>
-        <!-- あまピタ度・シェア・いいね -->
-        <div class="flex-shrink-0">
+  
+    <!-- チャートとレビュー -->
+    <div class="flex flex-col lg:flex-row justify-center items-center lg:items-start gap-1 px-2">
+      <!-- チャート -->
+      <div class="flex flex-col justify-center w-full lg:w-3/5 max-w-md pt-2 sm:pt-4 gap-1">
+        <!-- lg以下の評価表示 -->
+        <div class="lg:hidden flex flex-col text-center items-center text-base text-neutral pb-2">
+        <p class="pb-1 pr-24"><%= t('.rating') %></p>
           <% rating_images = {
               "lack_of_sweetness" => "smiley-meh.svg",
               "could_be_sweeter" => "smiley-blank.svg",
@@ -154,39 +176,24 @@
               "slightly_too_sweet" => "bg-secondary",
               "too_sweet" => "bg-secondary"
           } %>
-          <div class="flex flex-row items-center justify-center gap-2 flex-wrap">
-            <div class="inline-flex items-center rounded-2xl gap-2 py-2  px-4 text-neutral text-base <%= bg_colors[@post.sweetness_rating] %>">
+          <div class="flex flex-row items-center justify-center gap-2 lg:gap-3 flex-wrap">
+            <div class="inline-flex items-center rounded-2xl gap-1 py-2 lg:py-3 px-3 text-neutral text-base <%= bg_colors[@post.sweetness_rating] %>">
               <%= image_tag rating_images[@post.sweetness_rating], class: "h-8 w-8" %>
               <p><%= I18n.t("enums.post.sweetness_rating.#{@post.sweetness_rating}") %></p>
             </div>
+
             <% if user_signed_in? && current_user.own?(@post) && @post.publish? %>
               <%= link_to "https://twitter.com/intent/tweet?text=#{CGI.escape(@post.x_share_text)}",
                     target: "_blank",
                     rel: "noopener noreferrer" do %>
                 <span class="flex flex-col items-center rounded-xl bg-base-200 p-2 sm:p-3">
                   <%= image_tag "x-logo.svg", class: "size-6" %>
-                </span>
-              <% end %>
-            <% end %>
-            <% unless @post.unpublish? || current_user&.own?(@post) %>
-              <% if user_signed_in? %>
-                <%= render 'posts/like_buttons', { post: @post, button_id: "like-button-mobile-#{@post.id}" } %>
-              <% else %>
-                <label class="cursor-pointer tooltip tooltip-top" 
-                      data-tip="<%= t('defaults.require_login') %>">
-                  <%= image_tag "heart.svg", class: "size-6 ml-1" %>
-                </label>
+              </span>
               <% end %>
             <% end %>
           </div>
         </div>
-      </div>
-    </div>
-  
-    <!-- チャートとレビュー -->
-    <div class="flex flex-col lg:flex-row justify-center items-center lg:items-start gap-1 px-2">
-      <!-- チャート -->
-      <div class="flex justify-center w-full lg:w-3/5 max-w-md pt-2 sm:pt-4">
+
         <div class="w-full p-1 sm:p-4 border-secondary rounded-3xl bg-white/80 ring-2 ring-stone-200/50">
           <div class="flex justify-center pb-2 text-base">
             <%= t('defaults.sweetness_chart') %>
@@ -211,8 +218,7 @@
       <!-- 評価部分（lg以上） -->
       <div class="hidden lg:flex flex-col justify-start items-center w-full lg:w-2/5 max-w-md gap-1">
         <div class="flex flex-col text-center items-start text-base py-4 text-neutral">
-        <p class="pb-1 pl-2"><%= t('.rating') %></p>
-          <div class="flex-shrink-0">
+          <p class="pb-1 pl-2"><%= t('.rating') %></p>
             <% rating_images = {
                 "lack_of_sweetness" => "smiley-meh.svg",
                 "could_be_sweeter" => "smiley-blank.svg",
@@ -243,28 +249,17 @@
                 </span>
                 <% end %>
               <% end %>
-              <% unless @post.unpublish? || current_user&.own?(@post) %>
-                <% if user_signed_in? %>
-                  <%= render 'like_buttons', { post: @post, button_id: "like-button-pc-#{@post.id}" } %>
-                <% else %>
-                  <div class="cursor-pointer tooltip tooltip-top z-10" 
-                      data-tip="<%= t('defaults.require_login') %>">
-                  <%= image_tag "heart.svg", class: "size-6 ml-1" %>
-                  </div>
-                <% end %>
-              <% end %>
             </div>
-          </div>
         </div>
 
         <!-- レビュー -->
         <% if @post.review.present? %>
           <div class="px-2 pt-1 pb-2 w-full">
             <div class="bg-white/80 py-4 px-2 w-full rounded-4xl flex flex-col items-start relative ring-2 ring-stone-200/50">
-              <div class="pb-1 text-base text-neutral w-full text-center">
+              <div class="pb-2 text-base text-neutral w-full text-center">
                 <%= t('posts.review') %>
               </div>
-              <div class="w-full text-sm text-start">
+              <div class="w-full text-sm text-start px-2">
                 <%= @post.review %>
               </div>
             </div>
@@ -273,7 +268,7 @@
         <!-- 商品詳細ボタン -->
         <div class="flex flex-col lg:flex-row justify-center items-center text-center py-4">
         <%= link_to product_path(@post.product),
-            class: "btn text-neutral btn-success flex items-center gap-2" do %>
+            class: "btn text-neutral btn-accent flex items-center gap-2" do %>
           <%= image_tag "chat.svg", class: "size-6" %>
           <%= t('.to_product_page') %>
         <% end %>
