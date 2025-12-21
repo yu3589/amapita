@@ -22,7 +22,7 @@ RSpec.describe "POST /auth/google_oauth2/callback", type: :request do
       Rails.application.env_config["omniauth.auth"] = OmniAuth.config.mock_auth[:google_oauth2]
       get '/users/auth/google_oauth2/callback', params: { provider: "google_oauth2" }
     end
-      it 'エラーメッセージが表示される' do
+      it 'Google認証に失敗し、failureページへリダイレクトされる' do
       expect(response).to have_http_status(302)
       expect(response).to redirect_to('/users/auth/failure?message=invalid_credentials&strategy=google_oauth2')
     end
