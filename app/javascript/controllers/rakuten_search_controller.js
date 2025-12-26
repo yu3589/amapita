@@ -1,6 +1,9 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
+  static MINIMUM_KEYWORD_LENGTH = 2
+  static MAXIMUM_KEYWORD_LENGTH = 40
+
   static targets = [
     "keyword", "url", "imageUrl", "shopName",
     "loading", "error", "errorMessage", "results", "categorySelect",
@@ -14,12 +17,18 @@ export default class extends Controller {
     
     const trimmedKeyword = keyword.trim()
 
-    if (trimmedKeyword.length < 2) {
-      return { valid: false, message: "2文字以上で入力してください" }
+    if (trimmedKeyword.length < this.constructor.MINIMUM_KEYWORD_LENGTH) {
+      return {
+        valid: false,
+        message: `${this.constructor.MINIMUM_KEYWORD_LENGTH}文字以上で入力してください`
+      }
     }
 
-    if (trimmedKeyword.length > 40) {
-      return { valid: false, message: "40文字以内で入力してください" }
+    if (trimmedKeyword.length > this.constructor.MAXIMUM_KEYWORD_LENGTH) {
+      return {
+        valid: false,
+        message: `${this.constructor.MAXIMUM_KEYWORD_LENGTH}文字以内で入力してください`
+      }
     }
 
     const VALID_PATTERN = /^[a-zA-Z0-9\u3040-\u309F\u30A0-\u30FF\u4E00-\u9FAF\s\-_()（）・&＆！!？?【】']+$/
