@@ -1,5 +1,6 @@
 module Diagnosis
   class SweetnessTypeProcessor
+    TYPE_DECISION_THRESHOLD = 4
     def initialize(answers)
       @answers = answers
     end
@@ -25,12 +26,12 @@ module Diagnosis
     end
 
     def diagnose_kind(scores)
-      if scores[:sweetness_strength] >= 4 && scores[:richness] >= 4
+      if scores[:sweetness_strength] >= TYPE_DECISION_THRESHOLD && scores[:richness] >= TYPE_DECISION_THRESHOLD
         :rich_romantic
-      elsif scores[:sweetness_strength] == scores.values.max && scores[:sweetness_strength] >= 4
+      elsif scores[:sweetness_strength] == scores.values.max && scores[:sweetness_strength] >= TYPE_DECISION_THRESHOLD
         :sweet_dreamer
       elsif (scores[:coolness] == scores.values.max || scores[:natural_sweetness] == scores.values.max) &&
-            (scores[:coolness] >= 4 || scores[:natural_sweetness] >= 4)
+            (scores[:coolness] >= TYPE_DECISION_THRESHOLD || scores[:natural_sweetness] >= TYPE_DECISION_THRESHOLD)
         :fresh_natural
       else
         :balance_seeker
